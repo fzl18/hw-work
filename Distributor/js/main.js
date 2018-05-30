@@ -21,6 +21,57 @@
       break;
     }
   }
+//按钮倒计时
+function buttonCountdown($el, msNum, timeFormat) {
+      var text = $el.data("text") || $el.text(),
+          timer = 0;
+      $el.prop("disabled", true).addClass("layui-btn-disabled")
+              .on("bc.clear", function () {
+                  clearTime();
+              });
+
+      (function countdown() {
+          var time = showTime(msNum)[timeFormat];
+          $el.text('重新获取'+time);
+          if (msNum <= 0) {
+              msNum = 0;
+              clearTime();
+          } else {
+              msNum -= 1000;
+              timer = setTimeout(arguments.callee, 1000);
+          }
+      })();
+
+      function clearTime() {
+          clearTimeout(timer);
+          $el.prop("disabled", false).removeClass("layui-btn-disabled").text(text);
+      }
+
+      function showTime(ms) {
+          var d = Math.floor(ms / 1000 / 60 / 60 / 24),
+                  h = Math.floor(ms / 1000 / 60 / 60 % 24),
+                  m = Math.floor(ms / 1000 / 60 % 60),
+                  s = Math.floor(ms / 1000 % 60),
+                  ss = Math.floor(ms / 1000);
+
+          return {
+              d: d + "天",
+              h: h + "小时",
+              m: m + "分",
+              ss: ss + "s",
+              "d:h:m:s": d + "天" + h + "小时" + m + "分" + s + "秒",
+              "h:m:s": h + "小时" + m + "分" + s + "秒",
+              "m:s": m + "分" + s + "秒"
+          };
+      }
+
+      return this;
+  }
+
+  $(".getcode").click(function(e){
+    e.preventDefault()
+    buttonCountdown($(this), 1000 * 60 * 1, "ss")
+  })
   //自定义验证规则
   form.verify({
     // title: function(value){
@@ -34,13 +85,6 @@
     // }
   });
   
-  //监听指定开关
-  form.on('switch(switchTest)', function(data){
-    layer.msg('开关checked：'+ (this.checked ? 'true' : 'false'), {
-      offset: '6px'
-    });
-    layer.tips('温馨提示：请注意开关状态的文字可以随意定义，而不仅仅是ON|OFF', data.othis)
-  });
   
   //监听提交
   form.on('submit(reg)', function(data){
@@ -64,5 +108,45 @@
       console.log(obj)
     }
   });
+  // placeholder 兼容ie方法
+    var JPlaceHolder = {
+    //检测
+    _check : function(){
+      return 'placeholder' in document.createElement('input');
+    },
+    //初始化
+    init : function(){
+      if(!this._check()){
+        this.fix();
+      }
+    },
+    //修复
+    fix : function(){
+      $(':input[placeholder]').each(function(index, element) {
+        var self = $(this), txt = self.attr('placeholder');
+        if(!(self.hasClass('layui-unselect')))
+        self.wrap($('<div></div>').css({position:'relative', zoom:'1', border:'none', background:'none', padding:'none', margin:'none'}));
+        var pos = self.position(), h = self.outerHeight(true), paddingleft = self.css('padding-left');
+        var holder = $('<span class="fix"></span>').text(txt).css({position:'absolute', left:pos.left , top:(pos.top+ 9) + 'px', height:h, lienHeight:h, paddingLeft:paddingleft, color:'#aaa'}).appendTo(self.parent());
+        
+        self.focusin(function(e) {
+          holder.hide();
+        }).focusout(function(e) {
+          if(!self.val()){
+            holder.show();
+          }
+          if(self.hasClass('layui-unselect')){
+            holder.hide();
+          }
+        });              
+        holder.click(function(e) {                
+          holder.hide();
+          self.focus();
+        });
+      });
+    }
+  };
+  JPlaceHolder.init(); 
   
 }()
+

@@ -18,17 +18,20 @@ a.small_btn:hover{color: #009688;border: 1px solid #009688}
 .layui-input-block{position:relative;}
 .layui-layer{box-shadow:0 0 30px rgba(0,0,0,.1)!important}
 .layui-form-select dl dd.layui-this{background:#0067E3}
+.layui-btn-disabled{background: #FBFBFB!important}
 input:focus{background:#FFFFCC;box-shadow:0 0 10px rgba(214,214,214,.8)}
 .err_msg{position:absolute;left:360px;top:0;line-height:35px;color:red;display: block;width:100%;}
 .err_msg i{position:relative;top:2px;}
-.txt_orange{color:#FC510E;}
-.txt_green{color:#2CA414;}
-.txt_blue{color:#0067E2}
-.txt_red{color:red}
+.txt_orange{color:#FC510E!important;}
+.txt_green{color:#2CA414!important;}
+.txt_blue{color:#0067E2!important}
+.txt_lightblue{color:#519FF9!important}
+.txt_red{color:red!important}
 .tip_box .layui-layer-content{padding:10px 30px;}
 .tip_box.success{background:#EAF3FF;border-left:5px solid #0067E3;}
 .tip_box.err{background:#FFF0F0;border-left:5px solid red;}
 .tip_box.warn{background:#FFF5E8;border-left:5px solid #FF5722;}
+.getcode{font-size:14px;font-weight:normal;}
 input::-webkit-input-placeholder{color:#ACACAC;font-size:14px;}input::-moz-placeholder{   /* Mozilla Firefox 19+ */color:#ACACAC;}input:-moz-placeholder{    /* Mozilla Firefox 4 to 18 */color:#ACACAC;}input:-ms-input-placeholder{  /* Internet Explorer 10-11 */ color:#ACACAC;}
 /*头部*/
 .head .topbar{background:#0067E3;height:56px;line-height:56px;}
@@ -72,7 +75,7 @@ input::-webkit-input-placeholder{color:#ACACAC;font-size:14px;}input::-moz-place
 .foot .layui-breadcrumb a:hover{color:#000!important}
 .foot .copyright{margin-top:20px;}
 
-
+/*登录*/
 #login{position:relative;background:#0067E2;min-height:800px;height:100vh;}
 #login .box{width:80%;height:55%;margin: auto;position: absolute;top: 0; left: 0; bottom: 0; right: 0;}
 #login .logo{color:#fff;margin-left:30px;}
@@ -87,7 +90,7 @@ input::-webkit-input-placeholder{color:#ACACAC;font-size:14px;}input::-moz-place
 #login .login_btn a.forget{font-weight:normal;float:right;font-size:14px;margin:0;}
 #login .foot{color:#86BCFE}
 #login .foot .layui-breadcrumb a{color:#86BCFE!important}
-
+/*注册*/
 #reg{background:#F7F7F7;}
 #reg .logo{margin-top:10px;}
 #reg .head .user{color:#fff;font-size:16px;padding:13px 20px;background:rgba(0,0,0,.1);line-height:16px;margin-top:10px;}
@@ -100,13 +103,13 @@ input::-webkit-input-placeholder{color:#ACACAC;font-size:14px;}input::-moz-place
 #reg .midbody .layui-form{font-size:16px;}
 #reg .midbody .layui-form input{margin:20px 0;}
 #reg .midbody .layui-form-radio div, #reg .midbody .layui-form-radio div a{font-size:16px;}
-
+/*常见问题*/
 #reg .faq{color:#757575;line-height:26px;}
 #reg .faq dt{font-weight:bold;margin:20px 0;}
 #reg .faq dd:first-letter{font-weight:bold;}
 #reg .faq dd{margin-bottom: 30px;border-bottom:1px dotted #0D73EE;padding-bottom:30px;}
 #reg .faq dd:last-child{border-bottom:none;}
-
+/*忘记密码*/
 #reg .forget .layui-form-item img{border:1px solid #D7D7D7;margin-right:20px;}
 #reg .forget .step{background:url("../images/step_bg.png") center center;height:45px;line-height:45px;margin-bottom: 20px;}
 #reg .forget .step li{float: left;width:33.33%;text-align:center;}
@@ -182,7 +185,7 @@ dl.row_list dd{float:left;margin:30px 40px;}
 dl.row_list dd .title{font-size:20px;font-weight:bold;}
 dl.row_list dd .cinfo{font-size:14px;border-top:1px dotted #6E6E6E;margin-top:10px;padding-top:10px;line-height:30px;}
 
-.card_list{color:#747474;}
+.card_list{color:#747474;min-height:500px;}
 .card_list .layui-card-header{background:#F0F4F9;font-size:16px;color:#679FD7;font-weight:bold;padding: 0 25px}
 .card_list .status{float: right; font-size:15px;font-weight:bold;}
 .card_list .layui-card-body{background:#F9FBFD;padding:20px 25px;line-height:30px;}
@@ -191,3 +194,8 @@ dl.row_list dd .cinfo{font-size:14px;border-top:1px dotted #6E6E6E;margin-top:10
 .card_list .layui-card-body .pwd{text-align:right;}
 .card_list .layui-card-body .pwd input{height: 37px;line-height: 37px;padding-left: 10px;width: 280px;border: 1px solid #c1c1c1;margin-right:10px;}
 .card_list .layui-card-body .layui-btn{font-weight:bold;min-width:80px;font-size:15px;}
+
+#mount{border-top:3px solid #529FF9;padding-top:20px;font-size:16px;font-weight:bold;color:#7B7B7B}
+#mount .co{border-left:2px solid #7B7B7B;padding-left: 50px;}
+#mount .co .num{color:#519FF9;text-align:center;display: inline-block;width:80%}
+#mount .co .num .txt{color:#7B7B7B;padding-left: 10px;}
