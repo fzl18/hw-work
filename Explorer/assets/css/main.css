@@ -1,0 +1,5 @@
+a{transition:all 300ms;color:#7999FF}
+.btn a:hover{opacity:.85;}
+.txtblue{color:#7999FF}
+/* 主容器 */
+.main{max-width:1200px;margin:0 auto;}
