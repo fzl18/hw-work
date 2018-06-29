@@ -69,6 +69,8 @@ const cn = {
             token:'Token',
             num:'数量',
             otype:'交易类型',
+            from:'转出',
+            to:'转入',
             time:'时间',
         }
     },
@@ -82,6 +84,7 @@ const cn = {
         num:'数量',
         otype:'交易类型',
         time:'时间',
+        loadmore:'加载更多'
     },
     allToken:{
         index:'序号',

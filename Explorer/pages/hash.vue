@@ -1,6 +1,10 @@
 <template>
   <div class="content">
       <Topbar type='hash' :data='hash'/>
+      <Spin v-if="loading">
+          <Icon type="load-c" size=30 class="spin-icon-load"></Icon>
+          <div>Loading</div>
+      </Spin>
       <table v-if='Object.keys(con).length > 0'>
         <colgroup>
         <col width="22%">
@@ -16,11 +20,11 @@
           </tr>
           <tr >
             <td>{{local[lang].hash.outaddr}}</td>
-            <td>{{con.tx.Account}}</td>
+            <td><a href="javascript:;" @click="gotoAccount(con.tx.Account)">{{con.tx.Account}}</a></td>
           </tr>
           <tr >
             <td>{{local[lang].hash.inaddr}}</td>
-            <td>{{con.tx.Destination}}</td>
+            <td><a href="javascript:;" @click="gotoAccount(con.tx.Destination)">{{con.tx.Destination}}</a></td>
           </tr>
           <tr >
             <td>{{local[lang].hash.otype}}</td>
@@ -36,7 +40,7 @@
           </tr>
           <tr >
             <td>{{local[lang].hash.token}}</td>
-            <td>{{typeof con.tx.Amount  == 'object' ? con.tx.Amount.currency : 'SDA' }}</td>
+            <td><a href="javascript:;" @click="gotoToken">{{typeof con.tx.Amount  == 'object' ? con.tx.Amount.currency : 'SDA' }}</a></td>
           </tr>
           <tr >
             <td>{{local[lang].hash.num}}</td>
@@ -59,18 +63,19 @@
 import ajax from '../common/ajax'
 import dayjs from 'dayjs'
 import Topbar from '~/components/Topbar.vue'
-import { mapState } from 'vuex'
+import { mapState, mapMutations } from 'vuex'
 export default {
   components:{Topbar},
   data(){
     return {
       con:{},
+      loading:true,
     }
   },
   computed: {
     ...mapState([
-            'local','lang','hash'
-        ]),
+          'local','lang','hash'
+        ]),    
     remake(){
       if(this.con.tx.Memos){
         return decodeURI(this.prePro(this.con.tx.Memos[0].Memo.MemoData))
@@ -89,10 +94,14 @@ export default {
     this.getList()
   },
   methods:{
+    ...mapMutations([
+      'changSearchKey'
+    ]),
     getList(){
       ajax(`/transactions/${this.hash}`)
       .then(data => {
         if(data.data.result=="success"){
+          this.loading = false
           data.data.transaction.date = dayjs(data.data.transaction.date).format("YYYY-MM-DD HH:mm:ss")
           this.$nextTick(function () {
             this.con = data.data.transaction
@@ -111,7 +120,18 @@ export default {
         tmp += '%' + data.charAt(i) + data.charAt(i+1);
       }
       return tmp;
-    }
+    },
+    gotoAccount(addr){
+      this.changSearchKey({type:'account',val:addr})
+      this.changSearchKey({type:'searchKey',val:addr})
+      this.$router.push({ path: '/account'})
+    },
+    gotoToken(){
+      const val = typeof this.con.tx.Amount  == 'object' ? this.con.tx.Amount.currency : 'SDA'
+      this.changSearchKey({type:'token',val:val.toUpperCase()})
+      this.changSearchKey({type:'searchKey',val:val.toUpperCase()})
+      this.$router.push({path: '/infolist/distribution'})
+    },
   }
 }
 </script>
@@ -122,5 +142,5 @@ export default {
   tbody tr:nth-child(even){background: #EAEEFC;color:#516190;font-size:14px;font-weight:bold}
   tbody tr:nth-child(odd) td:nth-child(odd){background: #DDE5F9;color:#516190;font-size:14px;font-weight:bold}
   tbody tr:nth-child(odd){background: #F7F9FF;}
-  tbody tr:nth-child(even) td:nth-child(even){background: #fff;font-size:12px;font-weight:normal}
+  tbody tr:nth-child(even) td:nth-child(even){background: #fff;font-size:12px;font-weight:normal}  
 </style>

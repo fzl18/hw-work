@@ -10,7 +10,7 @@ export default {
         Err,
     },
     mounted(){
-        console.log(this.error)
+        // console.log(this.error.message,this.error.statusCode)
     }
 }
 </script>

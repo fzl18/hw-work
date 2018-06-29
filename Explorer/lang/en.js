@@ -8,7 +8,7 @@ const en = {
     chart:{
         name:'Transaction',
         tit:'Block Height',
-        txt:'Current block height'
+        txt:'Lastest block height'
     },
     home:{
         tit:'Transaction record',
@@ -24,7 +24,7 @@ const en = {
     header:{
         searchToken:'Search Token',
         topTxt:'Unlock valuable assets with block chains',
-        inputPlaceholder:"Token / Wallet / Hash",
+        inputPlaceholder:"Token / Address / Hash",
     },
     footer:'ICP:1234584-1.',
     infolist:{
@@ -69,19 +69,22 @@ const en = {
             token:'Token',
             num:'Amount',
             otype:'Type',
+            from:'From',
+            to:'To',
             time:'Time',
         }
     },
     account:{
         tit:'Account:',
         assets:'Assets',
-        remainder:'Remainder',
+        remainder:'Balance',
         hash:'Hash',
         height:'Heigth',
         token:'Token',
         num:'Amount',
         otype:'Type',
         time:'Time',
+        loadmore:'Load more'
     },
     allToken:{
         index:'Index',
@@ -94,10 +97,10 @@ const en = {
         tit:'Trading hash：',
         hash:'Hash',
         heigth:'Heigth',
-        outaddr:'Out-address',
-        inaddr:'In-address',
-        otype:'Type of transaction',
-        state:'State',
+        outaddr:'From',
+        inaddr:'To',
+        otype:'Type',
+        state:'Status',
         fee:'Fee',
         token:'Token',
         num:'Amount',

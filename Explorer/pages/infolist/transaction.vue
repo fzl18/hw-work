@@ -3,8 +3,9 @@
       <table>
         <colgroup>
         <col width="35%">
-        <col width="15%">
-        <col width="15%">
+        <col width="7%">
+        <col width="7%">
+        <col width="7%">
         <col width="15%">
         <col width="10%">
         </colgroup>
@@ -14,7 +15,8 @@
             <th>{{local[lang].infolist.transaction.height}}</th>
             <th>{{local[lang].infolist.transaction.token}}</th>
             <th>{{local[lang].infolist.transaction.num}}</th>
-            <th>{{local[lang].infolist.transaction.otype}}</th>
+            <th>{{local[lang].infolist.transaction.from}}</th>
+            <th>{{local[lang].infolist.transaction.to}}</th>
             <th>{{local[lang].infolist.transaction.time}}</th>
           </tr>
         </thead>
@@ -41,44 +43,56 @@
 
 <script>
 import Topbar from '~/components/Topbar.vue'
-import { mapState } from 'vuex'
+import { mapState, mapMutations} from 'vuex'
+import ajax from "../../common/ajax"
+import {api2} from '../../common/uri'
 export default {
   components:{Topbar},
   data(){
     return {
-      lists:[{
-        index:1,
-        logo:'d',
-        token:'3412342134',
-        mount:'2018/06/23   12:10:20'
-      },{
-        index:1,
-        logo:'d',
-        token:'3412342134',
-        mount:'in'
-      },{
-        index:1,
-        logo:'d',
-        token:'3412342134',
-        mount:'out'
-      },{
-        index:1,
-        logo:'d',
-        token:'3412342134',
-        mount:'sdfwef'
-      },{
-        index:1,
-        logo:'d',
-        token:'3412342134',
-        mount:'sdfwef'
-      },]
+      lists:[]
     }
   },
   computed: {
     ...mapState([
-            'local','lang'
-        ])
+      'local','lang','token'
+    ])
+  },
+  mounted(){
+    this.queryList()
+  },
+  methods:{
+    ...mapMutations(['changSearchKey']),
+    queryList(){
+      ajax({
+        method:"post",
+        url:`${api2}/currency/getTokenPayments`,     
+        data:{
+            currency:this.token,
+        },
+        transformRequest: [function (data) {
+            let ret = ''
+            for (let it in data) {
+              ret += encodeURIComponent(it) + '=' + encodeURIComponent(data[it]) + '&'
+            }
+            return ret
+          }],
+      })
+      .then((data)=>{
+          if(data.data.result == "success"){
+              data.data.payments.map((d)=> d.executed_time = dayjs(d.executed_time).format('YYYY-MM-DD HH:mm:ss'))
+              this.listdata = data.data.payments
+          }
+      })
+      .catch((data)=>{
+        console.log(data)
+      })
+    },   
+    gotoHash(val){
+        this.changSearchKey({type:'hash',val:val})
+        this.$router.push({ path: '/hash'})
     }
+  }
 }
 </script>
 

@@ -1,53 +1,116 @@
 <template>
   <div class="content">
-      <table>
-        <colgroup>
-        <col width="22%">
-        </colgroup>
-        <tbody>
-          <tr >
-            <td>{{local[lang].infolist.information.token}}</td>
-            <td>dfd</td>
-          </tr>
-          <tr >
-            <td>{{local[lang].infolist.information.balance}}</td>
-            <td><input type="text" :placeholder="local[lang].infolist.information.placeholder" v-model="key"><a href="#" class="btn" @click="search(key)">{{local[lang].infolist.information.btn}}</a> <span class="txtorange">{{key}}</span></td>
-          </tr>
-          <tr >
-            <td>{{local[lang].infolist.information.total}}</td>
-            <td>wefd</td>
-          </tr>
-          <tr >
-            <td>{{local[lang].infolist.information.logo}}</td>
-            <td>wefd</td>
-          </tr>
-          <tr >
-            <td>{{local[lang].infolist.information.describe}}</td>
-            <td>wefdf</td>
-          </tr>
-        </tbody>
-      </table>
+    <Spin v-if="loading">
+        <Icon type="load-c" size=30 class="spin-icon-load"></Icon>
+        <div>Loading</div>
+    </Spin>    
+    <table v-if="!loading">
+      <colgroup>
+      <col width="22%">
+      </colgroup>
+      <tbody>
+        <tr >
+          <td>{{local[lang].infolist.information.token}}</td>
+          <td>{{data.currency}}</td>
+        </tr>
+        <tr >
+          <td>{{local[lang].infolist.information.balance}}</td>
+          <td><input type="text" :placeholder="local[lang].infolist.information.placeholder" v-model="address"><a href="#" class="btn" @click="getCurrencyBalance()">{{local[lang].infolist.information.btn}}</a> <span class="txtorange">{{key}}</span></td>
+        </tr>
+        <tr >
+          <td>{{local[lang].infolist.information.total}}</td>
+          <td>{{data.amount}}</td>
+        </tr>
+        <tr >
+          <td>{{local[lang].infolist.information.logo}}</td>
+          <td><img :src="data.logo" alt="" height="50" style="vertical-align:middle;margin:10px 0"></td>
+        </tr>
+        <tr >
+          <td>{{local[lang].infolist.information.describe}}</td>
+          <td>{{data.desc}}</td>
+        </tr>
+      </tbody>
+    </table>
   </div>  
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapState, mapMutations} from 'vuex'
+import ajax from "../../common/ajax"
+import {api2} from '../../common/uri'
 export default {
   data(){
     return {
-      data:[],
-      key:''
-
+      data:{},
+      address:'',
+      key:'',
+      loading:true,
     }
   },
   computed: {
     ...mapState([
-            'local','lang','token'
+      'local','lang','token'
     ])
   },
+  mounted(){
+    this.getSingleCurrency()
+  },
   methods:{
-    search(key){
-      console.log(key)
+    ...mapMutations(['changSearchKey']),
+    getCurrencyBalance(){
+      ajax({
+        method:"post",
+        url:`${api2}/currency/getCurrencyBalance`,     
+        data:{
+            currency:this.token,
+            account:this.address
+        },
+        transformRequest: [function (data) {
+            let ret = ''
+            for (let it in data) {
+              ret += encodeURIComponent(it) + '=' + encodeURIComponent(data[it]) + '&'
+            }
+            return ret
+          }],
+      })
+      .then(data=>{
+        console.log(data.data)
+          if(data.data.code == "S00001"){
+              this.key = data.data.data.result =='fail' ? '输入地址有误!' : data.data.data.value
+          }
+      })
+      .catch((data)=>{
+        console.log(data)
+      })
+    },
+    getSingleCurrency(){
+      ajax({
+        method:"post",
+        url:`${api2}/currency/getSingleCurrency`,     
+        data:{
+            currency:this.token,
+        },
+        transformRequest: [function (data) {
+            let ret = ''
+            for (let it in data) {
+              ret += encodeURIComponent(it) + '=' + encodeURIComponent(data[it]) + '&'
+            }
+            return ret
+          }],
+      })
+      .then((data)=>{
+          if(data.data.code == "S00001"){
+            this.data = data.data.data
+            this.loading = false
+          }
+      })
+      .catch((data)=>{
+        console.log(data)
+      })
+    },
+    gotoHash(val){
+        this.changSearchKey({type:'hash',val:val})
+        this.$router.push({ path: '/hash'})
     }
   }
 }

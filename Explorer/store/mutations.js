@@ -4,7 +4,7 @@ const mutations = {
     },
     changSearchKey(state,prams={type:'',val:''}) {
       state[prams.type] = prams.val
-      console.log(prams.type +':'+ prams.val)
+      // console.log(prams.type +':'+ prams.val)
     },
   }
   

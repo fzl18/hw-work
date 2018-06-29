@@ -1,8 +1,13 @@
 <template>
   <div class="content">
       <Charts />
-      <Topbar type="home" />
-       <table>
+      <Topbar type="home" /> 
+      <div style="position: relative;">
+      <Spin v-if="loading" style="padding-top:400px">
+          <Icon type="load-c" size=30 class="spin-icon-load"></Icon>
+          <div>Loading</div>
+      </Spin>    
+       <table v-if="!loading">
         <colgroup>
         <col width="80">
         </colgroup>
@@ -25,12 +30,14 @@
               </td>
             <td><a href="javascript:;" @click="gotoHash(list.tx_hash)">{{list.tx_hash}}</a></td>
             <td class="txtblue">{{list.ledger_index}}</td>
-            <td>{{list.currency}}</td>
+            <td><a href="javascript:;" @click="gotoToken(list.currency)">{{list.currency}}</a></td>
             <td class="txtblue">{{list.amount}}</td>
             <td class="txtblue">{{list.executed_time}}</td>
           </tr>
         </tbody>
       </table>
+      </div>
+      <Back-top></Back-top>
   </div>  
 </template>
 
@@ -45,17 +52,18 @@ export default {
   name:'app',
   components:{Charts,Topbar},
   computed: {
-        ...mapState([
-            'local','lang'
-        ])
+      ...mapState([
+          'local','lang'
+      ])
     },
   data () {
     return {      
-      listdata: []
+      listdata: [],
+      loading:true,
     }
   },
   mounted(){
-      this.queryList()
+    this.queryList()
   },
   methods:{
     ...mapMutations(['changSearchKey']),
@@ -69,19 +77,27 @@ export default {
     queryList(){
       ajax.get(`${uri.home}?descending=true&limit=20`)
       .then((data)=>{
-          if(data.data.result == "success"){
-              data.data.payments.map((d)=> d.executed_time = dayjs(d.executed_time).format('YYYY-MM-DD HH:mm:ss'))
-              this.listdata = data.data.payments
-          }
+        if(data.data.result == "success"){
+          this.loading = false
+          data.data.payments.map((d)=> d.executed_time = dayjs(d.executed_time).format('YYYY-MM-DD HH:mm:ss'))
+          this.listdata = data.data.payments
+          this.loading = false
+        }
       })
-      .catch((data)=>{
-        console.log(data)
+      .catch(e=>{
+        console.log(e)
       })
     },   
     gotoHash(val){
+      this.changSearchKey({type:'hash', val:val})
+      this.changSearchKey({type:'searchKey', val:val})
+      this.$router.push({ path: '/hash'})
+    },
+    gotoToken(val){
       console.log(val)
-        this.changSearchKey({type:'hash', val:val})
-        this.$router.push({ path: '/hash'})
+      this.changSearchKey({type:'token',val:val.toUpperCase()})
+      this.changSearchKey({type:'searchKey',val:val.toUpperCase()})
+      this.$router.push({path: '/infolist/distribution'})
     }
   }
   

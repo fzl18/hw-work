@@ -1,7 +1,7 @@
 <template>
   <div class="head" :class="{bighead:isHome}">
     <div class="main">
-      <div class="logo"><nuxt-link to = "/">E-chain</nuxt-link> <div class="btn"><nuxt-link to = "/tokenall">{{local[lang].header.searchToken}}</nuxt-link><a href="#" style="background:none" @click="changLang(lang =='cn' ? 'en':'cn')">{{local[lang].lang}} <Icon type="android-arrow-dropdown"></Icon></a></div></div>
+      <div class="logo"><a href="javascript:;" @click="gohome">E-chain</a> <div class="btn"><nuxt-link to = "/tokenall">{{local[lang].header.searchToken}}</nuxt-link><a href="javascript:;" style="background:none" @click="changLang(lang =='cn' ? 'en':'cn')">{{local[lang].lang}} <Icon type="android-arrow-dropdown"></Icon></a></div></div>
       <template v-if="isHome">
         <div class="txt">
           <h1>E-chain</h1>
@@ -36,19 +36,24 @@ export default {
       'changLang','changSearchKey'
     ]),
     search (){
-      this.changSearchKey({type:'searchKey',val:this.searchKey})
+      const txt = this.searchKey.trim()
+      this.changSearchKey({type:'searchKey',val:txt})
+      if(this.searchKey.trim().length == 0){
+        this.$Message.warning('搜索内容不能为空')
+        return
+      }
       if(this.searchKey.trim().length == 64){
-        this.changSearchKey({type:'hash',val:this.searchKey})
+        this.changSearchKey({type:'hash',val:txt})
         this.$router.push({ path: '/hash'})
         return
       }
-      if(this.searchKey.trim().length ==33 || this.searchKey.length ==34){
-        this.changSearchKey({type:'account',val:this.searchKey})
+      if(this.searchKey.trim().length ==33 || this.searchKey.trim().length ==34){
+        this.changSearchKey({type:'account',val:txt})
         this.$router.push({ path: '/account'})
         return
       }
-      if(this.searchKey.trim().length < 15){
-        this.changSearchKey({type:'token',val:this.searchKey})
+      if(this.searchKey.trim().length ==2 || this.searchKey.trim().length ==3){
+        this.changSearchKey({type:'token',val:txt.toUpperCase()})
         this.$router.push({path: '/infolist/distribution'})
         return
       }
@@ -59,6 +64,11 @@ export default {
       this.error = this.post = null
       this.loading = true
       this.isHome = this.$route.name === 'index' ? true : false
+    },
+    gohome(){
+      this.$router.push({path: '/'})
+      this.changSearchKey({type:'searchKey',val:''})
+      this.searchKey = ''
     }
   }
 }

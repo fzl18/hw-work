@@ -19,6 +19,9 @@ a.small_btn:hover{color: #009688;border: 1px solid #009688}
 .layui-layer{box-shadow:0 0 30px rgba(0,0,0,.1)!important}
 .layui-form-select dl dd.layui-this{background:#0067E3}
 .layui-btn-disabled{background: #FBFBFB!important}
+.layui-form-checkbox[lay-skin=primary] i{border: 2px solid #0067E3;border-radius:50%}
+.layui-form-checked[lay-skin=primary] i{background:#0067E3 }
+.layui-form-checkbox[lay-skin=primary]:hover i{border: 2px solid #48adfb;}
 input:focus{background:#FFFFCC;box-shadow:0 0 10px rgba(214,214,214,.8)}
 .err_msg{position:absolute;left:360px;top:0;line-height:35px;color:red;display: block;width:100%;}
 .err_msg i{position:relative;top:2px;}

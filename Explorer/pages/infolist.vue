@@ -46,7 +46,7 @@ export default {
 }
 </script>
 <style scoped>
-  .main{}
+  /* .main{} */
   .content{background: #fff;}
   .nav{margin-top:20px;}
   .nav a{display: inline-block;width:25%;height:50px;line-height:50px;text-align:center;background:#EBEFFF;color:#606060;font-size: 14px;font-weight:bold;position: relative;}

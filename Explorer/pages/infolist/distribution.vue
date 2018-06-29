@@ -1,69 +1,62 @@
 <template>
   <div class="content">
-      <table>
-        <colgroup>
-        <col width="80">
-        <col width="60%">
-        <col width="15%">
-        </colgroup>
-        <thead>
-          <tr class="hd">
-            <th>{{local[lang].infolist.distribution.index}}</th>
-            <th>{{local[lang].infolist.distribution.addr}}</th>
-            <th>{{local[lang].infolist.distribution.num}}</th>
-            <th>{{local[lang].infolist.distribution.percent}}</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr v-for=" (list,key) in lists" :key="key">
-            <td>{{key + 1}}</td>
-            <td>{{list.logo}}</td>
-            <td><nuxt-link to="/">{{list.token}}</nuxt-link></td>
-            <td class="txtblue">{{list.mount}}</td>
-          </tr>
-        </tbody>
-      </table>
+    <Spin v-if="loading">
+        <Icon type="load-c" size=30 class="spin-icon-load"></Icon>
+        <div>Loading</div>
+    </Spin>
+    <table v-if="!loading">
+      <colgroup>
+      <col width="80">
+      <col width="60%">
+      <col width="15%">
+      </colgroup>
+      <thead>
+        <tr class="hd">
+          <th>{{local[lang].infolist.distribution.index}}</th>
+          <th>{{local[lang].infolist.distribution.addr}}</th>
+          <th>{{local[lang].infolist.distribution.num}}</th>
+          <th>{{local[lang].infolist.distribution.percent}}</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr v-for=" (list, key) in lists" :key="key">
+          <td>{{key + 1}}</td>
+          <td><a href="javascript:;" @click="gotoAccount(list.counterparty)">{{list.counterparty}}</a></td>
+          <td class="txtblue">{{list.value}}</td>
+          <td class="txtblue">{{list.percent * 100}}%</td>
+        </tr>
+      </tbody>
+    </table>
   </div>  
 </template>
 
 <script>
 import { mapState, mapMutations } from 'vuex'
 import ajax from "../../common/ajax"
+import {api2} from '../../common/uri'
 export default {
   data(){
     return {
-      lists:[{
-        index:1,
-        logo:'d',
-        token:'3412342134',
-        mount:'sdfwef'
-      },{
-        index:1,
-        logo:'d',
-        token:'3412342134',
-        mount:'sdfwef'
-      },{
-        index:1,
-        logo:'d',
-        token:'3412342134',
-        mount:'sdfwef'
-      },{
-        index:1,
-        logo:'d',
-        token:'3412342134',
-        mount:'sdfwef'
-      },{
-        index:1,
-        logo:'d',
-        token:'3412342134',
-        mount:'sdfwef'
-      },]
+      lists:[],
+      page:1,
+      rows:10,
+      all:0,
+      loading:true,
     }
   },
   computed: {
+    isShowMore(){ return this.rows*this.page >= this.all ? false : true},
     ...mapState([
       'local','lang','token'
     ])
+  },
+  watch:{
+    token:{
+　　　handler(){
+　　　　this.queryList()
+　　　},
+　　　deep:true
+    }
   },
   mounted(){
     this.queryList()
@@ -71,20 +64,38 @@ export default {
   methods:{
     ...mapMutations(['changSearchKey']),
     queryList(){
-      ajax.get('')
+      ajax({
+        method:"post",
+        url:`${api2}/currency/getCurrencyBalancePercent`,     
+        data:{
+          page:this.page,
+          rows:this.rows,
+          currency:this.token,
+        },
+        transformRequest: [function (data) {
+            let ret = ''
+            for (let it in data) {
+              ret += encodeURIComponent(it) + '=' + encodeURIComponent(data[it]) + '&'
+            }
+            return ret
+          }],
+      })
       .then((data)=>{
-          if(data.data.result == "success"){
-              data.data.payments.map((d)=> d.executed_time = dayjs(d.executed_time).format('YYYY-MM-DD HH:mm:ss'))
-              this.listdata = data.data.payments
+          if(data.data.code == "S00001"){
+            this.lists = data.data.data.resArr
+            this.loading = false
+          }else{
+            this.$router.push({ path: '/error'})
           }
       })
       .catch((data)=>{
         console.log(data)
       })
     },   
-    gotoHash(val){
-        this.changSearchKey({type:'token',val:val})
-        this.$router.push({ path: '/hash'})
+    gotoAccount(val){
+        this.changSearchKey({type:'account',val:val})
+        this.changSearchKey({type:'searchKey',val:val})
+        this.$router.push({ path: '/account'})
     }
   }
 }

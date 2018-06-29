@@ -1,6 +1,6 @@
 <template>
   <div class="content">
-      seatch
+      search
   </div>  
 </template>
 
