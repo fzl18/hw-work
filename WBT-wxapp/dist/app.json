@@ -1,0 +1,32 @@
+{
+  "pages": [
+    "pages/login",
+    "pages/home/index",
+    "pages/home/trade",
+    "pages/home/setting",
+    "pages/home/info",
+    "pages/home/tradeDetail",
+    "pages/home/tradeConfirm",
+    "pages/home/setCompany",
+    "pages/home/card",
+    "pages/home/gift",
+    "pages/home/qrcode",
+    "pages/home/vip",
+    "pages/home/transaction",
+    "pages/home/setPassword"
+  ],
+  "window": {
+    "backgroundTextStyle": "dark",
+    "backgroundColor": "#efefef",
+    "navigationBarBackgroundColor": "#ffffff",
+    "navigationBarTitleText": "wbt",
+    "navigationBarTextStyle": "black"
+  },
+  "networkTimeout": {
+    "request": 10000
+  },
+  "theme": {
+    "theme-color": "#1986E1",
+    "theme-bg": "#EDEDED"
+  }
+}

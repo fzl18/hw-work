@@ -1,6 +1,10 @@
 <template>
   <div class="content">
-      <table>
+    <Spin v-if="loading">
+        <Icon type="load-c" size=30 class="spin-icon-load"></Icon>
+        <div>Loading</div>
+    </Spin>
+      <table v-if="!loading">
         <colgroup>
         <col width="35%">
         <col width="7%">
@@ -50,12 +54,14 @@ export default {
   components:{Topbar},
   data(){
     return {
-      lists:[]
+      lists:[],
+      counterparty:'',
+      loading:true,
     }
   },
   computed: {
     ...mapState([
-      'local','lang','token'
+      'local','lang','token',
     ])
   },
   mounted(){
@@ -66,7 +72,7 @@ export default {
     queryList(){
       ajax({
         method:"post",
-        url:`${api2}/currency/getTokenPayments`,     
+        url:`${api2}/currency/getSingleCurrency`,     
         data:{
             currency:this.token,
         },
@@ -79,13 +85,20 @@ export default {
           }],
       })
       .then((data)=>{
-          if(data.data.result == "success"){
-              data.data.payments.map((d)=> d.executed_time = dayjs(d.executed_time).format('YYYY-MM-DD HH:mm:ss'))
-              this.listdata = data.data.payments
+          if(data.data.code == "S00001"){
+            this.data = data.data.data
+            return ajax.get(`/payments/${this.token}+${data.data.data.counterparty}`)            
           }
       })
-      .catch((data)=>{
-        console.log(data)
+      .then((data)=>{
+          if(data.data.result == "success"){            
+            this.loading = false
+            data.data.payments.map((d)=> d.executed_time = dayjs(d.executed_time).format('YYYY-MM-DD HH:mm:ss'))
+            this.lists = data.data.payments
+          }
+      })
+      .catch((e)=>{
+        console.log(e.response)
       })
     },   
     gotoHash(val){

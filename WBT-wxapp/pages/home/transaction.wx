@@ -1,0 +1,245 @@
+<template> 
+  <view class="bg">
+    <view class="">
+      <ui-tabs index="{{ current1 }}" probe="1" bindchange="handleChange1" >
+      <ui-tab>全部</ui-tab>
+      <ui-tab>充值记录</ui-tab>
+      <ui-tab>赠送记录</ui-tab>
+    </ui-tabs>
+    <swiper class="content" current="{{ current1 }}"  bindchange="handleContentChange1">
+      <swiper-item>
+        <view class="top_tip">
+          <view wx:for="{{lists}}" >
+          <ui-row height="60" url="/pages/home/info?id={{itme}}">
+              <ui-col class="text" align="left" vertical-align="middle" space="20">
+                  <view style="width: 100%;">
+                      <ui-row height="30">
+                          <ui-col align="left" vertical-align="middle">
+                              <view><text>名片</text><view>
+                              <view><text>2018-06-06 12:32:12</text><view>
+                          </ui-col>
+                          <ui-col align="right" width="100" vertical-align="middle" space-right="10">
+                              <text>+500</text>
+                          </ui-col>
+                      </ui-row>
+                  </view>
+              </ui-col>
+          </ui-row>
+          </view>
+        </view>
+      </swiper-item>
+      <swiper-item>
+        <view class="top_tip">
+          <ui-row height="60" hover-class="touchui-hover" wx:for="{{lists}}" wx:key="">
+              <ui-col class="text" align="left" vertical-align="middle" space="20">
+                  <view style="width: 100%;">
+                      <ui-row height="30">
+                          <ui-col align="left" vertical-align="middle">
+                              <view><text>名片</text><view>
+                              <view><text>2018-06-06 12:32:12</text><view>
+                          </ui-col>
+                          <ui-col align="right" width="100" vertical-align="middle" space-right="10">
+                              <text>+500</text>
+                          </ui-col>
+                      </ui-row>
+                  </view>
+              </ui-col>
+          </ui-row>
+        </view>
+      </swiper-item>
+      <swiper-item>
+        <view class="top_tip">
+          <ui-row height="60" hover-class="touchui-hover" wx:for="{{lists}}" wx:key="">
+              <ui-col class="text" align="left" vertical-align="middle" space="20">
+                  <view style="width: 100%;">
+                      <ui-row height="30">
+                          <ui-col align="left" vertical-align="middle">
+                              <view><text>名片</text><view>
+                              <view><text>2018-06-06 12:32:12</text><view>
+                          </ui-col>
+                          <ui-col align="right" width="100" vertical-align="middle" space-right="10">
+                              <text>+500</text>
+                          </ui-col>
+                      </ui-row>
+                  </view>
+              </ui-col>
+          </ui-row>
+        </view>
+      </swiper-item>
+    </swiper>
+    </view>
+    
+</view>
+
+</template>
+
+<script>
+export default {
+  config: {
+    navigationBarTitleText: '交易记录',
+    backgroundColor: '#F4F4F4',
+    navigationBarTextStyle: 'black'
+  },
+  data: {
+    isShow:false,
+    lists:[]
+  },
+  starShow () {
+    this.setData({ 
+      isShow: true
+    })
+  },
+  onLoad(){
+    const _this=this
+    const curUser = wx.getStorageSync('curUser');
+    const userId = curUser.userId ,apptoken = curUser.apptoken
+    wx.showLoading({
+      title:"加载中"
+    })
+    wx.request({
+      url:`${wx.baseUrl}/paymentList`,
+      method: 'post',
+      data:{
+        userId,
+        apptoken,
+      },
+      header: {
+        'content-type': 'application/x-www-form-urlencoded'
+      },
+      success: function(res) {
+        wx.hideLoading()
+        if(res.data.code == "E00001"){
+            wx.showAlert({
+              content:res.data.message,
+            })
+        }else{
+          _this.setData({
+            lists:res.data.data
+          })
+        }
+        
+      }
+    })
+  },
+  handleChange1 (e) {
+    const _this=this
+    const curUser = wx.getStorageSync('curUser');
+    const userId = curUser.userId ,apptoken = curUser.apptoken
+    wx.showLoading({
+      title:"加载中"
+    })
+    let index = e.detail.index
+    this.setData({
+      current1:index
+    })
+    switch (index) {
+      case 0:
+        wx.request({
+          url:`${wx.baseUrl}/paymentList`,
+          method: 'post',
+          data:{
+            userId,
+            apptoken,
+          },
+          header: {
+            'content-type': 'application/x-www-form-urlencoded'
+          },
+          success: function(res) {
+            wx.hideLoading()
+            if(res.data.code == "E00001"){
+                wx.showAlert({
+                  content:res.data.message,
+                })
+            }else{
+              _this.setData({
+                lists:res.data.data
+              })
+            }            
+          }
+        })
+        break;
+      case 1:
+        wx.request({
+          url:`${wx.baseUrl}/paymentList`,
+          method: 'post',
+          data:{
+            userId,
+            apptoken,
+            type:0
+          },
+          header: {
+            'content-type': 'application/x-www-form-urlencoded'
+          },
+          success: function(res) {
+            wx.hideLoading()
+            if(res.data.code == "E00001"){
+                wx.showAlert({
+                  content:res.data.message,
+                })
+            }else{
+              _this.setData({
+                lists:res.data.data
+              })
+            }            
+          }
+        })
+        break;
+      case 2:
+        wx.request({
+          url:`${wx.baseUrl}/paymentList`,
+          method: 'post',
+          data:{
+            userId,
+            apptoken,
+            type:1
+          },
+          header: {
+            'content-type': 'application/x-www-form-urlencoded'
+          },
+          success: function(res) {
+            wx.hideLoading()
+            if(res.data.code == "E00001"){
+                wx.showAlert({
+                  content:res.data.message,
+                })
+            }else{
+              _this.setData({
+                lists:res.data.data
+              })
+            }            
+          }
+        })
+        break;
+      default:
+        break;
+    }
+  },
+  handleContentChange1 (e) {
+    let current = e.detail.current
+    this.setData({
+      current1:current
+    })
+  }
+}
+</script>
+
+<style lang="less">
+ .bg{height:100%;background:#EDEDED;}
+.top_tip{
+    padding:4%;
+    .ui-row{background:#fff;margin-bottom:2%}
+    .ui-icon{        
+        font-size: 20px;
+        color: #313338;
+    }
+}
+ui-tabs{
+  background-color: #fff;
+  padding-bottom: 1px;
+}
+.content {
+  height: 60px;
+  line-height: 60px;
+  margin:0 10px
+}
+</style>

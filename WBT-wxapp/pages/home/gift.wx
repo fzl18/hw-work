@@ -1,0 +1,113 @@
+<template> 
+  <view class="bg">
+    <view class="top_tip">
+      <view wx:for="{{lists}}">
+      <ui-row height="60">
+          <ui-col width="80" align="center" vertical-align="middle">
+              <view class="left_icon">
+                  <images src="{{item.pic}}" />
+              </view>
+          </ui-col>
+          <ui-col class="text" align="left" vertical-align="middle" space="20">
+              <view style="width: 100%;">
+                  <ui-row height="30">
+                      <ui-col align="left" vertical-align="middle">
+                          <view><text style="color:#115a98;font-size:16px">{{item.presentName}}</text></view>
+                          <view style="color:#777"><text style="color:orange">{{item.value}} </text> 积分</view>
+                      </ui-col>
+                      <ui-col align="right" width="80" vertical-align="bottom" space-right="10">
+                          剩余：{{item.leftNum}}
+                      </ui-col>
+                  </ui-row>
+              </view>
+          </ui-col>
+      </ui-row>      
+    </view>
+    </view>
+</view>
+
+</template>
+
+<script>
+export default {
+  config: {
+    navigationBarTitleText: '礼品管理',
+    backgroundColor: '#F4F4F4',
+    navigationBarTextStyle: 'black'
+  },
+  data: {
+    isShow:false,
+    lists:[]
+  },
+  starShow () {
+    this.setData({ 
+      isShow: true
+    })
+  },
+  onLoad(){
+    const _this=this
+    const curUser = wx.getStorageSync('curUser')
+    const userId = curUser.userId ,apptoken = curUser.apptoken
+    wx.showLoading({
+      title:'加载中'
+    })
+    wx.request({
+      url:`${wx.baseUrl}/presentList`,
+      method: 'post',
+      data:{
+        userId,
+        apptoken,
+      },
+      header: {
+        'content-type': 'application/x-www-form-urlencoded'
+      },
+      success: function(res) {
+        wx.hideLoading()
+        console.log(res.data);
+        
+        if(res.data.code == "E00001"){
+          wx.showAlert({
+            content:res.data.message,
+          })
+        }else{
+          _this.setData({
+            lists:res.data.data
+          })
+        }        
+      }
+    })
+  }
+}
+</script>
+
+<style lang="less">
+.bg{background:@theme-bg;height:100%;}
+.banner{
+  padding:4%;
+  .ui-row{
+    background: rgba(67, 177, 255, .6);
+    box-shadow:0 0 8px #ccc;
+    border-radius:10px;
+    padding:4%;
+    color:#fff;
+    .txt{
+      font-size:20px;
+    }
+  }
+}
+.top_tip{
+    padding:4%;
+    .ui-row{background:#fff;margin-bottom:2%}
+    .left_icon{
+        width: 45px;
+        height: 45px;
+        background-color:#eee; 
+        text-align: center;
+        line-height: 45px;
+    }
+    .ui-icon{        
+        font-size: 20px;
+        color: #313338;
+    }
+}
+</style>

@@ -1,0 +1,39 @@
+<template>
+  <view class="bg">
+    <view class="card">
+      <view class="h1">积分赠送</view>
+      <view class="txt">用于名片互换赠送积分使用</view>
+      <view class="pic"><images src="" /></view>
+      <view class="save"><button type="primary">保存到相册</button></view>      
+    </view>
+    <view class="card">
+      <view class="h1">礼品兑换</view>
+      <view class="txt">用户扫描该二维码可兑换积分礼品</view>
+      <view class="pic"><images src="" /></view>
+      <view class="save"><button type="primary">保存到相册</button></view>
+    </view>
+  </view>
+</template>
+
+<script>
+export default {
+  config: {
+    navigationBarTitleText: '二维码'
+  },
+  data: {}
+}
+</script>
+
+<style lang="less">
+  .bg{height:100%;background:#EDEDED;}
+  .card{
+    background:#fff;
+    padding:4%;
+    border-radius:10px;
+    .h1{font-size:20px;font-weight:bold}
+    .txt{color:#777}
+    .save{
+      button{border-radius:20px;overflow: hidden;}
+    }
+  }
+</style>

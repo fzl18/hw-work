@@ -1,0 +1,94 @@
+<view>
+  <view class="title">礼品信息</view>
+  <view class="ui-row-list ui-row-list-border-left-indent" style="">
+    <view wx:for="{{presents}}" class="ui-row" style="height:50px;">
+      <view class="text ui-col" style="">
+        <view class="ui-col-content">
+          {{item}}
+        </view>
+      </view>
+      <view class="ui-col valign-middle" style="flex:0 0 100px;">
+        <view class="ui-col-content valign-middle">
+        </view>
+      </view>
+    </view>
+
+    <view class="ui-row" style="height:50px;">
+      <view class="ui-col ui-col-align-right align-right valign-middle" style="">
+        <view class="ui-col-content align-right valign-middle">
+          使用积分 2,000
+        </view>
+      </view>
+      <view class="ui-col valign-middle" style="flex:0 0 20px;">
+        <view class="ui-col-content valign-middle">
+        </view>
+      </view>
+    </view>
+  </view>
+
+
+  <view class="title">兑换信息</view>
+  <view class="ui-row-list ui-row-list-border-left-indent" style="">
+    <view class="ui-row" style="height:50px;">
+      <view class="text ui-col" style="">
+        <view class="ui-col-content">
+          用户信息
+        </view>
+      </view>
+      <view class="ui-col valign-middle" style="flex:0 0 100px;">
+        <view class="ui-col-content valign-middle">
+          <text bindtap="call" style="color:orange">{{phone}}</text>
+        </view>
+      </view>
+    </view>
+
+    <view class="ui-row" style="height:50px;">
+      <view class="text ui-col" style="">
+        <view class="ui-col-content">
+          兑换码
+        </view>
+      </view>
+      <view class="ui-col valign-middle" style="flex:0 0 100px;">
+        <view class="ui-col-content valign-middle">
+          {{data.code}}
+        </view>
+      </view>
+    </view>
+    <view class="ui-row" style="height:50px;">
+      <view class="text ui-col" style="">
+        <view class="ui-col-content">
+          使用状态
+        </view>
+      </view>
+      <view class="ui-col valign-middle" style="flex:0 0 100px;">
+        <view class="ui-col-content valign-middle">
+          <text wx:if="{{data.status == 0}}" class="unlock">未使用</text>
+          <text class="lock" wx:else="">已使用</text>
+        </view>
+      </view>
+    </view>
+    <view class="ui-row" style="height:50px;">
+      <view class="text ui-col" style="">
+        <view class="ui-col-content">
+          时间信息
+        </view>
+      </view>
+      <view class="ui-col valign-middle" style="flex:0 0 100px;">
+        <view class="ui-col-content valign-middle">
+        </view>
+      </view>
+    </view>
+    <view class="ui-row" style="height:50px;">
+      <view class="text ui-col" style="padding-left:4%;">
+        <view class="ui-col-content">
+          <view>兑换时间：{{data.exchangeTime}}</view>
+          <view wx:if="{{data.userdTime}}">核销时间：</view>
+        </view>
+      </view>
+      <view class="ui-col valign-middle" style="flex:0 0 100px;">
+        <view class="ui-col-content valign-middle">
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

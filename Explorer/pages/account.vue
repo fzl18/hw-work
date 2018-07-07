@@ -2,7 +2,7 @@
   <div class="content">
       <Topbar type='account' :data="account">
         <div class="info">
-          {{local[lang].account.assets}} : <span class="num">{{money}}</span>    <span class="unit">{{currency}}</span><span class="other">{{local[lang].account.remainder}}：
+          {{currency}}{{local[lang].account.assets}} : <span class="num">{{money}}</span>    <span class="unit">{{currency}}</span><span class="other">{{local[lang].account.remainder}}：
           <template v-if="remainder[0]">
             <i-select :model.sync="remainder[0].value" :placeholder = " lang == 'cn' ? '点击查看' : 'Click View' " style="width:200px">
               <i-option v-for="item in remainder" :key="item.id" :value="item.value" > {{item.value}} / {{ item.currency }}</i-option>

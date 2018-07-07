@@ -1,0 +1,32 @@
+<view class="bg">
+  <view class="top_tip">
+    <view wx:for="{{lists}}">
+      <view class="ui-row" style="height:60px;">
+        <view class="text ui-col ui-col-align-left align-left valign-middle" style="padding-left: 10px; padding-right: 10px;">
+          <view class="ui-col-content align-left valign-middle">
+            <view style="width: 100%;">
+              <view class="ui-row" style="height:30px;">
+                <view class="ui-col ui-col-align-left align-left valign-middle" style="">
+                  <view class="ui-col-content align-left valign-middle">
+                    <view>
+                      <text style="color:#2BADE9;font-size:16px;">{{item.name}} | </text>
+                      <text style="color:#333;font-size:12px;"> {{item.job}} </text>
+                    </view>
+                    <view>
+                      <text style="color:#777;font-size:12px;">{{item.companyName}}</text>
+                    </view>
+                  </view>
+                </view>
+                <view class="ui-col ui-col-align-right align-right valign-middle" style="padding-right: 10px;flex:0 0 100px;">
+                  <view class="ui-col-content align-right valign-middle">
+                    <text style="color:orange;font-size:16px;" bindtap="call" data-tel="{{item.phone}}">{{item.phone}}</text>
+                  </view>
+                </view>
+              </view>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

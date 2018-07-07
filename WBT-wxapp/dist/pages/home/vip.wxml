@@ -1,0 +1,12 @@
+<view class="bg">
+  <view class="title">单次赠送积分</view>
+  <view class="card">
+    <view class="h1">
+      <input type="Number" placeholder="请输入数值"></input>
+    </view>
+    <view class="txt">每位用户仅限赠送一次，同一用户名片不可重复获取积分。</view>
+    <view class="save" bindtap="save">
+      <button type="primary">保存</button>
+    </view>
+  </view>
+</view>

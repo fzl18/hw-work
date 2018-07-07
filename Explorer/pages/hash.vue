@@ -40,7 +40,7 @@
           </tr>
           <tr >
             <td>{{local[lang].hash.token}}</td>
-            <td><a href="javascript:;" @click="gotoToken">{{typeof con.tx.Amount  == 'object' ? con.tx.Amount.currency : 'SDA' }}</a></td>
+            <td><a href="javascript:;" @click="gotoToken">{{typeof con.tx.Amount  == 'object' ? con.tx.Amount.currency : 'ECT' }}</a></td>
           </tr>
           <tr >
             <td>{{local[lang].hash.num}}</td>

@@ -1,0 +1,143 @@
+<template>
+  <view>
+    <view class="title">礼品信息</view>
+    <ui-row-list border-left-indent>
+      <ui-row height="50" wx:for="{{presents}}">
+        <ui-col class="text">
+          {{item}}
+        </ui-col>
+        <ui-col width="100" vertical-align="middle">
+        </ui-col>
+      </ui-row>
+
+      <ui-row height="50">        
+        <ui-col vertical-align="middle" align="right">
+          使用积分 2,000
+        </ui-col>
+        <ui-col width="20" vertical-align="middle">
+        </ui-col>
+      </ui-row>        
+    </ui-row-list>
+
+
+    <view class="title">兑换信息</view>
+    <ui-row-list border-left-indent>
+      <ui-row height="50">        
+        <ui-col class="text">
+          用户信息
+        </ui-col>
+        <ui-col width="100" vertical-align="middle">
+          <text bindtap="call" style="color:orange">{{phone}}</text>
+        </ui-col>
+      </ui-row>
+
+      <ui-row height="50">
+        <ui-col class="text">
+          兑换码
+        </ui-col>
+        <ui-col width="100" vertical-align="middle">
+          {{data.code}}
+        </ui-col>
+      </ui-row>
+      <ui-row height="50">
+        <ui-col class="text">
+          使用状态
+        </ui-col>
+        <ui-col width="100" vertical-align="middle">
+          <text wx:if="{{data.status == 0}}" class="unlock">未使用</text>
+          <text class="lock" wx:else>已使用</text>
+        </ui-col>
+      </ui-row> 
+      <ui-row height="50">
+        <ui-col class="text">
+          时间信息
+        </ui-col>
+        <ui-col width="100" vertical-align="middle">
+        </ui-col>
+      </ui-row>
+      <ui-row height="50">
+        <ui-col class="text" style="padding-left:4%">
+          <view>兑换时间：{{data.exchangeTime}}</view>
+          <view wx:if="{{data.userdTime}}">核销时间：</view>
+        </ui-col>
+        <ui-col width="100" vertical-align="middle">
+        </ui-col>
+      </ui-row>
+    </ui-row-list>
+  </view>
+</template>
+
+<script>
+export default {
+  config: {
+    navigationBarTitleText: '兑换详情'
+  },
+  data: {
+    presents:[],
+    data:{},
+    phone:''
+  },
+  onLoad(option){    
+    const _this=this
+    const curUser = wx.getStorageSync('curUser');
+    const userId = curUser.userId ,apptoken = curUser.apptoken
+    this.setData({
+      phone:option.phone
+    })
+    wx.showLoading({
+      title: '加载中',
+    })
+    wx.request({
+      url:`${wx.baseUrl}/getExchangePresentInfo`,
+      method: 'post',
+      data:{
+        userId,
+        apptoken,
+        recordId:option.recordId
+      },
+      header: {
+        'content-type': 'application/x-www-form-urlencoded'
+      },
+      success: function(res) {
+        wx.hideLoading()
+        if(res.data.code == "S00001"){
+            _this.setData({
+              presents:res.data.data.presents,
+              data:res.data.data,
+            })
+          }else{
+            wx.showAlert({
+              content:res.data.message,
+            })
+          }
+        }      
+    })
+  },
+  call(){
+    wx.makePhoneCall({
+      phoneNumber: this.data.phone
+    })
+  }
+}
+</script>
+
+<style lang="less">
+  view.title{
+  background-color: #f5f5f5;
+  font-size: 14px;
+  font-weight: bold;
+  line-height: 50px;
+  padding-left: 20px;
+  border-left:3px solid @theme-color;
+  // view{
+  //   font-weight: bold;
+  // }
+}
+
+.unlock, .lock{padding:3px 8px;background:#00A0EA;border-radius:8px;color:#fff;font-size:12px;text-align:center;max-width:80rpx}
+.lock{background: #09BA07}
+.text {
+  line-height: 50px;
+  
+}
+</style>

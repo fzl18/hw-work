@@ -1,0 +1,115 @@
+/* 1像素解决方案 */
+/*
+ * 清除1px
+ */
+/*
+ * 清除浮动
+ */
+/*
+ * mobile
+ */
+/*
+ * 1px
+ */
+/*
+ * text
+ */
+/* 垂直居中 */
+/* 水平居中 */
+/* 水平垂直居中 */
+/* 超出部分出省略号 */
+/* 多行文本超出部分省略号 */
+ui-segment {
+  margin: 1em 0;
+}
+ui-segment-item {
+  min-width: 24%;
+}
+ui-icon {
+  margin-right: 6px;
+}
+.tabContent {
+  margin: 10px;
+}
+.tabContent .ss {
+  margin-top: 20%;
+}
+.tabContent .ss .input {
+  padding-bottom: 3%;
+  position: relative;
+}
+.tabContent .ss .input:before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 300%;
+  height: 300%;
+  border: 0 #333 solid;
+  box-sizing: border-box;
+  transform-origin: 0 0;
+  transform: scale(0.33333333);
+  pointer-events: none;
+  z-index: 0;
+  border-bottom-width: 1px;
+}
+.tabContent .bt {
+  margin-top: 10%;
+}
+.top_tip {
+  padding: 2% 0;
+}
+.top_tip .ui-row {
+  background: #f3f3f3;
+  margin-bottom: 2%;
+  border-radius: 10px;
+  box-shadow: 0, 0, 20px, rgba(0, 0, 0, 0.5);
+}
+.top_tip .left_icon {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background-color: #2BADE9;
+  text-align: center;
+  line-height: 30px;
+}
+.top_tip .left_icon2 {
+  background-color: #B985D4;
+}
+.top_tip .left_icon3 {
+  background-color: #6B96ED;
+}
+.top_tip .left_icon4 {
+  background-color: #E97CB7;
+}
+.top_tip .left_icon5 {
+  background-color: #50B2DB;
+}
+.top_tip .left_icon6 {
+  background-color: #FF6B6B;
+}
+.top_tip .left_icon7 {
+  background-color: #4BAFF8;
+}
+.top_tip .ui-icon {
+  font-size: 20px;
+  color: #313338;
+}
+.top_tip .txt {
+  color: #7a7b7c;
+  font-size: 12px;
+}
+.top_tip .unlock,
+.top_tip .lock {
+  padding: 3px 8px;
+  background: #00A0EA;
+  border-radius: 8px;
+  color: #fff;
+  font-size: 12px;
+}
+.top_tip .lock {
+  background: #09BA07;
+}
+.top_tip text {
+  line-height: 35px;
+}

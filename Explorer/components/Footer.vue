@@ -1,6 +1,6 @@
 <template>
   <div class="foot">
-      © Copyright 2018. All Rights Reserved <br />
+      Copyright © 2018. All Rights Reserved <br />
         {{local[lang].footer}}.
   </div>
 </template>

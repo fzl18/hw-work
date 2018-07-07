@@ -1,0 +1,94 @@
+<template> 
+  <view class="bg">
+    <view class="top_tip">
+      <view wx:for="{{lists}}">
+      <ui-row height="60">
+          <ui-col class="text" align="left" vertical-align="middle" space="20">
+              <view style="width: 100%;">
+                  <ui-row height="30">
+                      <ui-col align="left" vertical-align="middle">
+                          <view><text style="color:#2BADE9;font-size:16px;">{{item.name}} | </text><text style="color:#333;font-size:12px;"> {{item.job}} </text></view>
+                          <view><text style="color:#777;font-size:12px;">{{item.companyName}}</text></view>
+                      </ui-col>
+                      <ui-col align="right" width="100" vertical-align="middle" space-right="10">
+                          <text style="color:orange;font-size:16px;" bindtap="call" data-tel="{{item.phone}}">{{item.phone}}</text>
+                      </ui-col>
+                  </ui-row>
+              </view>
+          </ui-col>
+      </ui-row>
+      </view>
+    </view>
+</view>
+
+</template>
+
+<script>
+export default {
+  config: {
+    navigationBarTitleText: '名片信息',
+    backgroundColor: '#F4F4F4',
+    navigationBarTextStyle: 'black'
+  },
+  data: {
+    isShow:false,
+    lists:[]
+  },
+  starShow () {
+    this.setData({ 
+      isShow: true
+    })
+  },
+  call(e){
+    wx.makePhoneCall({
+      phoneNumber: e.currentTarget.dataset.tel
+    })
+  },
+  onLoad(){
+    const _this=this
+    const curUser = wx.getStorageSync('curUser');
+    const userId = curUser.userId ,apptoken = curUser.apptoken
+    wx.showLoading({
+      title:"加载中"
+    })
+    wx.request({
+      url:`${wx.baseUrl}/getUserCardList`,
+      method: 'post',
+      data:{
+        userId,
+        apptoken,
+      },
+      header: {
+        'content-type': 'application/x-www-form-urlencoded'
+      },
+      success: function(res) {
+        wx.hideLoading()
+        console.log(res.data);        
+        if(res.data.code == "E00001"){
+            wx.showAlert({
+                  content:res.data.message,
+              })
+          }else{
+            _this.setData({
+              lists:res.data.data
+            })
+          }
+        }
+      
+    })
+  }
+}
+</script>
+
+<style lang="less">
+.bg{height:100%;background:#EDEDED;}
+.top_tip{
+    padding:4%;
+    .ui-row{background:#fff;margin-bottom:2%;border-radius:4px;}
+    .ui-icon{        
+        font-size: 20px;
+        color: #313338;
+        position: absolute;
+    }
+}
+</style>                                               

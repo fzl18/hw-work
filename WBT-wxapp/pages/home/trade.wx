@@ -1,0 +1,191 @@
+<template>
+  <view>
+    <ui-segment bindchange="changeTab" index="{{value}}">
+        <ui-segment-item>
+          <text>核    销</text>
+        </ui-segment-item>
+        <ui-segment-item>
+          兑换记录
+        </ui-segment-item>
+    </ui-segment>
+    <view class="tabContent" wx:if="{{contentshow === 0}}">
+        <view class="ss">
+          <ui-row>
+            <ui-col class="input" span=10>
+              <input placeholder="请输入兑换码" value="{{sn}}" focus bindinput="bindSnInput"/>
+            </ui-col>
+            <ui-col align="right" vertical-align="top">
+              <!-- <ui-icon type=""></ui-icon> -->
+              <text style="font-size:30px" bindtap="scanCode">[-]</text>
+            </ui-col>         
+        </view>
+        <view class="bt" bindtap="search"><button type="primary" >确认</button></view>
+    </view>
+    <view class="tabContent" wx:if="{{contentshow === 1}}">
+        <view class="top_tip" wx:for="{{lists}}">
+          <ui-row height="60" hover-class="touchui-hover" url="/pages/home/tradeDetail?recordId={{item.recordId}}&phone={{item.phone}}">
+              <ui-col width="40" align="center" vertical-align="middle">
+                  <view class="left_icon" style="color:#fff">兑</view>
+              </ui-col>
+              <ui-col class="text" align="left" vertical-align="middle" space="20">
+                  <view style="width: 100%;">
+                      <ui-row height="30">
+                          <ui-col align="left" vertical-align="middle">
+                             <view ><text>{{item.phone}}</text></view>
+                             <view class="txt"> {{item.exchangeTime}} </view>
+                          </ui-col>
+                          <ui-col align="right" width="100" vertical-align="middle" space-right="10">
+                            <view wx:if="{{item.status == 0}}"> <text class='unlock'>未使用</text> </view>
+                            <view wx:else> <text class='lock'>已使用</text> </view>
+                            <view class="txt">使用积分 {{item.costAmount}}</view>                              
+                          </ui-col>
+                      </ui-row>
+                  </view>
+              </ui-col>
+          </ui-row>
+        </view>
+    </view>
+  </view>
+</template>
+
+<script>
+export default {
+  config: {
+    navigationBarTitleText: '对换核销'
+  },
+  data :{
+        value: 0,
+        contentshow: 0,
+        sn:'',
+        lists:[],
+        loading:true
+    },
+  onLoad(){
+    const _this=this
+    const curUser = wx.getStorageSync('curUser');
+    const userId = curUser.userId ,apptoken = curUser.apptoken
+    wx.showLoading({
+      title: '加载中',
+    })
+    wx.request({
+      url:`${wx.baseUrl}/exchangeList`,
+      method: 'post',
+      data:{
+        userId,
+        apptoken,
+      },
+      header: {
+        'content-type': 'application/x-www-form-urlencoded'
+      },
+      success: function(res) {
+        wx.hideLoading();
+        console.log(res.data)
+        if(res.data.code == "E00001"){
+          wx.showAlert({
+            content:res.data.message,
+          })
+          return false
+        }
+        _this.setData({
+          lists:res.data.data,
+          loading:!_this.data.loading
+        })
+      }
+    })
+  },
+
+  changeTab (e) {
+    let index = e.detail.index
+    this.setData({
+      contentshow:index
+    })
+  },
+  bindSnInput(e){
+    this.setData({
+      sn:e.detail.value
+    })
+  },
+  search(){
+    if(this.data.sn==''){
+      wx.showAlert({
+        content:'兑换码不能为空！',
+      })
+    }else{
+      wx.navigateTo({url:`/pages/home/tradeConfirm?sn=${this.data.sn}`})
+    }
+  },
+  scanCode(){
+    let _this=this
+    wx.scanCode({
+      onlyFromCamera: true,
+      success: (res) => {
+        console.log(res)
+        _this.setData({
+          sn:res.result
+        })
+      }
+    })
+  }
+}
+</script>
+
+<style lang="less">
+  ui-segment {
+    margin: 1em 0;
+  }
+  ui-segment-item{min-width: 24%}
+  ui-icon {
+    margin-right: 6px;
+  }
+  .tabContent{
+    margin:10px;
+    .ss{
+      margin-top:20%;
+      .input{
+        padding-bottom:3%;
+        .mix-1px(0,0,1,0,#333)
+      }
+      
+    }
+    .bt{margin-top:10%}
+  }
+  
+.top_tip{
+    padding:2% 0;
+    .ui-row{background:rgb(243, 243, 243);margin-bottom:2%;border-radius:10px;box-shadow:0,0,20px,rgba(0, 0, 0, .5)}
+    .left_icon{
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        background-color:#2BADE9; 
+        text-align: center;
+        line-height: 30px;
+    }
+    .left_icon2{
+        background-color: #B985D4;
+    }
+    .left_icon3{
+        background-color: #6B96ED;
+    }
+    .left_icon4{
+        background-color: #E97CB7;
+    }
+    .left_icon5{
+        background-color: #50B2DB;
+    }
+    .left_icon6{
+        background-color: #FF6B6B;
+    }
+    .left_icon7{
+        background-color: #4BAFF8;
+    }
+    .ui-icon{        
+        font-size: 20px;
+        color: #313338;
+    }
+    .txt{color:#7a7b7c;font-size:12px;}
+    .unlock, .lock{padding:3px 8px;background:#00A0EA;border-radius:8px;color:#fff;font-size:12px;}
+    .lock{background: #09BA07}
+    text{line-height:35px;}
+}
+</style>

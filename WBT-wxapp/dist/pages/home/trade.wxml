@@ -1,0 +1,68 @@
+<view>
+  <ui-segment bindchange="changeTab" index="{{value}}" _pid="{{_pid}}">
+    <ui-segment-item _pid="{{_pid}}">
+      <text>核 销</text>
+    </ui-segment-item>
+    <ui-segment-item _pid="{{_pid}}">
+      兑换记录
+    </ui-segment-item>
+  </ui-segment>
+  <view class="tabContent" wx:if="{{contentshow === 0}}">
+    <view class="ss">
+      <view class="ui-row" style="">
+        <view class="input ui-col ui-col-10" style="flex: 0 0 83.33333333333334%;">
+          <view class="ui-col-content">
+            <input placeholder="请输入兑换码" value="{{sn}}" focus bindinput="bindSnInput"></input>
+          </view>
+        </view>
+        <view class="ui-col ui-col-align-right align-right valign-top" style="">
+          <view class="ui-col-content align-right valign-top">
+            <!-- <ui-icon type=""></ui-icon> -->
+            <text style="font-size:30px" bindtap="scanCode">[-]</text>
+          </view>
+        </view>
+      </view>
+    </view>
+    <view class="bt" bindtap="search">
+      <button type="primary">确认</button>
+    </view>
+  </view>
+  <view class="tabContent" wx:if="{{contentshow === 1}}">
+    <view class="top_tip" wx:for="{{lists}}">
+      <navigator hover-class="touchui-hover" url="/pages/home/tradeDetail?recordId={{item.recordId}}&phone={{item.phone}}" class="ui-row" style="height:60px;">
+        <view class="ui-col ui-col-align-center align-center valign-middle" style="flex:0 0 40px;">
+          <view class="ui-col-content align-center valign-middle">
+            <view class="left_icon" style="color:#fff">兑</view>
+          </view>
+        </view>
+        <view class="text ui-col ui-col-align-left align-left valign-middle" style="padding-left: 10px; padding-right: 10px;">
+          <view class="ui-col-content align-left valign-middle">
+            <view style="width: 100%;">
+              <view class="ui-row" style="height:30px;">
+                <view class="ui-col ui-col-align-left align-left valign-middle" style="">
+                  <view class="ui-col-content align-left valign-middle">
+                    <view>
+                      <text>{{item.phone}}</text>
+                    </view>
+                    <view class="txt"> {{item.exchangeTime}} </view>
+                  </view>
+                </view>
+                <view class="ui-col ui-col-align-right align-right valign-middle" style="padding-right: 10px;flex:0 0 100px;">
+                  <view class="ui-col-content align-right valign-middle">
+                    <view wx:if="{{item.status == 0}}">
+                      <text class="unlock">未使用</text>
+                    </view>
+                    <view wx:else="">
+                      <text class="lock">已使用</text>
+                    </view>
+                    <view class="txt">使用积分 {{item.costAmount}}</view>
+                  </view>
+                </view>
+              </view>
+            </view>
+          </view>
+        </view>
+      </navigator>
+    </view>
+  </view>
+</view>

@@ -1,0 +1,113 @@
+<view class="bg">
+  <view class="">
+    <ui-tabs index="{{ current1 }}" probe="1" bindchange="handleChange1" _pid="{{_pid}}">
+      <ui-tab _pid="{{_pid}}">全部</ui-tab>
+      <ui-tab _pid="{{_pid}}">充值记录</ui-tab>
+      <ui-tab _pid="{{_pid}}">赠送记录</ui-tab>
+    </ui-tabs>
+    <swiper class="content" current="{{ current1 }}" bindchange="handleContentChange1">
+      <swiper-item>
+        <view class="top_tip">
+          <view wx:for="{{lists}}">
+            <navigator url="/pages/home/info?id={{itme}}" class="ui-row" style="height:60px;">
+              <view class="text ui-col ui-col-align-left align-left valign-middle" style="padding-left: 10px; padding-right: 10px;">
+                <view class="ui-col-content align-left valign-middle">
+                  <view style="width: 100%;">
+                    <view class="ui-row" style="height:30px;">
+                      <view class="ui-col ui-col-align-left align-left valign-middle" style="">
+                        <view class="ui-col-content align-left valign-middle">
+                          <view>
+                            <text>名片</text>
+                            <view>
+                              <view>
+                                <text>2018-06-06 12:32:12</text>
+                                <view>
+                                </view>
+                              </view>
+                            </view>
+                          </view>
+                        </view>
+                      </view>
+                      <view class="ui-col ui-col-align-right align-right valign-middle" style="padding-right: 10px;flex:0 0 100px;">
+                        <view class="ui-col-content align-right valign-middle">
+                          <text>+500</text>
+                        </view>
+                      </view>
+                    </view>
+                  </view>
+                </view>
+              </view>
+            </navigator>
+          </view>
+        </view>
+      </swiper-item>
+      <swiper-item>
+        <view class="top_tip">
+          <view hover-class="touchui-hover" wx:for="{{lists}}" wx:key="" class="ui-row" style="height:60px;">
+            <view class="text ui-col ui-col-align-left align-left valign-middle" style="padding-left: 10px; padding-right: 10px;">
+              <view class="ui-col-content align-left valign-middle">
+                <view style="width: 100%;">
+                  <view class="ui-row" style="height:30px;">
+                    <view class="ui-col ui-col-align-left align-left valign-middle" style="">
+                      <view class="ui-col-content align-left valign-middle">
+                        <view>
+                          <text>名片</text>
+                          <view>
+                            <view>
+                              <text>2018-06-06 12:32:12</text>
+                              <view>
+                              </view>
+                            </view>
+                          </view>
+                        </view>
+                      </view>
+                    </view>
+                    <view class="ui-col ui-col-align-right align-right valign-middle" style="padding-right: 10px;flex:0 0 100px;">
+                      <view class="ui-col-content align-right valign-middle">
+                        <text>+500</text>
+                      </view>
+                    </view>
+                  </view>
+                </view>
+              </view>
+            </view>
+          </view>
+        </view>
+      </swiper-item>
+      <swiper-item>
+        <view class="top_tip">
+          <view hover-class="touchui-hover" wx:for="{{lists}}" wx:key="" class="ui-row" style="height:60px;">
+            <view class="text ui-col ui-col-align-left align-left valign-middle" style="padding-left: 10px; padding-right: 10px;">
+              <view class="ui-col-content align-left valign-middle">
+                <view style="width: 100%;">
+                  <view class="ui-row" style="height:30px;">
+                    <view class="ui-col ui-col-align-left align-left valign-middle" style="">
+                      <view class="ui-col-content align-left valign-middle">
+                        <view>
+                          <text>名片</text>
+                          <view>
+                            <view>
+                              <text>2018-06-06 12:32:12</text>
+                              <view>
+                              </view>
+                            </view>
+                          </view>
+                        </view>
+                      </view>
+                    </view>
+                    <view class="ui-col ui-col-align-right align-right valign-middle" style="padding-right: 10px;flex:0 0 100px;">
+                      <view class="ui-col-content align-right valign-middle">
+                        <text>+500</text>
+                      </view>
+                    </view>
+                  </view>
+                </view>
+              </view>
+            </view>
+          </view>
+        </view>
+      </swiper-item>
+    </swiper>
+  </view>
+
+</view>

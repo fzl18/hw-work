@@ -58,9 +58,10 @@ export default {
   methods:{
     ...mapMutations(['changSearchKey']),
     getCurrencyBalance(){
+      this.key = this.lang =='cn' ? ' 查询中 ':' Searching '
       ajax({
         method:"post",
-        url:`${api2}/currency/getCurrencyBalance`,     
+        url:`${api2}/currency/getCurrencyBalance`,  
         data:{
             currency:this.token,
             account:this.address
@@ -74,13 +75,12 @@ export default {
           }],
       })
       .then(data=>{
-        console.log(data.data)
           if(data.data.code == "S00001"){
-              this.key = data.data.data.result =='fail' ? '输入地址有误!' : data.data.data.value
+              this.key = data.data.data.result =='fail' ? this.lang == 'cn'?'输入地址有误 !':'Address Error !' : data.data.data.value
           }
       })
-      .catch((data)=>{
-        console.log(data)
+      .catch((e)=>{
+        console.log(e.reponse)
       })
     },
     getSingleCurrency(){

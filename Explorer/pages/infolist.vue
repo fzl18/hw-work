@@ -5,7 +5,7 @@
       <div class="nav">
         <nuxt-link to="distribution" active-class="cur">{{local[lang].infolist.nav.distribution}}</nuxt-link>
         <nuxt-link to="information" active-class="cur">{{local[lang].infolist.nav.information}}</nuxt-link>
-        <nuxt-link to="contract" active-class="cur">{{local[lang].infolist.nav.contract}}</nuxt-link>
+        <!-- <nuxt-link to="contract" active-class="cur">{{local[lang].infolist.nav.contract}}</nuxt-link> -->
         <nuxt-link to="transaction" active-class="cur">{{local[lang].infolist.nav.transaction}}</nuxt-link>
       </div>
       <div class="table"><nuxt-child /></div>
@@ -49,7 +49,7 @@ export default {
   /* .main{} */
   .content{background: #fff;}
   .nav{margin-top:20px;}
-  .nav a{display: inline-block;width:25%;height:50px;line-height:50px;text-align:center;background:#EBEFFF;color:#606060;font-size: 14px;font-weight:bold;position: relative;}
+  .nav a{display: inline-block;width:33.3%;height:50px;line-height:50px;text-align:center;background:#EBEFFF;color:#606060;font-size: 14px;font-weight:bold;position: relative;}
   .nav a:hover, .nav a.cur{color:#6171EB;background: #CCD8FF}
   .nav a.cur::after, .nav a:hover::after{content:'';width:0;height:0;border-top: 5px solid transparent;border-left: 5px solid #6171EB;border-bottom: 5px solid transparent;top:40%;left:25%;position: absolute;}
 </style>

@@ -62,7 +62,24 @@ export default {
       loading:true,
     }
   },
+  beforeMount(){
+    const hash = this.getUrlParam('hash')
+    const account = this.getUrlParam('account')
+    if(hash !=''){
+      this.changSearchKey({type:'hash', val:hash})
+      this.changSearchKey({type:'searchKey', val:hash})
+      this.$router.push({ path: '/hash'})
+      return false
+    }
+    if(account !=''){
+      this.changSearchKey({type:'account', val:account})
+      this.changSearchKey({type:'searchKey', val:account})
+      this.$router.push({ path: '/account'})
+      return false
+    }
+  },
   mounted(){
+    
     this.queryList()
   },
   methods:{
@@ -87,7 +104,28 @@ export default {
       .catch(e=>{
         console.log(e)
       })
-    },   
+    },
+    getUrlParam(paraName) {
+　　　　var url = document.location.toString();
+　　　　var arrObj = url.split("?");
+
+　　　　if (arrObj.length > 1) {
+　　　　　　var arrPara = arrObj[1].split("&");
+　　　　　　var arr;
+
+　　　　　　for (var i = 0; i < arrPara.length; i++) {
+　　　　　　　　arr = arrPara[i].split("=");
+
+　　　　　　　　if (arr != null && arr[0] == paraName) {
+　　　　　　　　　　return arr[1];
+　　　　　　　　}
+　　　　　　}
+　　　　　　return "";
+　　　　}
+　　　　else {
+　　　　　　return "";
+　　　　}
+　　},
     gotoHash(val){
       this.changSearchKey({type:'hash', val:val})
       this.changSearchKey({type:'searchKey', val:val})

@@ -1,0 +1,204 @@
+<view>
+  <view class="banner">
+    <view class="ui-row" style="height:80px;">
+      <view class="ui-col" style="padding-left: NaNpx; padding-right: NaNpx;">
+        <view class="ui-col-content">
+          <text>当前积分</text>
+          <view class="txt">{{val}}</view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <view class="top_tip">
+    <navigator url="/pages/home/trade" class="ui-row" style="height:60px;">
+      <view class="ui-col ui-col-align-center align-center valign-middle" style="flex:0 0 80px;">
+        <view class="ui-col-content align-center valign-middle">
+          <view class="left_icon">
+            <span type="api-access" color="#fff" size="20" class="ui-icon icon-api-access" style="color: #fff;font-size: 20px;"></span>
+          </view>
+        </view>
+      </view>
+      <view class="text ui-col ui-col-align-left align-left valign-middle" style="padding-left: 10px; padding-right: 10px;">
+        <view class="ui-col-content align-left valign-middle">
+          <view style="width: 100%;">
+            <view class="ui-row" style="height:30px;">
+              <view class="ui-col ui-col-align-left align-left valign-middle" style="">
+                <view class="ui-col-content align-left valign-middle">
+                  <text>兑换核销</text>
+                </view>
+              </view>
+              <view class="ui-col ui-col-align-right align-right valign-middle" style="padding-right: 10px;flex:0 0 100px;">
+                <view class="ui-col-content align-right valign-middle">
+                  <span type="arrow-right" class="ui-icon icon-arrow-right" style="font-size: 16px;"></span>
+                </view>
+              </view>
+            </view>
+          </view>
+        </view>
+      </view>
+    </navigator>
+    <navigator url="/pages/home/card" class="ui-row" style="height:60px;">
+      <view class="ui-col ui-col-align-center align-center valign-middle" style="flex:0 0 80px;">
+        <view class="ui-col-content align-center valign-middle">
+          <view class="left_icon left_icon2">
+            <span type="api-network" color="#fff" size="20" class="ui-icon icon-api-network" style="color: #fff;font-size: 20px;"></span>
+          </view>
+        </view>
+      </view>
+      <view class="text ui-col ui-col-align-left align-left valign-middle" style="padding-left: 10px; padding-right: 10px;">
+        <view class="ui-col-content align-left valign-middle">
+          <view style="width: 100%;">
+            <view class="ui-row" style="height:30px;">
+              <view class="ui-col ui-col-align-left align-left valign-middle" style="">
+                <view class="ui-col-content align-left valign-middle">
+                  <text>名片</text>
+                </view>
+              </view>
+              <view class="ui-col ui-col-align-right align-right valign-middle" style="padding-right: 10px;flex:0 0 100px;">
+                <view class="ui-col-content align-right valign-middle">
+                  <span type="arrow-right" class="ui-icon icon-arrow-right" style="font-size: 16px;"></span>
+                </view>
+              </view>
+            </view>
+          </view>
+        </view>
+      </view>
+    </navigator>
+    <navigator url="/pages/home/gift" class="ui-row" style="height:60px;">
+      <view class="ui-col ui-col-align-center align-center valign-middle" style="flex:0 0 80px;">
+        <view class="ui-col-content align-center valign-middle">
+          <view class="left_icon left_icon3">
+            <span type="api-configure" color="#fff" size="20" class="ui-icon icon-api-configure" style="color: #fff;font-size: 20px;"></span>
+          </view>
+        </view>
+      </view>
+      <view class="text ui-col ui-col-align-left align-left valign-middle" style="padding-left: 10px; padding-right: 10px;">
+        <view class="ui-col-content align-left valign-middle">
+          <view style="width: 100%;">
+            <view class="ui-row" style="height:30px;">
+              <view class="ui-col ui-col-align-left align-left valign-middle" style="">
+                <view class="ui-col-content align-left valign-middle">
+                  <text>礼品</text>
+                </view>
+              </view>
+              <view class="ui-col ui-col-align-right align-right valign-middle" style="padding-right: 10px;flex:0 0 100px;">
+                <view class="ui-col-content align-right valign-middle">
+                  <span type="arrow-right" class="ui-icon icon-arrow-right" style="font-size: 16px;"></span>
+                </view>
+              </view>
+            </view>
+          </view>
+        </view>
+      </view>
+    </navigator>
+    <navigator url="/pages/home/qrcode" class="ui-row" style="height:60px;">
+      <view class="ui-col ui-col-align-center align-center valign-middle" style="flex:0 0 80px;">
+        <view class="ui-col-content align-center valign-middle">
+          <view class="left_icon left_icon4">
+            <span type="api-access" color="#fff" size="20" class="ui-icon icon-api-access" style="color: #fff;font-size: 20px;"></span>
+          </view>
+        </view>
+      </view>
+      <view class="text ui-col ui-col-align-left align-left valign-middle" style="padding-left: 10px; padding-right: 10px;">
+        <view class="ui-col-content align-left valign-middle">
+          <view style="width: 100%;">
+            <view class="ui-row" style="height:30px;">
+              <view class="ui-col ui-col-align-left align-left valign-middle" style="">
+                <view class="ui-col-content align-left valign-middle">
+                  <text>二维码</text>
+                </view>
+              </view>
+              <view class="ui-col ui-col-align-right align-right valign-middle" style="padding-right: 10px;flex:0 0 100px;">
+                <view class="ui-col-content align-right valign-middle">
+                  <span type="arrow-right" class="ui-icon icon-arrow-right" style="font-size: 16px;"></span>
+                </view>
+              </view>
+            </view>
+          </view>
+        </view>
+      </view>
+    </navigator>
+    <navigator url="/pages/home/vip" class="ui-row" style="height:60px;">
+      <view class="ui-col ui-col-align-center align-center valign-middle" style="flex:0 0 80px;">
+        <view class="ui-col-content align-center valign-middle">
+          <view class="left_icon left_icon5">
+            <span type="api-network" color="#fff" size="20" class="ui-icon icon-api-network" style="color: #fff;font-size: 20px;"></span>
+          </view>
+        </view>
+      </view>
+      <view class="text ui-col ui-col-align-left align-left valign-middle" style="padding-left: 10px; padding-right: 10px;">
+        <view class="ui-col-content align-left valign-middle">
+          <view style="width: 100%;">
+            <view class="ui-row" style="height:30px;">
+              <view class="ui-col ui-col-align-left align-left valign-middle" style="">
+                <view class="ui-col-content align-left valign-middle">
+                  <text>赠送设置</text>
+                </view>
+              </view>
+              <view class="ui-col ui-col-align-right align-right valign-middle" style="padding-right: 10px;flex:0 0 100px;">
+                <view class="ui-col-content align-right valign-middle">
+                  <span type="arrow-right" class="ui-icon icon-arrow-right" style="font-size: 16px;"></span>
+                </view>
+              </view>
+            </view>
+          </view>
+        </view>
+      </view>
+    </navigator>
+    <navigator url="/pages/home/transaction" class="ui-row" style="height:60px;">
+      <view class="ui-col ui-col-align-center align-center valign-middle" style="flex:0 0 80px;">
+        <view class="ui-col-content align-center valign-middle">
+          <view class="left_icon left_icon6">
+            <span type="api-configure" color="#fff" size="20" class="ui-icon icon-api-configure" style="color: #fff;font-size: 20px;"></span>
+          </view>
+        </view>
+      </view>
+      <view class="text ui-col ui-col-align-left align-left valign-middle" style="padding-left: 10px; padding-right: 10px;">
+        <view class="ui-col-content align-left valign-middle">
+          <view style="width: 100%;">
+            <view class="ui-row" style="height:30px;">
+              <view class="ui-col ui-col-align-left align-left valign-middle" style="">
+                <view class="ui-col-content align-left valign-middle">
+                  <text>交易</text>
+                </view>
+              </view>
+              <view class="ui-col ui-col-align-right align-right valign-middle" style="padding-right: 10px;flex:0 0 100px;">
+                <view class="ui-col-content align-right valign-middle">
+                  <span type="arrow-right" class="ui-icon icon-arrow-right" style="font-size: 16px;"></span>
+                </view>
+              </view>
+            </view>
+          </view>
+        </view>
+      </view>
+    </navigator>
+    <navigator url="/pages/home/setting" class="ui-row" style="height:60px;">
+      <view class="ui-col ui-col-align-center align-center valign-middle" style="flex:0 0 80px;">
+        <view class="ui-col-content align-center valign-middle">
+          <view class="left_icon left_icon7">
+            <span type="api-configure" color="#fff" size="20" class="ui-icon icon-api-configure" style="color: #fff;font-size: 20px;"></span>
+          </view>
+        </view>
+      </view>
+      <view class="text ui-col ui-col-align-left align-left valign-middle" style="padding-left: 10px; padding-right: 10px;">
+        <view class="ui-col-content align-left valign-middle">
+          <view style="width: 100%;">
+            <view class="ui-row" style="height:30px;">
+              <view class="ui-col ui-col-align-left align-left valign-middle" style="">
+                <view class="ui-col-content align-left valign-middle">
+                  <text>设置</text>
+                </view>
+              </view>
+              <view class="ui-col ui-col-align-right align-right valign-middle" style="padding-right: 10px;flex:0 0 100px;">
+                <view class="ui-col-content align-right valign-middle">
+                  <span type="arrow-right" class="ui-icon icon-arrow-right" style="font-size: 16px;"></span>
+                </view>
+              </view>
+            </view>
+          </view>
+        </view>
+      </view>
+    </navigator>
+  </view>
+</view>

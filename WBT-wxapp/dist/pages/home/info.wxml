@@ -1,0 +1,122 @@
+<view class="bg">
+  <view class="box">
+    <view class="tit">交易哈希
+      <view>
+        <view class="ctx">
+          <view>
+          </view>
+          <view class="box">
+            <view class="tit">转出地址
+              <view>
+                <view class="ctx">
+                  <view>
+                  </view>
+                  <view class="box">
+                    <view class="tit">转入地址
+                      <view>
+                        <view class="ctx">
+                          <view>
+                          </view>
+                          <view style="padding:4%;background:#fff;border-radius:8px;">
+                            <view class="ui-row-list ui-row-list-border-left-indent" style="">
+                              <view class="ui-row" style="height:50px;">
+                                <view class="text ui-col" style="">
+                                  <view class="ui-col-content">
+                                    交易类型
+                                  </view>
+                                </view>
+                                <view class="ui-col valign-middle" style="flex:0 0 100px;">
+                                  <view class="ui-col-content valign-middle">
+                                    <text bindtap="call" style="color:orange">{{phone}}</text>
+                                  </view>
+                                </view>
+                              </view>
+
+                              <view class="ui-row" style="height:50px;">
+                                <view class="text ui-col" style="">
+                                  <view class="ui-col-content">
+                                    区块高度
+                                  </view>
+                                </view>
+                                <view class="ui-col valign-middle" style="flex:0 0 100px;">
+                                  <view class="ui-col-content valign-middle">
+                                    {{data.code}}
+                                  </view>
+                                </view>
+                              </view>
+                              <view class="ui-row" style="height:50px;">
+                                <view class="text ui-col" style="">
+                                  <view class="ui-col-content">
+                                    状态
+                                  </view>
+                                </view>
+                                <view class="ui-col valign-middle" style="flex:0 0 100px;">
+                                  <view class="ui-col-content valign-middle">
+                                    <text wx:if="{{data.status == 0}}" class="unlock">成功</text>
+                                    <text class="lock" wx:else="">失败</text>
+                                  </view>
+                                </view>
+                              </view>
+                              <view class="ui-row" style="height:50px;">
+                                <view class="text ui-col" style="">
+                                  <view class="ui-col-content">
+                                    费率
+                                  </view>
+                                </view>
+                                <view class="ui-col valign-middle" style="flex:0 0 100px;">
+                                  <view class="ui-col-content valign-middle">
+                                    0.00001
+                                  </view>
+                                </view>
+                              </view>
+                              <view class="ui-row" style="height:50px;">
+                                <view class="text ui-col" style="">
+                                  <view class="ui-col-content">
+                                    数量
+                                  </view>
+                                </view>
+                                <view class="ui-col valign-middle" style="flex:0 0 100px;">
+                                  <view class="ui-col-content valign-middle">
+                                    0.00001
+                                  </view>
+                                </view>
+                              </view>
+                              <view class="ui-row" style="height:50px;">
+                                <view class="text ui-col" style="">
+                                  <view class="ui-col-content">
+                                    时间
+                                  </view>
+                                </view>
+                                <view class="ui-col valign-middle" style="flex:0 0 100px;">
+                                  <view class="ui-col-content valign-middle">
+                                    0.00001
+                                  </view>
+                                </view>
+                              </view>
+                              <view class="ui-row" style="height:50px;">
+                                <view class="text ui-col" style="">
+                                  <view class="ui-col-content">
+                                    备注
+                                  </view>
+                                </view>
+                                <view class="ui-col valign-middle" style="flex:0 0 100px;">
+                                  <view class="ui-col-content valign-middle">
+                                    0.00001
+                                  </view>
+                                </view>
+                              </view>
+                            </view>
+                          </view>
+                        </view>
+                      </view>
+                    </view>
+                  </view>
+                </view>
+              </view>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>
