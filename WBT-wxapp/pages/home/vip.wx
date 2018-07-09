@@ -2,7 +2,7 @@
   <view class="bg">
     <view class="title">单次赠送积分</view>
     <view class="card">      
-      <view class="h1"><input type="Number" placeholder="请输入数值" /></view>
+      <view class="h1"><input type="Number" placeholder="请输入数值" bindinput="bindinput" /></view>
       <view class="txt">每位用户仅限赠送一次，同一用户名片不可重复获取积分。</view>
       <view class="save" bindtap="save"><button type="primary">保存</button></view>      
     </view>    
@@ -14,7 +14,51 @@ export default {
   config: {
     navigationBarTitleText: '赠送设置'
   },
-  data: {}
+  data: {
+    val:''
+  },
+  bindinput(e){
+    this.setData({
+      val:e.detail.value
+    })
+  },
+  save(){
+    const _this=this
+    const curUser = wx.getStorageSync('curUser');
+    if(this.data.val == '' || this.data.val < 0){
+      wx.showAlert({
+        content:'赠送积分不能为空或负值！',
+      })
+      return false
+    }
+     wx.request({
+      url:`${wx.baseUrl}/updateGift`,
+      method: 'post',
+      data:{
+        userId:curUser.userId,
+        apptoken:curUser.apptoken,
+        giftAmount:_this.data.val
+      },
+      header: {
+        'content-type': 'application/x-www-form-urlencoded'
+      },
+      success: function(res) {
+        console.log(res.data)
+        if(res.data.code=="S00001"){
+          wx.showAlert({
+            content:res.data.message,
+            success:()=>{
+              wx.redirectTo({url:"/pages/home/index"}) 
+            }
+          })
+        }else{
+          wx.showAlert({
+            content:res.data.message            
+          })
+        }
+      }
+    })
+  }
 }
 </script>
 
@@ -35,7 +79,7 @@ export default {
     background:#fff;
     padding:4%;
     border-radius:10px;
-    .h1{font-size:16px;font-weight:bold;.mix-1px(0,0,1,0,#1986E1);padding-bottom:10xrp;}
+    .h1{font-size:16px;font-weight:bold;.mix-1px(0,0,1,0,#1986E1);padding-bottom:10xrp;margin-bottom:5%}
     .txt{color:#777}
     .save{
       button{border-radius:20px;overflow: hidden;}

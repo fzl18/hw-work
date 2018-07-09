@@ -10,60 +10,67 @@
       <swiper-item>
         <view class="top_tip">
           <view wx:for="{{lists}}" >
-          <ui-row height="60" url="/pages/home/info?id={{itme}}">
+          <ui-row height="60" url="/pages/home/info?hash={{item.hash}}">
               <ui-col class="text" align="left" vertical-align="middle" space="20">
-                  <view style="width: 100%;">
-                      <ui-row height="30">
-                          <ui-col align="left" vertical-align="middle">
-                              <view><text>名片</text><view>
-                              <view><text>2018-06-06 12:32:12</text><view>
-                          </ui-col>
-                          <ui-col align="right" width="100" vertical-align="middle" space-right="10">
-                              <text>+500</text>
-                          </ui-col>
-                      </ui-row>
-                  </view>
-              </ui-col>
+              <view style="width: 100%;">
+                  <ui-row height="30">
+                      <ui-col align="left" vertical-align="middle">
+                          <view><text style="color:#2BADE9;font-size:16px;">{{item.detail}} </text></view>
+                          <view><text style="color:#777;font-size:12px;">{{item.date}}</text></view>
+                      </ui-col>
+                      <ui-col align="right" width="100" vertical-align="middle" space-right="10">
+                          <text wx:if="{{item.type ==0 }}" style="color:orange;font-size:16px;">+{{item.amount}}</text>
+                          <text wx:else style="color:orange;font-size:16px;">-{{item.amount}}</text>
+                      </ui-col>
+                  </ui-row>
+              </view>
+          </ui-col>
           </ui-row>
           </view>
         </view>
       </swiper-item>
       <swiper-item>
         <view class="top_tip">
-          <ui-row height="60" hover-class="touchui-hover" wx:for="{{lists}}" wx:key="">
+          <view wx:for="{{lists}}" >
+          <ui-row height="60" url="/pages/home/info?hash={{itme.hash}}">
               <ui-col class="text" align="left" vertical-align="middle" space="20">
-                  <view style="width: 100%;">
-                      <ui-row height="30">
-                          <ui-col align="left" vertical-align="middle">
-                              <view><text>名片</text><view>
-                              <view><text>2018-06-06 12:32:12</text><view>
-                          </ui-col>
-                          <ui-col align="right" width="100" vertical-align="middle" space-right="10">
-                              <text>+500</text>
-                          </ui-col>
-                      </ui-row>
-                  </view>
-              </ui-col>
+              <view style="width: 100%;">
+                  <ui-row height="30">
+                      <ui-col align="left" vertical-align="middle">
+                          <view><text style="color:#2BADE9;font-size:16px;">{{item.detail}} </text></view>
+                          <view><text style="color:#777;font-size:12px;">{{item.date}}</text></view>
+                      </ui-col>
+                      <ui-col align="right" width="100" vertical-align="middle" space-right="10">
+                          <text wx:if="{{item.type ==0 }}" style="color:orange;font-size:16px;">+{{item.amount}}</text>
+                          <text wx:else style="color:orange;font-size:16px;">-{{item.amount}}</text>
+                      </ui-col>
+                  </ui-row>
+              </view>
+          </ui-col>
           </ui-row>
+          </view>
         </view>
       </swiper-item>
       <swiper-item>
         <view class="top_tip">
-          <ui-row height="60" hover-class="touchui-hover" wx:for="{{lists}}" wx:key="">
+          <view wx:for="{{lists}}" >
+          <ui-row height="60" url="/pages/home/info?hash={{itme.hash}}">
               <ui-col class="text" align="left" vertical-align="middle" space="20">
-                  <view style="width: 100%;">
-                      <ui-row height="30">
-                          <ui-col align="left" vertical-align="middle">
-                              <view><text>名片</text><view>
-                              <view><text>2018-06-06 12:32:12</text><view>
-                          </ui-col>
-                          <ui-col align="right" width="100" vertical-align="middle" space-right="10">
-                              <text>+500</text>
-                          </ui-col>
-                      </ui-row>
-                  </view>
-              </ui-col>
+              <view style="width: 100%;">
+                  <ui-row height="30">
+                      <ui-col align="left" vertical-align="middle">
+                          <view><text style="color:#2BADE9;font-size:16px;">{{item.detail}} </text></view>
+                          <view><text style="color:#777;font-size:12px;">{{item.date}}</text></view>
+                      </ui-col>
+                      <ui-col align="right" width="100" vertical-align="middle" space-right="10">
+                          <text wx:if="{{item.type ==0 }}" style="color:orange;font-size:16px;">+{{item.amount}}</text>
+                          <text wx:else style="color:orange;font-size:16px;">-{{item.amount}}</text>
+                      </ui-col>
+                  </ui-row>
+              </view>
+          </ui-col>
           </ui-row>
+          </view>
         </view>
       </swiper-item>
     </swiper>
@@ -107,6 +114,7 @@ export default {
         'content-type': 'application/x-www-form-urlencoded'
       },
       success: function(res) {
+        console.log(res)
         wx.hideLoading()
         if(res.data.code == "E00001"){
             wx.showAlert({
@@ -237,9 +245,5 @@ ui-tabs{
   background-color: #fff;
   padding-bottom: 1px;
 }
-.content {
-  height: 60px;
-  line-height: 60px;
-  margin:0 10px
-}
+
 </style>

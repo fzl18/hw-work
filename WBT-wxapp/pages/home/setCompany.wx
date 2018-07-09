@@ -32,13 +32,13 @@
       </view>
       <view class="content_list">
         <view class="tit"> 公司地址 (必填)</view>
-        <view> <input value="{{addr}}" placeholder="请编辑"/></view>
+        <view> <input value="{{addr}}" placeholder="请编辑" bindinput="bindinput" data-key="addr"/></view>
         <view class="tit"> 联系电话 (必填)</view>
-        <view><input value="{{tel}}" placeholder="请编辑"/> </view>
+        <view> <input value="{{tel}}" placeholder="请编辑" bindinput="bindinput" data-key="tel"/> </view>
         <view class="tit"> 联系人 (必填)</view>
-        <view><input value="{{man}}" placeholder="请编辑"/> </view>
+        <view><input value="{{man}}" placeholder="请编辑" bindinput="bindinput" data-key="man"/> </view>
         <view class="tit"> 职务 (必填)</view>
-        <view><input value="{{position}}" placeholder="请编辑"/> </view>
+        <view><input value="{{position}}" placeholder="请编辑" bindinput="bindinput" data-key="job"/> </view>
         <view style="margin-top:5%"> <button type="primary" bindtap="save">保存 </button></view>
       </view>
     </view>
@@ -62,11 +62,14 @@ export default {
     addr:'',
     tel:'',
     man:'',
-    position:''
+    job:''
   },
   onLoad() {
     const _this=this
-    const curUser = wx.getStorageSync('curUser');
+    const curUser = wx.getStorageSync('curUser')
+    if(curUser.isHaveCard == "false"){
+      return false
+    }
     wx.showLoading({
       title:'加载中'
     })
@@ -102,10 +105,17 @@ export default {
   back(){
     wx.navigateBack()
   },
+  bindinput(e){
+    let key = e.currentTarget.dataset.key
+    console.log(key,e.detail.value )
+    this.setData({
+      [key]:e.detail.value
+    })
+  },
   save(){
     const _this=this
     const curUser = wx.getStorageSync('curUser');
-    if(this.data.addr == '' || this.data.tel == '' || this.data.nam == '' || this.data.position == ''){
+    if(this.data.addr == '' || this.data.tel == '' || this.data.man == '' || this.data.job == ''){
       wx.showAlert({
         content:'必填项不能为空',
       })
@@ -126,11 +136,18 @@ export default {
         'content-type': 'application/x-www-form-urlencoded'
       },
       success: function(res) {
-        wx.showAlert({
-          content:res.data.message
-        })
+        
         if(res.data.code=="S00001"){
-          
+          wx.showAlert({
+            content:res.data.message,
+            success:()=>{
+              wx.redirectTo({url:"/pages/home/index"}) 
+            }
+          })
+        }else{
+          wx.showAlert({
+            content:res.data.message            
+          })
         }
       }
     })

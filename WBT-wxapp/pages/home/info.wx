@@ -1,16 +1,16 @@
 <template>
   <view class="bg">
     <view class="box">
-      <view class="tit">交易哈希<view>
-      <view class="ctx"><view>
+      <view class="tit">交易哈希</view>
+      <view class="ctx">{{payments.hash}}</view>
     </view>
     <view class="box">
-      <view class="tit">转出地址<view>
-      <view class="ctx"><view>
+      <view class="tit">转出地址</view>
+      <view class="ctx">{{payments.source_account}}</view>
     </view>
     <view class="box">
-      <view class="tit">转入地址<view>
-      <view class="ctx"><view>
+      <view class="tit">转入地址</view>
+      <view class="ctx">{{payments.destination_account}}</view>
     </view>
     <view style="padding:4%;background:#fff;border-radius:8px;">
     <ui-row-list border-left-indent>
@@ -19,7 +19,8 @@
           交易类型
         </ui-col>
         <ui-col width="100" vertical-align="middle">
-          <text bindtap="call" style="color:orange">{{phone}}</text>
+          <text wx:if="{{type == 0}}" class="unlock">转入</text>
+          <text wx:else class="lock">转出</text>
         </ui-col>
       </ui-row>
 
@@ -28,7 +29,7 @@
           区块高度
         </ui-col>
         <ui-col width="100" vertical-align="middle">
-          {{data.code}}
+          {{payments.ledger}}
         </ui-col>
       </ui-row>
       <ui-row height="50">
@@ -36,8 +37,8 @@
           状态
         </ui-col>
         <ui-col width="100" vertical-align="middle">
-          <text wx:if="{{data.status == 0}}" class="unlock">成功</text>
-          <text class="lock" wx:else>失败</text>
+          <text>{{payments.state}}</text>
+          <!-- <text class="lock" wx:else>失败</text> -->
         </ui-col>
       </ui-row> 
       <ui-row height="50">
@@ -45,7 +46,7 @@
           费率
         </ui-col>
         <ui-col width="100" vertical-align="middle">
-          0.00001
+          {{payments.fee}}
         </ui-col>
       </ui-row>
       <ui-row height="50">
@@ -53,15 +54,15 @@
           数量
         </ui-col>
         <ui-col width="100" vertical-align="middle">
-          0.00001
+          {{payments.amount.value}}
         </ui-col>
       </ui-row>
       <ui-row height="50">
         <ui-col class="text">
           时间
         </ui-col>
-        <ui-col width="100" vertical-align="middle">
-          0.00001
+        <ui-col width="150" vertical-align="middle">
+          <text style="font-size:12px">{{payments.timestamp}}</text>
         </ui-col>
       </ui-row>
       <ui-row height="50">
@@ -69,7 +70,7 @@
           备注
         </ui-col>
         <ui-col width="100" vertical-align="middle">
-          0.00001
+          {{payments.direction}}
         </ui-col>
       </ui-row>
     </ui-row-list>
@@ -83,16 +84,17 @@ export default {
     navigationBarTitleText: '交易详情'
   },
   data: {
-    presents:[],
-    data:{},
-    hash:''
+    payments:{},
+    hash:'',
+    type:''
   },
-  onLoad(option){    
+  onLoad(option){
     const _this=this
     const curUser = wx.getStorageSync('curUser');
     const userId = curUser.userId ,apptoken = curUser.apptoken
     this.setData({
-      hash:option.hash
+      hash:option.hash,
+      type:option.type
     })
     wx.showLoading({
       title: '加载中',
@@ -110,10 +112,10 @@ export default {
       },
       success: function(res) {
         wx.hideLoading()
+        console.log(res.data)
         if(res.data.code == "S00001"){
             _this.setData({
-              presents:res.data.data.presents,
-              data:res.data.data,
+              payments:res.data.data,
             })
           }else{
             wx.showAlert({
@@ -122,21 +124,16 @@ export default {
           }
         }      
     })
-  },
-  call(){
-    wx.makePhoneCall({
-      phoneNumber: this.data.phone
-    })
   }
 }
 </script>
 
 <style lang="less">
-  .bg{height:100%;background:#EDEDED;}
+  .bg{height:100%;background:#EDEDED;padding:4%}
   .box{
     background:#fff;border-radius:8px;margin-bottom:4%;padding:4%;
     .tit{font-size:16px;}
-    .ctx{color:#ddd;font-size:12px;}
+    .ctx{color:#777;font-size:12px;.mix-text-overflow()}
     }
   view.title{
   background-color: #f5f5f5;

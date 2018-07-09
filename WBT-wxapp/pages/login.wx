@@ -1,7 +1,7 @@
 <template>
   <view class="ctx" >
     <view class="input" >
-      <view class="box"><input focus placeholder="请输入用户名" style="margin-left:30px" bindinput="bindIdInput"/></view>
+      <view class="box"><input placeholder="请输入用户名" style="margin-left:30px" bindinput="bindIdInput"/></view>
       <view class="box"><input password placeholder="请输入密码" bindinput="bindPwInput"/></view>    
       <view><button bindtap="gotohome" class="login" >登录</button></view>
     </view>
@@ -45,6 +45,7 @@ export default {
         }
         const key = res.data.data
         if(key.isHaveCard == 'false'){
+          wx.setStorageSync('curUser',JSON.parse(JSON.stringify(key)))
           wx.redirectTo({url:"/pages/home/setCompany"}) 
           return false
         }else{
