@@ -10,7 +10,7 @@
       <swiper-item>
         <view class="top_tip">
           <view wx:for="{{lists}}" >
-          <ui-row height="60" url="/pages/home/info?hash={{item.hash}}">
+          <ui-row height="60" url="/pages/home/info?hash={{item.hash}}&type={{item.type}}">
               <ui-col class="text" align="left" vertical-align="middle" space="20">
               <view style="width: 100%;">
                   <ui-row height="30">
@@ -235,7 +235,7 @@ export default {
  .bg{height:100%;background:#EDEDED;}
 .top_tip{
     padding:4%;
-    .ui-row{background:#fff;margin-bottom:2%}
+    .ui-row{background:#fff;margin-bottom:2%;border-radius:8px;}
     .ui-icon{        
         font-size: 20px;
         color: #313338;
