@@ -1,7 +1,7 @@
 <template>
   <div class="foot">
-      Copyright © 2018. All Rights Reserved <br />
-        {{local[lang].footer}}.
+      Copyright © 2018 EChain Foundation, Singapore <br />
+        {{local[lang].footer}}
   </div>
 </template>
 <script>

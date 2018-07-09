@@ -1,7 +1,7 @@
 <template>
   <div class="head" :class="{bighead:isHome}">
     <div class="main">
-      <div class="logo"><a href="javascript:;" @click="gohome">E-chain</a> <div class="btn"><nuxt-link to = "/tokenall">{{local[lang].header.searchToken}}</nuxt-link><a href="javascript:;" style="background:none" @click="changLang(lang =='cn' ? 'en':'cn')">{{local[lang].lang}} <Icon type="android-arrow-dropdown"></Icon></a></div></div>
+      <div class="logo"><a href="javascript:;" @click="gohome">E-chain</a> <div class="btn"><nuxt-link to = "/tokenAll">{{local[lang].header.searchToken}}</nuxt-link><a href="javascript:;" style="background:none" @click="changLang(lang =='cn' ? 'en':'cn')">{{local[lang].lang}} <Icon type="android-arrow-dropdown"></Icon></a></div></div>
       <template v-if="isHome">
         <div class="txt">
           <h1>E-chain</h1>

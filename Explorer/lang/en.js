@@ -17,7 +17,7 @@ const en = {
             hash:'Hash',
             height:'Height',
             token:'Token',
-            num:'Number',
+            num:'Amount',
             time:'Time'
         }
     },

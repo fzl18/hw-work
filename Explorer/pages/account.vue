@@ -19,10 +19,10 @@
       <table v-if="!loading">
         <colgroup>
         <col width="35%">
-        <col width="10%">
+        <col width="8%">
+        <col width="8%">
+        <col width="8%">
         <col width="15%">
-        <col width="15%">
-        <col width="10%">
         </colgroup>
         <thead>
           <tr class="hd">
@@ -66,7 +66,7 @@ export default {
   data(){
     return {
       money:0,
-      currency:'SDA',
+      currency:'ECT',
       lists:[],
       marker:'',
       remainder:[],
