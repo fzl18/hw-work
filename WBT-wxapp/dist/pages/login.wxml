@@ -1,7 +1,7 @@
 <view class="ctx">
   <view class="input">
-    <view class="box">
-      <input focus placeholder="请输入用户名" style="margin-left:30px" bindinput="bindIdInput"></input>
+    <view class="box icon">
+      <input placeholder="请输入用户名" style="margin-left:30px" bindinput="bindIdInput"></input>
     </view>
     <view class="box">
       <input password placeholder="请输入密码" bindinput="bindPwInput"></input>

@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 Object.defineProperty(exports, "__esModule", {
   value: true
@@ -16,11 +16,14 @@ exports.default = Page({
     loading: true
   },
 
-  onReady: function onReady() {
+  onLoad: function onLoad() {
     var _this = this;
     var curUser = wx.getStorageSync('curUser');
+    wx.showLoading({
+      title: '加载中'
+    });
     wx.request({
-      url: wx.baseUrl + "/editComapnyCard",
+      url: wx.baseUrl + '/getCompanyInfo',
       method: 'post',
       data: {
         userId: curUser.userId,
@@ -30,9 +33,21 @@ exports.default = Page({
         'content-type': 'application/x-www-form-urlencoded'
       },
       success: function success(res) {
-        _this.setData({
-          loading: !_this.data.loading
-        });
+        wx.hideLoading();
+        console.log(res.data);
+        if (res.data.code == 'S00001') {
+          _this.setData({
+            name: res.data.data.companyName,
+            addr: res.data.data.companyAddr,
+            tel: res.data.data.linkPhone,
+            man: res.data.data.linkMan,
+            position: res.data.data.job
+          });
+        } else {
+          wx.showAlert({
+            context: res.data.message
+          });
+        }
       }
     });
   },
@@ -71,7 +86,7 @@ exports.default = Page({
       return false;
     }
     wx.request({
-      url: wx.baseUrl + "/updatePassword",
+      url: wx.baseUrl + '/updatePassword',
       method: 'post',
       data: {
         userId: curUser.userId,
@@ -92,7 +107,7 @@ exports.default = Page({
         wx.showAlert({
           content: res.data.message,
           success: function success(res) {
-            wx.redirectTo({ url: "/pages/home/index" });
+            // wx.redirectTo({url:"/pages/home/index"})
           }
         });
       }

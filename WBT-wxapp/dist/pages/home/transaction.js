@@ -32,6 +32,7 @@ exports.default = Page({
         'content-type': 'application/x-www-form-urlencoded'
       },
       success: function success(res) {
+        console.log(res);
         wx.hideLoading();
         if (res.data.code == "E00001") {
           wx.showAlert({

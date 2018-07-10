@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 Object.defineProperty(exports, "__esModule", {
   value: true
@@ -26,7 +26,7 @@ exports.default = Page({
       title: '加载中'
     });
     wx.request({
-      url: wx.baseUrl + "/getCompanyInfo",
+      url: wx.baseUrl + '/getCompanyInfo',
       method: 'post',
       data: {
         userId: curUser.userId,

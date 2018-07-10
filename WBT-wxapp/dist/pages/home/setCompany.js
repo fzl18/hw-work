@@ -1,8 +1,11 @@
-"use strict";
+'use strict';
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 exports.default = Page({
   data: {
     NAV_HEIGHT: wx.STATUS_BAR_HEIGHT + wx.DEFAULT_HEADER_HEIGHT + 'px',
@@ -14,16 +17,19 @@ exports.default = Page({
     addr: '',
     tel: '',
     man: '',
-    position: ''
+    job: ''
   },
   onLoad: function onLoad() {
     var _this = this;
     var curUser = wx.getStorageSync('curUser');
+    if (curUser.isHaveCard == "false") {
+      return false;
+    }
     wx.showLoading({
       title: '加载中'
     });
     wx.request({
-      url: wx.baseUrl + "/getCompanyInfo",
+      url: wx.baseUrl + '/getCompanyInfo',
       method: 'post',
       data: {
         userId: curUser.userId,
@@ -54,17 +60,22 @@ exports.default = Page({
   back: function back() {
     wx.navigateBack();
   },
+  bindinput: function bindinput(e) {
+    var key = e.currentTarget.dataset.key;
+    console.log(key, e.detail.value);
+    this.setData(_defineProperty({}, key, e.detail.value));
+  },
   save: function save() {
     var _this = this;
     var curUser = wx.getStorageSync('curUser');
-    if (this.data.addr == '' || this.data.tel == '' || this.data.nam == '' || this.data.position == '') {
+    if (this.data.addr == '' || this.data.tel == '' || this.data.man == '' || this.data.job == '') {
       wx.showAlert({
         content: '必填项不能为空'
       });
       return false;
     }
     wx.request({
-      url: wx.baseUrl + "/editComapnyCard",
+      url: wx.baseUrl + '/editComapnyCard',
       method: 'post',
       data: {
         userId: curUser.userId,
@@ -78,10 +89,19 @@ exports.default = Page({
         'content-type': 'application/x-www-form-urlencoded'
       },
       success: function success(res) {
-        wx.showAlert({
-          content: res.data.message
-        });
-        if (res.data.code == "S00001") {}
+
+        if (res.data.code == "S00001") {
+          wx.showAlert({
+            content: res.data.message,
+            success: function success() {
+              // wx.redirectTo({url:"/pages/home/index"})
+            }
+          });
+        } else {
+          wx.showAlert({
+            content: res.data.message
+          });
+        }
       }
     });
   }

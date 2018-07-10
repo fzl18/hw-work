@@ -1,36 +1,117 @@
 <template>
-  <view class="bg">
+  <view class="">
     <view class="card">
       <view class="h1">积分赠送</view>
       <view class="txt">用于名片互换赠送积分使用</view>
-      <view class="pic"><images src="" /></view>
-      <view class="save"><button type="primary">保存到相册</button></view>      
+      <view class="pic">
+        <image class="qrcode" src="{{pointSend}}" mode='aspectFill' style="width:300rpx;height:300rpx;margin:20rpx auto" />
+        </view>
+      <view class="save" bindtap="saveImgToPhotosAlbumTap"  data-img="{{pointSend}}"><button type="primary">保存到相册</button></view>      
     </view>
     <view class="card">
       <view class="h1">礼品兑换</view>
       <view class="txt">用户扫描该二维码可兑换积分礼品</view>
-      <view class="pic"><images src="" /></view>
-      <view class="save"><button type="primary">保存到相册</button></view>
+      <view class="pic">
+        <image src="{{presentExchange}}" class="qrcode" mode='aspectFill' style="width:300rpx;height:300rpx;margin:20rpx auto" />
+        </view>
+      <view class="save" bindtap="saveImgToPhotosAlbumTap" data-img="{{presentExchange}}"><button type="primary">保存到相册</button></view>
     </view>
   </view>
 </template>
 
 <script>
-export default {
+import QR from '../../static/utils/wxqrcode.js'
+export default { 
   config: {
     navigationBarTitleText: '二维码'
   },
-  data: {}
+  data: {
+    pointSend:'',
+    presentExchange:''
+  },
+  onLoad() {
+    const _this=this
+    const curUser = wx.getStorageSync('curUser')
+    console.log(curUser)
+    const userId = curUser.userId ,companyCardId = curUser.companyCardId
+    let qrcodeSize = this.getQRCodeSize()
+    let n1=`pointSend|${userId}`
+    let n2=`presentExchange|${userId}`
+    this.createQRCode(n1, qrcodeSize,'pointSend')
+    this.createQRCode(n2, qrcodeSize,'presentExchange')
+     console.log(n1,n2)
+  },
+    //适配不同屏幕大小的canvas
+  getQRCodeSize: function () {
+    var size = 0; try {
+      var res = wx.getSystemInfoSync();
+      var scale = 686 / 750;// 750 / 278; //不同屏幕下QRcode的适配比例；设计稿是750宽
+      var width = res.windowWidth * scale;
+      size = width;
+    } catch (e) {
+      // console.log("获取设备信息失败"+e);
+    }
+    return size;
+  },
+  setCanvasSize() {
+    let size = {};
+    let res = wx.getSystemInfoSync();
+    // console.log(res)
+    let scale = 686 / 750;
+    let width = res.windowWidth * scale;
+    let height = width;
+    size.w = width;
+    size.h = height;
+    return size;
+  },
+  createQRCode(text, size, name) {
+    //调用插件中的draw方法，绘制二维码图片
+    let that = this
+    // console.log('QRcode: ', text, size)
+    let _img = QR.createQrCodeImg(text, {
+      size: parseInt(size)
+    })
+    console.log(name)
+    that.setData({
+      [name]: _img
+    })
+  },
+  saveImgToPhotosAlbumTap(e){
+    console.log(e.currentTarget.dataset.img)
+    wx.downloadFile({
+      url: e.currentTarget.dataset.img,
+      success:function(res){
+        console.log(res)
+        wx.saveImageToPhotosAlbum({
+          filePath: res.tempFilePath,
+          success: function (res) {
+            console.log(res)
+          },
+          fail: function (res) {
+            console.log(res)
+            console.log('fail')
+          }
+        })
+      },
+      fail:function(){
+        console.log('fail')
+      }
+    })
+  }
+
 }
 </script>
 
 <style lang="less">
-  .bg{height:100%;background:#EDEDED;}
+
   .card{
-    background:#fff;
-    padding:4%;
+    background:#fff;    
     border-radius:10px;
+    padding:4%;
+    margin:4% 0;
+    text-align: center;
     .h1{font-size:20px;font-weight:bold}
+    .pic{width:100%;}
     .txt{color:#777}
     .save{
       button{border-radius:20px;overflow: hidden;}

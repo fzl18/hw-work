@@ -37,6 +37,7 @@ exports.default = Page({
         }
         var key = res.data.data;
         if (key.isHaveCard == 'false') {
+          wx.setStorageSync('curUser', JSON.parse(JSON.stringify(key)));
           wx.redirectTo({ url: "/pages/home/setCompany" });
           return false;
         } else {

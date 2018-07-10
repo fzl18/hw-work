@@ -1,11 +1,11 @@
-<view class="bg">
+<view class="">
   <view class="card">
     <view class="h1">积分赠送</view>
     <view class="txt">用于名片互换赠送积分使用</view>
     <view class="pic">
-      <images src=""></images>
+      <image class="qrcode" src="{{pointSend}}" mode="aspectFill" style="width:300rpx;height:300rpx;margin:20rpx auto" />
     </view>
-    <view class="save">
+    <view class="save" bindtap="saveImgToPhotosAlbumTap" data-img="{{pointSend}}">
       <button type="primary">保存到相册</button>
     </view>
   </view>
@@ -13,9 +13,9 @@
     <view class="h1">礼品兑换</view>
     <view class="txt">用户扫描该二维码可兑换积分礼品</view>
     <view class="pic">
-      <images src=""></images>
+      <image src="{{presentExchange}}" class="qrcode" mode="aspectFill" style="width:300rpx;height:300rpx;margin:20rpx auto" />
     </view>
-    <view class="save">
+    <view class="save" bindtap="saveImgToPhotosAlbumTap" data-img="{{presentExchange}}">
       <button type="primary">保存到相册</button>
     </view>
   </view>

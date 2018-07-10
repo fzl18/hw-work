@@ -1,23 +1,4 @@
 <view>
-  <ui-nav-bar slot="nav-bar" custom-style="{{ {backgroundColor:'rgba(255,255,255,0)',color:'#fff'} }}" _pid="{{_pid}}">
-    <view class="ui-row" style="height:46px;">
-      <view bindtap="back" class="ui-col ui-col-align-left align-left valign-middle" style="padding-left: 10px;flex:0 0 50px;">
-        <view class="ui-col-content align-left valign-middle">
-          <span type="arrow-left" class="ui-icon icon-arrow-left" style="font-size: 16px;"></span>
-        </view>
-      </view>
-      <view class="ui-col ui-col-align-center align-center valign-middle" style="">
-        <view class="ui-col-content align-center valign-middle">
-          <view class="title">企业名片信息</view>
-        </view>
-      </view>
-      <view class="ui-col ui-col-align-center align-center valign-middle" style="flex:0 0 50px;">
-        <view class="ui-col-content align-center valign-middle">
-        </view>
-      </view>
-    </view>
-  </ui-nav-bar>
-
   <view class="content_wrap">
     <view class="head">
       <ui-blur height="200" url="{{ url }}" _pid="{{_pid}}">
@@ -34,19 +15,19 @@
     <view class="content_list">
       <view class="tit"> 公司地址 (必填)</view>
       <view>
-        <input value="{{addr}}" placeholder="请编辑"></input>
+        <input value="{{addr}}" placeholder="请编辑" bindinput="bindinput" data-key="addr"></input>
       </view>
       <view class="tit"> 联系电话 (必填)</view>
       <view>
-        <input value="{{tel}}" placeholder="请编辑"></input>
+        <input value="{{tel}}" placeholder="请编辑" bindinput="bindinput" data-key="tel"></input>
       </view>
       <view class="tit"> 联系人 (必填)</view>
       <view>
-        <input value="{{man}}" placeholder="请编辑"></input>
+        <input value="{{man}}" placeholder="请编辑" bindinput="bindinput" data-key="man"></input>
       </view>
       <view class="tit"> 职务 (必填)</view>
       <view>
-        <input value="{{position}}" placeholder="请编辑"></input>
+        <input value="{{position}}" placeholder="请编辑" bindinput="bindinput" data-key="job"></input>
       </view>
       <view style="margin-top:5%">
         <button type="primary" bindtap="save">保存 </button>

@@ -5,9 +5,9 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = Page({
   data: {
-    presents: [],
-    data: {},
-    hash: ''
+    payments: {},
+    hash: '',
+    type: ''
   },
   onLoad: function onLoad(option) {
     var _this = this;
@@ -15,7 +15,8 @@ exports.default = Page({
     var userId = curUser.userId,
         apptoken = curUser.apptoken;
     this.setData({
-      hash: option.hash
+      hash: option.hash,
+      type: option.type
     });
     wx.showLoading({
       title: '加载中'
@@ -33,10 +34,10 @@ exports.default = Page({
       },
       success: function success(res) {
         wx.hideLoading();
+        console.log(res.data);
         if (res.data.code == "S00001") {
           _this.setData({
-            presents: res.data.data.presents,
-            data: res.data.data
+            payments: res.data.data
           });
         } else {
           wx.showAlert({
@@ -44,11 +45,6 @@ exports.default = Page({
           });
         }
       }
-    });
-  },
-  call: function call() {
-    wx.makePhoneCall({
-      phoneNumber: this.data.phone
     });
   }
 });
