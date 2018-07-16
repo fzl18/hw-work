@@ -1,0 +1,103 @@
+<template>
+    <section>
+        <financeHeader :hint="false">
+            <span>{{lang.myEntrust}}</span>
+            <section class="query">
+                <select-my v-model="order_type" class="query-select" :list="marketType" selected="" @change="" />
+                &nbsp;&nbsp;
+                <input type="text" class="coin" v-model="market" />
+                <span>/</span>
+                <select-my class="query-select" v-model="market2" :list="marketList" :selected="market[0]" @change="" />
+                <!--<a href="javascript:;" class="seek">{{lang.seek}}</a>-->
+            </section>
+        </financeHeader>
+        <list class="myEntrust-table" :url="api.weituo" :param="listParam">
+            <dl slot="head">
+                <dd>{{lang.entrustTime}}</dd>
+                <dd>{{lang.market}}</dd>
+                <dd>{{lang.tradeType}}</dd>
+                <dd>{{lang.unitPrice}}</dd>
+                <dd>{{lang.entrustNum}}</dd>
+                <dd>{{lang.entrustTurnover}}</dd>
+                <dd>{{lang.unsettled}}</dd>
+                <dd>{{lang.operation}}</dd>
+            </dl>
+            <dl slot="body" slot-scope="{item}">
+                <dd>{{localDate(item.order_time)}}</dd>
+                <dd>{{upperCase(item.market)}}/{{upperCase(item.market2)}}</dd>
+                <dd>
+                    <span :class="item.order_type == 'Buy' ? 'buyColor' : 'sellColor'">
+                        {{item.order_type == 'Buy' ? lang.buy : lang.sell }}
+                    </span>
+                </dd>
+                <dd>{{item.price}}</dd>
+                <dd>{{item.order_count}}</dd>
+                <dd>{{item.deal}}</dd>
+                <dd>{{item.count}}</dd>
+                <dd>
+                    <a href="javascript:;" @click="chexiao(item)">{{lang.annul}}{{item.chexiao ? '...' : ''}}</a>
+                </dd>
+            </dl>
+        </list>
+    </section>
+</template>
+
+<script>
+    export default {
+        name: "my-entrust",
+        data (){
+            return {
+                order_type : '',
+                market : '',
+                market2 : '',
+                upData : 1,
+                marketList : [],
+            }
+        },
+        computed :{
+            marketType (){
+                return [['', this.lang.all],['Buy', this.lang.buy], ['Sell', this.lang.sell]];
+            },
+            listParam (){
+                return {
+                    order_type : this.order_type || '',
+                    market : this.market || '',
+                    market2 : this.market2,
+                    upData : this.upData,
+                };
+            }
+        },
+        created (){
+            this.getMarketInfo();
+        },
+        methods : {
+            chexiao (item){
+                item.chexiao = true;
+                this.axios({
+                    url : this.api.chexiao,
+                    data : {
+                        order_id : item.order_id
+                    }
+                }).then((res) => {
+                    this.$store.commit('msg/add', this.lang.annulS);
+                    this.upData = this.upData + 1;
+                }).catch((err) => {
+                    this.$store.commit('msg/err', err.message || this.lang.annulE);
+                });
+            },
+            getMarketInfo (){
+                this.axios({
+                    url : this.api.getMarketInfo,
+                }).then((res) => {
+                    this.marketList = res.data.markets;
+                }).catch((err) => {
+                    console.log(err);
+                });
+            },
+        },
+    }
+</script>
+
+<style scoped lang="scss">
+    @import "../../../assets/css/var.scss";
+</style>

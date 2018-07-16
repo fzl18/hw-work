@@ -1,0 +1,177 @@
+<template>
+    <section>
+        <financeHeader>
+            <span>{{lang.pushCoinSafety}}</span>
+        </financeHeader>
+        <section class="finance-coin">
+            <balance v-model="balance" :coin="coin" />
+            <section class="takeCoin ban" v-if="balance.state == 1 && balance.zr_jz != 1">
+                {{upperCase(coin)}} {{lang.pushCoinBan}}
+            </section>
+            <section class="pushCoin" v-if="balance.state == 1 && balance.zr_jz == 1 && walletData && walletData.address">
+            <!--<section class="pushCoin">-->
+                <section class="pushCoin-ewm" v-if="!(walletData && walletData.title_key)">
+                    <div>
+                        <ewm :value="(walletData && walletData.address) || ''" :size="180" />
+                    </div>
+                    <p>{{lang.pushCoinEWM}}</p>
+                </section>
+                <section class="pushCoin-right" :class="classActive((walletData && walletData.title_key))">
+                    <section :class="classActive(!(walletData && walletData.title_key))">
+                        <h4>{{lang.pushCoinUrl}}: </h4>
+                        <div>
+                            <span :title="walletData && walletData.address">{{walletData && walletData.address}}</span>
+                            <a href="javascript:;"><copy :val="(walletData && walletData.address) || ''">{{lang.copyUrl}}</copy></a>
+                        </div>
+                    </section>
+                    <section v-if="walletData && walletData.title_key">
+                        <h4>{{walletData && walletData.title_key}}: </h4>
+                        <div>
+                            <span :title="walletData && walletData.title_value">{{walletData && walletData.title_value}}</span>
+                            <a href="javascript:;"><copy :val="(walletData && walletData.title_value) || ''">{{lang.copyUrl}}</copy></a>
+                        </div>
+                    </section>
+                </section>
+            </section>
+            <section class="pushCoin" v-else-if="balance.state == 1 && balance.zr_jz == 1">
+            <!--<section class="pushCoin">-->
+                <section class="finance-form" style="min-height: auto;">
+                    <section class="form-group form-group-btn">
+                        <a href="javascript:;" @click="upmyzr" class="form-submit-btn">{{lang.clickPushCoinURL}}{{this.getState == this.getStateStart ? '...' : ''}}</a>
+                    </section>
+                </section>
+            </section>
+            <section class="finance-hint"  v-if="active == 0">
+                {{lang.walletActiveText}}
+                <a href="javascript:;" class="buyColor" @click="activateAddr">{{lang.selfActive}}</a> (<span class="mainColor">{{lang.pay}}1CNT</span> )
+            </section>
+        </section>
+
+        <h4 class="finance-title">
+            <span>{{lang.pushCoinRecord}}</span>
+        </h4>
+        <list class="finance-coin-table" :url="api.myzrLog" :param="routeParam">
+            <dl slot="head">
+                <dd>{{lang.pushCoinTime}}</dd>
+                <dd>{{lang.pushCoinId}}</dd>
+                <dd>{{lang.pushCoinURL}}</dd>
+                <dd>{{lang.pushCoinNum}}</dd>
+                <dd>{{lang.pushCoinState}}</dd>
+            </dl>
+            <dl slot="body" slot-scope="{item}">
+                <dd>{{localDate(item.addtime)}}</dd>
+                <dd><span class="line-feed">{{item.id}}</span></dd>
+                <dd><span class="line-feed">{{item.to}}</span></dd>
+                <dd>{{item.num}}</dd>
+                <dd><span class="mainColor">{{item.state}}</span></dd>
+            </dl>
+        </list>
+    </section>
+</template>
+
+<script>
+    export default {
+        name: "push-coin",
+        data (){
+            return {
+                coin : '',
+                active : 1,
+                walletData : null,
+                balance : {},
+            };
+        },
+        computed : {
+            routeParam (){
+                return {
+                    coin : this.lowerCase(this.coin)
+                };
+            },
+        },
+        watch : {
+            balance (n, o){
+                if(n.state == 2){
+                    this.$router.push('./index');
+                };
+            },
+        },
+        created (){
+            this.coinChange();
+            this.myzrads();
+        },
+        beforeRouteUpdate (to, from ,next){
+            next();
+            this.coinChange();
+            this.myzrads();
+        },
+        methods : {
+            upmyzr (){
+                if(this.getState == this.getStateStart){
+                    return false;
+                };
+                this.getStart();
+                this.axios({
+                    url : this.api.upmyzr,
+                    data : {
+                        coin : this.lowerCase(this.coin)
+                    },
+                }).then((res) => {
+                    this.getSuccess();
+                    this.walletData = res.data;
+                    this.$store.commit('msg/add', this.lang.pushCoinSuccess);
+                    this.myaddrstatus();
+                }).catch((err) => {
+                    this.getError();
+                    this.walletData = null;
+                    this.$store.commit('msg/err', err.message || this.lang.pushCoinError);
+                });
+            },
+            myzrads (){
+                if(this.getState == this.getStateStart){
+                    return false;
+                };
+                this.getStart();
+                this.axios({
+                    url : this.api.myzrads,
+                    data : {
+                        coin : this.lowerCase(this.coin)
+                    },
+                }).then((res) => {
+                    this.getSuccess();
+                    this.walletData = res.data;
+                    this.myaddrstatus();
+                }).catch((err) => {
+                    this.getError();
+                    this.walletData = null;
+                    this.$store.commit('msg/err', err.message || this.lang.pushCoinError);
+                });
+            },
+            myaddrstatus (){
+                this.axios({
+                    url : this.api.myaddrstatus,
+                    data : {
+                        coin : this.lowerCase(this.coin)
+                    },
+                }).then((res) => {
+                    console.log(res);
+                    this.active = res.data.active || 0;
+                }).catch((err) => {
+                    this.$store.commit('msg/err', err.message || this.lang.getWalletActiveS);
+                });
+            },
+            activateAddr (){
+                this.axios({
+                    url : this.api.activateAddr,
+                    data : {
+                        coin : this.lowerCase(this.coin)
+                    },
+                }).then((res) => {
+                    this.active = 1;
+                    this.$store.commit('msg/err', err.message || this.lang.walletActiveS);
+                }).catch((err) => {
+                    this.$store.commit('msg/err', err.message || this.lang.walletActiveE);
+                });
+            },
+        }
+    }
+</script>
+

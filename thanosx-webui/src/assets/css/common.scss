@@ -1,0 +1,510 @@
+
+@import "var";
+@import "../../../static/font/iconfont.css";
+
+body,html{
+    display: block;
+    background: $bg;
+    font-family: "Microsoft Yahei", "PingFang SC", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    width: 100%;
+    min-width: $minWidth;
+    margin: 0 auto;
+    color: $fontColor;
+    font-size: 14px;
+    line-height: 1.2;
+    @media screen and (max-width: 1024px) {
+        //transform: scale(1024px / $minWidth);
+        //transform-origin: 0 0;
+    }
+}
+
+*, *::before, *::after{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+article, aside, dialog, figcaption, figure, footer, header, hgroup, main, nav, section {
+    display: block;
+}
+
+img{
+    border: none;
+}
+
+a {
+    text-decoration: none;
+    // color: $mainColor;
+}
+
+a:link,a:visited{
+}
+
+a:hover {
+}
+
+a, a:focus, button , input{
+    outline: none;
+    font-family: inherit;
+}
+
+table {
+    border-collapse: collapse;
+}
+
+ul,li{
+    list-style-type: none;
+}
+
+@import "head";
+@import "foot";
+@import "top";
+
+
+.container{
+    max-width:$maxWidth ;
+    min-width:$minWidth ;
+    margin:0 auto;
+    padding:0 30px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+.fallColor{
+    color: $fallColor !important;
+}
+.riseColor{
+    color: $riseColor !important;
+}
+.buyColor{
+    color: $buyColor !important;
+}
+.sellColor{
+    color: $sellColor !important;
+}
+.mainColor{
+    color: $mainColor !important;
+}
+
+.inner-header{
+    background: $viceMainColor;
+    width: 100%;
+    height: 60px;
+    line-height: 56px;
+    border-bottom: solid 1px #e1e2e6;
+    margin-bottom: 30px;
+    h4{
+        width: $webWidth;
+        height: 100%;
+        margin: 0 auto;
+        position: relative;
+        font-size: 24px;
+        padding-left: 20px;
+        &:before{
+            content: '';
+            display: block;
+            position: absolute;
+            border-left: solid 3px $mainColor;
+            bottom: 0px;
+            left: 0;
+            top: 16px;
+            height: 25px;
+        }
+        a:hover,a:focus{
+            span{
+                color: $mainColor;
+            }
+        }
+        span{
+            display: inline-block;
+            position: relative;
+            height: 100%;
+            color: $bg3;
+        }
+    }
+}
+
+label.checkbox-my{
+    cursor: pointer;
+    user-select: none;
+    input{
+        display: none;
+    }
+    i{
+        display: inline-block;
+        margin-right: 2px;
+        vertical-align: -10%;
+        &:before{
+            content: '\e627';
+            @include iconfont(18px);
+        }
+    }
+    input:checked + i {
+        &:before{
+            content: '\e628';
+            color: $mainColor;
+        }
+    }
+    &.big{
+        line-height: 1;
+        font-size: 18px;
+        i{
+            line-height: 1;
+            &:before{
+                font-size: 24px;
+            }
+        }
+    }
+}
+
+.safety-title,.finance-title,.otc-title{
+    height: 60px;
+    line-height: 60px;
+    font-weight: bold;
+    font-size: 20px;
+    color: $bg3;
+    border-bottom: solid 2px $safetyBorderColor;
+    position: relative;
+    &.ragtag > span:before{
+        display: none;
+    }
+    & > span{
+        display: inline-block;
+        position: relative;
+        &:before{
+            content: '';
+            display: block;
+            position: absolute;
+            border-bottom: solid 2px $mainColor;
+            bottom: 0px;
+            left: 0;
+            width: 100%;
+        }
+    }
+}
+.safety-hint,.finance-hint{
+    height: 38px;
+    line-height: 35px;
+    background: #fbfbfc;
+    color: #666666;
+    &:before{
+        content: '\e634';
+        @include iconfont(18px);
+        color: $mainColor;
+        margin-right: 5px;
+    }
+}
+.finance-hint{
+    &:before{
+        margin-left: 3px;
+    }
+}
+
+.safety-table,.finance-table{
+    display: block;
+    dl{
+        display: block;
+        overflow: hidden;
+        dd{
+            display: block;
+            float: left;
+            @include aRow;
+            $wList : 22.5%, 15%, 18.5%, 20%, 12%, 12%;
+            @for $i from 1 through length($wList){
+                &:nth-child(#{$i}){
+                    width: nth($wList, $i);
+                }
+            }
+            &:nth-child(1){
+                padding-left: 10px;
+            }
+            &:last-child{
+                text-align: right;
+                padding-right: 10px;
+            }
+        }
+    }
+    .head{
+        dl {
+            dd {
+                height: 38px;
+                line-height: 38px;
+                background: #fbfbfc;
+            }
+        }
+    }
+    .tbody{
+        dl{
+            border-bottom: solid 1px #dfe2e9;
+            dd{
+                height: 45px;
+                line-height: 45px;
+                .line-feed{
+                    display: inline-block;
+                    vertical-align: middle;
+                    line-height: 1;
+                    white-space: pre-wrap;
+                    word-break: break-all;
+                    padding-right: 10px;
+                }
+            }
+        }
+        margin-bottom: 25px;
+    }
+}
+
+input:-webkit-autofill {
+    background: transparent;
+}
+
+.safety-table{
+    dl dd:last-child{
+        padding-right: 20px;
+    }
+}
+
+.safety-form,.finance-form{
+    width: 485px;
+    margin: 42px auto 0;
+    min-height: 370px;
+    padding-bottom: 30px;
+    @mixin safety-input{
+        display: block;
+        width: 100%;
+        position: relative;
+        padding: 0 10px;
+        border: solid 1px #888888;
+        min-height: $inputHeight;
+        line-height: $inputHeight;
+        border-radius: 5px;
+        font-size: $safetyFormFontSize;
+        &::placeholder{
+            color: #929292;
+        }
+    }
+    input,.input{
+        @include safety-input;
+    }
+    .safety-issue-select{
+        width: 100%;
+        height: $inputHeight;
+        &.min{
+            display: block;
+            float: left;
+            width: 30%;
+            margin-left: 5%;
+            &:nth-of-type(1){
+                margin-left: 0;
+            }
+        }
+        .select-box{
+            width: 100%;
+            height: $inputHeight;
+        }
+        .select-input{
+            width: 100%;
+            @include safety-input;
+            color: #929292;
+            &.active{
+                color: $fontColor;
+            }
+        }
+        .select-list{
+            border-color: #888888;
+            padding: 10px 0 10px;
+            top: 46px;
+            border-radius: 0 0 5px 5px;
+            li{
+                line-height: 35px;
+                height: 35px;
+                padding: 0 10px;
+            }
+        }
+    }
+    .form-group{
+        margin-bottom: 30px;
+        position: relative;
+        .text{
+            @include safety-input;
+            border: none;
+            padding-left: 0;
+            word-break:break-all;
+        }
+        .form-remark{
+            margin-top: 8px;
+            color: $viceFontColor;
+        }
+        .getVerifCode{
+            display: block;
+            cursor: pointer;
+            position: absolute;
+            height: 100%;
+            width: 30%;
+            text-align: center;
+            line-height: $inputHeight;
+            right: 0;
+            top: 0;
+            color: $mainColor;
+            z-index: 10;
+            &:before{
+                content: '';
+                display: block;
+                position: absolute;
+                left: 0;
+                height: 40%;
+                top: 30%;
+                border-left: solid 1px #888888;
+            }
+            &.active {
+                color: $viceFontColor;
+            }
+        }
+        & > label{
+            display: block;
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 30%;
+            padding-right: 40px;
+            text-align: right;
+            font-size: $safetyFormFontSize;
+            line-height: $inputHeight;
+            transform: translateX(-100%);
+        }
+    }
+    .form-group-btn{
+        overflow: hidden;
+    }
+    .form-submit-btn{
+        display: block;
+        width: 100%;
+        margin-top: 15px;
+        height: $inputHeight + 5px;
+        text-align: center;
+        color: $viceMainColor;
+        border: solid 1px $mainColor;
+        background: $mainColor;
+        font-size: 20px;
+        border-radius: 4px;
+        line-height: $inputHeight + 5px;
+        @include transitionCommon;
+        &:hover{
+            background: transparent;
+            color: $mainColor;
+        }
+        &.white{
+            background: $viceMainColor;
+            border-color: $loginInputBorderColor;
+            color: $fontColor;
+            &:hover{
+                background: transparent;
+                color: $mainColor;
+                border-color: $mainColor;
+            }
+        }
+    }
+}
+
+
+.safety-block,.otc-block{
+    width: $webWidth;
+    margin: 0 auto 10px;
+    border: $safetyBorder;
+    padding: 20px 65px 0;
+    background: $bg;
+}
+
+
+.app-download-box{
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 99999999999;
+    background: rgba(0, 0, 0, 0.6);
+    width: 100%;
+    padding: 15px $headerMarLR 15px;
+    overflow: hidden;
+    display: none;
+    //align-items: flex-end;
+    align-items: center;
+    justify-content: space-between;
+    .app-download-icon{
+        display: flex;
+        align-items: center;
+        img{
+            width: 80px;
+            display: inline-block;
+            margin-right: 15px;
+        }
+        & > div{
+            display: inline-block;
+            color: #ffffff;
+            h4{
+                font-size: 24px;
+                margin-bottom: 8px;
+            }
+            p{
+                font-size: 18px;
+            }
+        }
+    }
+    .app-download-btn{
+        display: block;
+        width: 180px;
+        height: 50px;
+        background: $mainColor;
+        border: solid 1px $mainColor;
+        color: #ffffff;
+        text-align: center;
+        line-height: 50px;
+        border-radius: 2px;
+        font-size: 16px;
+        transition: all 0.4s ease-out;
+        &:hover{
+            background: transparent;
+            color: $mainColor;
+        }
+    }
+    .app-download-close{
+        position: absolute;
+        right: $headerMarLR;
+        top: $headerMarLR;
+        &:before{
+            content: '\e62f';
+            @include iconfont(24px);
+            color: #ffffff;
+        }
+    }
+    @media screen and (max-width: 760px){
+        display: flex;
+        .app-download-icon{
+            img{
+                width: 50px;
+            }
+            & > div{
+                h4{
+                    font-size: 16px;
+                }
+                p{
+                    font-size: 12px;
+                }
+            }
+        }
+        .app-download-btn{
+            width: 120px;
+            height: 40px;
+            line-height: 40px;
+        }
+    }
+}
+

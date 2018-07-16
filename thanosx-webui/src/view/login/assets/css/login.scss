@@ -1,0 +1,361 @@
+@import "../../../../assets/css/var.scss";
+
+$mobileWidth : 740px;
+
+
+.home-top-right > li{
+    font-size: 16px;
+    margin: 0 20px;
+    &:nth-child(3) span:before{
+        font-size: 16px;
+    }
+    span:before{
+        font-size: 20px;
+        line-height: 1;
+        transform: translateY(-1px);
+    }
+}
+
+
+.login-box{
+    position: relative;
+    overflow: hidden;
+    @include fullWH;
+    background: $viceMainColor;
+    .login-bg{
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        float: left;
+        background: url("../images/bg.jpg") no-repeat;
+        background-position: 0 0;
+        background-size: auto 100% ;
+        position: fixed;
+        @media screen and (max-width: $mobileWidth){
+            display: none;
+        }
+        & > img.bg{
+            height: 100%;
+            display: block;
+            position: absolute;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            animation-iteration-count: infinite;
+            animation-duration: 10s;
+        }
+    }
+
+}
+@keyframes loginBg {
+    0% {
+        background-position: 0 0;
+    }
+    50% {
+        background-position: -180px 0;
+    }
+    100% {
+        background-position: 0px 0;
+    }
+}
+
+.login-main{
+    display: block;
+    position: relative;
+}
+
+.login-body{
+    width: 100%;
+    top: 35px + $topHeight;
+    overflow: auto;
+    .login-center{
+        display: block;
+        width: 30%;
+        margin: 0 auto;
+        margin-top: 10%;
+        padding:30px;
+        background:#FFF;
+        @media screen and (max-width: $mobileWidth){
+            width: 100%;
+            max-width: 420px;
+            padding-top: 10px;
+        }
+    }
+}
+
+.login-title{
+    font-size: 22px;
+    font-weight: normal;
+    line-height: 2;
+    color: #000000;
+    span{
+        color:#FF6500;margin-right:20px;
+    }
+    @media screen and (max-width: $mobileWidth){
+        font-size: 28px;
+    }
+}
+
+.login-vice-title{
+    font-size: 24px;
+    color: $fontColor;
+    font-weight: normal;
+    display: block;
+    a{
+        float: right;
+        font-size: 22px;
+        &:before{
+            display: none;
+            line-height: 1;
+            vertical-align: middle;
+            margin-right: 5px;
+            content: '\e8f8';
+            @include iconfont(28px)
+        }
+    }
+    @media screen and (max-width: $mobileWidth){
+        font-size: 14px;
+        a{
+            font-size: 14px;
+            &:before{
+                font-size: 18px;
+            }
+        }
+    }
+}
+
+$loginInputHeight : 35px;
+$loginInputHeight2 : 45px;
+.login-form{
+    display: block;
+    position: relative;
+    padding-top: 45px;
+    @media screen and (max-width: $mobileWidth){
+        padding-top: 20px;
+    }
+    .login-form-group{
+        display: block;
+        position: relative;
+        margin-bottom: 30px;
+        &:after{
+            content: '';
+            display: block;
+            clear: both;
+        }
+        &.login-form-group-margin{
+            margin-bottom: 20px;
+        }
+        &.login-form-group-margin2{
+            margin: 150px 0 0 0;
+        }
+        .input-box{
+            border-bottom: 2px solid #DBDBDB;
+            .iconfont{font-size:22px;color:$viceFontColor;position: relative;top:3px;}
+        }
+        .reg{
+            width: 45%;line-height:$loginInputHeight;text-align:right;float: right;color: #FF6500;
+        }
+        @media screen and (max-width: $mobileWidth){
+            margin-bottom: 15px;
+        }
+    }
+    @mixin login-input{
+        display: inline-block;
+        width: 80%;
+        border:none;
+        height: $loginInputHeight;
+        line-height: $loginInputHeight;
+        color: $fontColor;
+        font-size: 14px;
+        font-family: inherit;
+        padding: 0 20px 0 10px;
+        &.error{
+            border-color: $mainColor;
+        }
+        @media screen and (max-width: $mobileWidth){
+            height: $loginInputHeight2;
+            line-height: $loginInputHeight;
+            padding: 0 10px;
+            font-size: 14px;
+        }
+    }
+    input,select{
+        @include login-input;
+    }
+    input::placeholder{
+        color: $viceFontColor;
+    }
+    .login-state{
+        width: 30%;
+        float: left;
+        & > select{
+            display: none;
+        }
+        & > span{
+            @include login-input;
+            cursor: pointer;
+            font-size: 18px;
+            position: relative;
+            &.active{
+                &:after{
+                    transform:translateY(-50%) rotateZ(180deg);
+                }
+            }
+            &:after{
+                content: '\e632';
+                @include iconfont(16px);
+                display: block;
+                position: absolute;
+                right: 10px;
+                top: 50%;
+                transform: translateY(-50%);
+                transition: transform 0.4s ease;
+            }
+        }
+    }
+    .login-mobile{
+        width: 65%;
+        float: right;
+    }
+    input.register-code{
+        width: 72%;
+        border-right: none;
+    }
+    .register-code-btn{
+        display: block;
+        position: absolute;
+        border: solid 1px $loginInputBorderColor;
+        border-left: none;
+        width: 28%;
+        height: 100%;
+        right: 0;
+        top: 0;
+        line-height: $loginInputHeight;
+        color: $viceFontColor;
+        font-size: 16px;
+        text-align: center;
+        @include transitionCommon(color, 0.4s);
+        &.active{
+            color: $mainColor;
+        }
+        &:before{
+            content: '';
+            display: block;
+            position: absolute;
+            border-left: solid 1px $loginInputBorderColor;
+            left: 0;
+            top: 25%;
+            height: 50%;
+        }
+        @media screen and (max-width: $mobileWidth){
+            line-height: $loginInputHeight2;
+            font-size: 14px;
+        }
+    }
+    .login-btn{
+        display: inline-block;
+        height: $loginInputHeight + 3px;
+        text-align: center;
+        color: $viceMainColor;
+        background: $mainColor;
+        border: solid 1px $mainColor;
+        width:45%;
+        overflow: hidden;
+        line-height: $loginInputHeight + 3px;
+        font-size: 16px;
+        &:hover{
+            background: transparent;
+            color: $mainColor;
+        }
+        &[disabled]{
+            opacity: 0.6;
+            &:hover{
+                background: $mainColor;
+                color: $viceMainColor;
+            }
+        }
+        @media screen and (max-width: $mobileWidth){
+            height: $loginInputHeight2;
+            line-height: $loginInputHeight2;
+            font-size: 14px;
+        }
+    }
+    .login-btn-white{
+        @extend .login-btn;
+        background: $viceMainColor;
+        border-color: $loginInputBorderColor;
+        color: $fontColor;
+        &:hover{
+            background: transparent;
+            color: $mainColor;
+            border-color: $mainColor;
+        }
+        &[disabled]{
+            &:hover{
+                background: $viceMainColor;
+                color: $mainColor;
+            }
+        }
+    }
+    .login-form-hint{
+        display: block;
+        clear: both;
+        font-size: 14px;
+        color: $viceFontColor;
+        padding-top: 10px;
+    }
+    .login-select{
+        position: absolute;
+        top:30%;
+        right:0;
+        color: #FF6500;
+    }
+}
+
+.login-state{
+    & > span{
+
+    }
+}
+
+.login-state-select{
+    position: absolute;
+    width: 100%;
+    top: $loginInputHeight - 1px;
+    background: #ffffff;
+    border: solid 1px #888888;
+    border-radius: 2px;
+    max-height: 200px;
+    overflow: auto;
+    @media screen and (max-width: $mobileWidth){
+        top: $loginInputHeight2 - 1px;
+    }
+    li{
+        display: block;
+        padding: 15px 20px;
+        font-size: 18px;
+        color: $fontColor;
+        overflow: hidden;
+        cursor: pointer;
+        text-transform: uppercase;
+        span{
+            float: left;
+        }
+        i{
+            display: block;
+            float: right;
+            font-style: normal;
+        }
+    }
+}
+
+
+
+
+
+
+
+
+
+
+

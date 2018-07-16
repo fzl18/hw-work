@@ -1,0 +1,406 @@
+@import "../../../../assets/css/var.scss";
+
+body,html{
+    background: $tradeBg;
+}
+
+.deal-enter, .deal-leave-to{
+    opacity: 0;
+    transform: translateX(100px);
+}
+
+.trade-buy-box{
+    width: 50%;
+    background: $tradeMainColor;
+    height: 100%;
+    padding-left: 2%;
+    padding-right: 2%;
+    position: relative;
+    float: left;
+    text-transform: uppercase;
+    &.trade-sell-box{
+        padding-left: 2%;
+        padding-right: 2%;
+        .inp{
+            &:nth-of-type(1):before{
+                background: rgba($sellColor, 0.5);
+            }
+        }
+        .trade-btn{
+            background: $sellColor;
+            border-color: $sellColor;
+            &:hover{
+                background: transparent;
+                color: $sellColor;
+            }
+        }
+        .rate{
+            .rate-bar{
+                & > span{
+                    background: $sellColor;
+                }
+            }
+
+            &.type-1 > span{
+                &:nth-of-type(1){
+                    background: $sellColor;
+                }
+            }
+            &.type-2 > span{
+                &:nth-of-type(1), &:nth-of-type(2){
+                    background: $sellColor;
+                }
+            }
+            &.type-3 > span{
+                &:nth-of-type(1), &:nth-of-type(2), &:nth-of-type(3){
+                    background: $sellColor;
+                }
+            }
+            &.type-4 > span{
+                &:nth-of-type(1), &:nth-of-type(2), &:nth-of-type(3), &:nth-of-type(4){
+                    background: $sellColor;
+                }
+            }
+            &.type-5 > span{
+                background: $sellColor;
+            }
+        }
+    }
+    .trade-btn{
+        display: block;
+        height: 45px;
+        line-height: 45px;
+        background: $buyColor;
+        border: solid 1px $buyColor;
+        width: 100%;
+        font-size: 16px;
+        text-align: center;
+        color: #ffffff;
+        margin-top: 15px;
+        border-radius: 2px;
+        @include transitionCommon;
+        &:hover{
+            background: transparent;
+            color: $buyColor;
+        }
+    }
+    .total{
+        font-size: 12px;
+        color: #ffffff;
+        span{
+            float: right;
+            color: $tradeColor;
+        }
+    }
+    .usable{
+        text-align: right;
+        color: $tradeColor;
+        margin-top: 8px;
+    }
+    .balance{
+        color: $tradeColor;
+        font-size: 12px;
+        text-align: right;
+        margin-top: 15px;
+        margin-bottom: 5px;
+        padding-right: 1%;
+    }
+    .inp{
+        height: 40px;
+        width: 100%;
+        background: $tradeBg;
+        color: $tradeColor;
+        position: relative;
+        margin-top: 10px;
+        font-size: 12px;
+        &:nth-of-type(1):before{
+            transition: width 0.3s ease-out;
+            content: '';
+            display: block;
+            position: absolute;
+            z-index: 1;
+            width: 0;
+            height: 100%;
+            left: 0;
+            top: 0;
+            background: rgba($buyColor, 0.5);
+        }
+        &:nth-of-type(1).active:before{
+            width: 100%;
+        }
+        span{
+            display: block;
+            position: absolute;
+            z-index: 10;
+            left: 5%;
+            line-height: 40px;
+        }
+        input{
+            display: block;
+            position: relative;
+            z-index: 10;
+            width: 100%;
+            height: 100%;
+            border: none;
+            font-size: 12px;
+            color: $tradeColor;
+            background: transparent;
+            text-align: right;
+            padding: 0 5%;
+        }
+    }
+    .rate{
+        position: relative;
+        width: 100%;
+        height: 30px;
+        margin: 10px 0 0;
+        .rate-bar{
+            position: absolute;
+            height: 3px;
+            width: 100%;
+            background: #e5e5e5;
+            top: 50%;
+            transform: translateY(-50%);
+            & > span{
+                display: block;
+                position: absolute;
+                left: 0;
+                top: 0;
+                height: 100%;
+                width: 0%;
+                background: $buyColor;
+                transition: width 0.2s linear;
+                &.click-active{
+                    cursor: pointer;
+                    background: transparent;
+                    width: 100%;
+                    height: 20px;
+                    top: -8px;
+                }
+            }
+        }
+
+        &.type-1 > span{
+            &:nth-of-type(1){
+                background: $buyColor;
+                transform: translateY(-50%) scale(1.5);
+            }
+        }
+        &.type-2 > span{
+            &:nth-of-type(1), &:nth-of-type(2){
+                background: $buyColor;
+            }
+            &:nth-of-type(2){
+                transform: translateY(-50%) scale(1.5);
+            }
+        }
+        &.type-3 > span{
+            &:nth-of-type(1), &:nth-of-type(2), &:nth-of-type(3){
+                background: $buyColor;
+            }
+            &:nth-of-type(3){
+                transform: translateY(-50%) scale(1.5);
+            }
+        }
+        &.type-4 > span{
+            &:nth-of-type(1), &:nth-of-type(2), &:nth-of-type(3), &:nth-of-type(4){
+                background: $buyColor;
+            }
+            &:nth-of-type(4){
+                transform: translateY(-50%) scale(1.5);
+            }
+        }
+        &.type-5 > span{
+            background: $buyColor;
+            &:nth-of-type(5){
+                transform: translateY(-50%) scale(1.5);
+            }
+        }
+
+        & > span{
+            display: block;
+            cursor: pointer;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: #e5e5e5;
+            position: absolute;
+            top: 50%;
+            transition: all 0.4s linear;
+            transform: translateY(-50%);
+            &:nth-of-type(1){
+                left: 0;
+            }
+            &:nth-of-type(2){
+                left: 25%;
+            }
+            &:nth-of-type(3){
+                left: 50%;
+            }
+            &:nth-of-type(4){
+                left: 75%;
+            }
+            &:nth-of-type(5){
+                right: 0;
+                left: auto;
+            }
+        }
+        & > b{
+            font-size: 12px;
+            font-weight: normal;
+            position: absolute;
+            display: block;
+            right: 0;
+            bottom: -5px;
+            color: $tradeColor;
+        }
+    }
+}
+
+.trade-user{
+    height: 40px;
+    line-height: 40px;
+    background: #1c1c1c;
+    span{
+        display: block;
+        float: left;
+        cursor: pointer;
+        width: 140px;
+        font-size: 14px;
+        text-align: center;
+        color: $tradeColor;
+        &.active{
+            background: $tradeMainColor;
+        }
+    }
+}
+
+.trade-user-main{
+    position: absolute;
+    left: 0;
+    width: 100%;
+    top: 40px;
+    bottom: 0;
+    background: $tradeMainColor;
+    overflow-y: auto;
+    @include scroll1;
+    .trade-user-out{
+        position: relative;
+        height: 100%;
+        div{
+            display: block;
+            top: 50%;
+            text-align: center;
+            width: 100%;
+            color: $tradeColor;
+            transform: translateY(-50%);
+            position: absolute;
+        }
+    }
+    .trade-user-entrust{
+        &.trade-user-deal{
+            dl{
+                dd{
+                    width: 20%;
+                    &:nth-child(1n + 1){
+                        width: 20%;
+                    }
+                    &:nth-child(1){
+                        width: 25%;
+                    }
+                    &:nth-child(2){
+                        width: 15%;
+                    }
+                }
+            }
+        }
+        &.trade-user-entrust-media{
+            dl{
+                dd{
+                    @media screen and (max-width: $tradeMedia1){
+                        &:nth-child(6){
+                            display: none;
+                        }
+                        &:nth-child(7){
+                            display: none;
+                        }
+                        &:nth-child(1){
+                            width: 24%;
+                        }
+                        &:nth-child(3){
+                            width: 14%;
+                        }
+                        &:nth-child(4){
+                            width: 14%;
+                        }
+                        &:nth-child(5){
+                            width: 14%;
+                        }
+                    }
+                }
+            }
+        }
+        dl{
+            display: block;
+            overflow: hidden;
+            color: $tradeColor;
+            &:hover{
+                background: #1c1c1c;
+            }
+            &.head{
+                border-bottom: solid 1px $tradeBorderColor;
+                dd{
+                    line-height: 40px;
+                }
+                &:hover{
+                    background: transparent;
+                }
+            }
+            dd{
+                line-height: 35px;
+                text-align: center;
+                display: block;
+                float: left;
+                width: 10%;
+                &:nth-child(1){
+                    width: 14%;
+                }
+                &:nth-child(4){
+                    width: 12%;
+                }
+                &:nth-child(5){
+                    width: 12%;
+                }
+                &:nth-child(6){
+                    width: 12%;
+                }
+            }
+        }
+    }
+}
+
+
+.deal-load,.trade-load{
+    position: absolute;
+    left: 50%;
+    top: 40%;
+    transform: translate(-50%, -50%);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

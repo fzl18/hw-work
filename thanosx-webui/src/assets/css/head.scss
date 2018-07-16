@@ -1,0 +1,125 @@
+@import "var";
+
+.head{
+    height:$headerHeight;
+    background:rgba(0,0,0,.8);
+    line-height:$headerHeight;
+    position:fixed;
+    top:0;
+    left:0;
+    z-index: 999;
+    width:100%;
+    a{
+        color:#979797;
+        &:hover{color:#fff;}
+    }
+    .lang{float: left;padding:0 20px;font-size:12px;margin:0 20px;background:rgba(255,255,255,.1)}
+    .nav{
+        float: left;
+        a{margin-right:20px;}
+    }
+    .logo{
+        background:url("../images/index_logo.png") center center no-repeat;
+        width: 157px;
+        height:$headerHeight;
+        float: left;
+    }
+    .login{
+        text-align: right;
+        .login-name{
+            width: 65%;display: inline-block;
+            text-align:center;
+            position: relative;color: #f1f1f1;
+            background:rgba(61, 61, 61, 0.5);
+            ul{
+                display: none;
+                li{
+                    text-align: left;
+                    padding:0 20px;
+                    height:36px;
+                    line-height: 36px;
+                    font-size:12px;
+                    border-bottom: 1px dotted #444;
+                    &:last-child{border-bottom:none;}
+                    span{float: right;}
+                    &.exit{cursor: pointer;}
+                }
+            }
+            
+            &:hover{
+                
+                ul {display:block;}
+            }
+        }
+        a{
+            text-align: center;
+            width:30%;
+            display: inline-block;
+            height: 35px;
+            vertical-align: middle;
+            line-height: 35px;
+            &:hover{
+                background: #FF6500;
+                color: #fff;
+            }
+            &.cur{
+                background: #FF6500;
+                color: #fff;
+            }
+        }
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

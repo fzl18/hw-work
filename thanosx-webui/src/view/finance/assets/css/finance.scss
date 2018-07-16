@@ -1,0 +1,910 @@
+@import "../../../../assets/css/var.scss";
+
+body,html{
+    background: $bg4;
+}
+.finance-box{
+    padding-bottom: 10px;
+}
+
+
+$financeBorderColor : #dfe2e9;
+$financeNavHeight : 80px;
+$financeMinHeight : 820px;
+.finance-main{
+    width: $webWidth;
+    margin: 0 auto;
+    overflow: hidden;
+    .finance-left{
+        width: 180px;
+        float: left;
+        min-height: $financeMinHeight;
+        background: #ffffff;
+        border: solid 1px $financeBorderColor;
+        padding: 0 20px;
+        .finance-nav{
+            display: block;
+            a{
+                display: block;
+                height: $financeNavHeight;
+                line-height: $financeNavHeight;
+                padding-left: 28px;
+                color: #333333;
+                font-size: 16px;
+                border-bottom: solid 1px #e1e2e6;
+                position: relative;
+                &:before{
+                    content: '\e677';
+                    display: block;
+                    left: 0;
+                    position: absolute;
+                    @include iconfont(20px);
+                }
+                &:hover,&:focus,&.active{
+                    color: $mainColor;
+                }
+                &.myWallet:before{
+                    font-size: 22px;
+                }
+                $listNav : index, myBankCard, myWallet, myPay, myEntrust, myDeal, inviteFriends;
+                $listNavIcon : '\e618', '\e616', '\e8f9', '\e7d1', '\e62d', '\e617', '\e7d0';
+                @for $i from 1 through length($listNav){
+                    &.#{nth($listNav, $i)}:before {
+                        content: nth($listNavIcon, $i);
+                    }
+                }
+            }
+        }
+        .finance-app{
+            display: block;
+            margin-top: 40px;
+            text-align: center;
+            img{
+                width: 110px;
+            }
+            p{
+                font-size: 12px;
+                color: #474e5d;
+                margin-top: 5px;
+            }
+        }
+    }
+    .finance-right{
+        width: 1100px;
+        float: right;
+        padding: 0 65px 50px;
+        min-height: $financeMinHeight;
+        background: #ffffff;
+        border: solid 1px $financeBorderColor;
+    }
+}
+
+.finance-title{
+    height: $financeNavHeight;
+    line-height: $financeNavHeight;
+    border-bottom: solid 2px $financeBorderColor;
+    position: relative;
+    & > span{
+        color: #474e5d;
+    }
+    .totalAssets{
+        margin-left: 10px;
+        line-height: 1;
+        span{
+            position: relative;
+            display: inline-block;
+            transform: translateY(5px);
+        }
+        &.active span{
+            transform: translateY(0px);
+        }
+    }
+    .finance-index{
+        $height : 36px;
+        float: right;
+        padding-top: 25px;
+        line-height: 1;
+        overflow: hidden;
+        li{
+            display: block;
+            float: left;
+            height: 36px;
+            width: 36px;
+            overflow: hidden;
+            border-radius: $height / 2;
+            border: solid 1px #C7C7C8;
+            line-height: $height;
+            position: relative;
+            margin-left: 20px;
+            @include transitionCommon(width, 0.3s);
+            input{
+                display: block;
+                opacity: 0;
+                border: none;
+                width: 100%;
+                height: 100%;
+                padding: 0 $height 0 $height/2;
+                text-transform:uppercase;
+            }
+            &.active{
+                width: 200px;
+                input{
+                    opacity: 1;
+                }
+            }
+            i{
+                display: block;
+                position: absolute;
+                z-index: 5;
+                right: -2px;
+                top: 0;
+                cursor: pointer;
+                height: $height;
+                width: $height;
+                line-height: $height;
+                text-align: center;
+                color: #9b9b9b;
+                &:before{
+                    content: '\e633';
+                    @include iconfont(20px);
+
+                }
+            }
+            &:nth-child(1) i{
+                top: -3px;
+                &:before{
+                    content: '\e651';
+                    font-size: 14px;
+                }
+            }
+            &:nth-child(2) i:before{
+                content: '\e633';
+            }
+            &:nth-child(3) i:before{
+                content: '\e635';
+            }
+        }
+    }
+}
+
+.coinRecord{
+    dl{
+        dd{
+            $itemW : 13%;
+            $oneW : 23%;
+            $twoW : 18%;
+            $twoW2 : 22%;
+            $twoW3 : 16%;
+            $wList : $oneW, $twoW, $twoW2, $twoW3, $itemW, (100% - $itemW - $oneW - $twoW - $twoW2 - $twoW3);
+            @for $i from 1 through length($wList){
+                &:nth-child(#{$i}){
+                    width: nth($wList, $i);
+                }
+            }
+        }
+    }
+    .tbody{
+        dl{
+            dd{
+                height: 55px;
+                line-height: 55px;
+            }
+        }
+    }
+}
+
+.myDeal-table,.myEntrust-table{
+    dl{
+        dd{
+            $itemW : 13.5%;
+            $oneW : 23%;
+            $wList : $oneW, $itemW, $itemW, $itemW, $itemW, $itemW, (100% - 5 * $itemW - $oneW);
+            @for $i from 1 through length($wList){
+                &:nth-child(#{$i}){
+                    width: nth($wList, $i);
+                }
+            }
+        }
+    }
+    .tbody{
+        dl{
+            dd{
+                height: 55px;
+                line-height: 55px;
+            }
+        }
+    }
+}
+.myEntrust-table{
+    dl{
+        dd{
+            $itemW : 12%;
+            $oneW : 23%;
+            $wList : $oneW, $itemW, $itemW, $itemW, $itemW, $itemW, $itemW,  (100% - 6 * $itemW - $oneW);
+            @for $i from 1 through length($wList){
+                &:nth-child(#{$i}){
+                    width: nth($wList, $i);
+                }
+            }
+        }
+    }
+}
+
+.inviteFriends-table{
+    dl{
+        dd{
+            width: 25%;
+            &:nth-child(1),&:nth-child(2),&:nth-child(3),&:nth-child(4){
+                width: 25%;
+            }
+        }
+    }
+}
+.finance-coin-table{
+    dl{
+        dd{
+            $itemW : 28%;
+            $oneW : 21%;
+            $wList : $oneW, $itemW, $itemW, 10%,  (100% - 2 * $itemW - $oneW - 10%);
+            @for $i from 1 through length($wList){
+                &:nth-child(#{$i}){
+                    width: nth($wList, $i);
+                }
+            }
+        }
+    }
+}
+
+.finance-index-table{
+    dl{
+        dd{
+            $itemW : 16%;
+            $wList : $itemW, $itemW, $itemW, $itemW, $itemW, (100% - 5 * $itemW);
+            @for $i from 1 through length($wList){
+                &:nth-child(#{$i}){
+                    width: nth($wList, $i);
+                }
+            }
+        }
+    }
+    .tbody{
+        dl{
+            dd{
+                height: 50px;
+                line-height: 50px;
+                color: #313131;
+                & > span{
+                    display: inline-block;
+                    vertical-align: middle;
+                    line-height: 1;
+                    b{
+                        display: block;
+                        color: $fontColor;
+                        font-weight: normal;
+                        line-height: 1.4;
+                    }
+                    small{
+                        display: block;
+                        font-size: 12px;
+                        color: #666666;
+                        //transform: scale(0.9);
+                        //transform-origin: 0 0;
+                    }
+                }
+                & > i{
+                    display: inline-block;
+                    margin-right: 10px;
+                    vertical-align: middle;
+                    width: 26px;
+                    height: 26px;
+                    background: url("../images/btc.png") no-repeat;
+                    background-size: 100% 100%;
+                }
+                &:last-child{
+                    a{
+                        display: inline-block;
+                        margin-left: 15px;
+                        &.disabled{
+                            color: $bg3;
+                            cursor: default;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+
+.finance-coin{
+    margin-top: 40px;
+    .finance-coinBalance{
+        overflow: hidden;
+        $height : 65px;
+        span{
+            display: block;
+            float: left;
+            height: $height;
+            width: 24%;
+            position: relative;
+            border-left: solid 1px #dfe2e9;
+            text-align: center;
+            &:nth-child(1){
+                width: 27%;
+                text-align: left;
+                border-left: none;
+            }
+            small{
+                display: block;
+                font-size: 16px;
+                color: #666666;
+            }
+            b{
+                display: block;
+                position: absolute;
+                bottom: 0;
+                left: 0;
+                width: 100%;
+                font-size: 24px;
+                color: #3c3d49;
+            }
+        }
+    }
+}
+
+.takeCoin,.pushCoin{
+    margin-top: 50px;
+    overflow: hidden;
+    &.ban{
+        font-size: 18px;
+        color: $mainColor;
+        margin-bottom: 20px;
+    }
+}
+
+.takeCoin-form{
+    width: 360px;
+    margin: 0px auto 0 95px;
+    min-height: auto;
+    padding-bottom: 0;
+    $inputHeight : 50px;
+    float: left;
+    @mixin safety-input{
+        height: $inputHeight;
+        line-height: $inputHeight;
+        border-radius: 2px;
+    }
+    input{
+        @include safety-input;
+    }
+    .safety-issue-select{
+        height: $inputHeight;
+        .select-box{
+            height: $inputHeight;
+        }
+        .select-input{
+            @include safety-input;
+        }
+        .select-list{
+            top: 41px;
+            li:nth-child(1){
+                background: rgba($mainColor, 0.5);
+                color: #ffffff;
+            }
+        }
+    }
+    .form-group{
+        margin-bottom: 25px;
+        .getVerifCode{
+            line-height: $inputHeight;
+        }
+        & > label{
+            line-height: $inputHeight;
+            padding-right: 30px;
+        }
+        .take-coin-wallet{
+            display: block;
+            width: 100px;
+            height: 50px;
+            line-height: 50px;
+            font-size: 16px;
+            padding-left: 10px;
+            //position: absolute;
+            //right: -120px;
+            //top: 0;
+            //&:before{
+            //    content: '\e6d4';
+            //    @include iconfont(45px);
+            //}
+            &.active{
+                color: $fontColor;
+            }
+        }
+    }
+    .form-group-btn{
+    }
+    .form-submit-btn{
+        height: $inputHeight + 5px;
+        font-size: 20px;
+        border-radius: 2px;
+        line-height: $inputHeight + 5px;
+    }
+}
+
+.takeCoin-text{
+    display: block;
+    float: left;
+    width: 370px;
+    margin-left: 95px;
+    margin-top: 90px;
+    h4{
+        font-size: 14px;
+        font-weight: normal;
+        margin-bottom: 10px;
+    }
+    p{
+        font-size: 12px;
+        color: $viceFontColor;
+        line-height: 1.8;
+        margin-bottom: 5px;
+    }
+}
+
+.myWallet-box,.bankCard-box{
+    overflow: hidden;
+    margin-top: 40px;
+    & > section{
+        margin-left: 17.5px;
+        &:nth-child(3n + 1){
+            margin-left: 0;
+        }
+    }
+    .add{
+        display: block;
+        width: 310px;
+        float: left;
+        height: 160px;
+        border: solid 1px #dfe2e9;
+        position: relative;
+        cursor: pointer;
+        user-select: none;
+        span{
+            display: block;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            text-align: center;
+            transform: translate(-50%, -50%);
+            color: $mainColor;
+            &:before{
+                content: '\e642';
+                @include iconfont(36px);
+                display: block;
+                color: rgba($mainColor, 0.5);
+            }
+        }
+    }
+
+    .item{
+        display: block;
+        width: 310px;
+        float: left;
+        height: 160px;
+        padding: 18px 24px;
+        background: #f0f2f7 url("../images/myWallet-bg.png") no-repeat;
+        background-position: 15px top;
+        position: relative;
+        border: solid 1px #dfe2e9;
+        margin-bottom: 15px;
+        .loading{
+            height: 100%;
+        }
+        &.load{
+            border: none;
+        }
+        &.bankCard{
+            padding: 0;
+            background: none;
+            margin-bottom: 20px;
+            h4{
+                height: 65px;
+                line-height: 65px;
+                padding: 0 18px;
+                background: #f7f8fb;
+                font-weight: normal;
+                img{
+                    display: inline-block;
+                    height: 24px;
+                    line-height: 1;
+                    margin-top: 20px;
+                }
+                span{
+                    display: inline-block;
+                    float: right;
+                    color: #474e5d;
+                }
+                i{
+                    display: inline-block;
+                    margin-left: 8px;
+                    height: 22px;
+                    line-height: 22px;
+                    color: #ffffff;
+                    background: #5b9fe2;
+                    font-style: normal;
+                    padding: 0 5px;
+                }
+            }
+            ul{
+                left: 18px;
+                right: 18px;
+            }
+        }
+        & > div{
+            $h : 32px;
+            i{
+                display: inline-block;
+                vertical-align: middle;
+                width: $h;
+                height: $h;
+                transform: translateY(-3px);
+                background: url("../images/btc.png") no-repeat;
+                background-size: 100% 100%;
+            }
+            span{
+                display: inline-block;
+                vertical-align: middle;
+                color: #666666;
+                b{
+                    color: #3f3f3f;
+                    font-weight: normal;
+                }
+            }
+            & > b{
+                float: right;
+                line-height: $h;
+                color: #474e5d;
+            }
+        }
+        .site{
+            color: #666666;
+            position: absolute;
+            bottom: 18px;
+            left: 24px;
+            right: 24px;
+            display: block;
+            li{
+                display: block;
+                width: 100%;
+                margin-top: 12px;
+                overflow: hidden;
+                span{
+                    display: block;
+                    float: left;
+                    width: 60%;
+                    @include aRow;
+                }
+                a{
+                    float: right;
+                    &.active{
+                        color: $viceFontColor;
+                        cursor: default;
+                    }
+                }
+            }
+        }
+    }
+}
+
+.finance-form{
+    .input-wallet{
+        border-style: dashed;
+        color: #929292;
+        border-color: #929292;
+        position: relative;
+        cursor: pointer;
+        overflow: hidden;
+        .progress{
+            position: absolute;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            display: block;
+            height: 100%;
+            width: 100%;
+            color: $fontColor;
+            padding: 0 10px;
+            i{
+                transition: height 0.3s ease;
+                position: absolute;
+                left: 0;
+                top: 0;
+                display: block;
+                height: 100%;
+                width: 0%;
+                background: rgba($mainColor, 0.2);
+            }
+        }
+        &:after{
+            content: '\e7c1';
+            display: block;
+            position: absolute;
+            z-index: 10;
+            @include iconfont(30px);
+            color: $fontColor;
+            right: 12px;
+            top: 10px;
+            line-height: 1;
+        }
+        & > span{
+            position: relative;
+            z-index: 10;
+        }
+    }
+}
+
+.myPay-box{
+    display: block;
+    overflow: hidden;
+    margin-top: 40px;
+    .item{
+        display: block;
+        width: 320px;
+        float: left;
+        height: 160px;
+        border: solid 1px #009fe8;
+        position: relative;
+        border-radius: 2px;
+        color: #ffffff;
+        margin-right: 25px;
+        &.weChat{
+            border-color: #44af35;
+            .active{
+                background: #44af35;
+                & > div {
+                    i {
+                        background-image: url("../images/WeChat.png");
+                    }
+                }
+            }
+        }
+        .active{
+            @include fullWH;
+            padding: 18px 20px;
+            background: #009fe8;
+            & > div{
+                position: relative;
+                i{
+                    display: block;
+                    height: 28px;
+                    width: 100%;
+                    background: url('../images/Alipay.png') no-repeat;
+                    background-size: auto 100%;
+                }
+                span{
+                    position: absolute;
+                    right: 0;
+                    cursor: pointer;
+                    top: 10px;
+                }
+            }
+            & > ul{
+                display: block;
+                position: absolute;
+                bottom: 18px;
+                left: 20px;
+                li{
+                    line-height: 1.4;
+                }
+            }
+            .ewm{
+                display: block;
+                position: absolute;
+                width: 50px;
+                height: 50px;
+                right: 20px;
+                bottom: 18px;
+            }
+        }
+        &.weChat{
+            .focus{
+                a{
+                    background: #44af35;
+                }
+            }
+        }
+        .focus{
+            padding: 18px 20px;
+            img{
+                height: 28px;
+            }
+            p{
+                color: #666666;
+                margin-top: 15px;
+                margin-bottom: 25px;
+            }
+            a{
+                display: inline-block;
+                width: 95px;
+                line-height: 35px;
+                height: 35px;
+                text-align: center;
+                color: #ffffff;
+                border-radius: 2px;
+                background: #009fe8;
+            }
+        }
+    }
+}
+
+.pushCoin{
+    .pushCoin-ewm{
+        width: 180px;
+        float: left;
+        text-align: center;
+        div{
+            width: 180px;
+            height: 180px;
+            img{
+                @include fullWH;
+            }
+        }
+        p{
+            font-size: 16px;
+            line-height: 2;
+            color: #666666;
+        }
+    }
+    .pushCoin-right{
+        display: block;
+        float: left;
+        margin-left: 50px;
+        font-size: 16px;
+        width: 670px;
+        &.active{
+            margin-left: 0;
+        }
+        section{
+            display: block;
+            margin-bottom: 20px;
+            &.active{
+                margin-top: 50px;
+            }
+            h4{
+                font-weight: normal;
+                margin-bottom: 15px;
+            }
+            div{
+                $h : 42px;
+                overflow: hidden;
+                span{
+                    display: inline-block;
+                    width: 560px;
+                    height: $h;
+                    line-height: $h;
+                    border: solid 1px #C7C7C8;
+                    background: #fbfbfc;
+                    padding: 0 10px;
+                    @include aRow;
+                }
+                a{
+                    display: block;
+                    line-height: $h;
+                    float: right;
+                }
+            }
+        }
+    }
+}
+
+.finance-title{
+    .query{
+        float: right;
+        margin-top: 28px;
+        font-weight: normal;
+        line-height: 35px;
+        .seek{
+            display: inline-block;
+            margin-left: 15px;
+            vertical-align: top;
+            width: 80px;
+            height: 35px;
+            font-size: 14px;
+            line-height: 35px;
+            text-align: center;
+            border-radius: 2px;
+            overflow: hidden;
+            background: $mainColor;
+            color: #ffffff;
+        }
+        input,.select-input{
+            display: inline-block;
+            width: 80px;
+            height: 35px;
+            line-height: 35px;
+            font-size: 14px;
+            color: #666666;
+            vertical-align: top;
+            border: solid 1px #DFE2E9;
+            background: #FBFBFC;
+            text-transform:uppercase;
+            padding-left: 10px;
+        }
+        .query-select.selectMy{
+            width: 90px;
+            height: 35px;
+            line-height: 1;
+            vertical-align: top;
+            .select-input,.select-box{
+                width: 100%;
+                font-size: 14px;
+                vertical-align: top;
+            }
+        }
+        .select-list{
+            font-size: 14px;
+            font-weight: normal;
+            text-transform:uppercase;
+            padding-bottom: 8px;
+            padding-top: 8px;
+            background: #FBFBFC;
+            border-color: #DFE2E9;
+            li{
+                line-height: 1.4;
+            }
+        }
+    }
+}
+
+
+.inviteFriends-text{
+    font-size: 16px;
+    line-height: 1.8;
+    margin-bottom: 30px;
+    p{
+        margin-bottom: 10px;
+    }
+}
+
+.inviteFriends-copy-btn{
+    display: inline-block;
+    width: 140px;
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+    background: $mainColor;
+    border: solid 1px $mainColor;
+    color: #ffffff;
+    border-radius: 2px;
+    cursor: pointer;
+}
+
+.inviteFriends-img{
+    display: block;
+    width: 400px;
+    position: relative;
+    img{
+        width: 100%;
+    }
+    & > div{
+        width: 136px;
+        height: 136px;
+        position: absolute;
+        top: 24.2%;
+        left: 33.2%;
+        margin-bottom: 30px;
+    }
+}
+
+.inviteFriends-codeText{
+    margin-top: 8px;
+    color: $viceFontColor;
+    font-size: 14px;
+}
+
+.inviteFriends-ewm{
+    display: block;
+    img{
+        width: 265px;
+        margin-right: 25px;
+    }
+}

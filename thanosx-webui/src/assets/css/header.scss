@@ -1,0 +1,316 @@
+@import "var";
+
+.header-box{
+    width: 100%;
+    min-width: $webWidth;
+    height: $headerHeight;
+    overflow: hidden;
+    background: $bg3;
+
+    $headerMarLR2 : 70 / 1920 * 100%;
+    .header{
+        height: 100%;
+        width: 100%;
+        font-size: 16px;
+        padding: 0 $headerMarLR2;
+        overflow: hidden;
+        .logo{
+            display: block;
+            float: left;
+            margin-top: 14px;
+            height: 35px;
+            width: 132px;
+            background: url("../images/logo-red.png") no-repeat;
+            background-size: auto 100%;
+        }
+        @mixin navHeight {
+            height: 30px;
+            line-height: 30px;
+            text-align: center;
+            display: block;
+        }
+        .header-right{
+            float: right;
+            height: 100%;
+            $marginTop : 14px;
+            .nav{
+                display: block;
+                float: left;
+                overflow: hidden;
+                margin-top: 18px;
+                margin-right: 80px;
+                li{
+                    display: block;
+                    float: left;
+                    a{
+                        @include navHeight;
+                        color: #ffffff;
+                        width: 120px;
+                        @media screen and (max-width: $homeMaxWidthMedia){
+                            width: 100px;
+                        }
+                        &.active,&:hover,&:focus{
+                            color: $mainColor;
+                        }
+                    }
+                }
+            }
+            .login-out{
+                display: block;
+                float: left;
+                overflow: hidden;
+                margin-top: 13px;
+                @media screen and (max-width: $homeMaxWidthMedia){
+                    margin-left: 20px;
+                }
+                a{
+                    height: 40px;
+                    line-height: 37px;
+                    text-align: center;
+                    display: block;
+                    width: 140px;
+                    float: left;
+                    color: #ffffff;
+                    @include transitionCommon;
+                    &:nth-child(1){
+                        background: transparent;
+                        margin-right: 15px;
+                        border: solid 1px $viceMainColor;
+                        &:hover{
+                            background: transparent;
+                            color: $mainColor;
+                            border-color: $mainColor;
+                        }
+                    }
+                    &:nth-child(2){
+                        background: $mainColor;
+                        border: solid 1px $mainColor;
+                        &:hover{
+                            background: transparent;
+                            color: $mainColor;
+                        }
+                    }
+                }
+            }
+            .login-over{
+                float: left;
+                margin-top: 22px;
+                overflow: hidden;
+                display: block;
+                & > a{
+                }
+                & > a.trade-btn{
+                    display: inline-block;
+                    height: 38px;
+                    line-height: 38px;
+                    border-radius: 2px;
+                    border: solid 1px $mainColor;
+                    font-size: 14px;
+                    text-align: center;
+                    width: 85px;
+                    margin-left: 35px;
+                    @include transitionCommon;
+                    &:hover{
+                        border-color: $viceMainColor;
+                        color: $viceMainColor;
+                    }
+                }
+                .login-name{
+                    color: $viceMainColor;
+                    & > i{
+                        display: inline-block;
+                        width: 24px;
+                        height: 22px;
+                        vertical-align: middle;
+                        background: url("../images/portrait2.png") no-repeat;
+                        margin-right: 8px;
+                    }
+                    span{
+                        display: inline-block;
+                        vertical-align: middle;
+                        &:after{
+                            display: none;
+                            content: '\e6aa';
+                            @include iconfont(18px);
+                            margin-left: 12px;
+                        }
+                    }
+                }
+                .login-exit{
+                    margin-left: 10px;
+                    vertical-align: middle;
+                }
+            }
+        }
+    }
+    &.home,&.article{
+        height: $headerHomeHeight;
+        background: $bg;
+        .header{
+            padding: 0 $headerMarLR;
+            .logo{
+                margin-top: 25px;
+                height: 52px;
+                width: 218px;
+                background: url("../images/logo.png") no-repeat;
+                background-size: auto 100%;
+            }
+            .header-right{
+                $marginTop : 30px;
+                @mixin navHeight {
+                    height: 46px;
+                    line-height: 46px;
+                    text-align: center;
+                    display: block;
+                }
+                .nav{
+                    margin-top: $marginTop;
+                    margin-right: 70px;
+                    li{
+                        a{
+                            @include navHeight;
+                            color: $fontColor;
+                            width: 120px;
+                            @media screen and (max-width: $homeMaxWidthMedia){
+                                width: 100px;
+                            }
+                            &.active,&:hover{
+                                color: $mainColor;
+                            }
+                        }
+                    }
+                }
+                .login-out{
+                    margin-top: $marginTop - 2px;
+                    a{
+                        @include navHeight;
+                        width: 125px;
+                        &:nth-child(1){
+                            background: $fontColor;
+                            border: solid 1px $fontColor;
+                            margin-right: 20px;
+                            &:hover{
+                                background: transparent;
+                                color: $mainColor;
+                                border-color: $mainColor;
+                            }
+                        }
+                    }
+                }
+                .login-over{
+                    @include navHeight;
+                    margin-top: $marginTop - 2px;
+                    margin-right: 50px;
+                    & > a{
+                        &.trade-btn{
+                            display: none;
+                        }
+                    }
+                    .login-name{
+                        color: $mainColor;
+                        & > i{
+                            width: 26px;
+                            height: 26px;
+                            background-image: url("../images/portrait.png");
+                            margin-right: 0px;
+                        }
+                        span{
+                            &:after{
+                                display: none;
+                            }
+                        }
+                    }
+                    .login-exit{
+                        display: inline-block;
+                        color: $fontColor;
+                        margin-left: 15px;
+                        &:hover{
+                            color: $mainColor;
+                        }
+                        &:after{
+                            display: none;
+                            content: '\e6aa';
+                            @include iconfont(20px);
+                            vertical-align: middle;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    &.article{
+        background: rgba(0, 0, 0, 0.5);
+        position: relative;
+        z-index: 100;
+        .header{
+            .header-right {
+                .nav{
+                    li{
+                        a{
+                            color: #ffffff;
+                        }
+                    }
+                }
+                .login-over{
+                    .login-exit{
+                        color: #ffffff;
+                    }
+                }
+            }
+        }
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

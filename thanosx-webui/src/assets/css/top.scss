@@ -1,0 +1,97 @@
+@import "var";
+
+.home-top-right{
+    float: right;
+    display: block;
+    height: $topHeight;
+    line-height: $topHeight;
+    & > li{
+        display: block;
+        float: left;
+        padding: 0 0px;
+        margin: 0 20px;
+        height: 100%;
+        position: relative;
+        &:last-child{
+            margin-right: 0;
+        }
+        span{
+            display: block;
+            cursor: pointer;
+            &:before{
+                margin-right: 5px;
+                content: '\e624';
+                display: inline-block;
+                vertical-align: middle;
+                @include iconfont(16px);
+            }
+        }
+
+        &.app span:before{
+            content: '\e60e';
+            transform: translateY(-1px);
+        }
+
+        &.lang span:before{
+            content: '\e663';
+        }
+        &.lang span:after,&.app span:after{
+            content: '\e6aa';
+            display: inline-block;
+            vertical-align: middle;
+            @include iconfont(16px);
+            margin-left: 5px;
+        }
+        & > ul{
+            display: none;
+            position: absolute;
+            background: rgba(63,63,63,0.8);
+            width: 100%;
+            top: 100%;
+            padding: 0px 0 15px;
+            left: 0;
+            color: $viceMainColor;
+            //transform: scaleY(0);
+            //@include transitionCommon(transform);
+            //transform-origin: 0 0;
+            li{
+                display: block;
+                line-height: 30px;
+                font-size: 12px;
+                text-align: center;
+                a{
+                    color: inherit;
+                    &:hover{
+                        color: $mainColor;
+                    }
+                }
+            }
+        }
+        &.app > ul li{
+            font-size: 14px;
+        }
+        & > .ewm{
+            display: none;
+            position: absolute;
+            background: rgba(63,63,63,0.8);
+            padding: 10px;
+            right: 0;
+            top: 100%;
+            img{
+                width: 150px;
+                height: 150px;
+                line-height: 1;
+                display: block;
+            }
+        }
+        &:hover{
+            & > ul{
+                display: block;
+                //transform: scaleY(1);
+            }
+            & > .ewm{
+                display: block;
+            }
+        }
+    }
+}
