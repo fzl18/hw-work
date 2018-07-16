@@ -1,18 +1,5 @@
 <template>
   <view>
-    <ui-nav-bar slot="nav-bar"  custom-style="{{ {backgroundColor:'rgba(255,255,255,0)',color:'#fff'} }}">
-      <ui-row height="46">
-        <ui-col vertical-align="middle" align="left" space-left="10"  width="50" bindtap="back">
-          <ui-icon type="arrow-left"></ui-icon>         
-        </ui-col>
-        <ui-col vertical-align="middle" align="center">
-          <view class="title">企业名片信息</view>
-        </ui-col>
-        <ui-col vertical-align="middle" align="center" width="50" >
-        </ui-col>
-      </ui-row>
-    </ui-nav-bar>
-
     <view class="content_wrap">
       <view class="head">
       <ui-blur height="200" url="{{ url }}">
@@ -48,8 +35,6 @@
 <script>
 export default {
   config: {
-    "navigationStyle": "custom",
-    "navigationBarTextStyle": "white",
     navigationBarTitleText: '企业名片信息'
   },
   data : {
@@ -141,7 +126,7 @@ export default {
           wx.showAlert({
             content:res.data.message,
             success:()=>{
-              wx.redirectTo({url:"/pages/home/index"}) 
+              // wx.redirectTo({url:"/pages/home/index"})
             }
           })
         }else{
@@ -199,7 +184,8 @@ export default {
     }
     input{
       padding:8px 0;
-      .mix-1px(0,0,1,0,@theme-color)
+      margin:10rpx 0;
+      .mix-1px(0,0,1,0,@theme-color);
     }
   }
 }

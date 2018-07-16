@@ -41,6 +41,12 @@
   background: #FAFAFA;
   margin-bottom: 2%;
 }
+.top_tip .icon {
+  width: 32rpx;
+  height: 32rpx;
+  display: inline-block;
+  vertical-align: middle;
+}
 .top_tip .left_icon {
   width: 30px;
   height: 30px;

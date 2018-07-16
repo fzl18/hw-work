@@ -63,6 +63,7 @@
 }
 .content_wrap .content_list input {
   padding: 8px 0;
+  margin: 10rpx 0;
   position: relative;
 }
 .content_wrap .content_list input:before {

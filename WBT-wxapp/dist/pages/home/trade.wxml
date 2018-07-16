@@ -12,7 +12,7 @@
       <view class="ui-row" style="">
         <view class="input ui-col ui-col-10" style="flex: 0 0 83.33333333333334%;">
           <view class="ui-col-content">
-            <input placeholder="请输入兑换码" value="{{sn}}" focus bindinput="bindSnInput"></input>
+            <input placeholder="请输入兑换码" value="{{sn}}" bindinput="bindSnInput"></input>
           </view>
         </view>
         <view class="ui-col ui-col-align-right align-right valign-top" style="">

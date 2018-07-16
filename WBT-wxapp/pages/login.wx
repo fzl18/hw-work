@@ -1,7 +1,7 @@
 <template>
   <view class="ctx" >
     <view class="input" >
-      <view class="box"><input placeholder="请输入用户名" style="margin-left:30px" bindinput="bindIdInput"/></view>
+      <view class="box icon"><input placeholder="请输入用户名" style="margin-left:30px" bindinput="bindIdInput"/></view>
       <view class="box"><input password placeholder="请输入密码" bindinput="bindPwInput"/></view>    
       <view><button bindtap="gotohome" class="login" >登录</button></view>
     </view>
@@ -81,6 +81,7 @@ export default {
     width: 100%;
     bottom:10%;
     padding:0 4%;    
+    .icon{background:url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABkAAAAhBAMAAADe7h2QAAAAA3NCSVQICAjb4U/gAAAAMFBMVEX///+o1/+o1/+o1/+o1/+o1/+o1/+o1/+o1/+o1/+o1/+o1/+o1/+o1/+o1/+o1/93YbbAAAAAEHRSTlMAESIzRFVmd4iZqrvM3e7/dpUBFQAAAAlwSFlzAAALEgAACxIB0t1+/AAAABx0RVh0U29mdHdhcmUAQWRvYmUgRmlyZXdvcmtzIENTNXG14zYAAAAWdEVYdENyZWF0aW9uIFRpbWUAMDcvMDkvMTixsi8XAAAAjUlEQVQYlWPgeP8fBv44MMz/jwAfGP4rCsKAxAeGvwxwwASU64CDrg8M75H0PWAwS4ODzA8MSIAZhceKzruDwvuPwvs3oDwkt3Cg8NiBPBc48ALyUELw/W4g2DUTRO59ADXTCUSwQG3g/h+AZJ/8/wNIPK7/DkgqGQyh9u1/cwYIVoGI8x8YpBHW/SsAAEwgkrMpr8feAAAAAElFTkSuQmCC") 40rpx 12px no-repeat;background-size:25rpx 33rpx; }
     input{padding:8px 5%;color:#fff;}
     .input-placeholder{color:#fff;}
     .box{

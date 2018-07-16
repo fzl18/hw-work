@@ -6,7 +6,7 @@ Object.defineProperty(exports, "__esModule", {
 exports.default = Page({
   data: {
     isShow: false,
-    val: ''
+    val: '0'
   },
   starShow: function starShow() {
     this.setData({
@@ -30,6 +30,12 @@ exports.default = Page({
         'content-type': 'application/x-www-form-urlencoded'
       },
       success: function success(res) {
+        console.log(res.data);
+        if (res.data.code == "S00001") {
+          _this.setData({
+            val: res.data.data
+          });
+        }
         if (res.data.code == "E00001") {
           if (res.data.data) {
             _this.setData({

@@ -29,6 +29,7 @@
 .top_tip .ui-row {
   background: #fff;
   margin-bottom: 2%;
+  border-radius: 8px;
 }
 .top_tip .ui-icon {
   font-size: 20px;
@@ -37,9 +38,4 @@
 ui-tabs {
   background-color: #fff;
   padding-bottom: 1px;
-}
-.content {
-  height: 60px;
-  line-height: 60px;
-  margin: 0 10px;
 }
