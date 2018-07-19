@@ -1,7 +1,7 @@
 <template>
 <!-- <Affix offset-top="100" @on-change="change">   -->
-    <section class="head">
-        <header class="container">
+    <section class="tophead">
+        <header :class=" active == 'trade' ? '' : 'container' ">
             <Row>
                 <Col span='18'>                    
                     <div class="logo"></div>
@@ -30,12 +30,14 @@
                         <a href="" @click.prevent="toRegister()">{{lang[local].freeRegister }}</a>
                     </div>
                     <div v-if="loginGetStatus && loginStatus" class="login">
-                        <div :href="financeUrl" class="login-name">
-                            <i class="iconfont icon-yonghu-yuan"></i>
-                            <span>{{loginInfo.username}}</span>
+                        <div class="login-name">
+                           <a :href="financeUrl" >
+                               <i class="iconfont icon-yonghu-yuan"></i>
+                                <span>{{loginInfo.username}}</span>
+                            </a>
                             <ul>
-                                <li>资产折合：  <span>13123123121</span></li>
-                                <li>账户设置    <span>13123123121</span></li>
+                                <li>资产折合：<span>≈  13123123</span></li>
+                                <li>账户设置 <span class="state">未验证</span></li>
                                 <li @click="logout" class="exit"> <i class="iconfont icon-tuichu1"></i> {{lang[local].loginExit}}</li>
                             </ul>
                         </div>
@@ -49,7 +51,7 @@
 
 <script>
     export default {
-        name : "head",
+        name : "tophead",
         props : ['active'],
         data (){
             return {

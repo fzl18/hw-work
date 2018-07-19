@@ -1,76 +1,71 @@
 <template>
     <section>
         <financeHeader :hint="false">
-            <span>{{lang.totalAssets}}</span>
-            <b class="totalAssets" :class="classActive(!totalAssetsState)">¥ <span>{{!totalAssetsState ? totalAssets : '********'}}</span></b>
-            <ul class="finance-index">
-                <li :class="classActive(coinSeekSatet)">
-                    <input v-model="market2" type="text" />
-                    <i @click="coinSeekSatet = !coinSeekSatet"></i>
-                </li>
-                <li>
-                    <router-link :title="lang.coinRecord" to="/coinRecord"><i></i></router-link>
-                </li>
-                <li>
-                    <i :title="lang.hideBalance" @click="totalAssetsState = !totalAssetsState; totalAssetsState ? myasset() : ''"></i>
-                </li>
-            </ul>
+            <span>{{lang[local].myAssets}}</span>
         </financeHeader>
-        <section class="finance-hint" v-if="loginStatus && !loginInfo.truename">
-            {{lang.nameAuth30}}
+        <!-- <section class="finance-hint" v-if="loginStatus && !loginInfo.truename">
+            {{lang[local].nameAuth30}}
+        </section> -->
+        <section class="amount">
+            <span>{{lang[local].totalAssets}}：</span>
+            <b class="totalAssets" :class="classActive(!totalAssetsState)"> <span>{{ totalAssets}}</span></b>
+        </section>
+        <section class="tab_btn">
+            <a href="javascript:;" :class="!cur ? 'cur' :'' " @click="hadndleTab(0)">{{lang[local].mainCoin}}</a>
+            <a href="javascript:;" :class="cur ? 'cur' :'' " @click="hadndleTab(1)">{{lang[local].newCoin}}</a>
+            <div class="filter">
+                <span @click=" isChecked = !isChecked "> <i class="iconfont" :class=" isChecked ? 'icon-icon2' : 'icon-huisekuang'"></i> {{lang[local].filter}}</span>
+            </div>
         </section>
         <list class="finance-index-table" :url="api.assets" pageSize="100" :pageStatus="false" :seek="seek">
             <dl slot="head">
-                <dd>{{lang.currency}}</dd>
-                <dd>{{lang.usable}}</dd>
-                <dd>{{lang.freeze}}</dd>
-                <dd>{{lang.lock}}</dd>
-                <dd>{{lang.totalCurrency}}</dd>
-                <dd>{{lang.operation}}</dd>
-            </dl>
-            <dl slot="body" slot-scope="{item}">
+                <dd>{{lang[local].currency}}</dd>
+                <dd>{{lang[local].usable}}</dd>
+                <dd>{{lang[local].freeze}}</dd>
+                <dd>{{lang[local].lock}}</dd>
+                <dd>{{lang[local].totalCurrency}}</dd>
+                <dd>{{lang[local].operation}}</dd>
+            </dl>            
+            <dl slot="body" slot-scope="{item}"  v-if=" !cur ?  mainChain.indexOf(item.market2) != -1   : mainChain.indexOf(item.market2) == -1" >
+                <template v-if=" isChecked ? item.total > 0 : true ">
                 <dd>
-                    <i :style="{backgroundImage : 'url(' + imgUrl(item.img) + ')'}"></i>
                     <span>
                         <b>{{upperCase(item.market2)}}</b>
-                        <small>{{item.market_coin}}</small>
                     </span>
                 </dd>
                 <dd>
                     <span>
                         <b>{{numDecimals(item.available)}}</b>
-                        <small>≈¥{{rmbDecimals(item.available_cny)}}</small>
                     </span>
                 </dd>
                 <dd>
                     <span>
                         <b>{{numDecimals(item.availabled)}}</b>
-                        <small>≈¥{{rmbDecimals(item.availabled_cny)}}</small>
                     </span>
                 </dd>
                 <dd>
                     <span>
                         <b>{{numDecimals(item.availablelock)}}</b>
-                        <small>≈¥{{rmbDecimals(item.availablelock_cny)}}</small>
                     </span>
                 </dd>
                 <dd>
                     <span>
                         <b>{{numDecimals(item.total)}}</b>
-                        <small>≈¥{{rmbDecimals(item.total_cny)}}</small>
+                        <!-- <small>≈¥{{rmbDecimals(item.total_cny)}}</small> -->
                     </span>
                 </dd>
                 <dd>
                     <router-link :class="item.zr_jz != 1 ? 'disabled' : ''" :to="item.zr_jz != 1 ? '' : './pushCoin?coin=' + item.market2">
-                        {{lang.pushCoin}}
+                        {{lang[local].pushCoin}}
                     </router-link>
                     <router-link :class="item.zc_jz != 1 ? 'disabled' : ''" :to="item.zc_jz != 1 ? '' : './takeCoin?coin=' + item.market2">
-                        {{lang.takeCoin}}
+                        {{lang[local].takeCoin}}
                     </router-link>
-                    <router-link :class="upperCase(item.zcother_jz) != 1 ? 'disabled' : ''" :to="upperCase(item.zcother_jz) != 1 ? '' : './transferCoin?coin=' + item.market2">
-                        {{lang.transferCoin}}
-                    </router-link>
+                    <!-- <router-link :class="upperCase(item.zcother_jz) != 1 ? 'disabled' : ''" :to="upperCase(item.zcother_jz) != 1 ? '' : './transferCoin?coin=' + item.market2">
+                        {{lang[local].transferCoin}}
+                    </router-link> -->
                 </dd>
+                </template>
             </dl>
         </list>
     </section>
@@ -81,6 +76,9 @@
         name: "index",
         data (){
             return {
+                mainChain:['BTC','XRP','ETC'],
+                isChecked:false,
+                cur:0,
                 market2 : '',
                 totalAssets : 0,
                 coinSeekSatet : false,
@@ -94,9 +92,16 @@
             seek (){
                 return {market2 : this.market2};
             },
+            // ismain (){
+            //     return  this.mainChain.indexOf(this.item.market2) == -1
+            // }
+            
         },
         created (){
             this.myasset();
+        },
+        mounted(){
+            console.log(this.item)
         },
         methods : {
             myasset (){
@@ -108,6 +113,9 @@
                     console.log(err);
                 });
             },
+            hadndleTab (index){
+                this.cur = index
+            }
         },
     }
 </script>

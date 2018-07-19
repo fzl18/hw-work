@@ -11,7 +11,7 @@
                 <li class="bbox">
                     <p>今日待分配收入累积折合</p>
                     <p class="hot">$ 46.000990008</p>
-                    <p>连续持有TNSX每百万收入折合</p>
+                    <p>连续持有TNSX每百万收入折合 ≈</p>
                     <div class="jiao"></div>
                 </li>
                 <li class="bbox" style="margin:0 2%">
@@ -83,7 +83,7 @@
     @import "../../../assets/css/var.scss";
     .banner{
         background: #000 url("../assets/images/index_bg.jpg") top center no-repeat;
-        background-size:auto 100%;
+        background-size:100% 100%;
         height:505px;
         overflow: hidden;
         position: relative;

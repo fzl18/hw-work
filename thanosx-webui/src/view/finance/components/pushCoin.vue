@@ -1,12 +1,12 @@
 <template>
     <section>
         <financeHeader>
-            <span>{{lang.pushCoinSafety}}</span>
+            <span>{{lang[local].pushCoinSafety}}</span>
         </financeHeader>
         <section class="finance-coin">
             <balance v-model="balance" :coin="coin" />
             <section class="takeCoin ban" v-if="balance.state == 1 && balance.zr_jz != 1">
-                {{upperCase(coin)}} {{lang.pushCoinBan}}
+                {{upperCase(coin)}} {{lang[local].pushCoinBan}}
             </section>
             <section class="pushCoin" v-if="balance.state == 1 && balance.zr_jz == 1 && walletData && walletData.address">
             <!--<section class="pushCoin">-->
@@ -14,21 +14,21 @@
                     <div>
                         <ewm :value="(walletData && walletData.address) || ''" :size="180" />
                     </div>
-                    <p>{{lang.pushCoinEWM}}</p>
+                    <p>{{lang[local].pushCoinEWM}}</p>
                 </section>
                 <section class="pushCoin-right" :class="classActive((walletData && walletData.title_key))">
                     <section :class="classActive(!(walletData && walletData.title_key))">
-                        <h4>{{lang.pushCoinUrl}}: </h4>
+                        <h4>{{lang[local].pushCoinUrl}}: </h4>
                         <div>
-                            <span :title="walletData && walletData.address">{{walletData && walletData.address}}</span>
-                            <a href="javascript:;"><copy :val="(walletData && walletData.address) || ''">{{lang.copyUrl}}</copy></a>
+                            <span :title="walletData && walletData.address">{{walletData && walletData.address}}</span> <br />
+                            <a href="javascript:;"><copy :val="(walletData && walletData.address) || ''">{{lang[local].copyUrl}}</copy></a>
                         </div>
                     </section>
                     <section v-if="walletData && walletData.title_key">
                         <h4>{{walletData && walletData.title_key}}: </h4>
                         <div>
                             <span :title="walletData && walletData.title_value">{{walletData && walletData.title_value}}</span>
-                            <a href="javascript:;"><copy :val="(walletData && walletData.title_value) || ''">{{lang.copyUrl}}</copy></a>
+                            <a href="javascript:;"><copy :val="(walletData && walletData.title_value) || ''">{{lang[local].copyUrl}}</copy></a>
                         </div>
                     </section>
                 </section>
@@ -37,26 +37,26 @@
             <!--<section class="pushCoin">-->
                 <section class="finance-form" style="min-height: auto;">
                     <section class="form-group form-group-btn">
-                        <a href="javascript:;" @click="upmyzr" class="form-submit-btn">{{lang.clickPushCoinURL}}{{this.getState == this.getStateStart ? '...' : ''}}</a>
+                        <a href="javascript:;" @click="upmyzr" class="form-submit-btn">{{lang[local].clickPushCoinURL}}{{this.getState == this.getStateStart ? '...' : ''}}</a>
                     </section>
                 </section>
             </section>
             <section class="finance-hint"  v-if="active == 0">
-                {{lang.walletActiveText}}
-                <a href="javascript:;" class="buyColor" @click="activateAddr">{{lang.selfActive}}</a> (<span class="mainColor">{{lang.pay}}1CNT</span> )
+                {{lang[local].walletActiveText}}
+                <a href="javascript:;" class="buyColor" @click="activateAddr">{{lang[local].selfActive}}</a> (<span class="mainColor">{{lang[local].pay}}1CNT</span> )
             </section>
         </section>
 
         <h4 class="finance-title">
-            <span>{{lang.pushCoinRecord}}</span>
+            <span>{{lang[local].pushCoinRecord}}</span>
         </h4>
         <list class="finance-coin-table" :url="api.myzrLog" :param="routeParam">
             <dl slot="head">
-                <dd>{{lang.pushCoinTime}}</dd>
-                <dd>{{lang.pushCoinId}}</dd>
-                <dd>{{lang.pushCoinURL}}</dd>
-                <dd>{{lang.pushCoinNum}}</dd>
-                <dd>{{lang.pushCoinState}}</dd>
+                <dd>{{lang[local].pushCoinTime}}</dd>
+                <dd>{{lang[local].pushCoinId}}</dd>
+                <dd>{{lang[local].pushCoinURL}}</dd>
+                <dd>{{lang[local].pushCoinNum}}</dd>
+                <dd>{{lang[local].pushCoinState}}</dd>
             </dl>
             <dl slot="body" slot-scope="{item}">
                 <dd>{{localDate(item.addtime)}}</dd>
@@ -117,12 +117,12 @@
                 }).then((res) => {
                     this.getSuccess();
                     this.walletData = res.data;
-                    this.$store.commit('msg/add', this.lang.pushCoinSuccess);
+                    this.$store.commit('msg/add', this.lang[this.local].pushCoinSuccess);
                     this.myaddrstatus();
                 }).catch((err) => {
                     this.getError();
                     this.walletData = null;
-                    this.$store.commit('msg/err', err.message || this.lang.pushCoinError);
+                    this.$store.commit('msg/err', err.message || this.lang[this.local].pushCoinError);
                 });
             },
             myzrads (){
@@ -142,7 +142,7 @@
                 }).catch((err) => {
                     this.getError();
                     this.walletData = null;
-                    this.$store.commit('msg/err', err.message || this.lang.pushCoinError);
+                    this.$store.commit('msg/err', err.message || this.lang[this.local].pushCoinError);
                 });
             },
             myaddrstatus (){
@@ -155,7 +155,7 @@
                     console.log(res);
                     this.active = res.data.active || 0;
                 }).catch((err) => {
-                    this.$store.commit('msg/err', err.message || this.lang.getWalletActiveS);
+                    this.$store.commit('msg/err', err.message || this.lang[this.local].getWalletActiveS);
                 });
             },
             activateAddr (){
@@ -166,9 +166,9 @@
                     },
                 }).then((res) => {
                     this.active = 1;
-                    this.$store.commit('msg/err', err.message || this.lang.walletActiveS);
+                    this.$store.commit('msg/err', err.message || this.lang[this.local].walletActiveS);
                 }).catch((err) => {
-                    this.$store.commit('msg/err', err.message || this.lang.walletActiveE);
+                    this.$store.commit('msg/err', err.message || this.lang[this.local].walletActiveE);
                 });
             },
         }

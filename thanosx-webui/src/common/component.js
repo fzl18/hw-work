@@ -14,7 +14,7 @@ import list from '../components/list';
 import listLoadTemplate from '../components/listLoadTemplate';
 import uploadFile from '../components/uploadFile';
 import appDownload from '../components/appDownload';
-import { Row, Col,Dropdown,DropdownMenu,DropdownItem,Icon,Affix } from 'iview';
+import { Row, Col,Dropdown,DropdownMenu,DropdownItem,Icon,Affix,Modal } from 'iview';
 
 const copy = () => import(/* webpackChunkName: "copy" */ '../components/copy');
 const ewm = () => import(/* webpackChunkName: "ewm" */ '../components/ewm');
@@ -43,3 +43,4 @@ Vue.component('DropdownMenu', DropdownMenu);
 Vue.component('DropdownItem', DropdownItem);
 Vue.component('Icon', Icon);
 Vue.component('Affix', Affix);
+Vue.component('Modal', Modal);

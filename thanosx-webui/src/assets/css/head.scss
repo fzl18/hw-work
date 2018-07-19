@@ -1,6 +1,6 @@
 @import "var";
 
-.head{
+.tophead{
     height:$headerHeight;
     background:rgba(0,0,0,.8);
     line-height:$headerHeight;
@@ -28,9 +28,20 @@
         text-align: right;
         .login-name{
             width: 65%;display: inline-block;
-            text-align:center;
+            text-align:left;
             position: relative;color: #f1f1f1;
-            background:rgba(61, 61, 61, 0.5);
+            background:rgba(29, 29, 29, 0.8);            
+            font-size:16px;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            a{
+                display: inline;
+                padding-left:20px;
+                .iconfont{font-size:26px;position: relative;top:3px}
+                &:hover{
+                    background:none;
+                }
+            }
             ul{
                 display: none;
                 li{
@@ -38,10 +49,22 @@
                     padding:0 20px;
                     height:36px;
                     line-height: 36px;
-                    font-size:12px;
+                    font-size:14px;
                     border-bottom: 1px dotted #444;
                     &:last-child{border-bottom:none;}
-                    span{float: right;}
+                    span{
+                        float: right;
+                        font-weight:bold;
+                        color:#FC7001;
+                        font-size:14px;
+                        &.state{
+                            border:1px solid #3B8A8E;
+                            color:#3B8A8E;
+                            line-height:20px;
+                            padding: 1px 5px;
+                            margin-top:5px;
+                        }
+                    }
                     &.exit{cursor: pointer;}
                 }
             }

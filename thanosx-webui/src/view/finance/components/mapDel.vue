@@ -1,7 +1,7 @@
 <template>
     <section>
         <financeHeader>
-            <span>{{lang.mapTitle}}</span>
+            <span>{{lang[local].mapTitle}}</span>
         </financeHeader>
         <section class="finance-hint" v-if="hand">
             您正在进行DEL主网映射操作, 按照 <a href="https://www.rdb.one/home/article/72/54" target="_blank">手动映射DEL教程</a> 生成DEL钱包地址，请务必妥善保存您的私钥，丢失私钥则资产无法找回。
@@ -26,18 +26,18 @@
                 <section class="takeCoin-form finance-form" style="padding-top: 10px;">
                     <section class="form-group" v-if="addr">
                         <label>映射地址</label>
-                        <!--<input type="text" v-model="param.name" :placeholder="lang.bankName" />-->
+                        <!--<input type="text" v-model="param.name" :placeholder="lang[local].bankName" />-->
                         <section class="text">
                             <span style="line-height: 1.6;display: block;">{{addr}}</span>
                         </section>
                     </section>
                     <section class="form-group">
-                        <label>{{lang.walletUrl}}</label>
-                        <input name="map-Del" type="text" v-model="mapDel" :placeholder="lang.walletUrl" />
+                        <label>{{lang[local].walletUrl}}</label>
+                        <input name="map-Del" type="text" v-model="mapDel" :placeholder="lang[local].walletUrl" />
                         <p class="form-remark">不填改为自动映射</p>
                     </section>
                     <section class="form-group form-group-btn">
-                        <a href="javascript:;" @click="submitMapDel" class="form-submit-btn">{{addr ? '修改' : ''}}{{lang.map}}{{this.getState == this.getStateStart ? '...' : ''}}</a>
+                        <a href="javascript:;" @click="submitMapDel" class="form-submit-btn">{{addr ? '修改' : ''}}{{lang[local].map}}{{this.getState == this.getStateStart ? '...' : ''}}</a>
                     </section>
                 </section>
                 <section class="takeCoin-text" style="margin-top: 0;">
@@ -113,13 +113,13 @@
                     },
                 }).then((res) => {
                     this.getSuccess();
-                    this.$store.commit('msg/add', this.lang.mapS);
+                    this.$store.commit('msg/add', this.lang[local].mapS);
                     // this.$router.push('./index');
                     this.mapDel = '';
                     this.getAddr();
                 }).catch((err) => {
                     this.getError();
-                    this.$store.commit('msg/err', err.message || this.lang.mapE);
+                    this.$store.commit('msg/err', err.message || this.lang[local].mapE);
                 });
             },
         }

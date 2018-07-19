@@ -1,43 +1,43 @@
 <template>
     <section>
         <financeHeader>
-            <span>{{lang.gu_finance106}}</span>
+            <span>{{lang[local].gu_finance106}}</span>
         </financeHeader>
         <form @submit="upbank">
             <section class="finance-form">
                 <section class="form-group">
-                    <label>{{lang.gu_finance140}}</label>
-                    <input type="text" v-model="param.bankcard" :placeholder="lang.gu_finance140" />
-                    <p class="form-remark">{{lang.gu_finance150}}</p>
+                    <label>{{lang[local].gu_finance140}}</label>
+                    <input type="text" v-model="param.bankcard" :placeholder="lang[local].gu_finance140" />
+                    <p class="form-remark">{{lang[local].gu_finance150}}</p>
                 </section>
                 <section class="form-group" style="z-index: 99999;">
-                    <label>{{lang.gu_finance160}}</label>
+                    <label>{{lang[local].gu_finance160}}</label>
                     <select-my class="safety-issue-select"  :list="bankList" selected="" @change="bankListChange" />
                 </section>
                 <section class="form-group">
-                    <label>{{lang.bankCity}}</label>
+                    <label>{{lang[local].bankCity}}</label>
                     <select-my class="safety-issue-select min" :list="provinceList" selected="" @change="provinceChange" />
                     <select-my class="safety-issue-select min" :list="cityList"  selected="" @change="cityChange" />
                     <select-my class="safety-issue-select min" :list="countyList"  selected="" @change="countyChange" />
                     <div style="clear: both"></div>
                 </section>
                 <section class="form-group">
-                    <label>{{lang.bankName}}</label>
-                    <!--<input type="text" v-model="param.name" :placeholder="lang.bankName" />-->
+                    <label>{{lang[local].bankName}}</label>
+                    <!--<input type="text" v-model="param.name" :placeholder="lang[local].bankName" />-->
                     <section class="text">
-                        <span v-if="loginInfo.truename">{{loginInfo.truename}}<small> ({{lang.nameAuth1}}{{lang.nameAuth5}})</small></span>
-                        <a v-else :href="truenametUrl">{{lang.nameAuth29}}</a>
+                        <span v-if="loginInfo.truename">{{loginInfo.truename}}<small> ({{lang[local].nameAuth1}}{{lang[local].nameAuth5}})</small></span>
+                        <a v-else :href="truenametUrl">{{lang[local].nameAuth29}}</a>
                     </section>
                 </section>
                 <section class="form-group">
-                    <label>{{lang.branchBank}}</label>
-                    <input type="text" v-model="param.bankaddr" :placeholder="lang.branchBank" />
+                    <label>{{lang[local].branchBank}}</label>
+                    <input type="text" v-model="param.bankaddr" :placeholder="lang[local].branchBank" />
                 </section>
                 <section class="form-group form-group-btn">
-                    <a href="javascript:;" @click="upbank" class="form-submit-btn">{{lang.gu_finance27}}{{this.getState == this.getStateStart ? '...' : ''}}</a>
+                    <a href="javascript:;" @click="upbank" class="form-submit-btn">{{lang[local].gu_finance27}}{{this.getState == this.getStateStart ? '...' : ''}}</a>
                 </section>
                 <section class="form-group">
-                    <a href="javascript:;" @click="$router.go(-1)" class="form-submit-btn white">{{lang.cancel}}</a>
+                    <a href="javascript:;" @click="$router.go(-1)" class="form-submit-btn white">{{lang[local].cancel}}</a>
                 </section>
             </section>
         </form>

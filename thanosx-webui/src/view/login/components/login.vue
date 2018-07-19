@@ -1,11 +1,10 @@
 <template>
     <section class="register">
         <h2 class="login-title"> <span>{{lang[local].loginTitle}}</span> {{lang[local].webName}}</h2>
-
         <section class="login-form">
             <section class="login-form-group">
                 <div class="input-box">
-                    <i class="iconfont icon-youxiang"></i> <input type="text"  @keyup.enter="submit"  v-model="param.username" name="login-mobile" :placeholder="lang[local].enterName" />
+                    <i class="iconfont icon-youxiang"></i> <input type="text"  @keyup.enter="submit"  v-model="param.username" name="login-mobile" :placeholder="lang[local].enterEmail" />
                 </div>               
             </section>
 
@@ -17,7 +16,9 @@
             </section>
 
             <section class="login-form-group login-form-group-margin" v-if="gacodeStatus == this.apiStatus.gacode">
-                <input class="register-paw"  @keyup.enter="submit"  type="text" v-model="param.gacode" name="login-gacode" :placeholder="lang[local]['4009']" />                                
+                <div class="input-box">
+                    <i class="iconfont icon-mima"></i> <input class="register-paw"  @keyup.enter="submit"  type="text" v-model="param.gacode" name="login-gacode" :placeholder="lang[local]['4009']" />
+                </div>
             </section>
             <section class="login-form-group login-form-group-margin2">
                 <a href="javascript:;" @click="submit" class="login-btn">{{lang[local].login}}{{this.getState == this.getStateStart ? '...' : ''}}</a>
@@ -156,7 +157,8 @@
                 this.axios({
                     url : this.api.login,
                     data : {
-                        ...this.param
+                        ...this.param,
+                        email:this.param.username
                     }
                 }).then((res) => {
                     // this.getState = this.getStateSuccess;

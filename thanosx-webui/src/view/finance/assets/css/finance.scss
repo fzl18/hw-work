@@ -9,50 +9,49 @@ body,html{
 
 
 $financeBorderColor : #dfe2e9;
-$financeNavHeight : 80px;
+$financeNavHeight : 60px;
 $financeMinHeight : 820px;
 .finance-main{
-    width: $webWidth;
-    margin: 0 auto;
+    width: calc(100% - 40px) ;
+    margin-top:60px;
+    padding:10px;
+    box-shadow:0 0 8px rgba(0,0,0,.1);
+    box-sizing: border-box;
     overflow: hidden;
+    background:#fff;
+    max-width: 1480px;
+    min-width: 1160px;
     .finance-left{
         width: 180px;
         float: left;
         min-height: $financeMinHeight;
-        background: #ffffff;
-        border: solid 1px $financeBorderColor;
-        padding: 0 20px;
+        background: $bg4;
         .finance-nav{
             display: block;
             a{
                 display: block;
                 height: $financeNavHeight;
                 line-height: $financeNavHeight;
-                padding-left: 28px;
+                text-align: center;
                 color: #333333;
                 font-size: 16px;
-                border-bottom: solid 1px #e1e2e6;
+                border-bottom: solid 1px #FFF;
                 position: relative;
-                &:before{
-                    content: '\e677';
-                    display: block;
-                    left: 0;
-                    position: absolute;
-                    @include iconfont(20px);
+                .iconfont{
+                    font-size:24px;
+                    color:$mainColor;
+                    margin-right:10px;
+                    position: relative;
+                    top:3px;                    
                 }
                 &:hover,&:focus,&.active{
-                    color: $mainColor;
+                    color: #fff;
+                    background: $mainColor
                 }
-                &.myWallet:before{
-                    font-size: 22px;
+                &:hover .iconfont,&:focus .iconfont,&.active .iconfont{
+                    color: #fff;
                 }
-                $listNav : index, myBankCard, myWallet, myPay, myEntrust, myDeal, inviteFriends;
-                $listNavIcon : '\e618', '\e616', '\e8f9', '\e7d1', '\e62d', '\e617', '\e7d0';
-                @for $i from 1 through length($listNav){
-                    &.#{nth($listNav, $i)}:before {
-                        content: nth($listNavIcon, $i);
-                    }
-                }
+                
             }
         }
         .finance-app{
@@ -70,35 +69,30 @@ $financeMinHeight : 820px;
         }
     }
     .finance-right{
-        width: 1100px;
-        float: right;
-        padding: 0 65px 50px;
+        width: calc(100% - 180px);
+        float: left;
+        padding-left:10px;
         min-height: $financeMinHeight;
-        background: #ffffff;
-        border: solid 1px $financeBorderColor;
     }
 }
 
 .finance-title{
     height: $financeNavHeight;
     line-height: $financeNavHeight;
-    border-bottom: solid 2px $financeBorderColor;
+    padding-left:15px;
     position: relative;
+    &:after{
+        content:'';
+        width:5px;
+        height:20px;
+        background:$mainColor;
+        position: absolute;
+        top:20px;
+        left:0;
+    }
     & > span{
         color: #474e5d;
-    }
-    .totalAssets{
-        margin-left: 10px;
-        line-height: 1;
-        span{
-            position: relative;
-            display: inline-block;
-            transform: translateY(5px);
-        }
-        &.active span{
-            transform: translateY(0px);
-        }
-    }
+    }    
     .finance-index{
         $height : 36px;
         float: right;
@@ -166,7 +160,55 @@ $financeMinHeight : 820px;
         }
     }
 }
-
+.amount{
+    height:60px;
+    line-height:60px;
+    background:#F8F8F8;
+    font-size:16px;
+    padding:0 20px;
+    .totalAssets{
+        margin-left: 10px;
+        line-height: 1;
+        span{
+            position: relative;
+            display: inline-block;
+            transform: translateY(5px);
+            color:$mainColor;
+        }
+        &.active span{
+            transform: translateY(0px);
+        }
+    }
+}
+.tab_btn{
+    a{
+        color:#3C3C3C;
+        border-bottom:2px solid #3C3C3C;
+        display: inline-block;
+        line-height:55px;
+        width:140px;
+        text-align:center;
+        margin:10px 0 30px 0;
+        font-size:16px;
+        &.cur{
+            border-bottom-color:$mainColor;
+        }
+    }
+    .filter{
+        float: right;
+        width:150px;
+        height:40px;
+        line-height:40px;
+        background:$mainColor;
+        text-align:center;
+        position: relative;
+        top:25px;
+        color:#fff;
+        span{
+            cursor: pointer;
+        }
+    }
+}
 .coinRecord{
     dl{
         dd{
@@ -243,7 +285,7 @@ $financeMinHeight : 820px;
 .finance-coin-table{
     dl{
         dd{
-            $itemW : 28%;
+            $itemW : 21%;
             $oneW : 21%;
             $wList : $oneW, $itemW, $itemW, 10%,  (100% - 2 * $itemW - $oneW - 10%);
             @for $i from 1 through length($wList){
@@ -317,7 +359,8 @@ $financeMinHeight : 820px;
 
 
 .finance-coin{
-    margin-top: 40px;
+    background: #F8F8F8;
+    padding:30px;
     .finance-coinBalance{
         overflow: hidden;
         $height : 65px;
@@ -353,7 +396,6 @@ $financeMinHeight : 820px;
 }
 
 .takeCoin,.pushCoin{
-    margin-top: 50px;
     overflow: hidden;
     &.ban{
         font-size: 18px;
@@ -363,8 +405,7 @@ $financeMinHeight : 820px;
 }
 
 .takeCoin-form{
-    width: 360px;
-    margin: 0px auto 0 95px;
+    width: 40%;
     min-height: auto;
     padding-bottom: 0;
     $inputHeight : 50px;
@@ -434,16 +475,16 @@ $financeMinHeight : 820px;
 .takeCoin-text{
     display: block;
     float: left;
-    width: 370px;
-    margin-left: 95px;
-    margin-top: 90px;
+    width: 50%;
+    margin-left: 10%;
     h4{
-        font-size: 14px;
+        font-size: 18px;
         font-weight: normal;
         margin-bottom: 10px;
+        color:$mainColor;
     }
     p{
-        font-size: 12px;
+        font-size: 14px;
         color: $viceFontColor;
         line-height: 1.8;
         margin-bottom: 5px;
@@ -777,19 +818,13 @@ $financeMinHeight : 820px;
                 $h : 42px;
                 overflow: hidden;
                 span{
-                    display: inline-block;
-                    width: 560px;
+                    display: block;
                     height: $h;
                     line-height: $h;
-                    border: solid 1px #C7C7C8;
-                    background: #fbfbfc;
-                    padding: 0 10px;
                     @include aRow;
                 }
                 a{
                     display: block;
-                    line-height: $h;
-                    float: right;
                 }
             }
         }
@@ -797,9 +832,21 @@ $financeMinHeight : 820px;
 }
 
 .finance-title{
+    .addWallet{
+        float: right;
+        background:$mainColor;
+        display:block;
+        color:#fff;
+        padding: 5px 10px;
+        font-size: 15px;
+        line-height: 30px;
+        margin-top:10px;
+        cursor: pointer;
+        font-weight:normal;
+    }
     .query{
         float: right;
-        margin-top: 28px;
+        margin-top: 10px;
         font-weight: normal;
         line-height: 35px;
         .seek{
@@ -819,15 +866,15 @@ $financeMinHeight : 820px;
         input,.select-input{
             display: inline-block;
             width: 80px;
-            height: 35px;
-            line-height: 35px;
-            font-size: 14px;
-            color: #666666;
+            height: 40px;
+            line-height: 40px;            
+            background:$mainColor;
+            text-align: center;
+            font-size: 16px;
+            color: #fff;
             vertical-align: top;
-            border: solid 1px #DFE2E9;
-            background: #FBFBFC;
             text-transform:uppercase;
-            padding-left: 10px;
+            border:none;
         }
         .query-select.selectMy{
             width: 90px;
@@ -836,20 +883,22 @@ $financeMinHeight : 820px;
             vertical-align: top;
             .select-input,.select-box{
                 width: 100%;
-                font-size: 14px;
+                font-size: 16px;
                 vertical-align: top;
             }
         }
         .select-list{
-            font-size: 14px;
+            font-size: 16px;
             font-weight: normal;
             text-transform:uppercase;
             padding-bottom: 8px;
             padding-top: 8px;
+            text-align: center;
             background: #FBFBFC;
             border-color: #DFE2E9;
             li{
                 line-height: 1.4;
+                &:hover{background:#eee;}
             }
         }
     }
@@ -906,5 +955,79 @@ $financeMinHeight : 820px;
     img{
         width: 265px;
         margin-right: 25px;
+    }
+}
+
+
+
+.account{
+    .userinfo{
+        background:#F8F8F8;
+        padding:20px 40px;
+        .txt{
+            text-align:right;
+        }
+        .name{
+            padding-left: 30px;
+            border-left:1px solid #D5D5D5;
+        }
+        p{
+            color: #8F8F8F;            
+            line-height: 30px;
+            .tag{background:#ADADAD;font-size:12px;padding:2px 6px;color:#fff; }
+            &.con{
+                color:#676364;
+                font-weight:bold;
+                font-size:15px;
+            }
+        }
+    }
+    .userSet{
+        margin:50px 0;
+        background:#F8F8F8;
+        dl{
+            display: inline-block;
+            width:24%;
+            text-align:center;
+            padding: 30px 5%;
+            position: relative;
+            &:after{
+                content:'';
+                width: 100%;
+                height:1px;
+                background:#fff;
+                position: absolute;
+                top:90px;
+                left: 0;
+            }
+            dt{
+                margin-bottom:30px;                
+                .iconfont{font-size:50px;color:#DBDBDB;background:#F8F8F8;border-radius:50%;padding:30px;position: relative;top:-20px;}                
+            }
+            dd{
+                line-height: 30px;
+                font-size:15px;
+                span{color:$mainColor;font-weight:bold;}
+                &.txt{height:60px;}
+                &.btn{                    
+                    margin-top:50px;
+                    a{
+                        background:$mainColor;
+                        text-align: center;
+                        color:#fff;
+                        display:block;
+                        height:45px;
+                        line-height:45px;
+                        font-size:16px;
+                        border:1px solid $mainColor;
+                        &:hover{
+                            background:none;
+                            color: $mainColor;
+                        }
+                    }
+                }
+            }
+            
+        }
     }
 }

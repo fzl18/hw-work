@@ -1,12 +1,9 @@
 <template>
     <section class="register">
-        <h2 class="login-title">{{lang[local].registerTitle}}</h2>
-        <h4 class="login-vice-title">
-            <router-link to="/login">{{lang[local].inviteLogin}}</router-link>
-        </h4>
+        <h2 class="login-title"><span>{{lang[local].freeRegister}}</span> {{lang[local].webName}}</h2>
         <section class="login-form">
             <section class="login-form-group" style="z-index: 99999;">
-                <div class="login-state">
+                <!-- <div class="login-state">
                     <select v-model="param.districtcode">
                         <option v-for="v,k in districtCode" :value="v">{{k}}</option>
                     </select>
@@ -16,42 +13,51 @@
                     <ul class="login-state-select" v-if="stateCode">
                         <li v-for="v,k in districtCode" @click="stateCode = false;param.districtcode=v"><span>{{v}}</span> <i>{{k}}</i></li>
                     </ul>
+                </div> -->
+                <div class="login-form-group">
+                    <div class="input-box">
+                        <i class="iconfont icon-youxiang"></i> <input type="text" @keyup.enter="submit"  v-model="param.username" @focus="usernameFocus" @blur="usernameBlur" name="register-mobile" :placeholder="lang[local].email" />
+                    </div>
                 </div>
-                <div class="login-mobile">
-                    <input type="text" @keyup.enter="submit"  v-model="param.username" @focus="usernameFocus" @blur="usernameBlur" name="register-mobile" :placeholder="lang[local].phone" />
+            </section>
+            <section class="login-form-group">
+                <div class="input-box">
+                    <i class="iconfont icon-yanzhengma"></i> <input class="register-code" @keyup.enter="submit" type="text" name="register-moble_verify" @focus="moble_verifyFocus" @blur="moble_verifyBlur" v-model="param.moble_verify" :placeholder="lang[local].SMSVerifCode" />
+                    <a href="javascript:;" class="login-select register-code-btn active"
+                    :class="param.username.length >= 1 && this.verifyCodeTimeText === '' ? 'active' : ''"
+                    @click="sendCode"
+                    >
+                        {{verifyCodeTimeText === -1 ? lang[local].getVerifCode + '...' : verifyCodeTimeText ? verifyCodeTimeText : lang[local].getVerifCode}}
+                    </a>
+                </div>                
+            </section>
+            <section class="login-form-group">
+                <div class="input-box">
+                    <i class="iconfont icon-mima"></i> <input class="register-paw" @keyup.enter="submit" type="password" @blur="passwordBlur" @focus="passwordFocus"  v-model="param.password" name="register-password" :placeholder="lang[local].loginPassword" />
                 </div>
-                <p class="login-form-hint">{{lang[local].registerPhoneDes}}</p>
-            </section>
-            <section class="login-form-group">
-                <input class="register-code" @keyup.enter="submit" type="text" name="register-moble_verify" @focus="moble_verifyFocus" @blur="moble_verifyBlur" v-model="param.moble_verify" :placeholder="lang[local].SMSVerifCode" />
-                <a href="javascript:;" class="register-code-btn"
-                   :class="param.username.length >= 1 && this.verifyCodeTimeText === '' ? 'active' : ''"
-                   @click="sendCode"
-                >
-                    {{verifyCodeTimeText === -1 ? lang[local].getVerifCode + '...' : verifyCodeTimeText ? verifyCodeTimeText : lang[local].getVerifCode}}
-                </a>
             </section>
 
             <section class="login-form-group">
-                <input class="register-paw" @keyup.enter="submit" type="password" @blur="passwordBlur" @focus="passwordFocus"  v-model="param.password" name="register-password" :placeholder="lang[local].loginPassword" />
+                <div class="input-box">
+                    <i class="iconfont icon-mima"></i> <input class="register-confirm-paw" @keyup.enter="submit" type="password" @blur="passwordConfirmBlur" v-model="param.confirmPassword" name="register-confirmPassword" :placeholder="lang[local].confirmPassword" />
+                </div>
             </section>
-
             <section class="login-form-group">
-                <input class="register-confirm-paw" @keyup.enter="submit" type="password" @blur="passwordConfirmBlur" v-model="param.confirmPassword" name="register-confirmPassword" :placeholder="lang[local].confirmPassword" />
+                <span class="tips">{{lang[local].loginTips}}</span>
             </section>
-            <section class="login-form-group login-form-group-margin2">
-            </section>
-
-            <section class="login-form-group">
-                <a href="javascript:;" @click="submit" class="login-btn-red">{{lang[local].freeRegister}}{{submitStatus ? '...' : ''}}</a>
-            </section>
-
             <section class="login-form-group">
                 <label class="checkbox-my">
                     <input type="checkbox" v-model="agreement" />
-                    <i></i>
-                    {{lang[local].agreementTip}} <a href="/home/article/45" class="register-agreement" target="_blank" :title="lang[local].registerAgreement">《{{lang[local].registerAgreement}}》</a>
-                </label>
+                    <i class="iconfont " :class=" !agreement ? 'icon-huisekuang':'icon-icon2' "></i>
+                    {{lang[local].loginAgree}}  <a href="">{{lang[local].PrivacyClause}} </a> & <a href="">{{lang[local].Agreement}} </a> 
+                </label> 
+            </section>
+            <section class="login-form-group">
+            </section>
+
+            <section class="login-form-group">
+                <a href="javascript:;" @click="submit" class="login-btn">{{lang[local].freeRegister}}{{submitStatus ? '...' : ''}}</a>
+                <span style="position: absolute;top: 30%;right: 24px;">已有账户，</span><router-link to="/login" class="login-select"> {{lang[local].inviteLogin}}</router-link>
             </section>
         </section>
     </section>
@@ -63,7 +69,7 @@
         name: "register",
         data (){
             return {
-                agreement : true,
+                agreement : false,
                 sendCodeStatus : false,
                 sendCodeCount : 0,
                 submitStatus : false,
@@ -81,26 +87,23 @@
         },
         watch : {
             "param.username" (n, o){
-                if(n.length > 11) {
-                    this.param.username = o;
-                    return;
-                };
-                this.param.username = n.replace(/[^0-9]*/g, '');
+                
+                // this.param.username = n.replace(/^[A-Za-z\d]+([-_.][A-Za-z\d]+)*@([A-Za-z\d]+[-.])+[A-Za-z\d]{2,4}$/, '');
                 if(this.param.username.length > 0){
-                    this.$store.commit('tips/hide', this.lang.enterPhone);
+                    this.$store.commit('tips/hide', this.lang[this.local].enterEmail);
                 };
-                if(this.param.username.length >= 7){
-                    this.$store.commit('tips/hide', this.lang.phoneError);
-                };
+                // if(this.param.username.length >= 7){
+                //     this.$store.commit('tips/hide', this.lang[this.local].phoneError);
+                // };
             },
             "param.moble_verify" (n, o){
                 if(n.length > this.verifCodeLen){
                     this.param.moble_verify = o;
                     return;
                 };
-                this.param.moble_verify = n.replace(/[^0-9]*/g, '');
+                // this.param.moble_verify = n.replace(/^[A-Za-z\d]+([-_.][A-Za-z\d]+)*@([A-Za-z\d]+[-.])+[A-Za-z\d]{2,4}$/, '');
                 if(this.param.moble_verify.length == 6){
-                    this.$store.commit('tips/hide', this.lang.enterVerifCode);
+                    this.$store.commit('tips/hide', this.lang[this.local].enterVerifCode);
                 };
                 this.moble_verifyFocus();
             },
@@ -131,12 +134,12 @@
             },
             "param.confirmPassword" (n, o){
                 if(n == this.param.password){
-                    this.$store.commit('tips/hide', this.lang.passwordConfirm);
+                    this.$store.commit('tips/hide', this.lang[this.local].passwordConfirm);
                 };
             },
             sendCodeCount (n, o){
                 if(n > 0){
-                    this.$store.commit('tips/hide', this.lang.sendVerifCode);
+                    this.$store.commit('tips/hide', this.lang[this.local].sendVerifCode);
                 };
             }
         },
@@ -148,31 +151,31 @@
 
         mounted (){
             this.$store.commit('tips/add', {
-                text : this.lang.enterPhone,
+                text : this.lang[this.local].enterEmail,
                 el : "[name='register-mobile']",
                 status : false,
             });
 
             this.$store.commit('tips/add', {
-                text : this.lang.phoneError,
+                text : this.lang[this.local].phoneError,
                 el : "[name='register-mobile']",
                 status : false,
             });
 
             this.$store.commit('tips/add', {
-                text : this.lang.enterVerifCode,
+                text : this.lang[this.local].enterVerifCode,
                 el : "[name='register-moble_verify']",
                 status : false,
             });
 
             this.$store.commit('tips/add', {
-                text : this.lang.sendVerifCode,
+                text : this.lang[this.local].sendVerifCode,
                 el : ".register-code-btn",
                 status : false,
             });
 
             this.$store.commit('tips/add', {
-                text : this.lang.sendVerifCodeError,
+                text : this.lang[this.local].sendVerifCodeError,
                 el : ".register-code-btn",
                 status : false,
             });
@@ -189,13 +192,13 @@
             });
 
             this.$store.commit('tips/add', {
-                text : this.lang.password,
+                text : this.lang[this.local].password,
                 el : "[name=register-password]",
                 status : false,
             });
 
             this.$store.commit('tips/add', {
-                text : this.lang.passwordConfirm,
+                text : this.lang[this.local].passwordConfirm,
                 el : "[name=register-confirmPassword]",
                 status : false,
             });
@@ -217,17 +220,17 @@
             },
 
             usernameFocus (){
-                this.$store.commit('tips/hide', this.lang.enterPhone);
+                this.$store.commit('tips/hide', this.lang[this.local].enterEmail);
             },
 
             usernameBlur (){
                 if(this.param.username == ''){
                     this.$store.commit('tips/hideAll');
-                    this.$store.commit('tips/show', this.lang.enterPhone);
+                    this.$store.commit('tips/show', this.lang[this.local].enterEmail);
                     return false
                 };
                 if(this.param.username.length < 7){
-                    this.$store.commit('tips/show', this.lang.phoneError);
+                    this.$store.commit('tips/show', this.lang[this.local].phoneError);
                     return false
                 };
                 return true;
@@ -235,24 +238,24 @@
 
             moble_verifyFocus (){
 
-                this.$store.commit('tips/hide', this.lang.password);
+                this.$store.commit('tips/hide', this.lang[this.local].password);
 
-                this.$store.commit('tips/hide', this.lang.sendVerifCodeError);
+                this.$store.commit('tips/hide', this.lang[this.local].sendVerifCodeError);
 
                 if(this.param.username == ''){
-                    this.$store.commit('tips/show', this.lang.enterPhone);
+                    this.$store.commit('tips/show', this.lang[this.local].enterEmail);
                     this.param.moble_verify = '';
                     return false;
                 };
 
                 if(this.param.username.length < 7){
-                    this.$store.commit('tips/show', this.lang.phoneError);
+                    this.$store.commit('tips/show', this.lang[this.local].phoneError);
                     this.param.moble_verify = '';
                     return false;
                 };
 
                 if(this.sendCodeCount <= 0){
-                    this.$store.commit('tips/show', this.lang.sendVerifCode);
+                    this.$store.commit('tips/show', this.lang[this.local].sendVerifCode);
                     this.param.moble_verify = '';
                     return false;
                 }
@@ -260,12 +263,12 @@
             },
 
             moble_verifyBlur (){
-                if(this.sendCodeCount >= 1 && this.param.username.length >= 7 && this.param.username.length <= 11){
+                if(this.sendCodeCount >= 1 && this.param.username.length >= 3 && this.param.username.length <= 32){
                     if(this.param.moble_verify.length == 6){
-                        this.$store.commit('tips/hide', this.lang.enterVerifCode);
+                        this.$store.commit('tips/hide', this.lang[this.local].enterVerifCode);
                         return true;
                     }else{
-                        this.$store.commit('tips/show', this.lang.enterVerifCode);
+                        this.$store.commit('tips/show', this.lang[this.local].enterVerifCode);
                         return false;
                     };
                 };
@@ -273,15 +276,15 @@
             },
 
             passwordFocus (){
-                this.$store.commit('tips/hide', this.lang.password);
-                this.$store.commit('tips/hide', this.lang.passwordConfirm);
+                this.$store.commit('tips/hide', this.lang[this.local].password);
+                this.$store.commit('tips/hide', this.lang[this.local].passwordConfirm);
             },
 
             passwordBlur (){
                 this.$store.commit('tips/hide', 'registerPasTip');
                 var passwordStatus = this.getPasswordStatus();
                 if(this.param.password == '' || passwordStatus.type < 2){
-                    this.$store.commit('tips/show', this.lang.password);
+                    this.$store.commit('tips/show', this.lang[this.local].password);
                     return false;
                 };
                 return true;
@@ -289,7 +292,7 @@
 
             passwordConfirmBlur (){
                 if(this.param.confirmPassword == '' || this.param.confirmPassword != this.param.password){
-                    this.$store.commit('tips/show', this.lang.passwordConfirm);
+                    this.$store.commit('tips/show', this.lang[this.local].passwordConfirm);
                     return false;
                 };
                 return true;
@@ -300,28 +303,27 @@
                     return false;
                 };
                 if(this.param.username == ''){
-                    this.$store.commit('tips/show', this.lang.enterPhone);
+                    this.$store.commit('tips/show', this.lang[this.local].enterEmail);
                     return false;
                 };
-                if(this.param.username.length < 7){
-                    this.$store.commit('tips/show', this.lang.phoneError);
+                if(this.param.username.length < 3){
+                    this.$store.commit('tips/show', this.lang[this.local].phoneError);
                     return false;
                 };
                 this.verifyCodeTimeText = -1;
                 this.axios({
                     url : this.api.registerVerifyCode,
                     data : {
-                        username : this.param.username,
-                        districtcode : this.param.districtcode
+                        email : this.param.username,
                     }
                 }).then((res) => {
                     this.sendCodeStatus = true;
                     this.sendCodeCount ++;
                     this.verifyCodeDown();
                 }).catch((err) => {
-                    this.$store.commit('tips/hide', this.lang.sendVerifCode);
+                    this.$store.commit('tips/hide', this.lang[this.local].sendVerifCode);
                     this.$store.commit('tips/add', {
-                        text : err.message || this.lang.sendVerifCodeError,
+                        text : err.message || this.lang[this.local].sendVerifCodeError,
                         status : true,
                         time : this.verifTipTime,
                         el : ".register-code-btn",
@@ -359,10 +361,10 @@
 
                 if(!this.agreement){
                     this.$store.commit('tips/add', {
-                        text : this.lang.agreementTip + this.lang.registerAgreement,
+                        text : this.lang[this.local].agreementTip + this.lang[this.local].registerAgreement,
                         status : true,
                         time : this.verifTipTime,
-                        el : ".register-agreement",
+                        el : ".checkbox-my",
                     });
                     return false;
                 };
@@ -372,24 +374,26 @@
                 this.axios({
                     url : this.api.register,
                     data : {
-                        ...this.param
+                        ...this.param,
+                        email:this.param.username,
+                        email_verify:this.param.moble_verify
                     }
                 }).then((res) => {
                     this.submitStatus = false;
                     this.$store.commit('tips/add', {
-                        text : this.lang.registerSuccess,
+                        text : this.lang[this.local].registerSuccess,
                         status : true,
                         time : this.verifTipTime,
-                        el : ".login-btn-red",
+                        el : ".login-btn",
                     });
                     this.$router.push('/');
                 }).catch((err) => {
                     this.submitStatus = false;
                     this.$store.commit('tips/add', {
-                        text : err.message || this.lang.registerError,
+                        text : err.message || this.lang[this.local].registerError,
                         status : true,
                         time : this.verifTipTime,
-                        el : ".login-btn-red",
+                        el : ".login-btn",
                     });
                 });
             },

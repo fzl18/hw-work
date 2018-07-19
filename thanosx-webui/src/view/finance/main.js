@@ -21,9 +21,11 @@ Vue.component('balance', balance);
 Vue.mixin({
     data (){
         return {
+            verifTipTime : 3000,
         }
     },
     computed : {
+        ...mapState(['userBasicinfo', 'userBasicinfoState'])
     },
     methods : {
         coinChange (){
@@ -32,6 +34,19 @@ Vue.mixin({
             }else{
                 this.$router.push('./index');
             };
+        },
+        basicinfo (){
+            this.$store.commit('userBasicinfoState', 0);
+            this.axios({
+                url : this.api.basicinfo,
+            }).then((res) => {
+                this.$store.commit('userBasicinfo', res.data);
+                this.$store.commit('userBasicinfoState', 1);
+            }).catch((err) => {
+                this.$store.commit('userBasicinfoState', -1);
+                this.$store.commit('userBasicinfo', {});
+                this.basicinfo();
+            });
         },
     }
 });

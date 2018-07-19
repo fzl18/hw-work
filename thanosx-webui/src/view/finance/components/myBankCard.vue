@@ -1,24 +1,24 @@
 <template>
     <section>
         <financeHeader>
-            <span>{{lang.myBankCard}}</span>
+            <span>{{lang[local].myBankCard}}</span>
         </financeHeader>
         <section class="bankCard-box">
 
             <section v-if="getState == getStateSuccess" class="bankCard item" v-for="(item, i) in list" :key="item.id">
                 <h4>
                     <img :src="item.img" alt="">
-                    <span>{{lang.tailNum}}{{(item.bankcard || '').slice(-4)}}<i>{{lang.depositCard}}</i></span>
+                    <span>{{lang[local].tailNum}}{{(item.bankcard || '').slice(-4)}}<i>{{lang[local].depositCard}}</i></span>
                 </h4>
                 <ul class="site">
                     <li>
-                        <span :title="item.name">{{lang.cardName}}: {{hideName(item.name)}}</span>
-                        <a :href="api.defaultbank" @click="setDefault(item, i)" :class="classActive(item.default_bank == 1)">{{item.default_bank == '1' ? lang.default :
-                            lang.setDefault}}{{item.defaultStatus ? '...' : ''}}</a>
+                        <span :title="item.name">{{lang[local].cardName}}: {{hideName(item.name)}}</span>
+                        <a :href="api.defaultbank" @click="setDefault(item, i)" :class="classActive(item.default_bank == 1)">{{item.default_bank == '1' ? lang[local].default :
+                            lang[local].setDefault}}{{item.defaultStatus ? '...' : ''}}</a>
                     </li>
                     <li>
-                        <span :title="item.bankaddr">{{lang.branchBank}}: {{item.bankaddr}}</span>
-                        <a :href="api.delbank" @click="delbank(item, i)">{{lang.del}}{{item.delStatus ? '...' : ''}}</a>
+                        <span :title="item.bankaddr">{{lang[local].branchBank}}: {{item.bankaddr}}</span>
+                        <a :href="api.delbank" @click="delbank(item, i)">{{lang[local].del}}{{item.delStatus ? '...' : ''}}</a>
                     </li>
                 </ul>
             </section>
@@ -28,7 +28,7 @@
             </section>
 
             <router-link to="./addBankCard" tag="section" class="add">
-                <span>{{lang.gu_finance106}}</span>
+                <span>{{lang[local].gu_finance106}}</span>
             </router-link>
 
         </section>

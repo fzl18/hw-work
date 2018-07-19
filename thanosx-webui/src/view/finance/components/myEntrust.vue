@@ -1,33 +1,28 @@
 <template>
     <section>
         <financeHeader :hint="false">
-            <span>{{lang.myEntrust}}</span>
+            <span>{{lang[local].myEntrust}}</span>
             <section class="query">
-                <select-my v-model="order_type" class="query-select" :list="marketType" selected="" @change="" />
-                &nbsp;&nbsp;
-                <input type="text" class="coin" v-model="market" />
-                <span>/</span>
-                <select-my class="query-select" v-model="market2" :list="marketList" :selected="market[0]" @change="" />
-                <!--<a href="javascript:;" class="seek">{{lang.seek}}</a>-->
+                <select-my v-model="order_type" class="query-select" :list="marketType" selected="" @change="" />               
             </section>
         </financeHeader>
         <list class="myEntrust-table" :url="api.weituo" :param="listParam">
             <dl slot="head">
-                <dd>{{lang.entrustTime}}</dd>
-                <dd>{{lang.market}}</dd>
-                <dd>{{lang.tradeType}}</dd>
-                <dd>{{lang.unitPrice}}</dd>
-                <dd>{{lang.entrustNum}}</dd>
-                <dd>{{lang.entrustTurnover}}</dd>
-                <dd>{{lang.unsettled}}</dd>
-                <dd>{{lang.operation}}</dd>
+                <dd>{{lang[local].entrustTime}}</dd>
+                <dd>{{lang[local].market}}</dd>
+                <dd>{{lang[local].tradeType}}</dd>
+                <dd>{{lang[local].unitPrice}}</dd>
+                <dd>{{lang[local].entrustNum}}</dd>
+                <dd>{{lang[local].entrustTurnover}}</dd>
+                <dd>{{lang[local].unsettled}}</dd>
+                <dd>{{lang[local].operation}}</dd>
             </dl>
             <dl slot="body" slot-scope="{item}">
                 <dd>{{localDate(item.order_time)}}</dd>
                 <dd>{{upperCase(item.market)}}/{{upperCase(item.market2)}}</dd>
                 <dd>
                     <span :class="item.order_type == 'Buy' ? 'buyColor' : 'sellColor'">
-                        {{item.order_type == 'Buy' ? lang.buy : lang.sell }}
+                        {{item.order_type == 'Buy' ? lang[local].buy : lang[local].sell }}
                     </span>
                 </dd>
                 <dd>{{item.price}}</dd>
@@ -35,7 +30,7 @@
                 <dd>{{item.deal}}</dd>
                 <dd>{{item.count}}</dd>
                 <dd>
-                    <a href="javascript:;" @click="chexiao(item)">{{lang.annul}}{{item.chexiao ? '...' : ''}}</a>
+                    <a href="javascript:;" @click="chexiao(item)">{{lang[local].annul}}{{item.chexiao ? '...' : ''}}</a>
                 </dd>
             </dl>
         </list>
@@ -56,7 +51,7 @@
         },
         computed :{
             marketType (){
-                return [['', this.lang.all],['Buy', this.lang.buy], ['Sell', this.lang.sell]];
+                return [['', this.lang[this.local].all],['Buy', this.lang[this.local].buy], ['Sell', this.lang[this.local].sell]];
             },
             listParam (){
                 return {
@@ -79,10 +74,10 @@
                         order_id : item.order_id
                     }
                 }).then((res) => {
-                    this.$store.commit('msg/add', this.lang.annulS);
+                    this.$store.commit('msg/add', this.lang[this.local].annulS);
                     this.upData = this.upData + 1;
                 }).catch((err) => {
-                    this.$store.commit('msg/err', err.message || this.lang.annulE);
+                    this.$store.commit('msg/err', err.message || this.lang[this.local].annulE);
                 });
             },
             getMarketInfo (){

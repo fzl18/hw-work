@@ -1,19 +1,19 @@
 <template>
-    <div class="finance-coinBalance">
+    <div class="finance-coinBalance" style="display:none">
         <span>
-            <small>{{lang.totalAmount}} {{upperCase(coin)}}</small>
+            <small>{{lang[local].totalAmount}} {{upperCase(coin)}}</small>
             <b>{{numDecimals(balance.tol || (balance.xnb + balance.xnbd + balance.xnblock))}}</b>
         </span>
         <span>
-            <small>{{lang.usable}} {{upperCase(coin)}}</small>
+            <small>{{lang[local].usable}} {{upperCase(coin)}}</small>
             <b>{{numDecimals(balance.xnb)}}</b>
         </span>
         <span>
-            <small>{{lang.freeze}} {{upperCase(coin)}}</small>
+            <small>{{lang[local].freeze}} {{upperCase(coin)}}</small>
             <b>{{numDecimals(balance.xnbd)}}</b>
         </span>
         <span>
-            <small>{{lang.lock}} {{upperCase(coin)}}</small>
+            <small>{{lang[local].lock}} {{upperCase(coin)}}</small>
             <b>{{numDecimals(balance.xnblock)}}</b>
         </span>
     </div>

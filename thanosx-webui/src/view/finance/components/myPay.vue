@@ -1,7 +1,7 @@
 <template>
     <section>
         <financeHeader>
-            <span>{{lang.myPay}}</span>
+            <span>{{lang[local].myPay}}</span>
         </financeHeader>
         <section class="myPay-box">
             <load v-if="getState == getStateStart" />
@@ -9,36 +9,36 @@
                 <div class="active" v-if="aliPay.account">
                     <div>
                         <i></i>
-                        <span @click="deleteAliPay" >{{lang.del}}</span>
+                        <span @click="deleteAliPay" >{{lang[local].del}}</span>
                     </div>
                     <ul>
-                        <li>{{lang.gu_finance61}}: {{aliPay.account}}</li>
-                        <li>{{lang.gu_finance62}}: {{hideName(realName)}}</li>
+                        <li>{{lang[local].gu_finance61}}: {{aliPay.account}}</li>
+                        <li>{{lang[local].gu_finance62}}: {{hideName(realName)}}</li>
                     </ul>
                     <img class="ewm" :src="imgUrl(aliPay.paycode)" alt="">
                 </div>
                 <div class="focus" v-else>
                     <img src="../assets/images/Alipay2.png" alt="">
-                    <p>{{lang.gu_finance63}}</p>
-                    <router-link to="./addAlipay">{{lang.addAliPay}}</router-link>
+                    <p>{{lang[local].gu_finance63}}</p>
+                    <router-link to="./addAlipay">{{lang[local].addAliPay}}</router-link>
                 </div>
             </section>
             <section class="item weChat"  v-if="getState == getStateSuccess">
                 <div class="active"  v-if="weChat.account">
                     <div>
                         <i></i>
-                        <span @click="deleteWeChatPay" >{{lang.del}}</span>
+                        <span @click="deleteWeChatPay" >{{lang[local].del}}</span>
                     </div>
                     <ul>
-                        <li>{{lang.gu_finance61}}: {{weChat.account}}</li>
-                        <li>{{lang.gu_finance62}}: {{hideName(realName)}}</li>
+                        <li>{{lang[local].gu_finance61}}: {{weChat.account}}</li>
+                        <li>{{lang[local].gu_finance62}}: {{hideName(realName)}}</li>
                     </ul>
                     <img class="ewm" :src="imgUrl(weChat.paycode)" alt="">
                 </div>
                 <div class="focus" v-else>
                     <img src="../assets/images/WeChat2.png" alt="">
-                    <p>{{lang.gu_finance64}}</p>
-                    <router-link to="./addWeChat">{{lang.addWeChat}}</router-link>
+                    <p>{{lang[local].gu_finance64}}</p>
+                    <router-link to="./addWeChat">{{lang[local].addWeChat}}</router-link>
                 </div>
             </section>
         </section>
@@ -70,7 +70,7 @@
                         type : 'ali',
                     }
                 }).then((res) => {
-                    this.$store.commit('msg/add', this.lang.gu_finance58);
+                    this.$store.commit('msg/add', this.lang[local].gu_finance58);
                     this.aliPay.account = '';
                     this.aliPay.paycode = '';
                     this.$router.push('./myPay');
@@ -86,7 +86,7 @@
                     }
                 }).then((res) => {
                     console.log(res.data);
-                    this.$store.commit('msg/add', this.lang.delWeChatSuccess);
+                    this.$store.commit('msg/add', this.lang[local].delWeChatSuccess);
                     this.weChat.account = '';
                     this.weChat.paycode = '';
                     this.$router.push('./myPay');
@@ -115,6 +115,6 @@
     }
 </script>
 
-<style scoped lang="scss">
+<style scoped lang[local]="scss">
     @import "../../../assets/css/var.scss";
 </style>

@@ -70,11 +70,12 @@ $mobileWidth : 740px;
     overflow: auto;
     .login-center{
         display: block;
-        width: 30%;
+        width: 400px;
         margin: 0 auto;
         margin-top: 10%;
         padding:30px;
         background:#FFF;
+        font-size:15px;
         @media screen and (max-width: $mobileWidth){
             width: 100%;
             max-width: 420px;
@@ -137,6 +138,7 @@ $loginInputHeight2 : 45px;
         display: block;
         position: relative;
         margin-bottom: 30px;
+        .tips{color:#A6A6A6}
         &:after{
             content: '';
             display: block;
@@ -166,7 +168,7 @@ $loginInputHeight2 : 45px;
         height: $loginInputHeight;
         line-height: $loginInputHeight;
         color: $fontColor;
-        font-size: 14px;
+        font-size: 15px;
         font-family: inherit;
         padding: 0 20px 0 10px;
         &.error{
@@ -222,31 +224,31 @@ $loginInputHeight2 : 45px;
         border-right: none;
     }
     .register-code-btn{
-        display: block;
-        position: absolute;
-        border: solid 1px $loginInputBorderColor;
-        border-left: none;
-        width: 28%;
-        height: 100%;
-        right: 0;
-        top: 0;
-        line-height: $loginInputHeight;
-        color: $viceFontColor;
-        font-size: 16px;
-        text-align: center;
-        @include transitionCommon(color, 0.4s);
+        // display: block;
+        // position: absolute;
+        // border: solid 1px $loginInputBorderColor;
+        // border-left: none;
+        // width: 28%;
+        // height: 100%;
+        // right: 0;
+        // top: 0;
+        // line-height: $loginInputHeight;
+        // color: $viceFontColor;
+        // font-size: 16px;
+        // text-align: center;
+        // @include transitionCommon(color, 0.4s);
         &.active{
             color: $mainColor;
         }
-        &:before{
-            content: '';
-            display: block;
-            position: absolute;
-            border-left: solid 1px $loginInputBorderColor;
-            left: 0;
-            top: 25%;
-            height: 50%;
-        }
+        // &:before{
+        //     content: '';
+        //     display: block;
+        //     position: absolute;
+        //     border-left: solid 1px $loginInputBorderColor;
+        //     left: 0;
+        //     top: 25%;
+        //     height: 50%;
+        // }
         @media screen and (max-width: $mobileWidth){
             line-height: $loginInputHeight2;
             font-size: 14px;
@@ -309,6 +311,9 @@ $loginInputHeight2 : 45px;
         top:30%;
         right:0;
         color: #FF6500;
+        text-align:right;
+        width:100px;
+        display:block;
     }
 }
 

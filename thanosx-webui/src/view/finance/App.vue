@@ -1,26 +1,22 @@
 <template>
     <section class="finance-box main-box">
         <header-component active="finance" />
-        <section class="inner-header">
-            <h4>
-                <router-link to="/"><span>{{lang.finance}}</span></router-link>
-            </h4>
-        </section>
-        <section class="finance-main">
+        <section class="finance-main container">
             <section class="finance-left">
                 <div class="finance-nav">
-                    <router-link v-for="m in menu" :key="m.name" :class="m.name + ' ' + classActive(($route.meta.parent || $route.name) == m.name)" :to="'/' + m.name">{{lang[m.text]}}</router-link>
+                    <router-link v-for="m in menu" :key="m.name" :class="m.name + ' ' + classActive(($route.meta.parent || $route.name) == m.name)" :to="'/' + m.name"><i class="iconfont" :class="m.icon"></i> {{lang[local][m.text]}}</router-link>
                 </div>
-                <a href="javascript:;" target="_blank" class="finance-app">
+                <!-- <a href="javascript:;" target="_blank" class="finance-app">
                     <ewm :value="api.appDownload" :size="110"></ewm>
-                    <p>{{lang.finance10}}</p>
-                </a>
+                    <p>{{lang[local].finance10}}</p>
+                </a> -->
             </section>
             <section class="finance-right">
                 <router-view />
             </section>
         </section>
         <msg />
+        <footer-component />
     </section>
 </template>
 
@@ -33,27 +29,41 @@
                     {
                         text : 'myAssets',
                         name : 'index',
-                    },
-                    {
-                        text : 'myBankCard',
-                        name : 'myBankCard',
+                        icon: 'icon-zichan1'
                     },
                     {
                         text : 'myWallet',
                         name : 'myWallet',
-                    },
-                    {
-                        text : 'myPay',
-                        name : 'myPay',
+                        icon: 'icon-icon-'
                     },
                     {
                         text : 'myEntrust',
                         name : 'myEntrust',
+                        icon: 'icon-weituoqianyue'
                     },
                     {
                         text : 'myDeal',
                         name : 'myDeal',
+                        icon: 'icon-jiaoyi01'
+                        
                     },
+                    {
+                        text : 'coinRecord',
+                        name : 'coinRecord',
+                        icon: 'icon-jiaoyicopy'
+                        
+                    },
+                    {
+                        text : 'account',
+                        name : 'account',
+                        icon: 'icon-shezhi'
+                        
+                    },
+                    // {
+                    //     text : 'myDeal',
+                    //     name : 'myDeal',
+                    //     icon: 'icon-jiaoyicopy'
+                    // },
                     // {
                     //     text : 'inviteFriends',
                     //     name : 'inviteFriends',

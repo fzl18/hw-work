@@ -16,7 +16,21 @@
             width:33%;float: left;
             a{margin-right:20px;}
         }
-        dt{float: left;}
+        dt{
+            float: left;
+            padding-left: 15px;
+            position: relative;
+            &:after{
+                content:'';
+                height:0;
+                width:0;
+                border: 5px solid transparent;
+                border-left-color: $mainColor;
+                position: absolute;
+                left: 0;
+                top: 30%;
+            }
+        }
         dd{float: left;margin-left:4%;}
     }
     .copyright{

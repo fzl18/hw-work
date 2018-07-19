@@ -99,7 +99,7 @@
         display: inline-block;
         height: 30px;
         position: relative;
-        z-index: 9999;
+        z-index: 20;
         vertical-align: middle;
         label{
             display: inline-block;

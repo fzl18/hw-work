@@ -79,7 +79,7 @@
                 whitelist : ['BTC', 'ETH', 'XRP', 'ETC', 'BCH', 'XMR', 'ZEC', 'LTC', 'PYC', 'USDT'],
                 coins : [],
                 districtInfo : [],
-                markets : ["cnt", "pyc", "usdt", "btc", "eth", "del"],
+                markets : ["cnt", "usdt", "btc", "eth"],
                 selfPick : [],
                 socket : null,
                 initMarketData : null,
@@ -513,7 +513,8 @@
     .market-box{
         padding-bottom: 40px;
         .market-load{
-            width: $webWidth;
+            max-width: $maxWidth;
+            min-width: $minWidth;
             margin: 0 auto;
         }
         .market-title{
@@ -537,10 +538,11 @@
             li{
                 display: block;
                 float: left;
-                width:80px;
+                width:10%;
                 height: 100%;
                 line-height: 1;
-                text-align: center;
+                text-align:left;
+                padding-left: 15px;
                 font-size: 16px;
                 font-weight: normal;
                 cursor: pointer;
@@ -548,7 +550,20 @@
                 user-select: none;
                 color:#FFC699;
                 &.active, &:hover{
-                    color: #fff;                    
+                    color: #fff;
+                    &:after{
+                        border-left-color:#fff;
+                    }
+                }
+                &:after{
+                    content:'';
+                    height:0;
+                    width:0;
+                    border: 5px solid transparent;
+                    border-left-color: rgba(255, 255, 255, .5);
+                    position: absolute;
+                    left: 0;
+                    bottom: 8%;
                 }
                 $icoSize : 26px;
                 $icoMarR : 10px;

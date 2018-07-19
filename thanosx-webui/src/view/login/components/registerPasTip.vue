@@ -2,10 +2,10 @@
     <section class="register-pas-tip">
         <div class="register-pas-tip-1" :class="'type' + type">
             <span></span><span></span><span></span>
-            <b>{{type == 1 ? lang.weak : type == 2 ? lang.medium : lang.strong}}</b>
+            <b>{{type == 1 ? lang[local].weak : type == 2 ? lang[local].medium : lang[local].strong}}</b>
         </div>
-        <div class="register-pas-tip-2" :class="len ? 'active' : ''"><i></i>{{lang.password1}}</div>
-        <div class="register-pas-tip-2"  :class="numLetter ? 'active' : ''"><i></i>{{lang.password2}}</div>
+        <div class="register-pas-tip-2" :class="len ? 'active' : ''"><i></i>{{lang[local].password1}}</div>
+        <div class="register-pas-tip-2"  :class="numLetter ? 'active' : ''"><i></i>{{lang[local].password2}}</div>
     </section>
 </template>
 
