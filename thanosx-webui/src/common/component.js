@@ -15,6 +15,7 @@ import listLoadTemplate from '../components/listLoadTemplate';
 import uploadFile from '../components/uploadFile';
 import appDownload from '../components/appDownload';
 import { Row, Col,Dropdown,DropdownMenu,DropdownItem,Icon,Affix,Modal } from 'iview';
+import 'babel-polyfill'
 
 const copy = () => import(/* webpackChunkName: "copy" */ '../components/copy');
 const ewm = () => import(/* webpackChunkName: "ewm" */ '../components/ewm');

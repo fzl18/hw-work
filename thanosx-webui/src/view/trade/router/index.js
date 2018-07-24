@@ -11,7 +11,7 @@ const router = new Router({
     routes: [
         {
             path: '/',
-            redirect: '/pyc/cnt'
+            redirect: '/eth/usdt'
         },
         {
             path: '/:xnb/:rmb',

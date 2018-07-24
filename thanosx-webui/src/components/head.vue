@@ -1,10 +1,10 @@
 <template>
 <!-- <Affix offset-top="100" @on-change="change">   -->
     <section class="tophead">
-        <header :class=" active == 'trade' ? '' : 'container' ">
+        <header :class=" active == 'trade' ? 'trade' : 'container' ">
             <Row>
                 <Col span='18'>                    
-                    <div class="logo"></div>
+                    <div class="logo"><a href="/" ></a> </div>
                     <div class="lang">
                         <Dropdown @on-click="changeLang">
                             <a href="javascript:void(0)">
@@ -21,7 +21,7 @@
                         </Dropdown>
                     </div>
                     <div class="nav" v-for="nav in menu" >
-                        <a href="" @click.stop.prevent="toModule(nav)">{{lang[local][nav] }}</a>
+                        <a href="" :class=" active == nav && 'cur' " @click.stop.prevent="toModule(nav)">{{lang[local][nav] }}</a>
                     </div>                         
                 </Col>
                 <Col span='6'>
@@ -36,7 +36,7 @@
                                 <span>{{loginInfo.username}}</span>
                             </a>
                             <ul>
-                                <li>资产折合：<span>≈  13123123</span></li>
+                                <li>我的资产：<span>≈  13123123</span></li>
                                 <li>账户设置 <span class="state">未验证</span></li>
                                 <li @click="logout" class="exit"> <i class="iconfont icon-tuichu1"></i> {{lang[local].loginExit}}</li>
                             </ul>
@@ -55,7 +55,7 @@
         props : ['active'],
         data (){
             return {
-                menu : ['home', 'trade', 'whitebook', 'app'],
+                menu : ['home', 'trade', 'whitebook','ico', 'app'],
                 loginTo : ['safety', 'finance'],
             };
         },
@@ -126,9 +126,7 @@
                     console.log(err);
                     location.reload();
                 });
-            },
-            
-
+            }, 
         },
     }
 </script>

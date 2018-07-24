@@ -1,29 +1,28 @@
 <template>
     <section class="trade-buy-box trade-sell-box">
-        <p class="balance">{{xnb}} {{lang.usable}}： {{numAccuracy(xnbAssets)}}</p>
+        <p class="balance">{{xnb}} {{lang[local].usable}}： {{numAccuracy(xnbAssets)}}</p>
         <section class="inp" :class="classActive(clickActive)">
-            <span>{{lang.sellPrice}} ({{rmb}})</span>
+            <span>{{lang[local].sellPrice}} ({{rmb}})</span>
             <input type="text" placeholder="0.00" v-model="price" />
         </section>
         <section class="inp">
-            <span>{{lang.sellNum}} ({{xnb}})</span>
+            <span>{{lang[local].sellNum}} ({{xnb}})</span>
             <input type="text" placeholder="0.00" v-model="num" />
         </section>
 
         <section class="rate" :class="rateType">
-            <div class="rate-bar">
+            <!-- <div class="rate-bar">
                 <span :style="{width : rateText}"></span>
                 <span @click="rateBar($event)" class="click-active"></span>
-            </div>
-            <span @click="clickRate(0)"></span>
-            <span @click="clickRate(0.25)"></span>
-            <span @click="clickRate(0.5)"></span>
-            <span @click="clickRate(0.75)"></span>
-            <span @click="clickRate(1)"></span>
+            </div> -->
+            <span @click="clickRate(0.25)">25%</span>
+            <span @click="clickRate(0.5)">50%</span>
+            <span @click="clickRate(0.75)">75%</span>
+            <span @click="clickRate(1)">100%</span>
         </section>
-        <p class="total">{{lang.total}}：{{totalPrice}} {{rmb}} <span>{{rateText}}</span></p>
-        <p class="usable">{{lang.buyMay}}：{{maxNum}} {{rmb}}</p>
-        <a href="javascript:;" class="trade-btn" @click="submit">{{lang.sell}} {{xnb}}{{sellData.price ? '...' : ''}}</a>
+        <!-- <p class="total">{{lang[local].total}}：{{totalPrice}} {{rmb}} <span>{{rateText}}</span></p> -->
+        <!-- <p class="usable">{{lang[local].buyMay}}：{{maxNum}} {{rmb}}</p> -->
+        <a href="javascript:;" class="trade-btn" @click="submit">{{lang[local].sell}} {{xnb}}{{sellData.price ? '...' : ''}}</a>
     </section>
 </template>
 

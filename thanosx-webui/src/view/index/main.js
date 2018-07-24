@@ -4,8 +4,8 @@ import store from './store'
 import module from '../../common/module'
 
 import {apiHome} from '../../common/api/home'
-
-store.commit('updateApi', apiHome);
+import 'babel-polyfill'
+store.commit('updateApi', apiHome)
 
 Vue.mixin({
     data (){

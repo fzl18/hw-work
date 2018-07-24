@@ -18,12 +18,14 @@ instance.interceptors.request.use(function (config) {
     };
     if(process.env.NODE_ENV == 'development'){
         config.data = {
-            data : config.data,
+            data :{ ...config.data, 
+                lang : localStorage.curLang,},
             // cookie : document.cookie
         };
     }else{
         config.data = {
-            data : config.data,
+            data : { ...config.data, 
+                lang : localStorage.curLang,},
         };
     };
     return config;

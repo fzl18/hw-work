@@ -1,27 +1,38 @@
 <template>
-    <section>
+    <section class="safety-block">
         <financeHeader>
             <span>{{lang[local].addWallet}}</span>
         </financeHeader>
         <form>
-            <section class="finance-form">
+            <section class="safety-form">
+                <div class="tit">
+                    {{lang[local].addWallet}}
+                </div>
                 <section class="form-group">
-                    <label>{{lang[local].gu_finance43}}</label>
+                    <!-- <label>{{lang[local].gu_finance43}}</label> -->
+                    <div class="input-box">
                     <select-my class="safety-issue-select" v-model="coinname" :list="coinList" selected="" @change="coinChange" />
+                    </div>
                 </section>
                 <section class="form-group">
-                    <label>{{lang[local].walletUrl}}</label>
+                    <!-- <label>{{lang[local].walletUrl}}</label> -->
+                    <div class="input-box">
                     <input type="text" v-model="addr" :placeholder="lang[local].walletUrl" />
+                    </div>
                 </section>
                 <section class="form-group" v-if="qb_title">
-                    <label>{{qb_title}}</label>
+                    <!-- <label>{{qb_title}}</label> -->
+                    <div class="input-box">
                     <input type="text" v-model="addr_child" :placeholder="qb_title" />
+                    </div>
                 </section>
                 <section class="form-group">
-                    <label>{{lang[local].walletName}}</label>
+                    <!-- <label>{{lang[local].walletName}}</label> -->
+                    <div class="input-box">
                     <input type="text" v-model="name" :placeholder="lang[local].walletName" />
+                    </div>
                 </section>
-                <section class="form-group" style="text-align: right">
+                <!-- <section class="form-group" style="text-align: right">
                     <div>
                         <label class="checkbox-my big">
                             <input type="checkbox" v-model="is_default" />
@@ -29,12 +40,12 @@
                             {{lang[local].authWallet}}
                         </label>
                     </div>
-                </section>
+                </section> -->
                 <!--<section class="form-group" v-if="is_default">
                     <label>{{lang[local].payPassword}}</label>
                     <input type="password" :placeholder="lang[local].payPassword" />
                 </section>-->
-                <section class="form-group" v-if="is_default">
+                <!-- <section class="form-group" v-if="is_default">
                     <label>{{lang[local].verifCode}}</label>
                     <input type="text" v-model="moble_verify" :placeholder="lang[local].SMSVerifCode" />
                     <span @click="sendVerify" class="getVerifCode" :class="classActive(verifyCodeTimeText == -1 || verifyCodeTimeText.length )">
@@ -46,13 +57,11 @@
                             : lang[local].getVerifCode
                         }}
                     </span>
-                </section>
+                </section> -->
                 <section class="form-group form-group-btn">
                     <a href="javascript:;" @click="upqianbao" class="form-submit-btn">{{lang[local].gu_finance27}}{{this.getState == this.getStateStart ? '...' : ''}}</a>
-                </section>
-                <section class="form-group">
                     <a href="javascript:;" @click="$router.go(-1)" class="form-submit-btn white">{{lang[local].cancel}}</a>
-                </section>
+                </section>                
             </section>
         </form>
     </section>

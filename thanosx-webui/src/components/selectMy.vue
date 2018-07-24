@@ -126,9 +126,14 @@
                 &:after{
                     display: inline-block;
                     position: absolute;
-                    right: 15px;
-                    content: '\e632';
-                    @include iconfont(14px);
+                    right: 10px;
+                    top:45%;
+                    content: '';
+                    width:0;
+                    height:0;
+                    border-width:8px 6px 0;
+                    border-style:solid;
+                    border-color:rgba(126, 126, 126,.5) transparent transparent;/*灰 透明 透明 */
                     transform-origin: 50% 50%;
                     @include transitionCommon(transform, 0.3s);
                 }

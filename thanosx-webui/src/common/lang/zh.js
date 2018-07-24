@@ -4,6 +4,7 @@ const zh = {
     "home" : "首页",
     "trade" : "交易",
     "whitebook":"白皮书",
+    "ico":"币币交易",
     "app":"下载APP",
     //
     "apptxt":"自主研发撮合系统，能每秒处理上万笔交易,算法支持多种专业交易",
@@ -97,6 +98,7 @@ const zh = {
     "registerPhoneDes" : "可通过手机号找回密码",
     "getVerifCode" : "获取验证码",
     "SMSVerifCode" : "短信验证码",
+    "emailVerifCode" : "邮件验证码",
     "verifCode" : "验证码",
     "enterPhone" : "请输入手机号码",
     "enterEmail" : "请输入邮箱",
@@ -696,6 +698,16 @@ const zh = {
     "delTradeNoDispark"  : 'DEL 交易暂未开放',
 
     "viewDetails"  : '查看详情',
+
+
+    "icotip":"认购说明：1、认购额度：单笔最低为0.1ETH，单笔最高100ETH；不限认购次数； 2、一旦购买完成后即无法退回，请确认后再购买； 3、购买记录请至<购买>记录查询",
+    "icoSubmit":"确定",
+    "icotabhead1":"时间",
+    "icotabhead2":"付款数量",
+    "icotabhead3":"使用币种",
+    "icotabhead4":"单价",
+    "icotabhead5":"赠送数量",
+    "icotabhead6":"购得数量",
 
 };
 

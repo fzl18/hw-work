@@ -15,10 +15,10 @@
         },
         methods : {
             onCopy (e){
-                this.$store.commit('msg/add', this.lang.copySuccess);
+                this.$store.commit('msg/add', this.lang[this.local].copySuccess);
             },
             onError (e){
-                this.$store.commit('msg/add', e.message || this.lang.copyError);
+                this.$store.commit('msg/add', e.message || this.lang[this.local].copyError);
             },
         }
     }

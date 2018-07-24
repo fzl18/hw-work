@@ -4,6 +4,11 @@
             <span>{{lang[local].myEntrust}}</span>
             <section class="query">
                 <select-my v-model="order_type" class="query-select" :list="marketType" selected="" @change="" />               
+                &nbsp;&nbsp;
+                <input type="text" class="coin" v-model="market" />
+                <span>/</span>
+                <select-my class="query-select" v-model="market2" :list="marketList" :selected="market[0]" @change="" />
+                <!--<a href="javascript:;" class="seek">{{lang.seek}}</a>-->
             </section>
         </financeHeader>
         <list class="myEntrust-table" :url="api.weituo" :param="listParam">

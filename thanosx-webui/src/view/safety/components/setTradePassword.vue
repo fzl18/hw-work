@@ -1,16 +1,20 @@
 <template>
     <section>
         <section  class="safety-block">
-            <h4 class="safety-title"><span>{{lang.tradePassword1}}</span></h4>
+            <h4 class="safety-title"><span>{{lang.tradePassword9}}</span></h4>
             <section class="safety-hint">
                 {{lang.tradePassword2}}
             </section>
             <section class="safety-form">
                 <section class="form-group">
+                    <div class="input-box">
                     <input type="password"  @keyup.enter="uppaypassword" v-model="param.newpaypwd" name="safety-trade-setnewpaypwd" :placeholder="lang.payPassword" />
+                    </div>
                 </section>
                 <section class="form-group">
+                    <div class="input-box">
                     <input type="password" @keyup.enter="uppaypassword" v-model="param.repaypwd" name="safety-trade-setrepaypwd" :placeholder="lang.tradePassword4" />
+                    </div>
                 </section>
                 <section class="form-group form-group-btn">
                     <a href="javascript:;" @click="uppaypassword" class="form-submit-btn">{{lang.confirm}}{{this.getState == this.getStateStart ? '...' : ''}}</a>

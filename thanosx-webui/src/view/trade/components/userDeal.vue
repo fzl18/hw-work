@@ -1,11 +1,11 @@
 <template>
     <section class="trade-user-deal trade-user-entrust">
         <dl class="head">
-            <dd>{{lang.dealTime}}</dd>
-            <dd>{{lang.myDeal_OrderType}}</dd>
-            <dd>{{lang.myDeal_Price}}</dd>
-            <dd>{{lang.tradeVolume}}</dd>
-            <dd>{{lang.totalCurrency}}</dd>
+            <dd>{{lang[local].dealTime}}</dd>
+            <dd>{{lang[local].myDeal_OrderType}}</dd>
+            <dd>{{lang[local].myDeal_Price}}</dd>
+            <dd>{{lang[local].tradeVolume}}</dd>
+            <dd>{{lang[local].totalCurrency}}</dd>
         </dl>
         <section v-if="userDealState">
             <dl v-for="item in userDeal">

@@ -1,30 +1,29 @@
 <template>
     <section class="trade-buy-box">
-        <p class="balance">{{rmb}} {{lang.usable}}： {{priceAccuracy(rmbAssets)}}</p>
+        <p class="balance">{{rmb}} {{lang[local].usable}}： {{priceAccuracy(rmbAssets)}}</p>
         <section class="inp" :class="classActive(clickActive)">
-            <span>{{lang.buyPrice}} ({{rmb}})</span>
-            <input type="text" placeholder="0.00" v-model="price" />
+            <span>{{lang[local].buyPrice}} ({{rmb}})</span>
+            <input type="text" :placeholder="rmb" v-model="price" />
         </section>
         <section class="inp">
-            <span>{{lang.buyNum}} ({{xnb}})</span>
-            <input type="text" placeholder="0.00" v-model="num" />
+            <span>{{lang[local].buyNum}} ({{xnb}})</span>
+            <input type="text" :placeholder="xnb" v-model="num" />
         </section>
 
         <section class="rate" :class="rateType">
-            <div class="rate-bar">
+            <!-- <div class="rate-bar">
                 <span :style="{width : rateText}"></span>
                 <span @click="rateBar($event)" class="click-active"></span>
-            </div>
-            <span @click="clickRate(0)"></span>
-            <span @click="clickRate(0.25)"></span>
-            <span @click="clickRate(0.5)"></span>
-            <span @click="clickRate(0.75)"></span>
-            <span @click="clickRate(1)"></span>
+            </div> -->
+            <span @click="clickRate(0.25)">25%</span>
+            <span @click="clickRate(0.5)">50%</span>
+            <span @click="clickRate(0.75)">75%</span>
+            <span @click="clickRate(1)">100%</span>
         </section>
 
-        <p class="total">{{lang.total}}：{{totalPrice}} {{rmb}} <span>{{rateText}}</span></p>
-        <p class="usable">{{lang.buyMay}}：{{maxNum}} {{xnb}}</p>
-        <a href="javascript:;" class="trade-btn" @click="submit">{{lang.buy}} {{xnb}}{{buyData.price ? '...' : ''}}</a>
+        <!-- <p class="total">{{lang[local].total}}：{{totalPrice}} {{rmb}} <span>{{rateText}}</span></p> -->
+        <!-- <p class="usable">{{lang[local].buyMay}}：{{maxNum}} {{xnb}}</p> -->
+        <a href="javascript:;" class="trade-btn" @click="submit">{{lang[local].buy}} {{xnb}}{{buyData.price ? '...' : ''}}</a>
 
     </section>
 </template>
@@ -112,27 +111,27 @@
                     var num = (this.rmbAssets * rate) / (this.serviceCharge + 1) / this.price;
                     this.num = this.xnbSplit(num);
                 }else{
-                    this.$store.commit('msg/err', this.lang.tradePriceEmpty);
+                    this.$store.commit('msg/err', this.lang[this.local].tradePriceEmpty);
                 };
             },
             submit : function (){
                 if(!!!this.loginInfo.uid){
-                    this.$store.commit('msg/err', this.lang.inviteLogin);
+                    this.$store.commit('msg/err', this.lang[this.local].inviteLogin);
                     return false;
                 };
                 if(this.buyData.price){
                     return;
                 };
                 if(this.rmbAssets * 1 <= 0){
-                    this.$store.commit('msg/err', this.rmb + this.lang.balanceEmpty);
+                    this.$store.commit('msg/err', this.rmb + this.lang[this.local].balanceEmpty);
                     return false;
                 };
                 if(!!!this.price){
-                    this.$store.commit('msg/err', this.lang.tradePriceEmpty);
+                    this.$store.commit('msg/err', this.lang[this.local].tradePriceEmpty);
                     return false;
                 };
                 if(!!!this.num){
-                    this.$store.commit('msg/err', this.lang.tradeNumEmpty);
+                    this.$store.commit('msg/err', this.lang[this.local].tradeNumEmpty);
                     return false;
                 };
                 this.$store.commit('buyData', {

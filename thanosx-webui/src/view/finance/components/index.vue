@@ -83,7 +83,7 @@
                 totalAssets : 0,
                 coinSeekSatet : false,
                 totalAssetsState : false,
-                origin : process.env.NODE_ENV == 'development' ? 'http://clt.vroot.win' : ''
+                origin : process.env.NODE_ENV == 'development' ? 'http://120.79.219.175' : ''
             };
         },
         watch : {

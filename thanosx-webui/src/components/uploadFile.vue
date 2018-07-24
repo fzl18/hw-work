@@ -23,7 +23,7 @@
                 fileData : {
                     state : -1,
                 },
-                origin : process.env.NODE_ENV == 'development' ? 'http://clt.vroot.win/' : '/',
+                origin : process.env.NODE_ENV == 'development' ? 'http://120.79.219.175/' : '/',
             };
         },
         methods :{

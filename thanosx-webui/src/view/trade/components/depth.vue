@@ -2,14 +2,14 @@
     <section class="entrust-box">
         <dl class="entrust-head">
             <dd></dd>
-            <dd>{{lang.unitPrice}}({{upperCase(rmb)}})</dd>
-            <dd>{{lang.num}}({{upperCase(xnb)}})</dd>
-            <dd>{{lang.total}}({{upperCase(rmb)}})</dd>
+            <dd>{{lang[local].unitPrice}}({{upperCase(rmb)}})</dd>
+            <dd>{{lang[local].num}}({{upperCase(xnb)}})</dd>
+            <dd>{{lang[local].total}}({{upperCase(rmb)}})</dd>
         </dl>
         <section class="entrust-main">
             <section class="entrust-sell entrust-body">
                 <dl v-for="(item, index) in depthSell" :key="item[0]" @click="clickItem('sell', item)">
-                    <dd class="sellColor">{{lang.depthSell}}{{index + 1}}</dd>
+                    <dd class="sellColor">{{lang[local].depthSell}}{{index + 1}}</dd>
                     <dd class="sellColor">{{priceAccuracy(item[0])}}</dd>
                     <dd>{{numAccuracy(item[1])}}</dd>
                     <dd>{{priceAccuracy(item[0] * item[1])}}</dd>
@@ -29,7 +29,7 @@
             </section>
             <section class="entrust-buy entrust-body">
                 <dl v-for="(item, index) in depthBuy" :key="item[0]" @click="clickItem('buy', item)">
-                    <dd class="buyColor">{{lang.depthBuy}}{{index + 1}}</dd>
+                    <dd class="buyColor">{{lang[local].depthBuy}}{{index + 1}}</dd>
                     <dd class="buyColor">{{priceAccuracy(item[0])}}</dd>
                     <dd>{{numAccuracy(item[1])}}</dd>
                     <dd>{{priceAccuracy(item[0] * item[1])}}</dd>
@@ -71,6 +71,7 @@
         width: 50%;
         height: 100%;
         float: left;
+        background: #2C2C2C;
         .entrust-main{
             position: absolute;
             top: $tradeHeadH;
@@ -120,7 +121,8 @@
                 }
             }
             &.entrust-head{
-                border-bottom: solid 1px $tradeBorderColor;
+                // border-bottom: solid 1px $tradeBorderColor;
+                background: #313131;
                 color: #7d7d7d;
                 text-align: center;
                 height: $tradeHeadH;

@@ -5,9 +5,39 @@
             <span class="addWallet" @click=" isShow = true" > + 添加钱包</span>
         </financeHeader>
         <section class="myWallet-box">
-            <section v-if="getState == getStateSuccess" class="item" v-for="item in listData">
+        
+        <section class="finance-table myWallet-table">
+            <section class="head">
+            <dl>
+                <dd style="width:20%">{{lang[local].currency}} </dd>
+                <dd>{{lang[local].site}}</dd>
+                <dd>{{lang[local].walletName}}</dd>
+                <dd>{{lang[local].operation}}</dd>
+            </dl>
+            </section>
+            <section  v-if="getState == getStateStart">
+                <load />
+            </section>
+            <section class="tbody">
+                <dl v-for="item in listData">
+                    <dd style="width:20%">{{upperCase(item.coinname)}}</dd>
+                    <dd>{{item.addr}}</dd>
+                    <dd>{{item.name}}</dd>
+                    <dd>
+                        <!-- <a href="javascript:;"><copy :val="item.addr">{{lang[local].copy}}</copy></a> <br /> -->
+                        <a href="javascript:;" @click="del(item)">{{lang[local].del}}</a>
+                    </dd>
+                </dl>
+            </section>
+        </section>
+
+
+
+
+
+            <!-- <section v-if="getState == getStateSuccess" class="item" v-for="item in listData">
                 <div>
-                    <!-- <i :style="{backgroundImage : 'url(' + imgUrl(item.logo) + ')'}"></i> -->
+                    <i :style="{backgroundImage : 'url(' + imgUrl(item.logo) + ')'}"></i>
                     <span><b>{{upperCase(item.coinname)}}</b> {{item.coin}}</span>
                     <b>{{item.name}}</b>
                 </div>
@@ -21,11 +51,7 @@
                         <a href="javascript:;" @click="del(item)">{{lang[local].del}}</a>
                     </li>
                 </ul>
-            </section>
-
-            <section class="bankCard item load" v-if="getState == getStateStart">
-                <load />
-            </section>
+            </section> -->
 
             <!-- <router-link to="./addWallet" tag="section" class="add">
                 <span>{{lang[local].addWallet}}</span>
@@ -192,7 +218,8 @@
                 }).then((res) => {
                     this.getSuccess();
                     this.$store.commit('msg/err', this.lang[this.local].addWalletSuccess);
-                    this.$router.push('./myWallet');
+                    this.getData();
+                    this.isShow = false
                 }).catch((err) => {
                     console.log(err);
                     this.getError();
@@ -246,5 +273,22 @@
     }
 </script>
 
-
-.selectmy{}
+<style scoped lang="scss">
+    .myWallet-table{
+        dl{
+            dd:first-child{
+               width:20%;
+            }
+            dd:nth-child(2){
+               width:40%;
+            }
+            dd:nth-child(3){
+               width:20%;
+            }
+            dd:nth-child(4){
+               width:20%;
+            }
+        }
+        
+    }
+</style>

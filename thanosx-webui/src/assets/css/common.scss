@@ -390,26 +390,27 @@ input:-webkit-autofill {
         overflow: hidden;
     }
     .form-submit-btn{
-        display: block;
-        width: 100%;
+        display: inline-block;
+        width: 45%;
         margin-top: 15px;
-        height: $inputHeight + 5px;
+        height: $inputHeight;
         text-align: center;
         color: $viceMainColor;
         border: solid 1px $mainColor;
         background: $mainColor;
-        font-size: 20px;
-        border-radius: 4px;
-        line-height: $inputHeight + 5px;
+        font-size: 18px;
+        line-height: $inputHeight;
         @include transitionCommon;
         &:hover{
             background: transparent;
             color: $mainColor;
         }
         &.white{
-            background: $viceMainColor;
-            border-color: $loginInputBorderColor;
-            color: $fontColor;
+            color: $mainColor;
+            background:none;
+            border:none;
+            float: right;
+            text-align: right;
             &:hover{
                 background: transparent;
                 color: $mainColor;
@@ -421,11 +422,7 @@ input:-webkit-autofill {
 
 
 .safety-block,.otc-block{
-    width: $webWidth;
-    margin: 0 auto 10px;
-    border: $safetyBorder;
-    padding: 20px 65px 0;
-    background: $bg;
+
 }
 
 

@@ -107,7 +107,7 @@
                 appealState : -1,
                 timerText : '0:0',
                 pay : {},
-                origin : process.env.NODE_ENV == 'development' ? 'http://clt.vroot.win' : ''
+                origin : process.env.NODE_ENV == 'development' ? 'http://120.79.219.175' : ''
             }
         },
         watch : {

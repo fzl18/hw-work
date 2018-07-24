@@ -10,8 +10,8 @@
             <ul class="bar">
                 <li class="bbox">
                     <p>今日待分配收入累积折合</p>
-                    <p class="hot">$ 46.000990008</p>
-                    <p>连续持有TNSX每百万收入折合 ≈</p>
+                    <p class="hot"><Icon type="social-bitcoin" color="#FFA202" /> 46.000990008</p>
+                    <p>连续持有TNSX每百万收入折合 <Icon type="social-bitcoin" color="#FFA202" /> 21354488</p>
                     <div class="jiao"></div>
                 </li>
                 <li class="bbox" style="margin:0 2%">
@@ -53,6 +53,7 @@
         },
         created (){
             this.getHomeAnnouncement();
+            this.getNotice();
         },
         methods : {
             getHomeAnnouncement (){
@@ -60,6 +61,25 @@
                     url : this.api.articleInfo,
                     data : {
                         id : 36,
+                    }
+                }).then((res) => {
+                    let list = res.data.list || [];
+                    if(list.length > 3){
+                        list = list.slice(0, 3);
+                    };
+                    this.noticeData = list;
+                    this.noticeShowStatus = true;
+                    this.$store.commit('noticeData', (res.data.list && res.data.list[0]) || {});
+                    this.$store.commit('noticeSelf', res.data.oneself || {});
+                }).catch((err) => {
+                    this.noticeShowStatus = false;
+                });
+            },
+            getNotice (){
+                this.axios({
+                    url : this.api.getNotice,
+                    data : {
+                        type : 1,
                     }
                 }).then((res) => {
                     let list = res.data.list || [];
@@ -84,7 +104,7 @@
     .banner{
         background: #000 url("../assets/images/index_bg.jpg") top center no-repeat;
         background-size:100% 100%;
-        height:505px;
+        height:525px;
         overflow: hidden;
         position: relative;
         .cti{            
@@ -106,15 +126,15 @@
         .bar{            
             .bbox{
                 background: rgba(139, 139, 139,.3);
-                min-height:100px;
-                font-size:12px;
+                min-height:120px;
+                font-size:14px;
                 padding:10px 0;
                 float: left;
                 width:32%;
                 position: relative;
                 border-radius:4px;
                 p{
-                    padding:0 20px;color: #979797;line-height:20px;
+                    padding:0 20px;color: #979797;line-height:24px;
                     &.more{
                         text-align: right;text-decoration:underline;
                         a{color:#FFF;}

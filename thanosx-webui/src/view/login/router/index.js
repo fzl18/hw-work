@@ -46,7 +46,7 @@ const router = new Router({
 });
 
 router.beforeEach((to, from, next) => {
-    // store.commit('tips/delAll');
+    store.commit('tips/delAll');
     next();
 });
 

@@ -4,7 +4,7 @@ body,html{
     background: $bg4;
 }
 .finance-box{
-    padding-bottom: 10px;
+    // padding-bottom: 10px;
 }
 
 
@@ -92,7 +92,8 @@ $financeMinHeight : 820px;
     }
     & > span{
         color: #474e5d;
-    }    
+        &.tips{margin-left:30px;font-size:14px;font-weight:normal}
+    }
     .finance-index{
         $height : 36px;
         float: right;
@@ -360,7 +361,7 @@ $financeMinHeight : 820px;
 
 .finance-coin{
     background: #F8F8F8;
-    padding:30px;
+    padding:10px;
     .finance-coinBalance{
         overflow: hidden;
         $height : 65px;
@@ -974,7 +975,7 @@ $financeMinHeight : 820px;
         p{
             color: #8F8F8F;            
             line-height: 30px;
-            .tag{background:#ADADAD;font-size:12px;padding:2px 6px;color:#fff; }
+            .tag{background:$mainColor;font-size:12px;padding:2px 6px;color:#fff; }
             &.con{
                 color:#676364;
                 font-weight:bold;
@@ -1028,6 +1029,249 @@ $financeMinHeight : 820px;
                 }
             }
             
+        }
+    }
+}
+
+
+.safety-block{
+    .safety-form{
+        width: 450px;
+        margin:30px auto;
+        padding:50px;
+        box-shadow: 0 0 10px rgba(0,0,0,.3);
+        & > .tit{font-size:24px;font-weight:bold;color: #686461;margin-bottom:30px;}
+        & > p{color: #686461;margin-bottom:30px;}
+    }
+    .gaCode{
+        display: block;
+        padding-top: 35px;
+        .gaCode-block{
+            padding-left: 25px;
+            position: relative;
+            margin-bottom: 45px;
+            .safety-form{
+                margin: 25px 0 0 0;
+                padding-bottom: 0;
+                min-height: auto;
+            }
+            & > i{
+                display: block;
+                position: absolute;
+                width: 16px;
+                height: 16px;
+                border-radius: 50%;
+                background: $mainColor;
+                color: #ffffff;
+                text-align: center;
+                line-height: 15px;
+                font-size: 12px;
+                font-style: normal;
+                left: 0;
+                top: 2px;
+            }
+            h4{
+                font-size: $safetyFormFontSize;
+                color: #3c3d49;
+                font-weight: normal;
+                margin-bottom: 15px;
+            }
+            .gaCode-block-text{
+                color: #666666;
+                line-height: 30px;
+            }
+            .gaCode-block-btn{
+                overflow: hidden;
+                margin-top: 20px;
+                a{
+                    display: block;
+                    float: left;
+                    width: 180px;
+                    height: 48px;
+                    line-height: 48px;
+                    text-align: center;
+                    color: #ffffff;
+                    font-size: 16px;
+                    background: rgba($mainColor, 0.7);
+                    margin-right: 12px;
+                    @include transitionCommon(background);
+                    &:hover{
+                        background: $mainColor;
+                    }
+                    .iconfont{font-size:24px}
+                }
+            }
+            .gaCode-block-ewm{
+                margin-top: 20px;
+                .ewm{
+                    display: inline-block;
+                    vertical-align: bottom;
+                    width: 150px;
+                    height: 150px;
+                    cursor: pointer;
+                    margin-right: 25px;
+                    user-select: none;
+                }
+                .key{
+                    display: inline-block;
+                    vertical-align: bottom;
+                    color: #3c3d49;
+                    p{
+                        margin-top: 15px;
+                        margin-bottom: 8px;
+                        .mainColor{
+                            user-select: none;
+                            cursor: pointer;
+                            margin-left: 35px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    .nameAuth{
+        width:200%;
+        p{
+            font-size: $safetyFormFontSize;
+            color: #444444;
+            line-height: $inputHeight;
+            min-height: $inputHeight;
+        }
+        ul{
+            display: block;
+            overflow: hidden;
+            li{
+                display: block;
+                width: 40%;
+                margin: 30px 5% 30px 0;
+                float: left;
+                .progress{
+                    position: absolute;
+                    z-index: 1;
+                    left: 0;
+                    top: 0;
+                    display: block;
+                    height: 100%;
+                    width: 100%;
+                    color: $fontColor;
+                    padding: 0 10px;
+                    b{
+                        transition: height 0.3s ease;
+                        position: absolute;
+                        left: 0;
+                        bottom: 0;
+                        display: block;
+                        height: 0%;
+                        width: 100%;
+                        &:before,&:after{
+                            position: absolute;
+                            display: block;
+                            left: 0;
+                            top: 0;
+                            content: '';
+                            width: 100%;
+                            height: 100%;
+                            border-radius: 50%;
+                            background: $mainColor;
+                            transform: scale(3);
+                            transform-origin: 30% 0%;
+                        }
+                        &:before{
+                            animation: wave1 6s infinite ease-out;
+                        }
+                        &:after{
+                            transform-origin: 80% 0%;
+                            animation: wave2 6s infinite ease-out;
+                        }
+                        @keyframes wave1 {
+                            0% {
+                                transform-origin: 30% 0%;
+                            }
+                            80% {
+                                transform-origin: 100% 0%;
+                            }
+                            100% {
+                                transform-origin: 30% 0%;
+                            }
+                        }
+                        @keyframes wave2 {
+                            0% {
+                                transform-origin: 80% 0%;
+                            }
+                            50% {
+                                transform-origin: 30% 0%;
+                            }
+                            100% {
+                                transform-origin: 80% 0%;
+                            }
+                        }
+                    }
+                    & > div{
+                        display: inline-block;
+                        position: absolute;
+                        top: 50%;
+                        color: #ffffff;
+                        font-size: 18px;
+                        left: 50%;
+                        transform: translate(-50%, -50%);
+                    }
+                }
+                label{
+                    display: block;
+                    width: 100%;
+                    height: 200px;
+                    position: relative;
+                    cursor: pointer;
+                    background:#F2F2F2;
+                    user-select: none;
+                    cursor: pointer;
+                    overflow: hidden;
+                    &.focus i:before{
+                        display: none;
+                    }
+                    em{
+                        display: block;
+                        position: absolute;
+                        @include fullWH;
+                        left: 0;
+                        top: 0;
+                        background-position: center center;
+                        background-repeat: no-repeat;
+                        background-size: auto 100%;
+                        z-index:99;
+                    }
+                }
+                input{
+                    display: none;
+                }
+                .nameAuth-big{
+                    display: block;
+                    text-align: center;
+                    line-height: 1;
+                    margin-top: 12px;
+                }
+                i{
+                    display: block;
+                    cursor: pointer;
+                    position: absolute;
+                    @include fullWH;
+                    left: 0;
+                    top: 0;
+                    z-index: 1;
+                    text-align: center;
+                }
+    
+                span{
+                    display: block;
+                    color: #333;
+                    text-align: center;
+                    position: relative;
+                    z-index: 2;
+                    margin-top: 80px;
+                    font-size:16px;
+                }
+            }
         }
     }
 }

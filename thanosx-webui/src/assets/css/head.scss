@@ -9,9 +9,10 @@
     left:0;
     z-index: 999;
     width:100%;
+    .trade{background: #252525;}
     a{
         color:#979797;
-        &:hover{color:#fff;}
+        &:hover, &.cur{color:#fff;}
     }
     .lang{float: left;padding:0 20px;font-size:12px;margin:0 20px;background:rgba(255,255,255,.1)}
     .nav{
@@ -23,6 +24,7 @@
         width: 157px;
         height:$headerHeight;
         float: left;
+        a{display:block;height:100%;}
     }
     .login{
         text-align: right;

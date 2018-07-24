@@ -13,7 +13,7 @@
         data (){
             return {
                 widget : null,
-                bg : '#0a0a0a',
+                bg : '#2D2D2D',
                 borderColor : '#404040',
                 up : '#0cba71',
                 down : '#ff400c',
@@ -94,8 +94,8 @@
                     name : this.xnb,
                     ticker : this.xnb + '_' + this.rmb,
                     description : this.upperCase(this.xnb + '/' + this.rmb),
-                    exchange : 'RDB.ONE',
-                    listed_exchange : 'RDB.ONE',
+                    // exchange : 'RDB.ONE',
+                    // listed_exchange : 'RDB.ONE',
                     sector : this.upperCase(this.rmb),
                     has_intraday  : true,
                     has_seconds  : true,
@@ -191,6 +191,7 @@
                 // console.log(new Datafeeds.UDFCompatibleDatafeed("https://demo_feed.tradingview.com"));
                 this.widget = new TradingView.widget({
                     symbol: this.upperCase(this.xnb),
+                    legend_context_menu:'off',
                     interval: this.resolution,
                     datafeed: this.datafeed(),
                     library_path: process.env.NODE_ENV == 'development' ?  "/static/js/chart/" : '/public/home/static/js/chart/',
@@ -215,15 +216,25 @@
                         'header_compare',
                         'header_undo_redo',
                         'header_screenshot',
-                        // 'header_resolutions',
+                        'header_resolutions',
                         'header_interval_dialog_button',
                         'show_interval_dialog_on_key_press',
                         'display_market_status',
                         "save_chart_properties_to_local_storage",
-                        // "volume_force_overlay",
+                        "volume_force_overlay",
                         "items_favoriting",
+                        "header_chart_type",
+                        "header_settings",
+                        "header_indicators",
+                        "header_fullscreen_button",
+
+                        "dont_show_boolean_study_arguments"
+                        
+
                     ],
-                    overrides: {
+                    overrides: {                      
+                        'paneProperties.legendProperties.showLegend': false,
+
                         "volumePaneSize": "small",
                         'paneProperties.background' : bg,
                         'paneProperties.vertGridProperties.color' : borderColor,
@@ -274,6 +285,11 @@
                     toolbar_bg: bg,
                     loading_screen: { backgroundColor: bg , foregroundColor : borderColor},
                     container_id: "chart_container",
+                    // header_widget:{
+                    //     dont_show_boolean_study_arguments:'on'
+                    // }
+                    
+
                 });
 
                 this.widget.onChartReady(() => {

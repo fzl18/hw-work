@@ -11,16 +11,17 @@ body,html{
 
 .trade-buy-box{
     width: 50%;
-    background: $tradeMainColor;
+    background: #2C2C2C;
     height: 100%;
-    padding-left: 2%;
-    padding-right: 2%;
+    // padding-left: 2%;
+    // padding-right: 2%;
     position: relative;
     float: left;
     text-transform: uppercase;
+    &:nth-child(1){width: calc(50% - 5px);margin-right:5px;}
     &.trade-sell-box{
-        padding-left: 2%;
-        padding-right: 2%;
+        // padding-left: 2%;
+        // padding-right: 2%;
         .inp{
             &:nth-of-type(1):before{
                 background: rgba($sellColor, 0.5);
@@ -35,35 +36,8 @@ body,html{
             }
         }
         .rate{
-            .rate-bar{
-                & > span{
-                    background: $sellColor;
-                }
-            }
+            span{ color:#fff}
 
-            &.type-1 > span{
-                &:nth-of-type(1){
-                    background: $sellColor;
-                }
-            }
-            &.type-2 > span{
-                &:nth-of-type(1), &:nth-of-type(2){
-                    background: $sellColor;
-                }
-            }
-            &.type-3 > span{
-                &:nth-of-type(1), &:nth-of-type(2), &:nth-of-type(3){
-                    background: $sellColor;
-                }
-            }
-            &.type-4 > span{
-                &:nth-of-type(1), &:nth-of-type(2), &:nth-of-type(3), &:nth-of-type(4){
-                    background: $sellColor;
-                }
-            }
-            &.type-5 > span{
-                background: $sellColor;
-            }
         }
     }
     .trade-btn{
@@ -100,10 +74,10 @@ body,html{
     .balance{
         color: $tradeColor;
         font-size: 12px;
-        text-align: right;
-        margin-top: 15px;
-        margin-bottom: 5px;
-        padding-right: 1%;
+        text-align: left;
+        padding-left: 10px;
+        background:#323232;
+        line-height:35px;
     }
     .inp{
         height: 40px;
@@ -111,7 +85,6 @@ body,html{
         background: $tradeBg;
         color: $tradeColor;
         position: relative;
-        margin-top: 10px;
         font-size: 12px;
         &:nth-of-type(1):before{
             transition: width 0.3s ease-out;
@@ -154,30 +127,17 @@ body,html{
         width: 100%;
         height: 30px;
         margin: 10px 0 0;
-        .rate-bar{
-            position: absolute;
-            height: 3px;
-            width: 100%;
-            background: #e5e5e5;
-            top: 50%;
-            transform: translateY(-50%);
-            & > span{
-                display: block;
-                position: absolute;
-                left: 0;
-                top: 0;
-                height: 100%;
-                width: 0%;
-                background: $buyColor;
-                transition: width 0.2s linear;
-                &.click-active{
-                    cursor: pointer;
-                    background: transparent;
-                    width: 100%;
-                    height: 20px;
-                    top: -8px;
-                }
-            }
+        text-align: center;
+        span{
+            color:#fff;
+            width: 21%;
+            margin:0 1%;
+            height:30px;
+            line-height: 30px;
+            display: inline-block;
+            text-align: center;
+            border:1px solid #464646;
+            cursor: pointer;
         }
 
         &.type-1 > span{
@@ -217,34 +177,7 @@ body,html{
             }
         }
 
-        & > span{
-            display: block;
-            cursor: pointer;
-            width: 10px;
-            height: 10px;
-            border-radius: 50%;
-            background: #e5e5e5;
-            position: absolute;
-            top: 50%;
-            transition: all 0.4s linear;
-            transform: translateY(-50%);
-            &:nth-of-type(1){
-                left: 0;
-            }
-            &:nth-of-type(2){
-                left: 25%;
-            }
-            &:nth-of-type(3){
-                left: 50%;
-            }
-            &:nth-of-type(4){
-                left: 75%;
-            }
-            &:nth-of-type(5){
-                right: 0;
-                left: auto;
-            }
-        }
+
         & > b{
             font-size: 12px;
             font-weight: normal;

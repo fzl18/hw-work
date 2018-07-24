@@ -19,23 +19,23 @@
         </div>
         <section class="trade-menu-market">
             <span>
-                <small>{{lang.currentRate}}</small>
+                <small>{{lang[local].currentRate}}</small>
                 <b>{{priceAccuracy(market_quote[1])}} {{rmb}}</b>
             </span>
             <span>
-                <small>{{lang.dayUpDown}}</small>
+                <small>{{lang[local].dayUpDown}}</small>
                 <b :class="market_quote[2] * 1 > 0 ? 'riseColor' : market_quote[2] * 1 < 0 ? 'fallColor' : ''">{{market_quote[2] * 1 > 0 ? '+' : ''}}{{perCentDecimals(market_quote[2]) || 0}} %</b>
             </span>
             <span>
-                <small>{{lang.topPrice}}24h</small>
+                <small>{{lang[local].topPrice}}24h</small>
                 <b>{{priceAccuracy(market_quote[3])}} {{rmb}}</b>
             </span>
             <span>
-                <small>{{lang.minPrice}}24h</small>
+                <small>{{lang[local].minPrice}}24h</small>
                 <b>{{priceAccuracy(market_quote[4])}} {{rmb}}</b>
             </span>
             <span>
-                <small>{{lang.tradeVolume}}24h</small>
+                <small>{{lang[local].tradeVolume}}24h</small>
                 <b>{{numAccuracy(market_quote[5])}}</b>
             </span>
         </section>
@@ -67,6 +67,7 @@
         width: 100%;
         text-transform: uppercase;
         border-bottom: solid 1px $tradeBorderColor;
+        background: #2C2C2C;
         position: relative;
         z-index: 100;
         .market-code{
@@ -96,8 +97,9 @@
                 }
             }
             &:hover{
+                background: #383838;
                 .market-code-list-box{
-                    display: block;
+                    display: block;                    
                 }
                 & > span:after{
                     transform: rotateZ(180deg);
@@ -106,14 +108,14 @@
             .market-code-list-box{
                 display: none;
                 border-right: 2px;
-                background: #3c3d49;
+                background: #383838;
                 position: absolute;
-                left: 20px;
+                // left: 20px;
                 top: 100%;
                 $itemW : 160px;
                 .market-code-list-area{
                     display: block;
-                    width: 7 * $itemW + 30px;
+                    width: 7 * $itemW;
                     padding: 0 15px;
                     height: 65px;
                     border-bottom: solid 1px #888888;

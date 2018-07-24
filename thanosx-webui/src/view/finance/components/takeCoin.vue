@@ -3,7 +3,11 @@
         <financeHeader>
             <span>{{lang[local].safetyTakeCoin}}</span>
         </financeHeader>
+        
         <section class="finance-coin" style="background:none">
+            <div class="userinfo">
+                {{lang[local].usable}}：<span>{{numDecimals(balance.xnb)}}</span> 
+            </div>
             <balance v-model="balance" :coin="coin" />
             <section class="takeCoin ban" v-if="balance.state == 1 && balance.zc_jz != 1">
                 {{upperCase(coin)}} {{lang[local].takeCoinBan}}
@@ -245,3 +249,10 @@
     }
 </script>
 
+<style scoped lang="scss">
+    .userinfo{
+        margin-bottom:30px;
+        background: #F1F1F1;padding:15px;font-size:16px;
+        span{color:#FF6500;font-size:20px;font-weight:bold}
+    }
+</style>

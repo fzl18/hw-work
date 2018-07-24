@@ -10,10 +10,11 @@ export const apiCommon = {
     "navListArticle" : '/api/Article/navList',
     'articleInfo' : '/api/Article/info',
     'getDistrictCode' : '/api/index/getDistrictCode',
-    'origin' : process.env.NODE_ENV == 'development' ? 'http://clt.vroot.win' : '',
+    'origin' : process.env.NODE_ENV == 'development' ? 'http://120.79.219.175' : '',
     'noticeId' : 36,
     'newsId' : 58,
     'appDownload' : 'https://www.rdb.one/home/mobile/appDownload',
+
 };
 
 // api 返回状态

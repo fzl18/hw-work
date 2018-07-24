@@ -505,7 +505,7 @@
 
 <style scoped lang="scss">
     @import "../../../assets/css/var.scss";
-    $bottomH : 280px;
+    $bottomH : calc(32% + 5px);
     .trade-left{
         width: 60%;
         float: left;
@@ -515,11 +515,13 @@
     }
     .trade-right{
         z-index: 90;
-        width: 40%;
+        width: calc(40% - 5px) ;
         float: right;
         height: 100%;
         position: relative;
-        border-left: solid 1px $tradeBorderColor;
+        margin-left:5px;
+        // background: #2C2C2C;
+        // border-left: solid 1px $tradeBorderColor;
     }
     @media screen and (min-width: 1920px){
         .trade-left{
@@ -542,12 +544,13 @@
         right: 0;
         top: 0;
         bottom: $bottomH;
-        border-bottom: solid 1px $tradeBorderColor;
+        
+        // border-bottom: solid 1px $tradeBorderColor;
     }
     .trade-right-bottom,.trade-left-bottom{
         position: absolute;
         left: 0;
-        bottom: 0;
+        bottom: -5px;
         width: 100%;
         height: $bottomH;
     }

@@ -1,28 +1,28 @@
 <template>
     <section class="trade-user-entrust trade-user-entrust-media">
         <dl class="head">
-            <dd>{{lang.entrustTime}}</dd>
-            <dd>{{lang.tradeType}}</dd>
-            <dd>{{lang.unitPrice}}</dd>
-            <dd>{{lang.entrustNum}}</dd>
-            <dd>{{lang.unsettled}}</dd>
-            <dd>{{lang.entrustTurnover}}</dd>
-            <dd>{{lang.totalCurrency}}</dd>
-            <dd>{{lang.state}}</dd>
-            <dd>{{lang.operation}}</dd>
+            <dd>{{lang[local].entrustTime}}</dd>
+            <dd>{{lang[local].tradeType}}</dd>
+            <dd>{{lang[local].unitPrice}}</dd>
+            <dd>{{lang[local].entrustNum}}</dd>
+            <dd>{{lang[local].unsettled}}</dd>
+            <dd>{{lang[local].entrustTurnover}}</dd>
+            <dd>{{lang[local].totalCurrency}}</dd>
+            <dd>{{lang[local].state}}</dd>
+            <dd>{{lang[local].operation}}</dd>
         </dl>
         <section v-if="userOrderState">
             <dl v-for="item in userOrder" :key="item[0]">
                 <dd>{{localDate(item[1])}}</dd>
-                <dd :class="item[2] + 'Color'">{{lang[item[2]]}}</dd>
+                <dd :class="item[2] + 'Color'">{{lang[local][item[2]]}}</dd>
                 <dd>{{priceAccuracy(item[3])}}</dd>
                 <dd>{{numAccuracy(item[5])}}</dd>
                 <dd>{{numAccuracy(item[4])}}</dd>
                 <dd>{{numAccuracy(item[5] - item[4])}}</dd>
                 <dd>{{priceAccuracy(item[3] * item[5])}}</dd>
-                <dd>{{item[6] == 'ing' ? lang.orderConduct : ''}}</dd>
+                <dd>{{item[6] == 'ing' ? lang[local].orderConduct : ''}}</dd>
                 <dd>
-                    <a :href="item[0]" @click.prevent="clickWithdrawal(item)">{{lang.annul}}{{item[7] ? '...' : ''}}</a>
+                    <a :href="item[0]" @click.prevent="clickWithdrawal(item)">{{lang[local].annul}}{{item[7] ? '...' : ''}}</a>
                 </dd>
             </dl>
         </section>

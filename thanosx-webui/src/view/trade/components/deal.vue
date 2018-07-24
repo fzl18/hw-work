@@ -1,16 +1,16 @@
 <template>
     <section class="deal">
         <dl class="deal-head">
-            <dd>{{lang.time}}</dd>
-            <dd>{{lang.tradeType}}</dd>
-            <dd>{{lang.unitPrice}}</dd>
-            <dd>{{lang.tradeVolume}}</dd>
+            <dd>{{lang[local].time}}</dd>
+            <dd>{{lang[local].tradeType}}</dd>
+            <dd>{{lang[local].unitPrice}}</dd>
+            <dd>{{lang[local].tradeVolume}}</dd>
         </dl>
         <load class="deal-load" v-if="!dealState" />
         <transition-group v-if="dealState" name="deal" tag="section" class="deal-body">
             <dl v-for="item in deal" :key="item[4]" @click="clickItem(item)">
                 <dd>{{localDate(item[0], true)}}</dd>
-                <dd :class="item[1] + 'Color'">{{lang[item[1]]}}</dd>
+                <dd :class="item[1] + 'Color'">{{lang[local][item[1]]}}</dd>
                 <dd :class="item[1] + 'Color'">{{priceAccuracy(item[2])}}</dd>
                 <dd>{{numAccuracy(item[3])}}</dd>
             </dl>
@@ -45,10 +45,12 @@
     @import "../../../assets/css/var.scss";
 
     .deal{
-        width: 50%;
+        width: calc(50% - 5px);
         height: 100%;
         float: left;
-        border-right: solid 1px $tradeBorderColor;
+        margin-right: 5px;
+        background: #2C2C2C;
+        // border-right: solid 1px $tradeBorderColor;
         position: relative;
         dl{
             display: block;
@@ -91,7 +93,8 @@
                 }
             }
             &.deal-head{
-                border-bottom: solid 1px $tradeBorderColor;
+                // border-bottom: solid 1px $tradeBorderColor;
+                background: #313131;
                 color: #7d7d7d;
                 text-align: center;
                 height: $tradeHeadH;
