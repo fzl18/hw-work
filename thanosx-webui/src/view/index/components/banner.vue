@@ -15,17 +15,18 @@
                     <div class="jiao"></div>
                 </li>
                 <li class="bbox" style="margin:0 2%">
-                    <p><a href="">账户注册</a></p>
-                    <p><a href="">如何充提币及到账时间限额</a></p>
-                    <p><a href="">币币交易及手续费的说明</a></p>
-                    <p class="more"><a href="">查看更多帮助</a></p>
-                    <div class="jiao"></div>
+                    <template v-for=" item in helplist.list" >
+                        <p><a :href="articleUrl + '/' + item.id ">{{item.title}}</a></p>
+                    </template>
+                        <p class="more"><a :href="articleUrl + '/' + helplist.type_id">{{lang[local].viewMore}}</a></p>
+                        <div class="jiao"></div>
+                    
                 </li>
                 <li class="bbox">
-                    <p><a href="">上币投票公示</a></p>
-                    <p><a href="">申请上币规则说明</a></p>
-                    <p></p>
-                    <p class="more"><a href="">查看更多</a></p>
+                    <template v-for=" item in noticelist.list" >
+                        <p><a :href="articleUrl + '/' + item.id ">{{item.title}}</a></p>
+                    </template>
+                    <p class="more"><a :href="articleUrl + '/' + noticelist.type_id">{{lang[local].viewMore}}</a></p>
                     <div class="jiao"></div>
                 </li>
             </ul>            
@@ -49,47 +50,49 @@
                 time : 0,
                 timeInterval : null,
                 slideLength : 1,
+                helplist:[],
+                noticelist:[],
             };
         },
         created (){
-            this.getHomeAnnouncement();
+            // this.getHomeAnnouncement();
             this.getNotice();
         },
-        methods : {
-            getHomeAnnouncement (){
-                this.axios({
-                    url : this.api.articleInfo,
-                    data : {
-                        id : 36,
-                    }
-                }).then((res) => {
-                    let list = res.data.list || [];
-                    if(list.length > 3){
-                        list = list.slice(0, 3);
-                    };
-                    this.noticeData = list;
-                    this.noticeShowStatus = true;
-                    this.$store.commit('noticeData', (res.data.list && res.data.list[0]) || {});
-                    this.$store.commit('noticeSelf', res.data.oneself || {});
-                }).catch((err) => {
-                    this.noticeShowStatus = false;
-                });
+        watch:{
+            local(n, o){
+                this.getNotice()
             },
+        },
+        methods : {
+            // getHomeAnnouncement (){
+            //     this.axios({
+            //         url : this.api.articleInfo,
+            //         data : {
+            //             id : 36,
+            //         }
+            //     }).then((res) => {
+            //         let list = res.data.list || [];
+            //         if(list.length > 3){
+            //             list = list.slice(0, 3);
+            //         };
+            //         this.noticeData = list;
+            //         this.noticeShowStatus = true;
+            //         this.$store.commit('noticeData', (res.data.list && res.data.list[0]) || {});
+            //         this.$store.commit('noticeSelf', res.data.oneself || {});
+            //     }).catch((err) => {
+            //         this.noticeShowStatus = false;
+            //     });
+            // },
             getNotice (){
                 this.axios({
                     url : this.api.getNotice,
                     data : {
-                        type : 1,
                     }
                 }).then((res) => {
-                    let list = res.data.list || [];
-                    if(list.length > 3){
-                        list = list.slice(0, 3);
-                    };
-                    this.noticeData = list;
+                    let list = res.data || [];
+                    this.helplist = list.help_data || []
+                    this.noticelist = list.notice_data || []
                     this.noticeShowStatus = true;
-                    this.$store.commit('noticeData', (res.data.list && res.data.list[0]) || {});
-                    this.$store.commit('noticeSelf', res.data.oneself || {});
                 }).catch((err) => {
                     this.noticeShowStatus = false;
                 });

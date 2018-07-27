@@ -16,16 +16,27 @@ instance.interceptors.request.use(function (config) {
     if(config.headers['Content-Type'] == 'multipart/form-data'){
         return config;
     };
+    let lang
+    switch (localStorage.curLang) {
+        case "zh":
+            lang = "zh-cn"
+            break;
+        case "zhtw":
+            lang = "zh-tw"
+            break;
+        default:
+            lang = localStorage.curLang
+            break;
+    }
     if(process.env.NODE_ENV == 'development'){
+        
         config.data = {
-            data :{ ...config.data, 
-                lang : localStorage.curLang,},
+            data :{ ...config.data,lang:lang},
             // cookie : document.cookie
         };
     }else{
         config.data = {
-            data : { ...config.data, 
-                lang : localStorage.curLang,},
+            data : { ...config.data,lang:lang},
         };
     };
     return config;

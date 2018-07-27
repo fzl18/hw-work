@@ -13,13 +13,17 @@
         border-bottom:1px solid #262626;
         margin-bottom: 20px;
         dl{
-            width:33%;float: left;
-            a{margin-right:20px;}
+            width:33%;display: inline-block;
+            a{margin-left:15px;}
+            &:last-child{
+                dd, dt{text-align: right}
+            }
         }
         dt{
-            float: left;
-            padding-left: 15px;
+            display: inline-block;
             position: relative;
+            a{cursor:default;
+                margin-right: 15px;}
             &:after{
                 content:'';
                 height:0;
@@ -31,7 +35,7 @@
                 top: 30%;
             }
         }
-        dd{float: left;margin-left:4%;}
+        dd{display: inline-block;margin-left:4%;}
     }
     .copyright{
         color:#FD9629;

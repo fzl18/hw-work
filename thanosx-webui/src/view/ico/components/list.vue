@@ -64,7 +64,7 @@
             };
         },
         created (){
-            this.articleInfo();
+            // this.articleInfo();
         },
         computed : {
             ...mapState(['activeObject'])

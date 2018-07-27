@@ -73,7 +73,7 @@
                             <div class="input-box">
                             <!-- <label>{{lang[local].gu_finance43}}</label> -->
                             <i class="iconfont icon-qian"></i> 
-                            <select-my class="safety-issue-select selectmy" style="width:90%" v-model="coinname" :list="coinList" selected="" @change="coinChange" :placeholder="lang[local].gu_finance43"/>
+                            <select-my class="safety-issue-select selectmy coin" style="width:90%" v-model="coinname" :list="coinList" selected="" @change="coinChange" :placeholder="lang[local].gu_finance43"/>
                             </div>
                         </section>
                         <section class="form-group">

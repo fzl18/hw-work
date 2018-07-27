@@ -7,7 +7,7 @@
                 &nbsp;&nbsp;
                 <input type="text" class="coin" v-model="market" />
                 <span>/</span>
-                <select-my class="query-select" v-model="market2" :list="marketList" :selected="market[0]" @change="" />
+                <select-my class="query-select coin" v-model="market2" :list="marketList" :selected="market[0]" @change="" :placeholder="lang[local].currency"/>
                 <!--<a href="javascript:;" class="seek">{{lang.seek}}</a>-->
             </section>
         </financeHeader>

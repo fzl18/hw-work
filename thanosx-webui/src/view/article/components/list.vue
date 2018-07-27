@@ -16,7 +16,7 @@
 
         <ul class="article-new article-notice" v-if="info.type == 1 && info.list && $route.params.id != api.noticeId && getState == getStateSuccess">
             <li v-for="item in info.list">
-                <h6><a :href="item.sourceLink || '/'" target="_blank">{{item.source || lang.webName}}</a></h6>
+                <h6><a :href="item.sourceLink || '/'" target="_blank">{{item.source || lang[local].webName}}</a></h6>
                 <section>
                     <h4><router-link :to="'/' + item.id + '/' + activeObject.id">{{item.title}}</router-link></h4>
                     <p class="article-notice-text">{{item.description || '...'}}</p>
@@ -44,7 +44,7 @@
                 <router-link :to="'/' + item.id + '/' + activeObject.id">
                     <i>{{localDate(item.createtime)}}</i>
                     <b>{{item.title}}</b>
-                    <span>{{lang.viewDetails}}</span>
+                    <span>{{lang[local].viewDetails}}</span>
                 </router-link>
             </li>
         </ul>

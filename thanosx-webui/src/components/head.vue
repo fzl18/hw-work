@@ -21,7 +21,7 @@
                         </Dropdown>
                     </div>
                     <div class="nav" v-for="nav in menu" >
-                        <a href="" :class=" active == nav && 'cur' " @click.stop.prevent="toModule(nav)">{{lang[local][nav] }}</a>
+                        <a href="" :class=" active == nav && 'cur' " @click.stop.prevent="toModule(nav)">{{lang[local][nav]}}</a>
                     </div>                         
                 </Col>
                 <Col span='6'>
@@ -36,8 +36,8 @@
                                 <span>{{loginInfo.username}}</span>
                             </a>
                             <ul>
-                                <li>我的资产：<span>≈  13123123</span></li>
-                                <li>账户设置 <span class="state">未验证</span></li>
+                                <li>{{lang[local].mymoney}}：<a :href="financeUrl" style="float:right;color:#FF6500;">{{lang[local].view}}</a></li>
+                                <li>{{lang[local].accountSetting}} <span class="state">未验证</span></li>
                                 <li @click="logout" class="exit"> <i class="iconfont icon-tuichu1"></i> {{lang[local].loginExit}}</li>
                             </ul>
                         </div>

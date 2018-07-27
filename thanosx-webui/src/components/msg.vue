@@ -2,7 +2,7 @@
     <section class="msg-box">
         <transition-group name="msg" tag="section">
             <section v-for="m in msg" class="msg-item" :class="m.type == 2 ? 'error' : ''" :key="m.msg">
-                <h4>{{m.title ? m.title : lang.warmPrompt}}</h4>
+                <h4>{{m.title ? m.title : lang[local].warmPrompt}}</h4>
                 <p :class="m.type == 2 ? 'error' : ''" v-html="m.msg"></p>
             </section>
         </transition-group>
@@ -51,7 +51,7 @@
             position: relative;
             padding-right: 10px;
             &:before{
-                content: '\e60f';
+                content: '\F120';
                 @include iconfont(30px);
                 color: $fallColor;
                 display: block;
@@ -61,18 +61,18 @@
                 transform: translateY(-50%);
             }
             &.error:before{
-                content: '\e685';
+                content: '\F149';
                 color: $mainColor;
             }
             h4{
                 color: $bg3;
-                font-size: 14px;
+                font-size: 16px;
                 margin: 18px 0 12px;
                 line-height: 1;
             }
             p{
                 color: #6a6c6f;
-                font-size: 12px;
+                font-size: 14px;
                 padding-bottom: 10px;
                 line-height: 1.6;
                 &.error{

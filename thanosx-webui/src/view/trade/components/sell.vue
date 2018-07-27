@@ -1,13 +1,17 @@
 <template>
     <section class="trade-buy-box trade-sell-box">
         <p class="balance">{{xnb}} {{lang[local].usable}}： {{numAccuracy(xnbAssets)}}</p>
+        <div class="tit">{{lang[local].sellPrice}} </div>
         <section class="inp" :class="classActive(clickActive)">
-            <span>{{lang[local].sellPrice}} ({{rmb}})</span>
+            <span>{{lang[local].price}}</span> 
             <input type="text" placeholder="0.00" v-model="price" />
+            <span class="dw">{{rmb}}</span>
         </section>
+        <div class="tit">{{lang[local].sellNum}} </div>
         <section class="inp">
-            <span>{{lang[local].sellNum}} ({{xnb}})</span>
+            <span>{{lang[local].num}}</span> 
             <input type="text" placeholder="0.00" v-model="num" />
+            <span class="dw">{{xnb}}</span>
         </section>
 
         <section class="rate" :class="rateType">
@@ -107,31 +111,31 @@
                     var num = (this.xnbAssets * rate);
                     this.num = this.xnbSplit(num);
                 }else{
-                    this.$store.commit('msg/err', this.lang.tradePriceEmpty);
+                    this.$store.commit('msg/err', this.lang[this.local].tradePriceEmpty);
                 };
             },
             submit : function (){
                 // if(this.xnb == 'del' || this.rmb == 'del'){
-                //     this.$store.commit('msg/err',this.lang.delTradeNoDispark);
+                //     this.$store.commit('msg/err',this.lang[this.local].delTradeNoDispark);
                 //     return false;
                 // };
                 if(!!!this.loginInfo.uid){
-                    this.$store.commit('msg/err', this.lang.inviteLogin);
+                    this.$store.commit('msg/err', this.lang[this.local].inviteLogin);
                     return false;
                 };
                 if(this.sellData.price){
                     return false;
                 };
                 if(this.xnbAssets * 1 <= 0){
-                    this.$store.commit('msg/err', this.xnb + this.lang.balanceEmpty);
+                    this.$store.commit('msg/err', this.xnb + this.lang[this.local].balanceEmpty);
                     return false;
                 };
                 if(!!!this.price && this.price * 1 > 0){
-                    this.$store.commit('msg/err', this.lang.tradePriceEmpty);
+                    this.$store.commit('msg/err', this.lang[this.local].tradePriceEmpty);
                     return false;
                 };
                 if(!!!this.num && this.num * 1 > 0){
-                    this.$store.commit('msg/err', this.lang.tradeNumEmpty);
+                    this.$store.commit('msg/err', this.lang[this.local].tradeNumEmpty);
                     return false;
                 };
                 this.$store.commit('sellData', {

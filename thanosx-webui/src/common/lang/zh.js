@@ -8,6 +8,9 @@ const zh = {
     "app":"下载APP",
     //
     "apptxt":"自主研发撮合系统，能每秒处理上万笔交易,算法支持多种专业交易",
+    "mymoney":"我的资产",
+    "accountSetting":"账户设置",
+
 
     "loginAgree":"已阅读并同意",
     "PrivacyClause":"隐私条款",
@@ -64,6 +67,7 @@ const zh = {
     "noCurrency" : "暂无币种",
     "more" : "更多",
     "viewMore" : "查看更多",
+    "view":"查看",
 
     "advantageTitle" : "平台优势",
     "advantageDescribe" : "多重维度保障你的资产安全，用户安全码指纹授权加密解密技术",
@@ -104,10 +108,12 @@ const zh = {
     "enterEmail" : "请输入邮箱",
     "enterName" : "请输入用户名",
     "phoneError" : "手机号码格式不正确，请重新输入",
+    "emailError" : "邮箱格式不正确，请重新输入",
     "passwordEmpty" : "密码不能为空",
-    "password" : "密码长度为8-32位，必须包含字母、数字",
+    "password" : "密码长度为8-32位，必须包含大小写字母、数字、特殊字符",
     "password1" : "长度为8-32位",
-    "password2" : "必须包含字母、数字",
+    "password2" : "必须包含数字、特殊字符",
+    "password3" : "必须包含大、小写字母",
     "passwordConfirm" : "密码不一致",
     "sendVerifCode" : "请先发送验证码",
     "enterVerifCode" : "请输入6位数字验证码",
@@ -708,6 +714,9 @@ const zh = {
     "icotabhead4":"单价",
     "icotabhead5":"赠送数量",
     "icotabhead6":"购得数量",
+
+
+    "selectCountry":"选择国家",
 
 };
 

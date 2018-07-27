@@ -5,6 +5,7 @@
             <b>{{type == 1 ? lang[local].weak : type == 2 ? lang[local].medium : lang[local].strong}}</b>
         </div>
         <div class="register-pas-tip-2" :class="len ? 'active' : ''"><i></i>{{lang[local].password1}}</div>
+        <div class="register-pas-tip-2"  :class="Letter ? 'active' : ''"><i></i>{{lang[local].password3}}</div>
         <div class="register-pas-tip-2"  :class="numLetter ? 'active' : ''"><i></i>{{lang[local].password2}}</div>
     </section>
 </template>
@@ -17,7 +18,8 @@
             return {
                 type : 1,
                 len : false,
-                numLetter : false
+                numLetter : false,
+                Letter:false
             }
         },
         watch : {
@@ -39,18 +41,27 @@
                     this.len = false;
                 };
 
-                if(/^(?=.*[0-9])(?=.*[a-zA-Z])(.*)$/g.test(n)){
+                if(/^(?=.*?[0-9]+)(?=.*?[~!@#$%^&*()-+_]).*$/.test(n)){
                     this.numLetter = true;
                 }else{
                     this.numLetter = false;
                     this.type = 1;
                 };
 
-                if(this.numLetter && this.len){
-                    this.type = 2;
+                if(/^(?=.*?[A-Za-z]+)(?=.*?[a-z]+)(?=.*?[A-Z]).*$/.test(n)){
+                    this.Letter = true;
+                }else{
+                    this.Letter = false;
+                    this.type = 1;
                 };
 
-                if(this.numLetter && this.len && n.length >= 10){
+
+                if((this.numLetter && this.len) || (this.Letter && this.len) || (this.numLetter && this.Letter)){
+                    this.type = 2;
+                };
+                
+
+                if(this.numLetter && this.len && this.Letter){
                     this.type = 3;
                 };
                 this.update();
@@ -81,7 +92,7 @@
         }
         &.type1{
             span:nth-child(1){
-                background: $mainColor;
+                background: #333;
             }
         };
         &.type2{
@@ -94,12 +105,12 @@
         };
         &.type3{
             span{
-                background: $mainColor;
+                background:green;
             }
         };
         b{
             font-weight: normal;
-            color: $mainColor;
+            color: #111;
         }
     }
     .register-pas-tip-2{
@@ -109,14 +120,14 @@
             display: inline-block;
             vertical-align: middle;
             margin-right: 6px;
-            content: '\e685';
+            content: '\F35B';
             @include iconfont(16px);
-            color: $mainColor;
+            color:#999;
             transition: all 0.4s;
         }
         &.active:before{
-            content: '\e60f';
-            color: inherit;
+            content: '\F120';
+            color: green;
         }
     }
 </style>

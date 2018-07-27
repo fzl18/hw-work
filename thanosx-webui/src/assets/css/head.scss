@@ -46,6 +46,9 @@
             }
             ul{
                 display: none;
+                position: absolute;
+                background: rgba(29, 29, 29, 0.8);
+                width: 100%;
                 li{
                     text-align: left;
                     padding:0 20px;

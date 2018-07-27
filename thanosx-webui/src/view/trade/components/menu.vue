@@ -5,13 +5,13 @@
             <section class="market-code-list-box">
                 <ul class="market-code-list-area">
                     <li v-for="item in markets" :class="classActive(item == selectActive)" @mouseover="selectActive=item">
-                        <i :style="{backgroundImage : 'url(' + imgUrl((coins[item] && coins[item].logo) || '') + ')'}"></i>
+                        <!-- <i :style="{backgroundImage : 'url(' + imgUrl((coins[item] && coins[item].logo) || '') + ')'}"></i> -->
                         <span>{{item}}</span>
                     </li>
                 </ul>
                 <div class="market-code-list">
                     <router-link v-for="item in districtInfo && districtInfo[selectActive]" :key="item.xnb + '_' + item.rmb"  :to="'/' + item.xnb + '/' + item.rmb" :class="classActive(item.xnb == xnb && selectActive == rmb)">
-                        <i :style="{backgroundImage : 'url(' + imgUrl((coins[item.xnb] && coins[item.xnb].logo) || '') + ')'}"></i>
+                        <!-- <i :style="{backgroundImage : 'url(' + imgUrl((coins[item.xnb] && coins[item.xnb].logo) || '') + ')'}"></i> -->
                         <span>{{item.xnb}}/{{selectActive}}</span>
                     </router-link>
                 </div>
@@ -65,33 +65,35 @@
     .trade-menu{
         height: 50px;
         width: 100%;
+        min-width:700px;
         text-transform: uppercase;
-        border-bottom: solid 1px $tradeBorderColor;
+        // border-bottom: solid 1px $tradeBorderColor;
         background: #2C2C2C;
         position: relative;
         z-index: 100;
         .market-code{
-            width: 20%;
+            width: 18%;
             float: left;
             height: 100%;
-            color: #ffffff;
-            font-size: 20px;
+            color: #767676;
+            font-size: 15px;
             text-align: center;
-            position: relative;
-            @media screen and (max-width: $tradeMedia1){
-                width: 24%;
-            }
+            position: relative;margin-right:2%;
+            // @media screen and (max-width: $tradeMedia1){
+            //     width: 24%;
+            // }
             & > span{
                 height: 100%;
                 display: block;
                 width: 100%;
                 cursor: pointer;
+                color:#fff;
                 line-height: $tradeMenuH;
                 &:after{
-                    content: '\e6aa';
+                    content: '\F104';
                     display: inline-block;
                     vertical-align: middle;
-                    @include iconfont(20px);
+                    @include iconfont(16px);
                     margin-left: 10px;
                     transition: transform .4s ease-out;
                 }
@@ -112,32 +114,23 @@
                 position: absolute;
                 // left: 20px;
                 top: 100%;
-                $itemW : 160px;
+                $itemW : 130px;
                 .market-code-list-area{
                     display: block;
                     width: 7 * $itemW;
                     padding: 0 15px;
                     height: 65px;
-                    border-bottom: solid 1px #888888;
+                    border-bottom: 1px dotted #5F5F5F;
                     li{
                         display: block;
                         width: $itemW;
                         float: left;
                         height: 100%;
-                        text-align: center;
+                        text-align: left;
                         cursor: pointer;
                         position: relative;
                         &.active{
-                            color: $mainColor;
-                            &:after{
-                                content: '';
-                                display: block;
-                                border-bottom: solid 1px $mainColor;
-                                position: absolute;
-                                bottom: -1px;
-                                width: 100%;
-                                left: 0;
-                            }
+                            color: #fff;
                         }
                         &:before{
                             content: '';
@@ -150,7 +143,7 @@
                             width: 24px;
                             height: 24px;
                             margin-right: 5px;
-                            background: url("../assets/images/btc.png") no-repeat;
+                            // background: url("../assets/images/btc.png") no-repeat;
                             background-size: 100% 100%;
                             vertical-align: middle;
                         }
@@ -163,7 +156,7 @@
                 .market-code-list{
                     padding: 15px 15px;
                     overflow: hidden;
-                    font-size: 18px;
+                    font-size: 15px;
                     a{
                         display: block;
                         width: $itemW;
@@ -171,13 +164,13 @@
                         padding: 15px 0;
                         text-align: left;
                         cursor: pointer;
-                        color: #ffffff;
+                        color: #767676;
                         border-radius: 2px;
                         margin-bottom: 5px;
                         transition: color 0.3s linear;
                         &:hover,&.active{
                             /*background: rgba($mainColor, 0.6);*/
-                            color: $mainColor;
+                            color: #fff;
                         }
                         &:before{
                             content: '';
@@ -191,7 +184,7 @@
                             height: 24px;
                             margin-left: 10px;
                             margin-right: 5px;
-                            background: url("../assets/images/btc.png") no-repeat;
+                            // background: url("../assets/images/btc.png") no-repeat;
                             background-size: 100% 100%;
                             vertical-align: middle;
                         }

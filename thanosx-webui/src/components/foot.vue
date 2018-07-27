@@ -3,19 +3,19 @@
         <footer class="container footer">
             <div class="link">
                 <dl>
-                    <dt><a href="">服务交易</a>></dt>
+                    <dt><a href="javascript:;">服务交易</a>></dt>
                     <dd><a href="">交易中心</a></dd>
                     <dd><a href="">帮助手册</a></dd>
                     <dd><a href="">意见反馈</a></dd>
                 </dl>
                 <dl style="text-align:center">
-                    <dt><a href="">条款说明</a>></dt>
+                    <dt><a href="javascript:;">条款说明</a>></dt>
                     <dd><a href="">隐私条款</a></dd>
                     <dd><a href="">用户协议</a></dd>
                     <dd><a href="">费率说明</a></dd>
                 </dl>
-                <dl style="float:right">
-                    <dt><a href="">关于我们</a>></dt>
+                <dl style="text-align:right">
+                    <dt><a href="javascript:;">关于我们</a>></dt>
                     <dd><a href="">联系我们</a></dd>
                     <dd><a href="">新闻公告</a></dd>
                     <dd><a href="">申请上币</a></dd>

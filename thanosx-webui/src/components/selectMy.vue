@@ -1,10 +1,10 @@
 <template>
     <section class="selectMy">
         <label class="select-box" ref="box" :class="selectActiveClass()">
-            <select v-model="val" @click.stop="">
+            <select v-model="val" @click.stop="" >
                 <option v-for="v in list" :value="typeof v != 'object' ? v : v[0]">{{typeof v != 'object' ? v : v[1]}}</option>
             </select>
-            <span class="select-input" :class="val ? 'active' : ''" @click.stop="focusSelect">{{valText}}</span>
+            <span class="select-input" :class="val ? 'active' : ''" @click.stop="focusSelect">{{valText ? valText : placeholder}}</span>
             <ul class="select-list" v-if="active">
                 <li v-for="v in list" @click.stop="changeSelect(v)">{{typeof v != 'object' ? v : v[1]}}</li>
             </ul>
@@ -34,7 +34,8 @@
             },
             disabled : {
                 default : false,
-            }
+            },
+            placeholder:''
         },
         watch : {
             list (n, o){

@@ -87,14 +87,14 @@
         },
         watch : {
             "param.username" (n, o){
-                
+                let reg = new RegExp(/^([a-zA-Z0-9._-])+@([a-zA-Z0-9_-])+(\.[a-zA-Z0-9_-])+/)           
                 // this.param.username = n.replace(/^[A-Za-z\d]+([-_.][A-Za-z\d]+)*@([A-Za-z\d]+[-.])+[A-Za-z\d]{2,4}$/, '');
                 if(this.param.username.length > 0){
                     this.$store.commit('tips/hide', this.lang[this.local].enterEmail);
                 };
-                // if(this.param.username.length >= 7){
-                //     this.$store.commit('tips/hide', this.lang[this.local].phoneError);
-                // };
+                if(reg.test(this.param.username)){
+                    this.$store.commit('tips/hide', this.lang[this.local].emailError);
+                };
             },
             "param.moble_verify" (n, o){
                 if(n.length > this.verifCodeLen){
@@ -145,7 +145,7 @@
         },
 
         created (){
-            this.getDistrictCode();
+            // this.getDistrictCode();
             this.param.invit = this.$route.params.invite || ''
         },
 
@@ -157,7 +157,7 @@
             });
 
             this.$store.commit('tips/add', {
-                text : this.lang[this.local].phoneError,
+                text : this.lang[this.local].emailError,
                 el : "[name='register-mobile']",
                 status : false,
             });
@@ -205,16 +205,16 @@
         },
 
         methods : {
-            getDistrictCode (){
-                this.axios({
-                    url : this.api.getDistrictCode,
-                }).then((res) => {
-                    this.districtCode = res.data || {};
-                }).catch((err) => {
-                    console.log(err);
-                    this.districtCode = {cn : '+86'}
-                });
-            },
+            // getDistrictCode (){
+            //     this.axios({
+            //         url : this.api.getDistrictCode,
+            //     }).then((res) => {
+            //         this.districtCode = res.data || {};
+            //     }).catch((err) => {
+            //         console.log(err);
+            //         this.districtCode = {cn : '+86'}
+            //     });
+            // },
             getPasswordStatus (){
                 return this.$store.getters['tips/tip']['registerPasTip'].tipsData || {};
             },
@@ -224,20 +224,21 @@
             },
 
             usernameBlur (){
+                let reg = new RegExp(/^([a-zA-Z0-9._-])+@([a-zA-Z0-9_-])+(\.[a-zA-Z0-9_-])+/)    
                 if(this.param.username == ''){
                     this.$store.commit('tips/hideAll');
                     this.$store.commit('tips/show', this.lang[this.local].enterEmail);
                     return false
                 };
-                if(this.param.username.length < 7){
-                    this.$store.commit('tips/show', this.lang[this.local].phoneError);
+                if(!reg.test(this.param.username)){
+                    this.$store.commit('tips/show', this.lang[this.local].emailError);
                     return false
                 };
                 return true;
             },
 
             moble_verifyFocus (){
-
+                let reg = new RegExp(/^([a-zA-Z0-9._-])+@([a-zA-Z0-9_-])+(\.[a-zA-Z0-9_-])+/)  
                 this.$store.commit('tips/hide', this.lang[this.local].password);
 
                 this.$store.commit('tips/hide', this.lang[this.local].sendVerifCodeError);
@@ -248,8 +249,8 @@
                     return false;
                 };
 
-                if(this.param.username.length < 7){
-                    this.$store.commit('tips/show', this.lang[this.local].phoneError);
+                if(!reg.test(this.param.username)){
+                    this.$store.commit('tips/show', this.lang[this.local].emailError);
                     this.param.moble_verify = '';
                     return false;
                 };

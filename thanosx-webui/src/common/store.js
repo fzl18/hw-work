@@ -44,7 +44,7 @@ export default {
             wbc : 4,
         },
         passwordMinLen : 8,
-        passwordMaxLen : 16,
+        passwordMaxLen : 32,
         ...toUrl
     },
     getters : {

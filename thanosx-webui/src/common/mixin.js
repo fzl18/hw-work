@@ -202,13 +202,27 @@ export const methods = {
     toDecimals(val, len){
         if(val){
             len = len || 4;
-            val = (val + '').replace(eval('/(\-?)([0-9]*)(\.?)([0-9]{1,' + len + '})(.*)/'), '$1$2$3$4');
+            if(/e-/.test(val.toString())){
+                val = val.toString();
+                let e = val.split("e-");
+                e[0] = e[0].replace(/\./, "");
+                let l = '0.';
+                for(let i = 0; i < (e[1] * 1); i++){
+                    l = l + '0';
+                };
+                val = l + e[0];
+            }else{
+                val = (val + '').replace(eval('/(\-?)([0-9]*)(\.?)([0-9]{1,' + len + '})(.*)/'), '$1$2$3$4');
+            };
             if(/\./.test(val)){
                 val = val.split('.');
-                for(var i = val[1].length; i < len; i ++){
-                    val[1] = val[1] + '0';
+                var s = '';
+                for(var i = 0; i < len; i ++){
+                    if(val[1][i]){
+                        s += val[1][i];
+                    };
                 };
-                return val.join('.');
+                return val[0] + '.' + s;
             }else{
                 val = val + '.';
                 for(var i = 1; i <= len; i ++){

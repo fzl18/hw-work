@@ -40,6 +40,7 @@ export const toUrl = {
     tradeMarketUrl : process.env.NODE_ENV == 'development' ? '/trade.html/{xnb}/{rmb}' : '/home/trade/{xnb}/{rmb}',
     truenametUrl : process.env.NODE_ENV == 'development' ? '/safety.html/nameAuth' : '/home/safety/nameAuth',
     articleUrl : process.env.NODE_ENV == 'development' ? '/article.html' : '/home/article',
+    icoUrl : process.env.NODE_ENV == 'development' ? '/ico.html' : '/home/ico',
 };
 
 // export const webSocketUrl = process.env.NODE_ENV == 'development' ? 'ws://23.91.100.214:8686/sub' : 'wss://market-api.rdb.one/sub';

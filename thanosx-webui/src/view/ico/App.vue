@@ -4,36 +4,12 @@
         <div class="banner">
             <div class="container">
                 <div class="txt"><i class="iconfont iconfont icon-logo"></i> <br /><b> <span>币币</span>市场</b>  </div>
-                <ul>
-                    <li class="cur">
-                        <p class="tit">50ETH</p>
-                        <p class="num">25,000 TNSX <br/> <span>赠1,500 TNSX</span></p>
-                        <p class="progress"><span class="bar" style="width: 20%;"></span></p>
-                        <p class="total">共500/余1000份</p>
-                    </li>
-                    <li>
-                        <p class="tit">50ETH</p>
-                        <p class="num">25,000 TNSX <br/> <span>赠1,500 TNSX</span></p>
-                        <p class="progress"><span class="bar" style="width: 100%;"></span></p>
-                        <p class="total">共500/余1000份</p>
-                    </li>
-                    <li>
-                        <p class="tit">50ETH</p>
-                        <p class="num">25,000 TNSX <br/> <span>赠1,500 TNSX</span></p>
-                        <p class="progress"><span class="bar" style="width: 70%;"></span></p>
-                        <p class="total">共500/余1000份</p>
-                    </li>
-                    <li>
-                        <p class="tit">50ETH</p>
-                        <p class="num">25,000 TNSX <br/> <span>赠1,500 TNSX</span></p>
-                        <p class="progress"><span class="bar" style="width: 30%;"></span></p>
-                        <p class="total">共500/余1000份</p>
-                    </li>
-                    <li>
-                        <p class="tit">50ETH</p>
-                        <p class="num">25,000 TNSX <br/> <span>赠1,500 TNSX</span></p>
-                        <p class="progress"><span class="bar" style="width: 80%;"></span></p>
-                        <p class="total">共500/余1000份</p>
+                <ul >
+                    <li v-for="(item , index) in list"  :class=" index == cur ?  'cur' : '' " @click="handselect(index)">
+                        <p class="tit">{{item.name}}</p>
+                        <p class="num">{{item.get_amount}} {{item.get_coin}} <br/> <span>赠 {{item.get_free_amount}} {{item.get_coin}}</span></p>
+                        <p class="progress"><span class="bar" :style=" 'width:' + (item.total_count - item.last_count) / item.total_count *100 + '%'"></span></p>
+                        <p class="total">共 {{item.total_count}} / 余 {{item.last_count}} 份</p>
                     </li>
                 </ul>
                 
@@ -59,7 +35,7 @@
         </section>
         <section class="list container">
             <div class="tit">购买记录</div>
-            <list class="finance-coin-table" :url="api.loginlog" >
+            <list class="finance-coin-table" :url="api.ico" >
                 <dl slot="head">
                     <dd>{{lang[local].icotabhead1}}</dd>
                     <dd>{{lang[local].icotabhead2}}</dd>
@@ -70,11 +46,11 @@
                 </dl>
                 <dl slot="body" slot-scope="{item}" :key="item.id">
                     <dd>{{localDate(item.addtime)}}</dd>
-                    <dd>{{item.type}}</dd>
-                    <dd>{{item.addip}}</dd>
-                    <dd>{{item.addr}}</dd>
-                    <dd>{{item.remark}}</dd>
-                    <dd>{{item.status == 1 ? lang[local].normal : lang[local].otc21}}</dd>
+                    <dd>{{item.total_count}}</dd>
+                    <dd>{{item.pay_coin}}</dd>
+                    <dd>{{item.pay_amount}}</dd>
+                    <dd>{{item.get_free_amount}}</dd>
+                    <dd>{{item.get_amount}}</dd>
                 </dl>
             </list>
         </section>
@@ -91,19 +67,33 @@
         name: "app",
         data (){
             return {
-                activeItem : {}
+                list : [],
+                cur : 0,
             }
         },
         computed : {
-            ...mapState(['info'])
+            ...mapState(['info'])            
         },
-        watch : {
-            activeItem (n, o){
-                this.$store.commit('activeObject', n);
-            },
+
+        created (){
+            this.getIcoList()
         },
         methods : {
-
+            getIcoList(){
+                this.axios({
+                    url : this.api.ico,
+                    data : {
+                    }
+                }).then((res) => {
+                    this.list = res.data || [];
+                }).catch((err) => {
+                    this.list = [];
+                    this.showStatus = false;
+                });
+            },
+            handselect(index){
+                this.cur = index
+            }
         }
     }
 </script>

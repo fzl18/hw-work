@@ -2,10 +2,26 @@
     <section>
         <section  class="safety-block">
             <financeHeader>
-                <span>{{lang[local].tradePassword9}}</span>
-                <span class="tips"><Icon type="information-circled" color="#ff0000"/> {{lang[local].tradePassword10 + ' ' + (userBasicinfo.username || '') + ' ' +  lang[local].tradePassword9}}</span>
+                <span>{{lang[local].tradePassword1}}</span>
+                <span class="tips"><Icon type="information-circled" color="#ff0000"/> {{lang[local].tradePassword10 + ' ' + (userBasicinfo.username || '') + ' ' +  lang[local].tradePassword1}}</span>
             </financeHeader>
             <section class="safety-form">
+                <div class="tit">{{lang[local].tradePassword1}}</div>
+                <p>{{lang[local].email}}：{{userBasicinfo.username}}</p>
+                <section class="form-group">
+                    <div class="input-box">
+                       <i class="iconfont icon-yanzhengma"></i> <input type="text" v-model="verify" @keyup.enter="uppaypassword" name="safety-upmoble-verify" :placeholder="lang[local].emailVerifCode" />
+                        <span @click="sendVerify" class="getVerifCode" :class="classActive(verifyCodeTimeText == -1 || verifyCodeTimeText.length )">
+                            {{
+                                verifyCodeTimeText == -1
+                                ? lang[local].getVerifCode + '...'
+                                : verifyCodeTimeText
+                                ? verifyCodeTimeText
+                                : lang[local].getVerifCode
+                            }}
+                        </span>
+                    </div>                    
+                </section>
                 <section class="form-group">
                     <div class="input-box">
                      <i class="iconfont icon-mima" ></i> <input type="password"  @keyup.enter="uppaypassword" v-model="param.newpaypwd" name="safety-trade-setnewpaypwd" :placeholder="lang[local].payPassword" />
@@ -18,6 +34,7 @@
                 </section>
                 <section class="form-group form-group-btn">
                     <a href="javascript:;" @click="uppaypassword" class="form-submit-btn">{{lang[local].confirm}}{{this.getState == this.getStateStart ? '...' : ''}}</a>
+                    <a href="javascript: history.go(-1);" class="form-submit-btn white" >{{lang[local].cancel}}</a>
                 </section>
             </section>
         </section>
@@ -32,7 +49,10 @@
                 param : {
                     newpaypwd : '',
                     repaypwd : '',
+                    
                 },
+                sendCodeCount : 0,
+                verify : '',
             };
         },
         created (){
@@ -74,6 +94,23 @@
                 });
 
             },
+            sendVerify (){
+                if(this.verifyCodeTimeText){
+                    return false;
+                };
+                this.verifyCodeTimeText = -1;
+                this.axios({
+                    url : this.api.upmobleVerify,
+                    data : {
+                        email : this.userBasicinfo.username
+                    }
+                }).then((res) => {
+                    this.sendCodeCount ++;
+                    this.verifyCodeDown();
+                }).catch((err) => {
+                    this.verifyCodeTimeText = '';
+                });
+            }
         },
     }
 </script>

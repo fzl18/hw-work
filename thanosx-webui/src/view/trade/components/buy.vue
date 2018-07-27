@@ -1,13 +1,17 @@
 <template>
     <section class="trade-buy-box">
         <p class="balance">{{rmb}} {{lang[local].usable}}： {{priceAccuracy(rmbAssets)}}</p>
+        <div class="tit">{{lang[local].buyPrice}}</div>
         <section class="inp" :class="classActive(clickActive)">
-            <span>{{lang[local].buyPrice}} ({{rmb}})</span>
-            <input type="text" :placeholder="rmb" v-model="price" />
+            <span>{{lang[local].price}}</span> 
+            <input type="text" v-model="price" />
+            <span class="dw">{{rmb}}</span>
         </section>
+        <div class="tit">{{lang[local].buyNum}}</div>
         <section class="inp">
-            <span>{{lang[local].buyNum}} ({{xnb}})</span>
-            <input type="text" :placeholder="xnb" v-model="num" />
+            <span>{{lang[local].num}}</span> 
+            <input type="text" v-model="num" />
+            <span class="dw">{{xnb}}</span>
         </section>
 
         <section class="rate" :class="rateType">

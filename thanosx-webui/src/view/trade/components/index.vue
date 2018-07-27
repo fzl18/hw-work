@@ -523,21 +523,21 @@
         // background: #2C2C2C;
         // border-left: solid 1px $tradeBorderColor;
     }
-    @media screen and (min-width: 1920px){
-        .trade-left{
-            width: auto;
-            position: absolute;
-            right: 800px;
-            left: 0;
-            top: 0;
-        }
-        .trade-right{
-            width: 800px;
-            position: absolute;
-            right: 0;
-            top: 0;
-        }
-    }
+    // @media screen and (min-width: 1920px){
+    //     .trade-left{
+    //         width: 60%;
+    //         position: relative;            
+    //         height: 100%;
+    //         left: 0;
+    //         top: 0;
+    //     }
+    //     .trade-right{
+    //         width: calc(40% - 5px) ;
+    //         position: relative;
+    //         right: 0;
+    //         top: 0;
+    //     }
+    // }
     .trade-right-top,.trade-left-top{
         position: absolute;
         left: 0;
@@ -547,6 +547,7 @@
         
         // border-bottom: solid 1px $tradeBorderColor;
     }
+    .trade-right-top{bottom:45%;}
     .trade-right-bottom,.trade-left-bottom{
         position: absolute;
         left: 0;
@@ -554,7 +555,7 @@
         width: 100%;
         height: $bottomH;
     }
-
+    .trade-right-bottom{height:45%;}
     .trade-box{
         background: $tradeBg;
         @include fullWH;

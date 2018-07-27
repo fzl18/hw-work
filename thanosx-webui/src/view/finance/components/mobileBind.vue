@@ -8,8 +8,21 @@
             <section class="safety-form">
                 <div class="tit">{{lang[local].mobileBind}}</div>
                 <section class="form-group">
+                    <div class="login-state input-box">
+                        <select v-model="param.districtcode">
+                            <option v-for="v,k in districtCode" :value="v">{{k}}</option>
+                        </select>
+                        <span :class="classActive(stateCode)" @click="stateCode = !stateCode">
+                            {{param.country && param.country + '  '}} {{param.districtcode ? param.districtcode :lang[local].selectCountry}}
+                        </span>
+                        <ul class="login-state-select" v-if="stateCode">
+                            <li v-for="v,k in districtCode" @click="stateCode = false;param.districtcode=v ; param.country = k"><span>{{v}}</span> <i>{{k}}</i></li>
+                        </ul>
+                    </div>
+                </section>
+                <section class="form-group">
                     <div class="input-box">
-                    <i class="iconfont icon-shoujihao"></i> <input type="text" v-model="mobile"  @keyup.enter="upmoble" name="safety-upmoble" :placeholder="lang[local].phone" />
+                    <i class="iconfont icon-shoujihao"></i> <input type="text" v-model="phone"  @keyup.enter="upmoble" name="safety-upmoble" :placeholder="lang[local].phone" />
                     </div>
                 </section>
                 <section class="form-group">
@@ -41,18 +54,37 @@
         data (){
             return {
                 sendCodeCount : 0,
-                mobile : '',
+                phone : '',
                 verify : '',
+                stateCode:false,
+                districtCode : {},
+                param : {
+                    districtcode : '',
+                    country:''
+                }
             };
         },
+        created (){
+            this.getDistrictCode();
+        },
         methods : {
+            getDistrictCode (){
+                this.axios({
+                    url : this.api.getDistrictCode,
+                }).then((res) => {
+                    this.districtCode = res.data || {};
+                    // this.stateCode = true
+                }).catch((err) => {
+                    console.log(err);
+                    this.districtCode = {cn : '+86'}
+                });
+            },
             upmoble (){
-
                 if(this.getState == this.getStateStart){
                     return false;
                 };
 
-                var {mobile:moble, verify:moble_verify} = this;
+                let mobile = this.phone, verify = this.moble_verify
                 if(moble.length != 11){
                     this.$store.commit('msg/err', this.lang[this.local].phoneError);
                     return false;
@@ -110,3 +142,67 @@
     }
 </script>
 
+<style scoped lang="scss" >
+    @import "../../../assets/css/var.scss";
+    .login-state{
+        width: 100%;
+        & > select{
+            display: none;
+        }
+        & > span{
+            cursor: pointer;
+            font-size: 16px;
+            position: relative;
+            line-height: 40px;
+            display: block;
+            
+            &.active{
+                &:after{
+                    transform:translateY(-50%) rotateZ(180deg);
+                }
+            }
+            &:after{
+                content: '\F104';
+                @include iconfont(16px);
+                display: block;
+                position: absolute;
+                right: 10px;
+                top: 50%;
+                transform: translateY(-50%);
+                transition: transform 0.4s ease;
+            }
+        }
+        .login-state-select{
+            position: absolute;
+            width: 100%;
+            top: 40px - 1px;
+            background: #ffffff;            
+            box-shadow: 0 0 5px rgba(0,0,0,.3);
+            max-height: 200px;
+            z-index:999;
+            overflow: auto;
+            @media screen and (max-width: 820px){
+                top: 40px - 1px;
+            }
+            li{
+                display: block;
+                padding: 15px 20px;
+                font-size: 16px;
+                color: $fontColor;
+                overflow: hidden;
+                cursor: pointer;
+                text-transform: uppercase;
+                span{
+                    float: left;
+                }
+                i{
+                    display: block;
+                    float: right;
+                    font-style: normal;
+                }
+                &:nth-child(even){background:#eee;}
+            }
+        }
+    }
+    
+</style>

@@ -293,17 +293,17 @@
                 });
 
                 this.widget.onChartReady(() => {
-                    this.widget.chart().createStudy('MACD', false, false);
+                    // this.widget.chart().createStudy('MACD', false, false);
                     // this.widget.chart().createStudy('Moving Average', false, false, [1], null, {
                     //
                     // });
-                    this.widget.chart().createStudy('Moving Average', false, false, [7], null, {
-                        'plot.color' : '#ff80ff'
-                    });
-                    this.widget.chart().createStudy('Moving Average', false, false, [30], null, {
-                        'plot.color' : '#ffff0b'
-                    });
-                    this.widget.chart().createStudy('Stochastic', false, false);
+                    // this.widget.chart().createStudy('Moving Average', false, false, [7], null, {
+                    //     'plot.color' : '#ff80ff'
+                    // });
+                    // this.widget.chart().createStudy('Moving Average', false, false, [30], null, {
+                    //     'plot.color' : '#ffff0b'
+                    // });
+                    // this.widget.chart().createStudy('Stochastic', false, false);
                 });
             }
         }

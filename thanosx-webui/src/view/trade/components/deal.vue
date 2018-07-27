@@ -1,18 +1,18 @@
 <template>
     <section class="deal">
         <dl class="deal-head">
-            <dd>{{lang[local].time}}</dd>
             <dd>{{lang[local].tradeType}}</dd>
             <dd>{{lang[local].unitPrice}}</dd>
             <dd>{{lang[local].tradeVolume}}</dd>
+            <dd>{{lang[local].time}}</dd>
         </dl>
         <load class="deal-load" v-if="!dealState" />
         <transition-group v-if="dealState" name="deal" tag="section" class="deal-body">
             <dl v-for="item in deal" :key="item[4]" @click="clickItem(item)">
-                <dd>{{localDate(item[0], true)}}</dd>
                 <dd :class="item[1] + 'Color'">{{lang[local][item[1]]}}</dd>
                 <dd :class="item[1] + 'Color'">{{priceAccuracy(item[2])}}</dd>
                 <dd>{{numAccuracy(item[3])}}</dd>
+                <dd>{{localDate(item[0], true)}}</dd>
             </dl>
         </transition-group>
     </section>
