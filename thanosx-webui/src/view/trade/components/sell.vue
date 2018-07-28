@@ -1,13 +1,13 @@
 <template>
     <section class="trade-buy-box trade-sell-box">
         <p class="balance">{{xnb}} {{lang[local].usable}}： {{numAccuracy(xnbAssets)}}</p>
-        <div class="tit">{{lang[local].sellPrice}} </div>
+        <!-- <div class="tit">{{lang[local].sellPrice}} </div> -->
         <section class="inp" :class="classActive(clickActive)">
             <span>{{lang[local].price}}</span> 
             <input type="text" placeholder="0.00" v-model="price" />
             <span class="dw">{{rmb}}</span>
         </section>
-        <div class="tit">{{lang[local].sellNum}} </div>
+        <!-- <div class="tit">{{lang[local].sellNum}} </div> -->
         <section class="inp">
             <span>{{lang[local].num}}</span> 
             <input type="text" placeholder="0.00" v-model="num" />
@@ -24,9 +24,14 @@
             <span @click="clickRate(0.75)">75%</span>
             <span @click="clickRate(1)">100%</span>
         </section>
-        <!-- <p class="total">{{lang[local].total}}：{{totalPrice}} {{rmb}} <span>{{rateText}}</span></p> -->
-        <!-- <p class="usable">{{lang[local].buyMay}}：{{maxNum}} {{rmb}}</p> -->
-        <a href="javascript:;" class="trade-btn" @click="submit">{{lang[local].sell}} {{xnb}}{{sellData.price ? '...' : ''}}</a>
+        <p class="total"></p>
+        <p class="usable">{{lang[local].total}}：{{totalPrice}} {{rmb}}
+             <!-- <span>{{rateText}}</span> -->
+             {{lang[local].buyMay}}：{{maxNum}} {{rmb}} </p>
+        <p class="nologin" v-if="loginInfo.uid == '' || loginInfo.username == ''">
+            <a class="buyColor" :href="loginUrl">{{lang[local].login2}}</a> {{lang[local].tradeLogin2}} <a class="sellColor" :href="registerUrl">{{lang[local].freeRegister}}</a>
+        </p>
+        <a v-if="loginInfo.uid !== '' || loginInfo.username !== ''" href="javascript:;" class="trade-btn" @click="submit">{{lang[local].sell}} {{xnb}}{{sellData.price ? '...' : ''}}</a>
     </section>
 </template>
 

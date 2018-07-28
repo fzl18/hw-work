@@ -16,17 +16,17 @@
                 </li>
                 <li class="bbox" style="margin:0 2%">
                     <template v-for=" item in helplist.list" >
-                        <p><a :href="articleUrl + '/' + item.id ">{{item.title}}</a></p>
+                        <p><a :href="articleUrl + '/info/' + item.id ">{{item.title}}</a></p>
                     </template>
-                        <p class="more"><a :href="articleUrl + '/' + helplist.type_id">{{lang[local].viewMore}}</a></p>
+                        <p class="more"><a :href="articleUrl + '/info/' + helplist.type_id">{{lang[local].viewMore}}</a></p>
                         <div class="jiao"></div>
                     
                 </li>
                 <li class="bbox">
                     <template v-for=" item in noticelist.list" >
-                        <p><a :href="articleUrl + '/' + item.id ">{{item.title}}</a></p>
+                        <p><a :href="articleUrl + '/info/' + item.id ">{{item.title}}</a></p>
                     </template>
-                    <p class="more"><a :href="articleUrl + '/' + noticelist.type_id">{{lang[local].viewMore}}</a></p>
+                    <p class="more"><a :href="articleUrl + '/info/' + noticelist.type_id">{{lang[local].viewMore}}</a></p>
                     <div class="jiao"></div>
                 </li>
             </ul>            

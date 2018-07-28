@@ -13,7 +13,7 @@ body,html{
     .tit{color:#fff;padding:20px 10px 10px 10px;}
     width: 50%;
     background: #2C2C2C;
-    height: calc(100% + 40px);
+    height: calc(100% + 0px);
     // padding-left: 2%;
     // padding-right: 2%;
     position: relative;
@@ -37,7 +37,9 @@ body,html{
             }
         }
         .rate{
-            span{ color:#fff}
+            span{ 
+                color:#fff;
+            }
 
         }
     }
@@ -72,6 +74,16 @@ body,html{
         text-align: right;
         color: $tradeColor;
         margin-top: 8px;
+        padding-right: 20px;
+    }
+    .nologin{
+        width:90%;
+        margin:20px auto;
+        text-align:center;
+        padding: 15px 0;
+        background: rgba(0,0,0,.2);
+        font-size: 15px;
+        a{color:$mainColor!important}
     }
     .balance{
         color: $tradeColor;
@@ -86,7 +98,8 @@ body,html{
         width: 100%;
         color: $tradeColor;
         position: relative;
-        font-size: 12px;
+        font-size: 15px;
+        margin:10px 0;
         &:nth-of-type(1):before{
             transition: width 0.3s ease-out;
             content: '';
@@ -134,7 +147,7 @@ body,html{
         position: relative;
         width: 100%;
         height: 30px;
-        margin: 10px 0 0;
+        margin: 20px 0;
         text-align: center;
         span{
             color:#fff;
@@ -146,6 +159,8 @@ body,html{
             text-align: center;
             border:1px solid #464646;
             cursor: pointer;
+            
+            &:hover, &.cur{border-color:$mainColor; color:$mainColor; }
         }
 
         &.type-1 > span{
@@ -222,7 +237,7 @@ body,html{
     width: 100%;
     top: 40px;
     bottom: 0;
-    height:calc(100% + 40px);
+    height:calc(100% + 0px);
     background: $tradeMainColor;
     overflow-y: auto;
     @include scroll1;

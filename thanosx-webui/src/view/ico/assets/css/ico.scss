@@ -42,7 +42,7 @@ a{
                 .num{
                     font-size:20px;
                     margin-top:40px;
-                    span{font-size:14px;opacity:.3;}
+                    span{font-size:14px;opacity:.3;display: block;height: 40px;}
                 }
                 .total{opacity:.3;}
                 &:last-child{margin-right:0}

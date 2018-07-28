@@ -7,7 +7,9 @@
                 <ul >
                     <li v-for="(item , index) in list"  :class=" index == cur ?  'cur' : '' " @click="handselect(index)">
                         <p class="tit">{{item.name}}</p>
-                        <p class="num">{{item.get_amount}} {{item.get_coin}} <br/> <span>赠 {{item.get_free_amount}} {{item.get_coin}}</span></p>
+                        <p class="num"> {{item.isDefault ? `${item.pay_amount} ${item.pay_coin} = ${item.get_amount} ${item.get_coin}` : `${item.get_amount} ${item.get_coin}`}} <br/>
+                        <span> <template v-if="item.get_free_amount > 0"> 赠 {{item.get_free_amount}} {{item.get_coin}}</template></span>
+                        </p>
                         <p class="progress"><span class="bar" :style=" 'width:' + (item.total_count - item.last_count) / item.total_count *100 + '%'"></span></p>
                         <p class="total">共 {{item.total_count}} / 余 {{item.last_count}} 份</p>
                     </li>
@@ -20,13 +22,13 @@
                 <div class="ctx">
                     <div class="input">
                         <ul>
-                            <li> 数量<input type="text" placeholder=""/> <span>ETH</span> </li>
-                            <li> 交易密码<input type="text" /> </li>
-                            <li> 验证码<input type="text" /> <span><a href="">获取验证码</a> </span></li>
+                            <li> 数量<input type="text" v-model="num" :disabled="cur > 0 ? true : false " :style="cur > 0 && 'cursor:not-allowed' " style="text-align:right;"/> <span>{{pay_coin}}</span> </li>
+                            <li> 交易密码<input type="text" v-model="pw" /> </li>
+                            <li> 验证码<input type="text" v-model="verify" /> <span><a href="">获取验证码</a> </span></li>
                         </ul>
                         <a href="" class="submit">{{lang[local].icoSubmit}}</a>
                     </div>
-                    <div class="amount">可用：ETH    <span>可得：TNSX</span></div>                    
+                    <div class="amount">可用： {{pay_coin}}    <span>可得：{{getcoin}} {{get_coin}}</span></div>                    
                 </div>
                 <div class="tip">
                     {{lang[local].icotip}}
@@ -69,10 +71,20 @@
             return {
                 list : [],
                 cur : 0,
+                verify:'',
+                num:0,
+                pw:'',
+                get_coin:'',
+                pay_coin:''
             }
         },
         computed : {
-            ...mapState(['info'])            
+            getcoin(){
+                if(this.list.length){
+                     return this.cur ? (parseInt(this.list[this.cur].get_amount) + parseInt(this.list[this.cur].get_free_amount)) : this.num * parseInt(this.list[this.cur].get_amount)
+                }
+            },
+            ...mapState(['info'])
         },
 
         created (){
@@ -86,13 +98,16 @@
                     }
                 }).then((res) => {
                     this.list = res.data || [];
+                    this.get_coin = res.data[0].get_coin
+                    this.pay_coin = res.data[0].pay_coin
                 }).catch((err) => {
                     this.list = [];
                     this.showStatus = false;
                 });
             },
             handselect(index){
-                this.cur = index
+                this.cur = index                
+                this.num = index && this.list[index].pay_amount
             }
         }
     }

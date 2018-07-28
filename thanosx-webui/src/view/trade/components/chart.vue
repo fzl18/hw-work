@@ -208,8 +208,8 @@
 
                     // "header_widget"
                     disabled_features: [
-                        "left_toolbar",
-                        'timeframes_toolbar',
+                        // "left_toolbar",
+                        // 'timeframes_toolbar',
                         'header_symbol_search',
                         'header_saveload',
                         'header_saveload_to_the_right',
@@ -223,10 +223,10 @@
                         "save_chart_properties_to_local_storage",
                         "volume_force_overlay",
                         "items_favoriting",
-                        "header_chart_type",
-                        "header_settings",
-                        "header_indicators",
-                        "header_fullscreen_button",
+                        // "header_chart_type",
+                        // "header_settings",
+                        // "header_indicators",
+                        // "header_fullscreen_button",
 
                         "dont_show_boolean_study_arguments"
                         

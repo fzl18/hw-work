@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 
 import list from '../components/list'
+import info from '../components/info'
 import commonRouter from '../../../common/router'
 import {toUrl} from "../../../common/api/api";
 
@@ -12,12 +13,17 @@ const router = new Router({
     routes: [
         {
             path: '/',
-            redirect: '/36'
+            redirect: '/'
         },
         {
-            path: '/:id/:pid?',
+            path: '/list/:id',
             name: 'list',
             component: list
+        },
+        {
+            path: '/info/:id',
+            name: 'info',
+            component: info
         },
         ...commonRouter,
     ],

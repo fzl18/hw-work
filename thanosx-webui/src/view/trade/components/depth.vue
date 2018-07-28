@@ -16,7 +16,7 @@
                 </dl>
                 <load v-if="!depthState" class="trade-load" />
             </section>
-            <section class="entrust-middle">
+            <!-- <section class="entrust-middle">
                 <span>
                     <b>{{priceAccuracy(nowPrice[2])}} {{rmb}}</b><small v-if="rmb != 'cnt'"> ≈ {{priceAccuracy(market_quote[7]) || 0}}CNT</small>
                 </span>
@@ -26,7 +26,7 @@
                     <span></span>
                     <span></span>
                 </div>
-            </section>
+            </section> -->
             <section class="entrust-buy entrust-body">
                 <dl v-for="(item, index) in depthBuy" :key="item[0]" @click="clickItem('buy', item)">
                     <dd class="buyColor">{{lang[local].depthBuy}}{{index + 1}}</dd>

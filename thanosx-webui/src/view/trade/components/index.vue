@@ -17,6 +17,7 @@
                     <user-deal v-if="loginInfo && loginInfo.uid && loginInfo.username && userViewStatue == 2" />
                     <section class="trade-user-out" v-if="loginInfo.uid == '' || loginInfo.username == ''">
                         <div>
+                            <p> <i class="iconfont icon-logo" style="font-size:120px;line-height:0px;"></i> </p>
                             {{lang[local].tradeLogin1}} <a class="buyColor" :href="loginUrl">{{lang[local].login2}}</a> {{lang[local].tradeLogin2}} <a class="sellColor" :href="registerUrl">{{lang[local].freeRegister}}</a> {{lang[local].tradeLogin3}}
                         </div>
                     </section>
@@ -567,5 +568,7 @@
         left: 0;
         right: 0;
         bottom: 0;
+        overflow: hidden;
+        min-height:700px;
     }
 </style>

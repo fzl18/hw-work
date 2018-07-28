@@ -5,10 +5,12 @@
         <section class="article-main">
             <section class="container">
                 <section class="article-left">
-                    <!-- <h4><span>{{(info.top && info.parent && info.parent.name) || activeItem.catname}}</span></h4> -->
                     <dl class="article-menu">
-                        <dd v-for="same in (info && info.same || [])">
-                            <router-link :class="classActive(same.id == ((info.top && info.parent && info.parent.id) || $route.params.pid || $route.params.id) && (activeItem = same))" :to="'/' + same.id">{{same.catname}}</router-link>
+                        <dd v-for="item in categories">
+                            <router-link :class=" item.is_category ? item.type_id == (info.category && info.category.type_id || info.type_id ) ?  'active' : '' : item.id == info.id ? 'active' : ''   " 
+                            :to="`/${item.is_category ? 'list/' + item.type_id :'info/' + item.id } ` ">
+                            {{item.is_category ? item.type_name : item.title}}
+                            </router-link>
                         </dd>
                     </dl>
                 </section>
@@ -25,7 +27,8 @@
         name: "app",
         data (){
             return {
-                activeItem : {}
+                activeItem : {},
+                categories:[]
             }
         },
         computed : {
@@ -35,9 +38,28 @@
             activeItem (n, o){
                 this.$store.commit('activeObject', n);
             },
+            local(){
+                this.getCtegories()
+            }
+        },
+        mounted(){
+            this.getCtegories()
         },
         methods : {
-
+            getCtegories (){
+                this.getState = this.getStateStart;
+                this.axios({
+                    url : this.api.categories,
+                    data : {
+                    }
+                }).then((res) => {
+                    this.categories= res.data.list
+                    this.getState = this.getStateSuccess;
+                }).catch((err) => {
+                    this.getState = this.getStateError;
+                    console.log(err);
+                });
+            },
         }
     }
 </script>
