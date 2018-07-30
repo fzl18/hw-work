@@ -59,5 +59,6 @@ export const apiFinance = {
     "setGaVerify" : '/api/Security/setGaVerify',
     "upmobleVerify" : '/api/Security/upmobleVerify',
     "upmoble" : '/api/Security/upmoble',
+    "payPasswordVerifyCode":"/api/Security/payPasswordVerifyCode"
 };
 

@@ -53,7 +53,7 @@
                 <dt><i class="iconfont icon-yuechi"></i></dt>
                 <dd>交易密码</dd>
                 <dd class="txt">用于提币、C2C转账时安全验证</dd>
-                <dd class="btn"> <router-link to="/findTradePassword" >修改</router-link></dd>
+                <dd class="btn"> <router-link to="/setTradePassword" >修改</router-link></dd>
             </dl>
             <dl>
                 <dt><i class="iconfont icon-shouji"></i></dt>

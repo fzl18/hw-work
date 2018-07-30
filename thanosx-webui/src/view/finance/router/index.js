@@ -274,7 +274,7 @@ const routeGuard = function (to, from, next){
         };
         if(to.name == 'upTradePassword' || to.name == 'findTradePassword'){
             if(userBasicinfo.paypassword){
-                next();
+                next('./setTradePassword');
             }else{
                 next('./setTradePassword');
             };
@@ -282,7 +282,7 @@ const routeGuard = function (to, from, next){
         };
         if(to.name == 'setTradePassword'){
             if(userBasicinfo.paypassword){
-                next('./upTradePassword');
+                next();
             }else{
                 next();
             };

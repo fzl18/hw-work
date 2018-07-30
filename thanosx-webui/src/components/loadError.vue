@@ -1,9 +1,9 @@
 <template>
     <div class="loading-error">
         <slot>
-            {{lang.loadError}}，
+            {{lang[local].loadError}}，
         </slot>
-        <a href="javascript:;" @click="reload">{{lang.refresh}} <i :class="classActive(status)"></i></a>
+        <a href="javascript:;" @click="reload">{{lang[local].refresh}} <i :class="classActive(status)"></i></a>
     </div>
 </template>
 
@@ -44,9 +44,8 @@
                     display: inline-block;
                     vertical-align: -10%;
                     margin-left: 6px;
-                    content: '\e615';
+                    content: '\F201';
                     @include iconfont(18px);
-                    font-weight: bold;
                 }
                 &.active:after{
                     animation: icon 1s linear infinite;

@@ -220,7 +220,7 @@ const zh = {
     "uppassword7" : "原登录密码不能为空",
     "uppassword3" : "新登录密码",
     "uppassword4" : "确认新密码",
-    "uppassword5" : "修改登录密码",
+    "uppassword5" : "修改登录密码成功",
     "uppassword6" : "确认新密码不一致",
 
     "gaCode1" : "谷歌身份识别器",
@@ -714,7 +714,7 @@ const zh = {
     "icotabhead4":"单价",
     "icotabhead5":"赠送数量",
     "icotabhead6":"购得数量",
-
+    "ico10":"数量、交易密码、验证码不能为空",
 
     "selectCountry":"选择国家",
 

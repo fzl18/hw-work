@@ -1,7 +1,7 @@
 <template>
     <section class="empty-data">
         <slot>
-            <span>{{lang.emptyData}}</span>
+            <span>{{lang[local].emptyData}}</span>
         </slot>
     </section>
 </template>

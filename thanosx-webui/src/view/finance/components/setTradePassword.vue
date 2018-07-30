@@ -56,9 +56,9 @@
             };
         },
         created (){
-            if(this.userBasicinfo && this.userBasicinfo.userid && this.userBasicinfo.paypassword){
-                this.$router.push('./upTradePassword');
-            };
+            // if(this.userBasicinfo && this.userBasicinfo.userid && this.userBasicinfo.paypassword){
+            //     this.$router.push('./setTradePassword');
+            // };
         },
         methods : {
             uppaypassword (){
@@ -81,6 +81,7 @@
                 this.axios({
                     url : this.api.uppaypassword,
                     data : {
+                        email_verify:this.verify,
                         newpaypwd,
                         repaypwd,
                     }
@@ -100,7 +101,7 @@
                 };
                 this.verifyCodeTimeText = -1;
                 this.axios({
-                    url : this.api.upmobleVerify,
+                    url : this.api.payPasswordVerifyCode,
                     data : {
                         email : this.userBasicinfo.username
                     }

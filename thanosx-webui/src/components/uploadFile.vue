@@ -2,7 +2,7 @@
     <label>
         <input style="display: none;" value="" type="file" @change="submit($event)" />
         <slot>
-            <span>{{lang.uploadFile}}</span>
+            <span>{{lang[local].uploadFile}}</span>
         </slot>
     </label>
 </template>
@@ -35,7 +35,7 @@
                 if(!/\.jpg$|\.png$|\.gif$|\.jpeg$|\.webp$/.test(file.name)){
                     this.fileData = {
                         state : this.getStateError,
-                        message : this.lang.imgFormatE,
+                        message : this.lang[this.local].imgFormatE,
                     };
                     this.$emit('input', this.fileData);
                     return;
@@ -43,7 +43,7 @@
                 if(file.size > (1024 * 1024 * this.size)){
                     this.fileData = {
                         state : this.getStateError,
-                        message : this.lang.imgFormatSize.replace('{size}', this.size + 'M'),
+                        message : this.lang[this.local].imgFormatSize.replace('{size}', this.size + 'M'),
                     };
                     this.$emit('input', this.fileData);
                     return;
@@ -57,7 +57,7 @@
                 var fileVal = e.target.value;
                 this.fileData = {
                     state : this.getStateStart,
-                    message : this.lang.uploadFile0,
+                    message : this.lang[this.local].uploadFile0,
                     progress : 0,
                     file : fileVal
                 };
@@ -81,7 +81,7 @@
                         state : this.getStateSuccess,
                         data : res.data.url,
                         origin : this.origin + res.data.url,
-                        message : this.lang.uploadFile1,
+                        message : this.lang[this.local].uploadFile1,
                         file : fileVal
                     };
                     this.$emit('input', this.fileData);
