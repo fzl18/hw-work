@@ -86,11 +86,11 @@
                     }
                 }).then((res) => {
                     this.getSuccess();
-                    this.$store.commit('msg/add', this.lang[this.local].safetyIssue6);
+                    this.$store.commit('msg/add', this.lang[this.local].uppassword5);
                     this.$router.push('./');
                 }).catch((err) => {
                     this.getError();
-                    this.$store.commit('msg/err', err.message || this.lang[this.local].safetyIssue6);
+                    this.$store.commit('msg/err', err.message || this.lang[this.local].uppassword5);
                 });
 
             },

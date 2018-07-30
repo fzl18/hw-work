@@ -26,9 +26,10 @@
         </section>
 
         <p class="total"></p>
-        <p class="usable">{{lang[local].total}}：{{totalPrice}} {{rmb}} 
+        <p class="usable">{{lang[local].total}}：{{totalPrice}} {{rmb}} </p>
+        <p class="usable">{{lang[local].buyMay}}：{{maxNum}} {{xnb}} </p>
             <!-- <span>{{rateText}}</span> -->
-        {{lang[local].buyMay}}：{{maxNum}} {{xnb}}</p>
+        
         <p class="nologin" v-if="loginInfo.uid == '' || loginInfo.username == ''">
             <a class="buyColor" :href="loginUrl">{{lang[local].login2}}</a> {{lang[local].tradeLogin2}} <a class="sellColor" :href="registerUrl">{{lang[local].freeRegister}}</a>
         </p>

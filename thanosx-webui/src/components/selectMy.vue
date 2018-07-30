@@ -26,7 +26,7 @@
             list : {
                 type : Array,
                 default : function () {
-                    return [['', this.lang.gu_finance100]];
+                    return [['', this.lang[this.local].gu_finance100]];
                 },
             },
             selected : {

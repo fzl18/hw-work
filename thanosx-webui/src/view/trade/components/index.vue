@@ -569,6 +569,12 @@
         right: 0;
         bottom: 0;
         overflow: hidden;
-        min-height:700px;
+        // min-height:700px;
+    }
+    @media screen and (max-height: 700px) {
+        .trade-right-bottom{height:55%;}
+        .trade-right-top{bottom:55%;}
+        .trade-left-bottom{height:35%;}
+        .trade-left-top{bottom:35%;}
     }
 </style>

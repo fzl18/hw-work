@@ -90,7 +90,7 @@
             },
             getList (page){
                 if(this.url.length <= 0){
-                    this.$store.commit('msg/err', this.lang.finance9);
+                    this.$store.commit('msg/err', this.lang[this.local].finance9);
                     return false;
                 };
                 if(this.page.totalPage && this.page.totalPage <= 0){

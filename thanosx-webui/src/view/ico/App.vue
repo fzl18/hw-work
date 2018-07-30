@@ -5,14 +5,16 @@
             <div class="container">
                 <div class="txt"><i class="iconfont iconfont icon-logo"></i> <br /><b> <span>币币</span>市场</b>  </div>
                 <ul >
-                    <li v-for="(item , index) in list"  :class=" index == cur ?  'cur' : '' " @click="handselect(index)">
+                    <template v-for="(item,index) in list">
+                    <li :key="item.id" :class=" index == cur ?  'cur' : '' " @click="handselect(index)">
                         <p class="tit">{{item.name}}</p>
-                        <p class="num"> {{item.isDefault ? `${item.pay_amount} ${item.pay_coin} = ${item.get_amount} ${item.get_coin}` : `${item.get_amount} ${item.get_coin}`}} <br/>
+                        <p class="num"> {{item.is_default != 0 ? `${item.pay_amount} ${item.pay_coin} = ${item.get_amount} ${item.get_coin}` : `${item.get_amount} ${item.get_coin}`}} <br/>
                         <span> <template v-if="item.get_free_amount > 0"> 赠 {{item.get_free_amount}} {{item.get_coin}}</template></span>
                         </p>
                         <p class="progress"><span class="bar" :style=" 'width:' + (item.total_count - item.last_count) / item.total_count *100 + '%'"></span></p>
                         <p class="total">共 {{item.total_count}} / 余 {{item.last_count}} 份</p>
                     </li>
+                    </template>
                 </ul>
                 
             </div>            
@@ -23,12 +25,23 @@
                     <div class="input">
                         <ul>
                             <li> 数量<input type="text" v-model="num" :disabled="cur > 0 ? true : false " :style="cur > 0 && 'cursor:not-allowed' " style="text-align:right;"/> <span>{{pay_coin}}</span> </li>
-                            <li> 交易密码<input type="text" v-model="pw" /> </li>
-                            <li> 验证码<input type="text" v-model="verify" /> <span><a href="">获取验证码</a> </span></li>
+                            <li> 交易密码<input type="password" v-model="pw" /> </li>
+                            <li> 验证码<input type="text" v-model="verify" />
+                                <span @click="sendVerify" class="getVerifCode" :class="classActive(verifyCodeTimeText == -1 || verifyCodeTimeText.length )">
+                                    {{
+                                        verifyCodeTimeText == -1
+                                        ? lang[local].getVerifCode + '...'
+                                        : verifyCodeTimeText
+                                        ? verifyCodeTimeText
+                                        : lang[local].getVerifCode
+                                    }}
+                                </span>
+                             
+                             </li>
                         </ul>
-                        <a href="" class="submit">{{lang[local].icoSubmit}}</a>
+                        <a href="javascript:;" class="submit" @click="createOrders">{{lang[local].icoSubmit}}</a>
                     </div>
-                    <div class="amount">可用： {{pay_coin}}    <span>可得：{{getcoin}} {{get_coin}}</span></div>                    
+                    <div class="amount">可用：{{eth}} {{pay_coin}}    <span>可得：{{getcoin}} {{get_coin}}</span></div>                    
                 </div>
                 <div class="tip">
                     {{lang[local].icotip}}
@@ -37,7 +50,7 @@
         </section>
         <section class="list container">
             <div class="tit">购买记录</div>
-            <list class="finance-coin-table" :url="api.ico" >
+            <list class="finance-coin-table" :url="api.ordersLists" >
                 <dl slot="head">
                     <dd>{{lang[local].icotabhead1}}</dd>
                     <dd>{{lang[local].icotabhead2}}</dd>
@@ -47,18 +60,18 @@
                     <dd>{{lang[local].icotabhead6}}</dd>
                 </dl>
                 <dl slot="body" slot-scope="{item}" :key="item.id">
-                    <dd>{{localDate(item.addtime)}}</dd>
-                    <dd>{{item.total_count}}</dd>
-                    <dd>{{item.pay_coin}}</dd>
+                    <dd>{{item.buy_time}}</dd>
                     <dd>{{item.pay_amount}}</dd>
-                    <dd>{{item.get_free_amount}}</dd>
+                    <dd>{{item.pay_type}}</dd>
+                    <dd>{{item.price}}</dd>
+                    <dd>{{item.free_amount}}</dd>
                     <dd>{{item.get_amount}}</dd>
                 </dl>
             </list>
         </section>
         
         <load v-if="getState == getStateStart" />
-
+        <msg />
         <footer-component />
     </section>
 </template>
@@ -75,8 +88,22 @@
                 num:0,
                 pw:'',
                 get_coin:'',
-                pay_coin:''
+                pay_coin:'',
+                sendCodeCount : 0,
+                param : {
+                    verify : '',
+                },
+                eth:0,
             }
+        },
+        watch : {
+            "param.verify" (n, o){
+                if(n.length > this.verifCodeLen){
+                    this.param.verify = o;
+                    return;
+                };
+                this.param.verify = n.replace(/[^0-9]*/g, '');
+            },
         },
         computed : {
             getcoin(){
@@ -87,7 +114,7 @@
             ...mapState(['info'])
         },
 
-        created (){
+        mounted (){
             this.getIcoList()
         },
         methods : {
@@ -97,14 +124,51 @@
                     data : {
                     }
                 }).then((res) => {
-                    this.list = res.data || [];
+                    this.list = res.data.list
+                    this.eth = res.data.eth || 0
                     this.get_coin = res.data[0].get_coin
-                    this.pay_coin = res.data[0].pay_coin
+                    this.pay_coin = res.data[0].pay_coin                    
                 }).catch((err) => {
-                    this.list = [];
+                    // this.list = [];
                     this.showStatus = false;
                 });
             },
+            sendVerify (){
+                if(this.verifyCodeTimeText){
+                    return false;
+                };
+                this.verifyCodeTimeText = -1;
+                this.axios({
+                    url : this.api.ordersVerifyCode,
+                }).then((res) => {
+                    this.sendCodeCount ++;
+                    this.verifyCodeDown();
+                }).catch((err) => {
+                    this.verifyCodeTimeText = '';
+                });
+            },
+
+            createOrders(){
+                if(!this.verify || !this.pw || !this.num){
+                    this.$store.commit('msg/err', this.lang[this.local].ico10);
+                    return false;
+                }
+                this.axios({
+                    url : this.api.createOrders,
+                    data:{
+                        pay_password:this.pw,
+                        email_verify:this.verify,
+                        id:this.list[this.cur].id,
+                        buy_count:this.num,
+                    }
+                }).then((res) => {
+                    this.$store.commit('msg/add', this.lang[this.local].otc26);
+                }).catch((err) => {
+                    this.$store.commit('msg/err', err.message || this.lang[this.local].otc27);
+                });
+            },
+
+
             handselect(index){
                 this.cur = index                
                 this.num = index && this.list[index].pay_amount

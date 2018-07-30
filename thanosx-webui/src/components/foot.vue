@@ -54,8 +54,8 @@
             };
         },
         created (){
-            this.getLinks();
-            this.navListArticle();
+            // this.getLinks();
+            // this.navListArticle();
         },
         methods : {
             navHref (nav){
