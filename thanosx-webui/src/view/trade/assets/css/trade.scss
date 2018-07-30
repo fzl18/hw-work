@@ -163,42 +163,42 @@ body,html{
             &:hover, &.cur{border-color:$mainColor; color:$mainColor; }
         }
 
-        &.type-1 > span{
-            &:nth-of-type(1){
-                background: $buyColor;
-                transform: translateY(-50%) scale(1.5);
-            }
-        }
-        &.type-2 > span{
-            &:nth-of-type(1), &:nth-of-type(2){
-                background: $buyColor;
-            }
-            &:nth-of-type(2){
-                transform: translateY(-50%) scale(1.5);
-            }
-        }
-        &.type-3 > span{
-            &:nth-of-type(1), &:nth-of-type(2), &:nth-of-type(3){
-                background: $buyColor;
-            }
-            &:nth-of-type(3){
-                transform: translateY(-50%) scale(1.5);
-            }
-        }
-        &.type-4 > span{
-            &:nth-of-type(1), &:nth-of-type(2), &:nth-of-type(3), &:nth-of-type(4){
-                background: $buyColor;
-            }
-            &:nth-of-type(4){
-                transform: translateY(-50%) scale(1.5);
-            }
-        }
-        &.type-5 > span{
-            background: $buyColor;
-            &:nth-of-type(5){
-                transform: translateY(-50%) scale(1.5);
-            }
-        }
+        // &.type-1 > span{
+        //     &:nth-of-type(1){
+        //         background: $buyColor;
+        //         transform: translateY(-50%) scale(1.5);
+        //     }
+        // }
+        // &.type-2 > span{
+        //     &:nth-of-type(1), &:nth-of-type(2){
+        //         background: $buyColor;
+        //     }
+        //     &:nth-of-type(2){
+        //         transform: translateY(-50%) scale(1.5);
+        //     }
+        // }
+        // &.type-3 > span{
+        //     &:nth-of-type(1), &:nth-of-type(2), &:nth-of-type(3){
+        //         background: $buyColor;
+        //     }
+        //     &:nth-of-type(3){
+        //         transform: translateY(-50%) scale(1.5);
+        //     }
+        // }
+        // &.type-4 > span{
+        //     &:nth-of-type(1), &:nth-of-type(2), &:nth-of-type(3), &:nth-of-type(4){
+        //         background: $buyColor;
+        //     }
+        //     &:nth-of-type(4){
+        //         transform: translateY(-50%) scale(1.5);
+        //     }
+        // }
+        // &.type-5 > span{
+        //     background: $buyColor;
+        //     &:nth-of-type(5){
+        //         transform: translateY(-50%) scale(1.5);
+        //     }
+        // }
 
 
         & > b{

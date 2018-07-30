@@ -157,7 +157,7 @@ label.checkbox-my{
     a{color:$mainColor;}
     &.big{
         line-height: 1;
-        font-size: 18px;
+        font-size: 16px;
         i{
             line-height: 1;
             &:before{
@@ -411,6 +411,7 @@ input:-webkit-autofill {
             border:none;
             float: right;
             text-align: right;
+            width: inherit;
             &:hover{
                 background: transparent;
                 color: $mainColor;

@@ -222,7 +222,7 @@
                 this.socket.error = function (err){
                     console.log('websocket error!');
                     self.clearStore();
-                    this.$store.commit('msg/err', err.message || this.lang.webSocketError);
+                    this.$store.commit('msg/err', err.message || this.lang[this.local].webSocketError);
                     setTimeout(() => {
                         self.connect();
                     }, 3000);
@@ -287,7 +287,7 @@
                             this.socket.send('pull_user_deal');
                         };
                     }else{
-                        this.$store.commit('msg/err', this.lang.tradeLogin4);
+                        this.$store.commit('msg/err', this.lang[this.local].tradeLogin4);
                         setTimeout(() => {
                             this.toLogin();
                         }, 2000);
@@ -347,33 +347,33 @@
                     var g = Math.floor(n * 1 - o *1) / 2;
                     if(g <= 100){
                         this.$store.commit('netState', 1);
-                        this.$store.commit('netStateTitle', this.lang.netState1 + this.lang.netState3 + '\n' + this.lang.netState2 + g + 'ms');
+                        this.$store.commit('netStateTitle', this.lang[this.local].netState1 + this.lang[this.local].netState3 + '\n' + this.lang[this.local].netState2 + g + 'ms');
                         return;
                     };
                     if(g <= 250){
                         this.$store.commit('netState', 2);
-                        this.$store.commit('netStateTitle', this.lang.netState1 + this.lang.netState4 + '\n' + this.lang.netState2 + g + 'ms');
+                        this.$store.commit('netStateTitle', this.lang[this.local].netState1 + this.lang[this.local].netState4 + '\n' + this.lang[this.local].netState2 + g + 'ms');
                         return;
                     };
                     if(g <= 500){
                         this.$store.commit('netState', 3);
-                        this.$store.commit('netStateTitle', this.lang.netState1 + this.lang.netState5 + '\n' + this.lang.netState2 + g + 'ms');
+                        this.$store.commit('netStateTitle', this.lang[this.local].netState1 + this.lang[this.local].netState5 + '\n' + this.lang[this.local].netState2 + g + 'ms');
                         return;
                     };
                     if(g > 500){
                         this.$store.commit('netState', 4);
-                        this.$store.commit('netStateTitle', this.lang.netState1 + this.lang.netState6 + '\n' + this.lang.netState2 + g + 'ms');
+                        this.$store.commit('netStateTitle', this.lang[this.local].netState1 + this.lang[this.local].netState6 + '\n' + this.lang[this.local].netState2 + g + 'ms');
                         return;
                     };
                     this.$store.commit('netState', 1);
-                    this.$store.commit('netStateTitle', this.lang.netState1 + this.lang.netState7);
+                    this.$store.commit('netStateTitle', this.lang[this.local].netState1 + this.lang[this.local].netState7);
                 });
             },
 
             webSocketError (res, callback){
                 var error_code = res.data.error_code;
                 if(error_code != 0 && error_code * 1 > 0){
-                    this.$store.commit('msg/err', this.lang['webSocketError' + error_code] || '未知的 webSocket 错误码 ！');
+                    this.$store.commit('msg/err', this.lang[this.local]['webSocketError' + error_code] || '未知的 webSocket 错误码 ！');
                 }else{
                     if(typeof callback == 'function'){
                         callback.call(this);
@@ -385,7 +385,7 @@
             order_resp (){
                 this.socket.on("order_resp", (res) => {
                     this.webSocketError(res, function (){
-                        this.$store.commit('msg/add', this.lang.entrustSuccess);
+                        this.$store.commit('msg/add', this.lang[this.local].entrustSuccess);
                         this.socket.send('pull_user_assets');
                         this.$store.commit('buyData', {});
                         this.$store.commit('sellData', {});
@@ -438,16 +438,16 @@
                     if(this.userOrderState){
                         // console.log(JSON.stringify(res), 'push_user_order');
                         /*this.$store.commit('msg/add', {
-                            title : this.lang.myEntrust,
+                            title : this.lang[this.local].myEntrust,
                             msg : this.priceAccuracy(item[3]) +
                                     this.upperCase(this.rmb) + ' ' +
                                     (item[2] == 'buy'
-                                        ? '<span class="buyColor">' + this.lang.buy + '</span> '
-                                        : '<span  class="sellColor">' + this.lang.sell + '</span> '
+                                        ? '<span class="buyColor">' + this.lang[this.local].buy + '</span> '
+                                        : '<span  class="sellColor">' + this.lang[this.local].sell + '</span> '
                                     ) + ' ' +
                                     this.numAccuracy(item[4]) +
                                     this.upperCase(this.xnb) + ' ' +
-                                    this.lang.entrustSuccess,
+                                    this.lang[this.local].entrustSuccess,
                         });*/
                         this.$store.commit('upUserOrder', data);
                     }else{
@@ -472,20 +472,20 @@
                                 msgText = this.priceAccuracy(item[3]) +
                                     this.upperCase(this.rmb)  + ' ' +
                                     (item[2] == 'buy'
-                                            ? '<span class="buyColor">' + this.lang.buy + '</span> '
-                                            : '<span  class="sellColor">' + this.lang.sell + '</span> '
+                                            ? '<span class="buyColor">' + this.lang[this.local].buy + '</span> '
+                                            : '<span  class="sellColor">' + this.lang[this.local].sell + '</span> '
                                     )  + ' ' +
                                     this.numAccuracy(item[4]) +
                                     this.upperCase(this.xnb) + ' ' +
-                                    this.lang.deal;
+                                    this.lang[this.local].deal;
                                 if(!msgTime){
                                     this.$store.commit('msg/add', {
-                                        title : this.lang.deal,
+                                        title : this.lang[this.local].deal,
                                         msg : msgText,
                                     });
                                     msgTime = setTimeout(() => {
                                         this.$store.commit('msg/add', {
-                                            title : this.lang.deal,
+                                            title : this.lang[this.local].deal,
                                             msg : msgText,
                                         });
                                         msgTime = null;

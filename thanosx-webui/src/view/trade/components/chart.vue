@@ -208,17 +208,17 @@
 
                     // "header_widget"
                     disabled_features: [
-                        // "left_toolbar",
-                        // 'timeframes_toolbar',
+                        "left_toolbar",
+                        'timeframes_toolbar',
                         'header_symbol_search',
                         'header_saveload',
                         'header_saveload_to_the_right',
                         'header_compare',
                         'header_undo_redo',
                         'header_screenshot',
-                        'header_resolutions',
-                        'header_interval_dialog_button',
-                        'show_interval_dialog_on_key_press',
+                        // 'header_resolutions',
+                        // 'header_interval_dialog_button',
+                        // 'show_interval_dialog_on_key_press',
                         'display_market_status',
                         "save_chart_properties_to_local_storage",
                         "volume_force_overlay",
@@ -228,7 +228,7 @@
                         // "header_indicators",
                         // "header_fullscreen_button",
 
-                        "dont_show_boolean_study_arguments"
+                        // "dont_show_boolean_study_arguments"
                         
 
                     ],

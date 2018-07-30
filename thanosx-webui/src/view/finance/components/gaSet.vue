@@ -7,9 +7,9 @@
             <section class="safety-form">
                 <section class="form-group">
                     <div>
-                        <label class="checkbox-my big">
+                        <label class="checkbox-my big">                            
                             <input type="checkbox" v-model="login" />
-                            <i></i>
+                            <i class="iconfont" :class=" login ? 'icon-icon2' : 'icon-huisekuang'"></i>
                             {{lang[local].ga9}}
                         </label>
                     </div>
@@ -18,7 +18,7 @@
                     <div>
                         <label class="checkbox-my big">
                             <input type="checkbox" v-model="transfer" />
-                            <i></i>
+                            <i class="iconfont" :class=" transfer ? 'icon-icon2' : 'icon-huisekuang'"></i>
                             {{lang[local].ga10}}
                         </label>
                     </div>

@@ -10,7 +10,7 @@
         <section v-if="userDealState">
             <dl v-for="item in userDeal">
                 <dd>{{localDate(item[1])}}</dd>
-                <dd :class="item[2] + 'Color'">{{lang[item[2]]}}</dd>
+                <dd :class="item[2] + 'Color'">{{lang[local][item[2]]}}</dd>
                 <dd>{{priceAccuracy(item[3])}}</dd>
                 <dd>{{numAccuracy(item[4])}}</dd>
                 <dd>{{priceAccuracy(item[3] * item[4])}}</dd>
