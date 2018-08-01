@@ -3,7 +3,7 @@
         <header-component active="ico" />
         <div class="banner">
             <div class="container">
-                <div class="txt"><i class="iconfont iconfont icon-logo"></i> <br /><b> <span>币币</span>市场</b>  </div>
+                <div class="txt"><i class="iconfont iconfont icon-logo"></i> <br /><b v-html="lang[local].icoTit"></b>  </div>
                 <ul >
                     <template v-for="(item,index) in list">
                     <li :key="item.id" :class=" index == cur ?  'cur' : '' " @click="handselect(index)">
@@ -24,9 +24,9 @@
                 <div class="ctx">
                     <div class="input">
                         <ul>
-                            <li> 数量<input type="text" v-model="num" :disabled="cur > 0 ? true : false " :style="cur > 0 && 'cursor:not-allowed' " style="text-align:right;"/> <span>{{pay_coin}}</span> </li>
-                            <li> 交易密码<input type="password" v-model="pw" /> </li>
-                            <li> 验证码<input type="text" v-model="verify" />
+                            <li> {{lang[local].icoNum}}<input type="text" v-model="num" :disabled="cur > 0 ? true : false " :style="cur > 0 && 'cursor:not-allowed' " style="text-align:right;"/> <span>{{pay_coin}}</span> </li>
+                            <li> {{lang[local].icoPw}}<input type="password" v-model="pw" /> </li>
+                            <li> {{lang[local].icoVerify}}<input type="text" v-model="verify" />
                                 <span @click="sendVerify" class="getVerifCode" :class="classActive(verifyCodeTimeText == -1 || verifyCodeTimeText.length )">
                                     {{
                                         verifyCodeTimeText == -1
@@ -41,7 +41,7 @@
                         </ul>
                         <a href="javascript:;" class="submit" @click="createOrders">{{lang[local].icoSubmit}}</a>
                     </div>
-                    <div class="amount">可用：{{eth}} {{pay_coin}}    <span>可得：{{getcoin}} {{get_coin}}</span></div>                    
+                    <div class="amount">{{lang[local].icoUse}}：{{eth}} {{pay_coin}}    <span>{{lang[local].icoGet}}：{{getcoin}} {{get_coin}}</span></div>                    
                 </div>
                 <div class="tip">
                     {{lang[local].icotip}}
@@ -49,7 +49,7 @@
             </div>            
         </section>
         <section class="list container">
-            <div class="tit">购买记录</div>
+            <div class="tit">{{lang[local].icoBuylog}}</div>
             <list class="finance-coin-table" :url="api.ordersLists" >
                 <dl slot="head">
                     <dd>{{lang[local].icotabhead1}}</dd>
@@ -85,7 +85,7 @@
                 list : [],
                 cur : 0,
                 verify:'',
-                num:0,
+                num:'',
                 pw:'',
                 get_coin:'',
                 pay_coin:'',
@@ -103,6 +103,9 @@
                     return;
                 };
                 this.param.verify = n.replace(/[^0-9]*/g, '');
+            },
+            "num" (n, o){
+                this.num = n && n.replace(/[^0-9]*/g, '');
             },
         },
         computed : {
@@ -153,6 +156,15 @@
                     this.$store.commit('msg/err', this.lang[this.local].ico10);
                     return false;
                 }
+                if(this.num > parseFloat(this.list[this.cur].max_buy_count) || this.num < parseFloat(this.list[this.cur].min_buy_count)){
+                    this.$store.commit('msg/err', this.lang[this.local].ico11);
+                    return false;
+                }
+                if(!/^[0-9]+$/.test(this.num)){
+                    this.$store.commit('msg/err', this.lang[this.local].ico12);
+                    return false;
+                }
+                
                 this.axios({
                     url : this.api.createOrders,
                     data:{
@@ -162,16 +174,18 @@
                         buy_count:this.num,
                     }
                 }).then((res) => {
-                    this.$store.commit('msg/add', this.lang[this.local].otc26);
+                    this.$store.commit('msg/add', this.lang[this.local].otc26)
+                    this.pw = ''
+                    this.verify = ''
                 }).catch((err) => {
-                    this.$store.commit('msg/err', err.message || this.lang[this.local].otc27);
+                    this.$store.commit('msg/err', err.message || this.lang[this.local].otc27)
                 });
             },
 
 
             handselect(index){
                 this.cur = index                
-                this.num = index && this.list[index].pay_amount
+                this.num = index && parseInt(this.list[index].max_buy_count) + ''
             }
         }
     }

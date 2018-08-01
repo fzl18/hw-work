@@ -128,13 +128,9 @@
                     display: inline-block;
                     position: absolute;
                     right: 10px;
-                    top:45%;
-                    content: '';
-                    width:0;
-                    height:0;
-                    border-width:8px 6px 0;
-                    border-style:solid;
-                    border-color:rgba(126, 126, 126,.5) transparent transparent;/*灰 透明 透明 */
+                    top:0%;
+                    content: '\F104';
+                    @include iconfont(15px);
                     transform-origin: 50% 50%;
                     @include transitionCommon(transform, 0.3s);
                 }

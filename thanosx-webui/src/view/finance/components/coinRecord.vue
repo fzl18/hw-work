@@ -5,20 +5,20 @@
         </financeHeader>
         <list class="coinRecord" :url="api.transLog" >
             <dl slot="head">
-                <dd>{{lang[local].coinRecordId}} </dd>
-                <dd>{{lang[local].coinRecordDate}}</dd>
-                <dd>{{lang[local].coinRecordObject}}</dd>
-                <dd>{{lang[local].coinRecordNum}}/{{lang[local].coinRecordCoin}}</dd>
-                <dd>{{lang[local].coinRecordType}}</dd>
-                <dd>{{lang[local].coinRecordState}}</dd>
+                <!-- <dd>{{lang[local].coinRecordId}} </dd> -->
+                <dd style="width:30%">{{lang[local].coinRecordDate}}</dd>
+                <dd style="width:30%">{{lang[local].coinRecordType}}</dd>
+                <!-- <dd>{{lang[local].coinRecordObject}}</dd> -->
+                <dd style="width:20%">{{lang[local].coinRecordCoin}}</dd>
+                <dd style="width:20%">{{lang[local].coinRecordNum}}</dd>
             </dl>
             <dl slot="body" slot-scope="{item}">
-                <dd>{{item.id}}</dd>
-                <dd>{{localDate(item.addtime)}}</dd>
-                <dd><span class="line-feed">{{item.addr}}</span></dd>
-                <dd>{{numDecimals(item.num)}}/{{upperCase(item.coin)}}</dd>
-                <dd>{{item.type}}</dd>
-                <dd>{{item.state}}</dd>
+                <!-- <dd>{{item.id}}</dd> -->
+                <dd style="width:30%">{{item.time}}</dd>
+                <dd style="width:30%">{{item.type == 1 ? lang[local].takeCoin:item.type == 2 ? lang[local].myDeal_ServiceCharge:item.type == 3 ? lang[local].pushCoin:lang[local].otcTrade}}</dd>
+                <!-- <dd><span class="line-feed">{{item.addr}}</span></dd> -->
+                <dd style="width:20%">{{upperCase(item.coin)}}</dd>
+                <dd style="width:20%">{{numDecimals(item.num)}}</dd>
             </dl>
         </list>
     </section>

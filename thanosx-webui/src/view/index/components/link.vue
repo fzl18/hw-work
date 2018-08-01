@@ -1,7 +1,7 @@
 <template>
     <section class="link">
         <div class="container">
-            <div class="tit">合作伙伴</div>
+            <div class="tit">{{lang[local].homelink}}</div>
             <div class="flink">
                 <a href=""><img src="../assets/images/link1.jpg" alt=""></a>        
                 <a href=""><img src="../assets/images/link2.jpg" alt=""></a>        

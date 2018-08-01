@@ -128,9 +128,10 @@
                     this.$store.commit('msg/err', this.lang[this.local].inviteLogin);
                     return false;
                 };
-                if(this.buyData.price){
-                    return;
-                };
+                // if(this.buyData.price){
+                //     console.log('buyData.price:',this.buyData.price)
+                //     return;
+                // };
                 if(this.rmbAssets * 1 <= 0){
                     this.$store.commit('msg/err', this.rmb + this.lang[this.local].balanceEmpty);
                     return false;

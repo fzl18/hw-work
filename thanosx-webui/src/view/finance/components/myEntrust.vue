@@ -4,10 +4,10 @@
             <span>{{lang[local].myEntrust}}</span>
             <section class="query">
                 <select-my v-model="order_type" class="query-select" :list="marketType" selected="" @change="" />               
-                &nbsp;&nbsp;
+                <!-- &nbsp;&nbsp;
                 <input type="text" class="coin" v-model="market" />
                 <span>/</span>
-                <select-my class="query-select coin" v-model="market2" :list="marketList" :selected="market[0]" @change="" :placeholder="lang[local].currency"/>
+                <select-my class="query-select coin" v-model="market2" :list="marketList" :selected="market[0]" @change="" :placeholder="lang[local].currency"/> -->
                 <!--<a href="javascript:;" class="seek">{{lang.seek}}</a>-->
             </section>
         </financeHeader>

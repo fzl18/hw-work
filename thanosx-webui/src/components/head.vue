@@ -31,13 +31,11 @@
                     </div>
                     <div v-if="loginGetStatus && loginStatus" class="login">
                         <div class="login-name">
-                           <a :href="financeUrl" >
-                               <i class="iconfont icon-yonghu-yuan"></i>
-                                <span>{{loginInfo.username}}</span>
-                            </a>
+                               <i class="iconfont icon-yonghu-yuan" style="font-size:20px;margin-left:15px;"></i>
+                                <span>{{loginInfo.username.slice(0,15) }}{{loginInfo.username.length > 15 && '...'}}</span>
                             <ul>
-                                <li>{{lang[local].mymoney}}：<a :href="financeUrl" style="float:right;color:#FF6500;">{{lang[local].view}}</a></li>
-                                <li>{{lang[local].accountSetting}} <span class="state">未验证</span></li>
+                                <li @click="goto(financeUrl)">{{lang[local].mymoney}}<!-- <a :href="" style="float:right;color:#FF6500;">{{lang[local].view}}</a>--> </li>
+                                <li @click="goto()">{{lang[local].accountSetting}} <a :href="financeUrl+'/account'"><span class="state">{{loginInfo.nameauthstatus==1 ? lang[local].nameauthstatus :loginInfo.nameauthstatus == 0 ? lang[local].nameauthstatus2 : lang[local].nameauthstatus1 }}</span> </a></li>
                                 <li @click="logout" class="exit"> <i class="iconfont icon-tuichu1"></i> {{lang[local].loginExit}}</li>
                             </ul>
                         </div>
@@ -127,6 +125,13 @@
                     location.reload();
                 });
             }, 
+            goto(url){
+                if(url){
+                    location.href = this.financeUrl;
+                }else{
+                    location.href = this.financeUrl + '/account'
+                }
+            }
         },
     }
 </script>

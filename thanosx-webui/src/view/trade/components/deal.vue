@@ -1,7 +1,7 @@
 <template>
     <section class="deal">
         <dl class="deal-head">
-            <dd>{{lang[local].tradeType}}</dd>
+            <!-- <dd>{{lang[local].tradeType}}</dd> -->
             <dd>{{lang[local].unitPrice}}</dd>
             <dd>{{lang[local].tradeVolume}}</dd>
             <dd>{{lang[local].time}}</dd>
@@ -9,7 +9,7 @@
         <load class="deal-load" v-if="!dealState" />
         <transition-group v-if="dealState" name="deal" tag="section" class="deal-body">
             <dl v-for="item in deal" :key="item[4]" @click="clickItem(item)">
-                <dd :class="item[1] + 'Color'">{{lang[local][item[1]]}}</dd>
+                <!-- <dd :class="item[1] + 'Color'">{{lang[local][item[1]]}}</dd> -->
                 <dd :class="item[1] + 'Color'">{{priceAccuracy(item[2])}}</dd>
                 <dd>{{numAccuracy(item[3])}}</dd>
                 <dd>{{localDate(item[0], true)}}</dd>
@@ -58,24 +58,26 @@
             dd{
                 display: block;
                 float: left;
+                white-space:nowrap; overflow:hidden;  -ms-text-overflow: ellipsis;text-overflow: ellipsis;
+                padding-left:10px;
                 &:nth-child(1){
-                    width: 20%;
-                    text-align: center;
+                    width: 30%;
+                    text-align: left;
                 }
                 &:nth-child(2){
-                    width: 20%;
+                    width: 30%;
                     text-align: center;
                 }
                 &:nth-child(3){
-                    width: 30%;
+                    width: 40%;
                     text-align: right;
                     padding-right: 5px;
                 }
-                &:nth-child(4){
-                    width: 30%;
-                    text-align: right;
-                    padding-right: 5px;
-                }
+                // &:nth-child(4){
+                //     width: 30%;
+                //     text-align: right;
+                //     padding-right: 5px;
+                // }
                 @media screen and (max-width: $tradeMedia1){
                     &:nth-child(1){
                         width: 22%;
@@ -99,6 +101,7 @@
                 text-align: center;
                 height: $tradeHeadH;
                 line-height: $tradeHeadH;
+                font-size: 13px;
             }
         }
         .deal-body{
@@ -119,6 +122,7 @@
                     color: #ffffff;
                     height: 24px;
                     line-height: 24px;
+                    white-space:nowrap; overflow:hidden;  -ms-text-overflow: ellipsis;text-overflow: ellipsis;
                 }
             }
         }

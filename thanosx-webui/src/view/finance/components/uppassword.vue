@@ -24,6 +24,9 @@
             <!-- <section class="form-group" style="text-align: right">
                 <a :href="forgetPwdUrl">{{lang[local].forgetPwd}}</a>
             </section> -->
+            <section class="login-form-group">
+                <span class="tips" style="color:#999">{{lang[local].loginTips}}</span>
+            </section>
             <section class="form-group form-group-btn">
                 <a href="javascript:;" @click="uppassword" class="form-submit-btn">{{lang[local].confirm}}{{this.getState == this.getStateStart ? '...' : ''}}</a>
                 <a href="javascript: history.go(-1);" class="form-submit-btn white" >{{lang[local].cancel}}</a>

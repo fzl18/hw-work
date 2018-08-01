@@ -140,7 +140,14 @@
                     padding:0 20px;color: #979797;line-height:24px;
                     &.more{
                         text-align: right;text-decoration:underline;
-                        a{color:#FFF;}
+                        a{
+                            color:#FFF;
+                            position: absolute;
+                            bottom: 10px;
+                            display: block;
+                            right: 15px;
+                            &:hover{opacity:.8;}
+                        }
                     }
                 }
                 a{

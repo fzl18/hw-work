@@ -145,19 +145,19 @@
                     this.$store.commit('msg/err', err.message || this.lang[this.local].pushCoinError);
                 });
             },
-            myaddrstatus (){
-                this.axios({
-                    url : this.api.myaddrstatus,
-                    data : {
-                        coin : this.lowerCase(this.coin)
-                    },
-                }).then((res) => {
-                    console.log(res);
-                    this.active = res.data.active || 0;
-                }).catch((err) => {
-                    this.$store.commit('msg/err', err.message || this.lang[this.local].getWalletActiveS);
-                });
-            },
+            // myaddrstatus (){
+            //     this.axios({
+            //         url : this.api.myaddrstatus,
+            //         data : {
+            //             coin : this.lowerCase(this.coin)
+            //         },
+            //     }).then((res) => {
+            //         console.log(res);
+            //         this.active = res.data.active || 0;
+            //     }).catch((err) => {
+            //         this.$store.commit('msg/err', err.message || this.lang[this.local].getWalletActiveS);
+            //     });
+            // },
             activateAddr (){
                 this.axios({
                     url : this.api.activateAddr,

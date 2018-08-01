@@ -84,8 +84,8 @@
                     return false;
                 };
 
-                let mobile = this.phone, verify = this.moble_verify
-                if(moble.length != 11){
+                let mobile = this.phone, verify = this.verify
+                if(mobile.length != 11){
                     this.$store.commit('msg/err', this.lang[this.local].phoneError);
                     return false;
                 };
@@ -95,7 +95,7 @@
                     return false;
                 };
 
-                if(moble_verify.length != this.verifCodeLen){
+                if(verify.length != this.verifCodeLen){
                     this.$store.commit('msg/err', this.lang[this.local].enterVerifCode);
                     return false;
                 };
@@ -105,12 +105,13 @@
                 this.axios({
                     url : this.api.upmoble,
                     data : {
-                        moble,
-                        moble_verify,
+                        mobile,
+                        district_code:this.param.districtcode,
+                        mobile_verify:this.verify,
                     }
                 }).then((res) => {
                     this.getSuccess();
-                    this.$store.commit('msg/add', this.lang[this.local].tradePassword14);
+                    this.$store.commit('msg/add', this.lang[this.local].tradePassword13);
                     this.$router.push('./');
                 }).catch((err) => {
                     this.getError();
@@ -121,7 +122,7 @@
                 if(this.verifyCodeTimeText){
                     return false;
                 };
-                if(this.mobile.length != 11){
+                if(this.phone.length != 11){
                     this.$store.commit('msg/err', this.lang[this.local].phoneError);
                     return false;
                 };
@@ -129,7 +130,8 @@
                 this.axios({
                     url : this.api.upmobleVerify,
                     data : {
-                        moble : this.mobile
+                        district_code:this.param.districtcode,
+                        mobile : this.phone
                     }
                 }).then((res) => {
                     this.sendCodeCount ++;

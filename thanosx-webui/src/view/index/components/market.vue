@@ -76,7 +76,7 @@
         name: "market",
         data (){
             return {
-                whitelist : ['BTC', 'ETH', 'XRP', 'ETC', 'BCH', 'XMR', 'ZEC', 'LTC', 'PYC', 'USDT'],
+                whitelist : [],
                 coins : [],
                 districtInfo : [],
                 markets : ["cnt", "usdt", "btc", "eth"],
@@ -116,6 +116,8 @@
                         v[i] = coinName.toUpperCase();
                     })
                 };
+                
+            this.setMarketList()
             },
             initMarketData (v, o){
                 // console.log('initMarketData');
@@ -129,11 +131,24 @@
             },
         },
         created (){
-            this.getMarkedCookie();
-            this.webSocket();
-            this.getMarketInfo();
+            this.getMarkedCookie()
+            this.webSocket()
+            this.getMarketInfo()
+            this.getMainCoins()          
+        },
+        mounted(){
+            
         },
         methods : {
+            getMainCoins(){
+                this.axios({
+                    url : this.api.getMainCoins,
+                    data : {
+                    }
+                }).then(res => {
+                    this.whitelist = res.data
+                }).catch()
+            },
             toTrade (coin){
                 console.log(coin)
                 location.href = this.tradeMarketUrl.replace('{xnb}', coin.xnb).replace('{rmb}', coin.rmb)
@@ -377,7 +392,7 @@
                     this.coins = data.coins;
                     this.districtInfo = data.districtInfo;
                     this.selfPick = data.selfPick;
-                    this.whitelist = data.whitelist;
+                    // this.whitelist = data.whitelist;
                     this.markets = data.markets;
                     this.$store.commit('coins', data.coins);
                     this.$store.commit('districtInfo', data.districtInfo);

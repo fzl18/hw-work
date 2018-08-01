@@ -10,7 +10,7 @@
                 <p>{{lang[local].email}}：{{userBasicinfo.username}}</p>
                 <section class="form-group">
                     <div class="input-box">
-                       <i class="iconfont icon-yanzhengma"></i> <input type="text" v-model="verify" @keyup.enter="uppaypassword" name="safety-upmoble-verify" :placeholder="lang[local].emailVerifCode" />
+                       <i class="iconfont icon-yanzhengma" style="font-size:18px"></i> <input type="text" v-model="verify" @keyup.enter="uppaypassword" name="safety-upmoble-verify" :placeholder="lang[local].emailVerifCode" />
                         <span @click="sendVerify" class="getVerifCode" :class="classActive(verifyCodeTimeText == -1 || verifyCodeTimeText.length )">
                             {{
                                 verifyCodeTimeText == -1
@@ -31,6 +31,9 @@
                     <div class="input-box">
                         <i class="iconfont icon-mima" ></i> <input type="password" @keyup.enter="uppaypassword" v-model="param.repaypwd" name="safety-trade-setrepaypwd" :placeholder="lang[local].tradePassword4" />
                     </div>
+                </section>
+                <section class="login-form-group">
+                    <span class="tips" style="color:#999">{{lang[local].loginTips}}</span>
                 </section>
                 <section class="form-group form-group-btn">
                     <a href="javascript:;" @click="uppaypassword" class="form-submit-btn">{{lang[local].confirm}}{{this.getState == this.getStateStart ? '...' : ''}}</a>

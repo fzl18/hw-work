@@ -36,6 +36,9 @@
                             <input @keyup.enter="upmyzc" name="takeCoin-num" type="text" @blur="num > balance.xnb ? num = balance.xnb : num < balance.minZc ?num = balance.minZc : ''" v-model="num" :placeholder="lang[local].takeCoinNum" />
                         </div>
                     </section>
+                    <section class="form-group">                        
+                        <span style="padding-left:10px;font-size:16px;color:#999;"> {{lang[local].myDeal_ServiceCharge}}：{{balance.fee}} {{coin}}</span> 
+                    </section>
                     <section class="form-group">
                         <!-- <label>{{lang[local].payPassword}}</label> -->
                         <div class="input-box">
@@ -65,7 +68,7 @@
                     <h4>{{lang[local].takeCoinExplain1}}</h4>
                     <p>{{lang[local].takeCoinExplain2}}</p>
                     <p>{{lang[local].takeCoinExplain3}}</p>
-                    <p>{{lang[local].takeCoinExplain4}}{{balance.fee || 0}}{{lang[local].takeCoinExplain5}}{{coin}}。</p>
+                    <p>{{lang[local].takeCoinExplain4}}{{balance.fee || 0}}{{coin}}</p>
                     <p>{{lang[local].takeCoinExplain6}}{{balance.minZc || 0}}{{lang[local].takeCoinExplain5}}{{coin}}，{{lang[local].takeCoinExplain7}}{{balance.maxZc || 0}}{{lang[local].takeCoinExplain5}}{{coin}}。</p>
                 </section>
             </section>
@@ -187,7 +190,7 @@
                     url : this.api.upmyzc,
                     data : {
                         coin : this.lowerCase(coin),
-                        addr, num, paypassword, moble_verify, sendCodeCount
+                        addr, num, paypassword, email_verify:moble_verify, sendCodeCount
                     },
                 }).then((res) => {
                     this.getSuccess();
@@ -236,7 +239,7 @@
                 };
                 this.verifyCodeTimeText = -1;
                 this.axios({
-                    url : this.api.takeCoinVerify,
+                    url : this.api.withdrawVerifyCode,                    
                 }).then((res) => {
                     this.sendCodeCount ++;
                     this.verifyCodeDown();

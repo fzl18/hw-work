@@ -10,6 +10,22 @@ const zh = {
     "apptxt":"自主研发撮合系统，能每秒处理上万笔交易,算法支持多种专业交易",
     "mymoney":"我的资产",
     "accountSetting":"账户设置",
+    "nameauthstatus":"已认证",
+    "nameauthstatus1":"未认证",
+    "nameauthstatus2":"待审核",
+
+    "emailTips":"已发送成功！请注意查收。如果邮箱中未收到验证码邮件，请检查垃圾箱！",
+
+    "hometitle":"平台优势",
+    "hometit1":"技术保障",
+    "hometit2":"安全可靠",
+    "hometit3":"专业团队",
+    "hometxt1":"金融证券级算法，交易高效稳定；自主研发撮合系统，能每秒处理上万笔交易算法支持多种专业交易，如GTT、IOC、FOK。",
+    "hometxt2":"拥有顶级风控、反欺诈技术，安全防护体系严密。多层防护，严格保护用户的资金安全。",
+    "hometxt3":"团队成员来自世界顶级金融机构，专业设计团队打造产品细节，追求用户体验，交易操作便捷，为用户提供优质的产品服务。",
+    "homelink":"合作伙伴",
+
+
 
 
     "loginAgree":"已阅读并同意",
@@ -496,9 +512,9 @@ const zh = {
     "takeCoinNumMin" : "不能小于最小转出数量",
     "takeCoinNumMax" : "不能大于最大转出数量",
     "takeCoinExplain1" : "提币说明：",
-    "takeCoinExplain2" : "1、为了您账户的安全，转出币是由人工处理，您提交后，我们会在最快的时间为您处理。：",
-    "takeCoinExplain3" : "2、为了加快操作的速度，我们会为每次转支付网络费，但由于网络的不稳定性，部分操作可能会出现较慢的情况，请您耐心等待。",
-    "takeCoinExplain4" : "3、转出手续费为：",
+    "takeCoinExplain2" : "1、为了您账户的安全，转出币是由人工处理，您提交后，工作人员将在1个工作日内处理。",
+    "takeCoinExplain3" : "2、由于网络稳定性，部分操作可能会出现延时，请耐心等待。",
+    "takeCoinExplain4" : "3、提币手续费为：",
     "takeCoinExplain5" : "个",
     "takeCoinExplain6" : "4、单笔最小转出数量",
     "takeCoinExplain7" : "单笔最大转出数量",
@@ -706,6 +722,29 @@ const zh = {
     "viewDetails"  : '查看详情',
 
 
+
+
+
+    "accUid":"UID",
+    "accName":"用户名",
+    "accAuth":"实名认证",
+    "accLogintime":"最近登录时间",
+    "accIp":"IP",
+    "acctit1":"登录密码",
+    "acctit2":"交易密码",
+    "acctit3":"手机号码",
+    "acctit4":"谷歌身份验证器",
+    "acctxt1":"安全等级",
+    "acctxt2":"用于提币、C2C转账时安全验证",
+    "acctxt3":"用于提币、找回密码、修改安全设置时安全验证",
+    "acctxt4":"用于登录和安全设置验证",
+    "accbtn":"修改",
+    "accbind":"未绑定",
+    "accunbind":"已绑定",
+
+
+
+
     "icotip":"认购说明：1、认购额度：单笔最低为0.1ETH，单笔最高100ETH；不限认购次数； 2、一旦购买完成后即无法退回，请确认后再购买； 3、购买记录请至<购买>记录查询",
     "icoSubmit":"确定",
     "icotabhead1":"时间",
@@ -715,6 +754,16 @@ const zh = {
     "icotabhead5":"赠送数量",
     "icotabhead6":"购得数量",
     "ico10":"数量、交易密码、验证码不能为空",
+    "ico11":"交易数量超限",
+    "ico11":"交易数量只能是正整数",
+    "icoUse":"可用",
+    "icoGet":"可得",
+    "icoNum":"数量",
+    "icoPw":"交易密码",
+    "icoVerify":"验证码",
+    "icoNum":"数量",
+    "icoBuylog":"购买记录",
+    "icoTit":`<span>币币</span>市场`,
 
     "selectCountry":"选择国家",
 

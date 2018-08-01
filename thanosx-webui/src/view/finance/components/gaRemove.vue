@@ -12,7 +12,8 @@
                 </section>
                 <section class="form-group form-group-btn">
                     <a href="javascript:;" @click="unbindGa" class="form-submit-btn">{{lang[local].ga7}}{{this.getState == this.getStateStart ? '...' : ''}}</a>
-                    <router-link to="./gaSet" class="form-submit-btn white">{{lang[local].ga11}}</router-link>
+                    <!-- <router-link to="./gaSet" class="form-submit-btn white">{{lang[local].ga11}}</router-link> -->
+                    <a href="javascript: history.go(-1);" class="form-submit-btn white" >{{lang[local].cancel}}</a>
                 </section>
             </section>
         </section>

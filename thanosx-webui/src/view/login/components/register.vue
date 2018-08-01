@@ -22,7 +22,7 @@
             </section>
             <section class="login-form-group">
                 <div class="input-box">
-                    <i class="iconfont icon-yanzhengma"></i> <input class="register-code" @keyup.enter="submit" type="text" name="register-moble_verify" @focus="moble_verifyFocus" @blur="moble_verifyBlur" v-model="param.moble_verify" :placeholder="lang[local].SMSVerifCode" />
+                    <i class="iconfont icon-yanzhengma" style="font-size:18px"></i> <input class="register-code" @keyup.enter="submit" type="text" name="register-moble_verify" @focus="moble_verifyFocus" @blur="moble_verifyBlur" v-model="param.moble_verify" :placeholder="lang[local].emailVerifCode" />
                     <a href="javascript:;" class="login-select register-code-btn active"
                     :class="param.username.length >= 1 && this.verifyCodeTimeText === '' ? 'active' : ''"
                     @click="sendCode"
@@ -57,9 +57,10 @@
 
             <section class="login-form-group">
                 <a href="javascript:;" @click="submit" class="login-btn">{{lang[local].freeRegister}}{{submitStatus ? '...' : ''}}</a>
-                <span style="position: absolute;top: 30%;right: 24px;">已有账户，</span><router-link to="/login" class="login-select"> {{lang[local].inviteLogin}}</router-link>
+                <span style="position: absolute;top: 30%;right: 24px;"></span><router-link to="/login" class="login-select"> {{lang[local].inviteLogin}}</router-link>
             </section>
         </section>
+        <msg />
     </section>
 </template>
 

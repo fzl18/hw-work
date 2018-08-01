@@ -26,7 +26,7 @@
                 <dd>{{lang[local].totalCurrency}}</dd>
                 <dd>{{lang[local].operation}}</dd>
             </dl>            
-            <dl slot="body" slot-scope="{item}"  v-if=" !cur ?  mainChain.indexOf(item.market2) != -1   : mainChain.indexOf(item.market2) == -1" >
+            <dl slot="body" slot-scope="{item}"  v-if=" !cur ?  mainChain.indexOf(item.market2.toLowerCase()) != -1 : mainChain.indexOf(item.market2.toLowerCase()) == -1" >
                 <template v-if=" isChecked ? item.total > 0 : true ">
                 <dd>
                     <span>
@@ -76,7 +76,7 @@
         name: "index",
         data (){
             return {
-                mainChain:['BTC','XRP','ETC'],
+                mainChain:[],
                 isChecked:false,
                 cur:0,
                 market2 : '',
@@ -98,10 +98,11 @@
             
         },
         created (){
-            this.myasset();
+            this.myasset()
+            this.getMainCoins()
         },
         mounted(){
-            console.log(this.item)
+            console.log(this.mainChain)
         },
         methods : {
             myasset (){
@@ -115,6 +116,16 @@
             },
             hadndleTab (index){
                 this.cur = index
+            },
+            getMainCoins(){
+                this.axios({
+                    url : this.api.getMainCoins,
+                    data : {
+                    }
+                }).then(res => {
+                    this.mainChain = res.data
+                    console.log(res.data)
+                }).catch()
             }
         },
     }

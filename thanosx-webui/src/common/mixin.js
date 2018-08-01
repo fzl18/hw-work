@@ -149,6 +149,8 @@ export const methods = {
             };
             this.verifyCodeTimeText = i + 's';
         }, 1000);
+        console.log(this.$store,this.lang[this.local].emailTips)
+        this.$store.commit('msg/add', this.lang[this.local].emailTips);
     },
 
     hideName (val){

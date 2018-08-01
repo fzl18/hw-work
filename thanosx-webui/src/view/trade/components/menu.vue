@@ -10,10 +10,21 @@
                     </li>
                 </ul>
                 <div class="market-code-list">
-                    <router-link v-for="item in districtInfo && districtInfo[selectActive]" :key="item.xnb + '_' + item.rmb"  :to="'/' + item.xnb + '/' + item.rmb" :class="classActive(item.xnb == xnb && selectActive == rmb)">
+                    <div class="tit" > <span >{{lang[local].mainCoin}}</span></div>
+                    <div>
+                        <router-link v-for="item in districtInfo && districtInfo[selectActive]" :key="item.xnb + '_' + item.rmb"  :to="'/' + item.xnb + '/' + item.rmb" :class="classActive(item.xnb == xnb && selectActive == rmb)" v-if="mainblock.indexOf(item.xnb) != -1">
                         <!-- <i :style="{backgroundImage : 'url(' + imgUrl((coins[item.xnb] && coins[item.xnb].logo) || '') + ')'}"></i> -->
                         <span>{{item.xnb}}/{{selectActive}}</span>
-                    </router-link>
+                        </router-link>
+                    </div>
+                    
+                    <div class="tit"><span > {{lang[local].newCoin}}</span></div>
+                    <div>
+                        <router-link v-for="item in districtInfo && districtInfo[selectActive]" :key="item.xnb + '_' + item.rmb"  :to="'/' + item.xnb + '/' + item.rmb" :class="classActive(item.xnb == xnb && selectActive == rmb)" v-if="mainblock.indexOf(item.xnb) == -1">
+                        <!-- <i :style="{backgroundImage : 'url(' + imgUrl((coins[item.xnb] && coins[item.xnb].logo) || '') + ')'}"></i> -->
+                        <span>{{item.xnb}}/{{selectActive}}</span>
+                        </router-link>
+                    </div>
                 </div>
             </section>
         </div>
@@ -27,15 +38,15 @@
                 <b :class="market_quote[2] * 1 > 0 ? 'riseColor' : market_quote[2] * 1 < 0 ? 'fallColor' : ''">{{market_quote[2] * 1 > 0 ? '+' : ''}}{{perCentDecimals(market_quote[2]) || 0}} %</b>
             </span>
             <span>
-                <small>{{lang[local].topPrice}}24h</small>
+                <small>{{lang[local].topPrice}}</small>
                 <b>{{priceAccuracy(market_quote[3])}} {{rmb}}</b>
             </span>
             <span>
-                <small>{{lang[local].minPrice}}24h</small>
+                <small>{{lang[local].minPrice}}</small>
                 <b>{{priceAccuracy(market_quote[4])}} {{rmb}}</b>
             </span>
             <span>
-                <small>{{lang[local].tradeVolume}}24h</small>
+                <small>{{lang[local].tradeVolume}}</small>
                 <b>{{numAccuracy(market_quote[5])}}</b>
             </span>
         </section>
@@ -49,14 +60,43 @@
         data (){
             return {
                 selectActive : '',
+                mainblock:[],
+                list:[]
             }
         },
         created (){
             this.selectActive = this.rmb
+            this.getMainCoins()
+        },
+        mounted(){
+            this.list = this.districtInfo && this.districtInfo[this.selectActive]
         },
         computed : {
+            hasmain(){
+                let num = 0
+                this.list.map( d => {                    
+                    if(this.mainblock.indexOf(d.xnb) == -1){
+                        num ++
+                    }                    
+                })
+                return num ? true : false
+            },
+            hasnew(){
+
+            },
             ...mapState(['market_quote']),
         },
+        methods:{
+            getMainCoins(){
+                this.axios({
+                    url : this.api.getMainCoins,
+                    data : {
+                    }
+                }).then(res => {
+                    this.mainblock = res.data
+                }).catch()
+            }
+        }
     }
 </script>
 
@@ -157,6 +197,11 @@
                     padding: 15px 15px;
                     overflow: hidden;
                     font-size: 15px;
+                    .tit{
+                        span{background: #222;color:#aaa;padding:5px 15px;border-radius:6px;}
+                        text-align: left;
+                    }
+                    div{display:block;overflow: hidden;line-height: 30px;}
                     a{
                         display: block;
                         width: $itemW;

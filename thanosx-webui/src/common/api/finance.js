@@ -35,7 +35,7 @@ export const apiFinance = {
     "ZcListOfIn" : '/api/Finance/ZcListOfIn',
     "freal" : '/api/Finance/freal',
     "transLog" : '/api/Finance/transLog',
-    "myaddrstatus" : '/api/Finance/myaddrstatus',
+    // "myaddrstatus" : '/api/Finance/myaddrstatus',
     "activateAddr" : '/api/Finance/activateAddr',
     "invitList" : '/api/Finance/invitList',
     "invit" : '/api/Finance/invit',
@@ -57,8 +57,10 @@ export const apiFinance = {
     "bindGa" : '/api/Security/bindGa',
     "unbindGa" : '/api/Security/unbindGa',
     "setGaVerify" : '/api/Security/setGaVerify',
-    "upmobleVerify" : '/api/Security/upmobleVerify',
+    "upmobleVerify" : '/api/security/upmobleVerify',
     "upmoble" : '/api/Security/upmoble',
-    "payPasswordVerifyCode":"/api/Security/payPasswordVerifyCode"
+    "payPasswordVerifyCode":"/api/Security/payPasswordVerifyCode",
+    "withdrawVerifyCode":"/api/Finance/withdrawVerifyCode",
+    "getMainCoins":"/api/finance/getMainCoins",
 };
 

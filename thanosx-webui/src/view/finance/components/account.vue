@@ -6,15 +6,15 @@
         <section class="userinfo">
             <Row>
                 <Col span="4">
-                    <p>UID</p>
+                    <p>{{lang[local].accUid}}</p>
                     <p class="con">{{userBasicinfo.userid}}</p>
                 </Col>
                 <Col span="6" class="name">
-                    <p>用户名</p>
+                    <p>{{lang[local].accName}}</p>
                     <p class="con">{{userBasicinfo.username}}</p>
                 </Col>
                 <Col span="6" class="name">
-                    <p>实名认证</p>
+                    <p>{{lang[local].accAuth}}</p>
                     <p>
                         <router-link :to=" userBasicinfo.nameauthstatus == '0' && userBasicinfo.idcard
                             ? ''
@@ -37,35 +37,35 @@
                     </p>
                 </Col>
                 <Col span="8" class="txt">
-                    <p>最近登录时间：{{userBasicinfo.last_login_time}}</p>
-                    <p >IP：{{userBasicinfo.last_login_ip}}</p>
+                    <p>{{lang[local].accLogintime}}：{{userBasicinfo.last_login_time}}</p>
+                    <p >{{lang[local].accIp}}：{{userBasicinfo.last_login_ip}}</p>
                 </Col>
             </Row>
         </section>
         <section class="userSet">
             <dl>
                 <dt><i class="iconfont icon-mima1"></i></dt>
-                <dd>登录密码</dd>
-                <dd class="txt">安全等级：<span>{{userBasicinfo.level == 2 ? lang[local].safety25 : userBasicinfo.level == 1 ? lang[local].safety26 :  userBasicinfo.level == 0 ?  lang[local].safety27 : ''}}</span></dd>
-                <dd class="btn"> <router-link to="/uppassword" >修改</router-link></dd>
+                <dd>{{lang[local].acctit1}}</dd>
+                <dd class="txt">{{lang[local].acctxt1}}：<span>{{userBasicinfo.level == 2 ? lang[local].safety25 : userBasicinfo.level == 1 ? lang[local].safety26 :  userBasicinfo.level == 0 ?  lang[local].safety27 : ''}}</span></dd>
+                <dd class="btn"> <router-link to="/uppassword" >{{lang[local].accbtn}}</router-link></dd>
             </dl>
             <dl>
                 <dt><i class="iconfont icon-yuechi"></i></dt>
-                <dd>交易密码</dd>
-                <dd class="txt">用于提币、C2C转账时安全验证</dd>
-                <dd class="btn"> <router-link to="/setTradePassword" >修改</router-link></dd>
+                <dd>{{lang[local].acctit2}}</dd>
+                <dd class="txt">{{lang[local].acctxt2}} <span>({{userBasicinfo.paypassword ? lang[local].safety9 : lang[local].safety10}})</span></dd>
+                <dd class="btn"> <router-link to="/setTradePassword" >{{lang[local].accbtn}}</router-link></dd>
             </dl>
             <dl>
                 <dt><i class="iconfont icon-shouji"></i></dt>
-                <dd>手机号码</dd>
-                <dd class="txt">用于提币、找回密码、修改安全设置时安全验证<span>(未绑定)</span></dd>
-                <dd class="btn"> <router-link to="/mobileBind" >修改</router-link></dd>
+                <dd>{{lang[local].acctit3}}</dd>
+                <dd class="txt">{{lang[local].acctxt3}}<span>({{userBasicinfo.moble ? lang[local].accbind : lang[local].accunbind}})</span></dd>
+                <dd class="btn"> <router-link to="/mobileBind" >{{lang[local].accbtn}}</router-link></dd>
             </dl>
             <dl>
                 <dt><i class="iconfont icon-yanzheng"></i></dt>
-                <dd>谷歌身份验证器</dd>
-                <dd class="txt">用于登录和安全设置验证</dd>
-                <dd class="btn"> <router-link to="/ga" >修改</router-link></dd>
+                <dd>{{lang[local].acctit4}}</dd>
+                <dd class="txt">{{lang[local].acctxt4}}</dd>
+                <dd class="btn"> <router-link to="/ga" >{{lang[local].accbtn}}</router-link></dd>
             </dl>
 
         </section>

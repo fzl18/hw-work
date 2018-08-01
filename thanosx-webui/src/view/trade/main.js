@@ -41,10 +41,10 @@ Vue.mixin({
             return this.numSplit(num, this.xnbLen);
         },
         priceAccuracy (val){
-            return this.toDecimals(val, this.rmbLen);
+            return  parseFloat(this.toDecimals(val, this.rmbLen))
         },
         numAccuracy (val){
-            return this.toDecimals(val, this.xnbLen);
+            return parseFloat(this.toDecimals(val, this.xnbLen))
         },
         decimals (val){
             return (val + '').replace(/\./, '?').replace(/[^0-9\?]*/g, "").replace(/\?/g, ".");

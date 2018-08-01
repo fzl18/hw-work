@@ -290,28 +290,28 @@ const routeGuard = function (to, from, next){
         };
         if(to.name == 'ga'){
             if(userBasicinfo.gabind){
-                next('./gaSet');
+                next('./gaRemove');
             }else{
                 next();
             };
             return;
         };
-        if(to.name == 'gaRemove' || to.name == 'gaSet' ){
-            if(userBasicinfo.gabind){
-                next();
-            }else{
-                next('./ga');
-            };
-            return;
-        };
-        if(to.name == 'mobileBind'){
-            if(userBasicinfo.moble){
-                next('./');
-            }else{
-                next();
-            };
-            return;
-        };
+        // if(to.name == 'gaRemove' || to.name == 'gaSet' ){
+        //     if(userBasicinfo.gabind){
+        //         next();
+        //     }else{
+        //         next('./ga');
+        //     };
+        //     return;
+        // };
+        // if(to.name == 'mobileBind'){
+        //     if(userBasicinfo.moble){
+        //         next('./mobileBind');
+        //     }else{
+        //         next();
+        //     };
+        //     return;
+        // };
         if(to.name == 'nameAuth'){
             if(userBasicinfo.nameauthstatus == '1'){
                 next('./nameAuthDetails');
