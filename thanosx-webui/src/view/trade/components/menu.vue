@@ -10,7 +10,7 @@
                     </li>
                 </ul>
                 <div class="market-code-list">
-                    <div class="tit" > <span >{{lang[local].mainCoin}}</span></div>
+                    <div class="tit" v-if="hasmain"> <span >{{lang[local].mainCoin}}</span></div>
                     <div>
                         <router-link v-for="item in districtInfo && districtInfo[selectActive]" :key="item.xnb + '_' + item.rmb"  :to="'/' + item.xnb + '/' + item.rmb" :class="classActive(item.xnb == xnb && selectActive == rmb)" v-if="mainblock.indexOf(item.xnb) != -1">
                         <!-- <i :style="{backgroundImage : 'url(' + imgUrl((coins[item.xnb] && coins[item.xnb].logo) || '') + ')'}"></i> -->
@@ -18,7 +18,7 @@
                         </router-link>
                     </div>
                     
-                    <div class="tit"><span > {{lang[local].newCoin}}</span></div>
+                    <div class="tit" v-if="hasnew"><span> {{lang[local].newCoin}}</span></div>
                     <div>
                         <router-link v-for="item in districtInfo && districtInfo[selectActive]" :key="item.xnb + '_' + item.rmb"  :to="'/' + item.xnb + '/' + item.rmb" :class="classActive(item.xnb == xnb && selectActive == rmb)" v-if="mainblock.indexOf(item.xnb) == -1">
                         <!-- <i :style="{backgroundImage : 'url(' + imgUrl((coins[item.xnb] && coins[item.xnb].logo) || '') + ')'}"></i> -->
@@ -74,15 +74,24 @@
         computed : {
             hasmain(){
                 let num = 0
-                this.list.map( d => {                    
+                // console.log(this.list,this.mainblock)
+                this.districtInfo && this.districtInfo[this.selectActive].map( d => {                    
                     if(this.mainblock.indexOf(d.xnb) == -1){
+                        num ++
+                    }
+                    console.log(d.xnb)
+                })
+                
+                return num ? true : false
+            },
+            hasnew(){
+                let num = 0
+                this.districtInfo && this.districtInfo[this.selectActive].map( d => {                    
+                    if(this.mainblock.indexOf(d.xnb) != -1){
                         num ++
                     }                    
                 })
                 return num ? true : false
-            },
-            hasnew(){
-
             },
             ...mapState(['market_quote']),
         },

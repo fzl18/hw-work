@@ -12,6 +12,10 @@
             <dd>{{lang[local].operation}}</dd>
         </dl>
         <section v-if="userOrderState">
+            <happy-scroll :key="111" color="rgba(255, 255, 255, .3)"
+                    resize
+                >
+            <div class="con">
             <dl v-for="item in userOrder" :key="item[0]">
                 <dd>{{localDate(item[1])}}</dd>
                 <dd :class="item[2] + 'Color'">{{lang[local][item[2]]}}</dd>
@@ -25,6 +29,8 @@
                     <a :href="item[0]" @click.prevent="clickWithdrawal(item)">{{lang[local].annul}}{{item[7] ? '...' : ''}}</a>
                 </dd>
             </dl>
+            </div>
+            </happy-scroll>
         </section>
         <load v-if="!userOrderState" />
     </section>

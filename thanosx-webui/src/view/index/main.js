@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import App from './App'
 import store from './store'
+import router from './router/index'
 import module from '../../common/module'
 
 import {apiHome} from '../../common/api/home'
@@ -49,6 +50,7 @@ Vue.mixin({
 new Vue({
     el: '#app',
     store,
+    router,
     components: { App },
     template: '<App/>'
 })

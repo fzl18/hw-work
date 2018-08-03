@@ -241,8 +241,8 @@ body,html{
     bottom: 0;
     height:calc(100% + 0px);
     background: $tradeMainColor;
-    overflow-y: auto;
-    @include scroll1;
+    // overflow: hidden;
+    // @include scroll1;
     .trade-user-out{
         position: relative;
         height: 100%;

@@ -14,6 +14,7 @@ import list from '../components/list';
 import listLoadTemplate from '../components/listLoadTemplate';
 import uploadFile from '../components/uploadFile';
 import appDownload from '../components/appDownload';
+import {HappyScroll} from 'vue-happy-scroll';
 import { Row, Col,Dropdown,DropdownMenu,DropdownItem,Icon,Affix,Modal } from 'iview';
 import 'babel-polyfill'
 
@@ -45,3 +46,4 @@ Vue.component('DropdownItem', DropdownItem);
 Vue.component('Icon', Icon);
 Vue.component('Affix', Affix);
 Vue.component('Modal', Modal);
+Vue.component('happy-scroll', HappyScroll)

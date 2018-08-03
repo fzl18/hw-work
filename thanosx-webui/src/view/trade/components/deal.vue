@@ -4,17 +4,23 @@
             <!-- <dd>{{lang[local].tradeType}}</dd> -->
             <dd>{{lang[local].unitPrice}}</dd>
             <dd>{{lang[local].tradeVolume}}</dd>
-            <dd>{{lang[local].time}}</dd>
+            <dd style="padding-right:10px">{{lang[local].time}}</dd>
         </dl>
         <load class="deal-load" v-if="!dealState" />
-        <transition-group v-if="dealState" name="deal" tag="section" class="deal-body">
-            <dl v-for="item in deal" :key="item[4]" @click="clickItem(item)">
-                <!-- <dd :class="item[1] + 'Color'">{{lang[local][item[1]]}}</dd> -->
-                <dd :class="item[1] + 'Color'">{{priceAccuracy(item[2])}}</dd>
-                <dd>{{numAccuracy(item[3])}}</dd>
-                <dd>{{localDate(item[0], true)}}</dd>
-            </dl>
-        </transition-group>
+            <transition-group v-if="dealState" name="deal" tag="section" class="deal-body">
+            <happy-scroll :key="111" color="rgba(255, 255, 255, .3)"
+                resize
+            >
+            <div class="con">
+                <dl v-for="item in deal" :key="item[4]" @click="clickItem(item)">
+                    <!-- <dd :class="item[1] + 'Color'">{{lang[local][item[1]]}}</dd> -->
+                    <dd :class="item[1] + 'Color'" :title="priceAccuracy(item[2])">{{priceAccuracy(item[2])}}</dd>
+                    <dd :title="numAccuracy(item[3])">{{numAccuracy(item[3])}}</dd>
+                    <dd :title="localDate(item[0], true)" style="padding-right:10px">{{localDate(item[0], true)}}</dd>
+                </dl>
+            </div>                
+            </happy-scroll>
+            </transition-group>
     </section>
 </template>
 
@@ -66,7 +72,7 @@
                 }
                 &:nth-child(2){
                     width: 30%;
-                    text-align: center;
+                    text-align: left;
                 }
                 &:nth-child(3){
                     width: 40%;
@@ -110,7 +116,7 @@
             bottom: 5px;
             left: 0;
             right: 0;
-            @include scroll1;
+            // @include scroll1;
             dl{
                 cursor: pointer;
                 transition: transform 0.5s ease;

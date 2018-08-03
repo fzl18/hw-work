@@ -9,7 +9,7 @@
             </div>
             <ul class="bar">
                 <li class="bbox">
-                    <p>今日待分配收入累积折合</p>
+                    <p>今日待分配收入累计折合</p>
                     <p class="hot"><Icon type="social-bitcoin" color="#FFA202" /> 46.000990008</p>
                     <p>连续持有TNSX每百万收入折合 <Icon type="social-bitcoin" color="#FFA202" /> 21354488</p>
                     <div class="jiao"></div>
@@ -18,7 +18,7 @@
                     <template v-for=" item in helplist.list" >
                         <p><a :href="articleUrl + '/info/' + item.id ">{{item.title}}</a></p>
                     </template>
-                        <p class="more"><a :href="articleUrl + '/info/' + helplist.type_id">{{lang[local].viewMore}}</a></p>
+                        <p class="more"><a :href="articleUrl + '/list/' + helplist.type_alias">{{lang[local].viewMore}}</a></p>
                         <div class="jiao"></div>
                     
                 </li>
@@ -26,7 +26,7 @@
                     <template v-for=" item in noticelist.list" >
                         <p><a :href="articleUrl + '/info/' + item.id ">{{item.title}}</a></p>
                     </template>
-                    <p class="more"><a :href="articleUrl + '/info/' + noticelist.type_id">{{lang[local].viewMore}}</a></p>
+                    <p class="more"><a :href="articleUrl + '/list/' + noticelist.type_alias">{{lang[local].viewMore}}</a></p>
                     <div class="jiao"></div>
                 </li>
             </ul>            

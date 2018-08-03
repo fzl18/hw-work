@@ -53,19 +53,19 @@
                 <dt><i class="iconfont icon-yuechi"></i></dt>
                 <dd>{{lang[local].acctit2}}</dd>
                 <dd class="txt">{{lang[local].acctxt2}} <span>({{userBasicinfo.paypassword ? lang[local].safety9 : lang[local].safety10}})</span></dd>
-                <dd class="btn"> <router-link to="/setTradePassword" >{{lang[local].accbtn}}</router-link></dd>
+                <dd class="btn"> <router-link to="/setTradePassword" >{{userBasicinfo.paypassword ? lang[local].accbtnrest :lang[local].accbtnset}}</router-link></dd>
             </dl>
             <dl>
                 <dt><i class="iconfont icon-shouji"></i></dt>
                 <dd>{{lang[local].acctit3}}</dd>
-                <dd class="txt">{{lang[local].acctxt3}}<span>({{userBasicinfo.moble ? lang[local].accbind : lang[local].accunbind}})</span></dd>
-                <dd class="btn"> <router-link to="/mobileBind" >{{lang[local].accbtn}}</router-link></dd>
+                <dd class="txt">{{lang[local].acctxt3}}<br/><span style="font-size:14px;">({{userBasicinfo.moble !='' ? userBasicinfo.district_code +' '+ userBasicinfo.moble : lang[local].accunbind}})</span></dd>
+                <dd class="btn"> <router-link to="/mobileBind" >{{userBasicinfo.moble !='' ? lang[local].accbtnrest : lang[local].accbtnbind}}</router-link></dd>
             </dl>
             <dl>
                 <dt><i class="iconfont icon-yanzheng"></i></dt>
                 <dd>{{lang[local].acctit4}}</dd>
                 <dd class="txt">{{lang[local].acctxt4}}</dd>
-                <dd class="btn"> <router-link to="/ga" >{{lang[local].accbtn}}</router-link></dd>
+                <dd class="btn"> <router-link to="/ga" >{{ userBasicinfo.gabind ? lang[local].accbtnunbind : lang[local].accbtnbind }}</router-link></dd>
             </dl>
 
         </section>

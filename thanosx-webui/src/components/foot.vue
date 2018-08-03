@@ -3,22 +3,22 @@
         <footer class="container footer">
             <div class="link">
                 <dl>
-                    <dt><a href="javascript:;">服务交易</a>></dt>
-                    <dd><a href="">交易中心</a></dd>
-                    <dd><a href="">帮助手册</a></dd>
-                    <dd><a href="">意见反馈</a></dd>
+                    <dt><a href="javascript:;">{{lang[local].newslist1[0].title}}</a>></dt>
+                    <dd><a :href="articleUrl + '/list/' + lang[local].newslist1[1].type_alias">{{lang[local].newslist1[1].title}}</a></dd>
+                    <dd><a :href="articleUrl + '/list/' + lang[local].newslist1[2].type_alias">{{lang[local].newslist1[2].title}}</a></dd>
+                    <dd><a :href="articleUrl + '/list/' + lang[local].newslist1[3].type_alias">{{lang[local].newslist1[3].title}}</a></dd>
                 </dl>
                 <dl style="text-align:center">
-                    <dt><a href="javascript:;">条款说明</a>></dt>
-                    <dd><a href="">隐私条款</a></dd>
-                    <dd><a href="">用户协议</a></dd>
-                    <dd><a href="">费率说明</a></dd>
+                    <dt><a href="javascript:;">{{lang[local].newslist2[0].title}}</a>></dt>
+                    <dd><a :href="articleUrl + '/list/' + lang[local].newslist2[1].type_alias">{{lang[local].newslist2[1].title}}</a></dd>
+                    <dd><a :href="articleUrl + '/list/' + lang[local].newslist2[2].type_alias">{{lang[local].newslist2[2].title}}</a></dd>
+                    <dd><a :href="articleUrl + '/list/' + lang[local].newslist2[3].type_alias">{{lang[local].newslist2[3].title}}</a></dd>
                 </dl>
                 <dl style="text-align:right">
-                    <dt><a href="javascript:;">关于我们</a>></dt>
-                    <dd><a href="">联系我们</a></dd>
-                    <dd><a href="">新闻公告</a></dd>
-                    <dd><a href="">申请上币</a></dd>
+                    <dt><a href="javascript:;">{{lang[local].newslist3[0].title}}</a>></dt>
+                    <dd><a :href="articleUrl + '/list/' + lang[local].newslist3[1].type_alias">{{lang[local].newslist3[1].title}}</a></dd>
+                    <dd><a :href="articleUrl + '/list/' + lang[local].newslist3[2].type_alias">{{lang[local].newslist3[2].title}}</a></dd>
+                    <dd><a :href="articleUrl + '/list/' + lang[local].newslist3[3].type_alias">{{lang[local].newslist3[3].title}}</a></dd>
                 </dl>
             </div>
             <Row class="copyright">

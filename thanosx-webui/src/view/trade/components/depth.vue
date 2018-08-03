@@ -8,12 +8,18 @@
         </dl>
         <section class="entrust-main">
             <section class="entrust-sell entrust-body" style="border-top: 1px solid #444">
-                <dl v-for="(item, index) in depthSell" :key="item[0]" @click="clickItem('sell', item)">
-                    <!-- <dd class="sellColor">{{lang[local].depthSell}}{{index + 1}}</dd> -->
-                    <dd class="sellColor">{{priceAccuracy(item[0])}}</dd>
-                    <dd>{{numAccuracy(item[1])}}</dd>
-                    <dd>{{priceAccuracy(item[0] * item[1])}}</dd>
-                </dl>
+                <happy-scroll :key="111" color="rgba(255, 255, 255, .3)"
+                    resize
+                >
+                <div class="con">
+                    <dl v-for="(item, index) in depthSell" :key="item[0]" @click="clickItem('sell', item)">
+                        <!-- <dd class="sellColor">{{lang[local].depthSell}}{{index + 1}}</dd> -->
+                        <dd :title="priceAccuracy(item[0])" class="sellColor">{{priceAccuracy(item[0])}}</dd>
+                        <dd :title="numAccuracy(item[1])">{{numAccuracy(item[1])}}</dd>
+                        <dd :title="priceAccuracy(item[0] * item[1])">{{priceAccuracy(item[0] * item[1])}}</dd>
+                    </dl>
+                </div>                
+                </happy-scroll>
                 <load v-if="!depthState" class="trade-load" />
             </section>
             <!-- <section class="entrust-middle">
@@ -28,12 +34,18 @@
                 </div>
             </section> -->
             <section class="entrust-buy entrust-body">
+                <happy-scroll :key="111" color="rgba(255, 255, 255, .3)"
+                    resize
+                >
+                <div class="con">
                 <dl v-for="(item, index) in depthBuy" :key="item[0]" @click="clickItem('buy', item)">
                     <!-- <dd class="buyColor">{{lang[local].depthBuy}}{{index + 1}}</dd> -->
-                    <dd class="buyColor">{{priceAccuracy(item[0])}}</dd>
-                    <dd>{{numAccuracy(item[1])}}</dd>
-                    <dd>{{priceAccuracy(item[0] * item[1])}}</dd>
+                    <dd :title="priceAccuracy(item[0])" class="buyColor">{{priceAccuracy(item[0])}}</dd>
+                    <dd :title="numAccuracy(item[1])">{{numAccuracy(item[1])}}</dd>
+                    <dd :title="priceAccuracy(item[0] * item[1])">{{priceAccuracy(item[0] * item[1])}}</dd>
                 </dl>
+                </div>
+                </happy-scroll>
                 <load v-if="!depthState" class="trade-load" />
             </section>
         </section>
@@ -95,7 +107,7 @@
                 }
                 &:nth-child(2){
                     width: 30%;
-                    text-align: center;
+                    text-align: left;
                     padding-right: 5px;
                 }
                 &:nth-child(3){
@@ -137,8 +149,8 @@
             }
         }
         .entrust-body{
-            overflow: auto;
-            @include scroll1;
+            overflow: over;
+            // @include scroll1;
             dl{
                 cursor: pointer;
                 &:hover{
@@ -183,6 +195,7 @@
         top: $mH;
         width: 100%;
         left: 0px;
+        padding-top: 5px;
         // padding-top: $entrustMiddleH / 2  + $mH;
         transform: rotateX(180deg);
         transform-origin: 50% 50%;
@@ -193,11 +206,14 @@
     .entrust-buy{
         z-index: 1;
         position: absolute;
-        height: 50%;
-        padding-top: $entrustMiddleH / 2 + $mH;
-        bottom: $mH;
+        height: 45%;
+        // padding-top: $entrustMiddleH / 2 + $mH;
+        padding-top: 0;
+        // bottom: $mH;
+        bottom: 10px;
         left: 0px;
         width: 100%;
+        margin-top:5px;
     }
 
     .netState{

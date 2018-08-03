@@ -167,7 +167,7 @@ const zh = {
     "page6" : "首页",
     "page7" : "上页",
     "page8" : "下页",
-    "page9" : "未页",
+    "page9" : "末页",
 
     "safety0" : "基本信息",
     "safety1" : "安全设置",
@@ -283,6 +283,11 @@ const zh = {
     "nameAuth32" : "重新进行实名认证",
     "nameAuth33" : "证件文字信息必须完整清晰，必须手写清晰的ThanosX、签名、日期。",
     "nameAuth34" : "手持证件照示例",
+    "nameAuth35" : `手持证照通过标准：</br>
+                    > 人物头像清晰; </br>
+                    > 身份证信息清晰; </br>
+                    > 证件照旁展示纸张,信息格式为:"ThanosX+申请日期"; </br>
+                    > 完整的展示您的手臂持证。`,
 
     "copy" : "复制",
     "copySuccess" : "复制成功",
@@ -440,6 +445,8 @@ const zh = {
     "uploadFile0" : "上传图片中...",
     "uploadFile1" : "上传图片成功",
     "uploadFile2" : "上传图片失败",
+    "uploadpicbtn" : "上传",
+    
 
     "myAssets" : "我的资产",
     "myBankCard" : "我的银行卡",
@@ -547,7 +554,7 @@ const zh = {
     "coinRecordState" : "状态",
     "coinRecordCoin" : "币种",
     "coinRecordType" : "类型",
-    "coinRecord" : "交易明细",
+    "coinRecord" : "资产明细",
 
     "num" : "数量",
     "state" : "状态",
@@ -736,16 +743,20 @@ const zh = {
     "acctit4":"谷歌身份验证器",
     "acctxt1":"安全等级",
     "acctxt2":"用于提币、C2C转账时安全验证",
-    "acctxt3":"用于提币、找回密码、修改安全设置时安全验证",
+    "acctxt3":"在账户异常时，客服能及时联系到您",
     "acctxt4":"用于登录和安全设置验证",
     "accbtn":"修改",
-    "accbind":"未绑定",
-    "accunbind":"已绑定",
+    "accbtnbind":"绑定",
+    "accbtnunbind":"解绑",
+    "accbind":"已绑定",
+    "accunbind":"未绑定",
+    "accbtnrest":"重置",
+    "accbtnset":"设置",
 
 
 
-
-    "icotip":"认购说明：1、认购额度：单笔最低为0.1ETH，单笔最高100ETH；不限认购次数； 2、一旦购买完成后即无法退回，请确认后再购买； 3、购买记录请至<购买>记录查询",
+    "icoTrade":"币币交易",
+    "icotip":"认购说明：1、认购额度：单笔最低为0.1ETH，单笔最高100ETH；不限认购次数； 2、一旦购买完成后即无法退回，请确认后再购买； 3、购买记录请至[购买记录]记录查询",
     "icoSubmit":"确定",
     "icotabhead1":"时间",
     "icotabhead2":"付款数量",
@@ -755,7 +766,7 @@ const zh = {
     "icotabhead6":"购得数量",
     "ico10":"数量、交易密码、验证码不能为空",
     "ico11":"交易数量超限",
-    "ico11":"交易数量只能是正整数",
+    "ico12":"交易数量只能是正整数",
     "icoUse":"可用",
     "icoGet":"可得",
     "icoNum":"数量",
@@ -764,8 +775,40 @@ const zh = {
     "icoNum":"数量",
     "icoBuylog":"购买记录",
     "icoTit":`<span>币币</span>市场`,
+    "icoFree":"赠",
+    "icoamount1":"共",
+    "icoamount2":"余",
+    "icoamount3":"份",
 
     "selectCountry":"选择国家",
+
+
+    "newslist1":[
+        {title:'服务交易',type_alias:''},
+        {title:'交易中心',type_alias:''},
+        {title:'帮助手册',type_alias:''},
+        {title:'意见反馈',type_alias:''}
+    ],
+    "newslist2":[
+        {title:'条款说明',type_alias:''},
+        {title:'隐私条款',type_alias:'privacy_policy'},
+        {title:'用户协议',type_alias:'user_protocol'},
+        {title:'费率说明',type_alias:''}
+    ], 
+    "newslist3":[
+        {title:'关于我们',type_alias:''},
+        {title:'联系我们',type_alias:'contact_us'},
+        {title:'新闻公告',type_alias:''},
+        {title:'申请上币',type_alias:''}
+    ],   
+    "newslistside":[
+        {title:'帮助中心',type_alias:'help'},
+        {title:'公告通知',type_alias:'announcement'},
+        {title:'新闻消息',type_alias:'news'},
+        {title:'隐私条款',type_alias:'privacy_policy'},
+        {title:'用户协议',type_alias:'user_protocol'},
+        {title:'联系我们',type_alias:'contact_us'},
+    ],
 
 };
 

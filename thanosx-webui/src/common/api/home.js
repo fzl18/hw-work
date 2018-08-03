@@ -2,6 +2,6 @@
 export const apiHome = {
     "getHomeAnnouncement" : '/api/index/getHomeAnnouncement',
     "getAppStatics" : '/api/index/getAppStatics',    
-    "getNotice":'/api/notice/lists',
+    "getNotice":'/api/notice/index',
     "getMainCoins":"/api/finance/getMainCoins",
 };

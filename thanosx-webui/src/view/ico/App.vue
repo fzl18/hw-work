@@ -9,10 +9,10 @@
                     <li :key="item.id" :class=" index == cur ?  'cur' : '' " @click="handselect(index)">
                         <p class="tit">{{item.name}}</p>
                         <p class="num"> {{item.is_default != 0 ? `${item.pay_amount} ${item.pay_coin} = ${item.get_amount} ${item.get_coin}` : `${item.get_amount} ${item.get_coin}`}} <br/>
-                        <span> <template v-if="item.get_free_amount > 0"> 赠 {{item.get_free_amount}} {{item.get_coin}}</template></span>
+                        <span> <template v-if="item.get_free_amount > 0"> {{lang[local].icoFree}} {{item.get_free_amount}} {{item.get_coin}}</template></span>
                         </p>
                         <p class="progress"><span class="bar" :style=" 'width:' + (item.total_count - item.last_count) / item.total_count *100 + '%'"></span></p>
-                        <p class="total">共 {{item.total_count}} / 余 {{item.last_count}} 份</p>
+                        <p class="total">{{lang[local].icoamount1}} {{item.total_count}} / {{lang[local].icoamount2}} {{item.last_count}} {{lang[local].icoamount3}}</p>
                     </li>
                     </template>
                 </ul>
@@ -160,11 +160,6 @@
                     this.$store.commit('msg/err', this.lang[this.local].ico11);
                     return false;
                 }
-                if(!/^[0-9]+$/.test(this.num)){
-                    this.$store.commit('msg/err', this.lang[this.local].ico12);
-                    return false;
-                }
-                
                 this.axios({
                     url : this.api.createOrders,
                     data:{

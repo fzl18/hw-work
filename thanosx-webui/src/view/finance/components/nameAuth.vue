@@ -34,7 +34,9 @@
                                         <b :style="{height : idcardpic1.progress + '%'}"></b>
                                         <div>{{idcardpic1.progress + '%'}}</div>
                                     </div>
-                                    <span> <i class="iconfont icon-jia"></i> <br /><br /><br />{{lang[local].nameAuth9}}</span>
+                                    <div> 
+                                        <!-- <i class="iconfont icon-jia"></i> <br /><br /><br /> -->
+                                        {{lang[local].nameAuth9}} <span>{{lang[local].uploadpicbtn}}</span> </div>
                                 </uploadFile>
                             </li>
                             <li>
@@ -45,21 +47,32 @@
                                         <b :style="{height : idcardpic2.progress + '%'}"></b>
                                         <div>{{idcardpic2.progress + '%'}}</div>
                                     </div>
-                                    <span> <i class="iconfont icon-jia"></i> <br /><br /><br />{{lang[local].nameAuth10}}</span>
+                                    <div> 
+                                        <!-- <i class="iconfont icon-jia"></i> <br /><br /><br /> -->
+                                    {{lang[local].nameAuth10}} <span>{{lang[local].uploadpicbtn}}</span>
+                                    </div>
                                 </uploadFile>
                             </li>
                             <li>
                                 <uploadFile path="nameAuth" v-model="idcardpic3" :class="idcardpic3.state == getStateStart ? 'focus' : ''">
                                     <i></i>
+                                    <img src="../assets/images/ren.png" alt="">
                                     <em :style="{backgroundImage : 'url(' + idcardpic3.origin + ')'}"></em>
                                     <div class="progress" v-if="idcardpic3.state == getStateStart">
                                         <b :style="{height : idcardpic3.progress + '%'}"></b>
                                         <div>{{idcardpic3.progress + '%'}}</div>
                                     </div>
-                                    <span> <i class="iconfont icon-jia"></i> <br /><br /><br />{{lang[local].nameAuth11}}</span>
+                                    <div>
+                                         <!-- <i class="iconfont icon-jia"></i> <br /><br /><br /> -->
+                                        {{lang[local].nameAuth11}} <span>{{lang[local].uploadpicbtn}}</span>
+                                    </div>
                                 </uploadFile>
+                                
                             </li>
-                            <li><span style="text-align:left;">{{lang[local].nameAuth8}}<br/>{{lang[local].nameAuth33}}</span> </li>
+                            <li>
+                                <span style="text-align:left;" v-html="lang[local].nameAuth35"></span>
+                                <img src="../assets/images/pt.png" alt="">
+                            </li>
                         </ul>
                     </section>
                 </section>
@@ -163,7 +176,8 @@
                 }).then((res) => {
                     this.getSuccess();
                     this.$store.commit('msg/add', this.lang[this.local].nameAuth24);
-                    this.$router.push('./nameAuthDetails');
+                    // this.$router.push('./nameAuthDetails');
+                    this.$router.push('/account');
                 }).catch((err) => {
                     this.getError();
                     this.$store.commit('msg/err', err.message || this.lang[this.local].nameAuth25);

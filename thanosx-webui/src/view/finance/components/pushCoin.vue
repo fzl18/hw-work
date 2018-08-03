@@ -41,10 +41,10 @@
                     </section>
                 </section>
             </section>
-            <section class="finance-hint"  v-if="active == 0">
+            <!-- <section class="finance-hint"  v-if="active == 0">
                 {{lang[local].walletActiveText}}
                 <a href="javascript:;" class="buyColor" @click="activateAddr">{{lang[local].selfActive}}</a> (<span class="mainColor">{{lang[local].pay}}1CNT</span> )
-            </section>
+            </section> -->
         </section>
 
         <h4 class="finance-title">
@@ -118,7 +118,7 @@
                     this.getSuccess();
                     this.walletData = res.data;
                     this.$store.commit('msg/add', this.lang[this.local].pushCoinSuccess);
-                    this.myaddrstatus();
+                    // this.myaddrstatus();
                 }).catch((err) => {
                     this.getError();
                     this.walletData = null;
@@ -138,7 +138,7 @@
                 }).then((res) => {
                     this.getSuccess();
                     this.walletData = res.data;
-                    this.myaddrstatus();
+                    // this.myaddrstatus();
                 }).catch((err) => {
                     this.getError();
                     this.walletData = null;

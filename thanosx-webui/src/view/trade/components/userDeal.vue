@@ -8,6 +8,10 @@
             <dd>{{lang[local].totalCurrency}}</dd>
         </dl>
         <section v-if="userDealState">
+            <happy-scroll :key="111" color="rgba(255, 255, 255, .3)"
+                    resize
+                >
+            <div class="con">
             <dl v-for="item in userDeal">
                 <dd>{{localDate(item[1])}}</dd>
                 <dd :class="item[2] + 'Color'">{{lang[local][item[2]]}}</dd>
@@ -15,6 +19,8 @@
                 <dd>{{numAccuracy(item[4])}}</dd>
                 <dd>{{priceAccuracy(item[3] * item[4])}}</dd>
             </dl>
+            </div>
+            </happy-scroll>
         </section>
         <load v-if="!userDealState" />
     </section>

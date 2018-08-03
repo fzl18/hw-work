@@ -75,14 +75,14 @@
                     this.$store.commit('login/loginStatus', true);
                     this.$store.commit('login/loginGetStatus', true);
                 }else{
-                    if(typeof this.getLoginInfo == 'function'){
+                    // if(typeof this.getLoginInfo == 'function'){
                         this.getLoginInfo();
-                    };
+                    // };
                 };
             }else{
-                if(typeof this.getLoginInfo == 'function'){
+                // if(typeof this.getLoginInfo == 'function'){
                     this.getLoginInfo();
-                };
+                // };
             };
             this.$store.commit('headerActive', this.active);
         },
@@ -90,7 +90,7 @@
             changeLang(lang){
                 this.$store.commit('changeLang', lang);
             },
-            toUrl (item){
+            toUrl (item){                
                 if(process.env.NODE_ENV == 'development'){
                     if(item == 'newbies'){
                         return '/article.html/49';
@@ -102,11 +102,23 @@
                     };
                     return '/home/' + (item == 'home' ? 'index' : item);
                 }
+                
             },
             toModule (item){
                 if(this.loginTo.indexOf(item) >= 0 && !this.loginInfo.uid){
                     this.toLogin(this.toUrl(item));
                 }else{
+                    if(item == 'app'){
+                        console.log(this.active)
+                        if(this.active == 'home'){
+                            let anchorElement = document.getElementById('app');
+                            if(anchorElement) { anchorElement.scrollIntoView(); }
+                            return
+                        }else{
+                            location.href = process.env.NODE_ENV != 'development' ? '/home/index?#app' : '/index.html?#app'
+                        }
+                        return
+                    }
                     location.href = this.toUrl(item);
                 };
             },

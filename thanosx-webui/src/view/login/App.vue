@@ -1,6 +1,6 @@
 <template>
 <section>
-    <header-component active="home" />
+    <header-component active="login" />
     <section class="login-box main-box">
         <section class="login-bg">
             <img class="bg animated pulse" src="./assets/images/bg.jpg" alt="">

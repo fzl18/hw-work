@@ -1,5 +1,5 @@
 <template>
-    <section class="app" :class="animateClass">
+    <section  id="app" class="app" :class="animateClass">
         <div class="container">
             <Row>
                 <Col span="12" class="pic"><img src="../assets/images/index_mobile.png" alt="" /></Col>

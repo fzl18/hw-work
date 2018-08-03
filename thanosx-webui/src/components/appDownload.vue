@@ -1,5 +1,5 @@
 <template>
-    <section class="app-download-box">
+    <section id="app" class="app-download-box">
         <section class="app-download-icon">
             <img src="../assets/images/app-icon.png" alt="">
             <div>

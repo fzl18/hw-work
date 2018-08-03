@@ -24,7 +24,7 @@
             <dl slot="body" slot-scope="{item}">
                 <dd>{{localDate(item.timestamp)}}</dd>
                 <dd>{{upperCase(item.market)}}/{{upperCase(item.market2)}}</dd>
-                <dd><span :class="item.order_type == 'Buy' ? 'buyColor' : 'sellColor'">{{item.order_type == 'Buy' ? lang[local].myDeal_Buy : lang[local].myDeal_Sell}}</span></dd>
+                <dd><span :class="item.order_type != 'Buy' ? 'buyColor' : 'sellColor'">{{item.order_type != 'Buy' ? lang[local].myDeal_Buy : lang[local].myDeal_Sell}}</span></dd>
                 <dd>{{priceDecimals(item.price)}}</dd>
                 <dd>{{numDecimals(item.count)}}</dd>
                 <dd>{{priceDecimals(item.price*item.count)}}</dd>
@@ -48,7 +48,7 @@
         },
         computed :{
             marketType (){
-                return [['', this.lang[this.local].all],['Buy', this.lang[this.local].sell], ['Sell', this.lang[this.local].buy]];
+                return [['', this.lang[this.local].all],['Sell', this.lang[this.local].sell], ['Buy', this.lang[this.local].buy]];
             },
             listParam (){
                 return {

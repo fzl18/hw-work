@@ -1,8 +1,8 @@
 // http://23.91.100.214:3000/RadarTech/radar-frontend/wiki/_pages
 export const apiCommon = {
     "getLoginInfo" : '/api/index/getLoginInfo',
-    "getLinks" : '/api/index/getLinks',
-    "getNews" : '/api/index/getNews',
+    // "getLinks" : '/api/index/getLinks',
+    // "getNews" : '/api/index/getNews',
     "logout" : '/api/login/logout',
     "upFiles" : '/home/UpFiles/upload',
     "getMarketInfo" : '/api/index/getMarketInfo',

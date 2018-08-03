@@ -11,6 +11,7 @@ Vue.use(VueAxios, axios);
 import mixin from './mixin'
 import component from './component'
 import commonCss from '../assets/css/common.scss'
+import 'vue-happy-scroll/docs/happy-scroll.css'
 
 const isDebug_mode = process.env.NODE_ENV !== 'production';
 Vue.config.debug = isDebug_mode;

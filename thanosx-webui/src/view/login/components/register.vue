@@ -270,7 +270,7 @@
                         this.$store.commit('tips/hide', this.lang[this.local].enterVerifCode);
                         return true;
                     }else{
-                        this.$store.commit('tips/show', this.lang[this.local].enterVerifCode);
+                        // this.$store.commit('tips/show', this.lang[this.local].enterVerifCode);
                         return false;
                     };
                 };
@@ -285,16 +285,16 @@
             passwordBlur (){
                 this.$store.commit('tips/hide', 'registerPasTip');
                 var passwordStatus = this.getPasswordStatus();
-                if(this.param.password == '' || passwordStatus.type < 2){
-                    this.$store.commit('tips/show', this.lang[this.local].password);
-                    return false;
-                };
+                // if(this.param.password == '' || passwordStatus.type < 2){
+                //     this.$store.commit('tips/show', this.lang[this.local].password);
+                //     return false;
+                // };
                 return true;
             },
 
             passwordConfirmBlur (){
                 if(this.param.confirmPassword == '' || this.param.confirmPassword != this.param.password){
-                    this.$store.commit('tips/show', this.lang[this.local].passwordConfirm);
+                    // this.$store.commit('tips/show', this.lang[this.local].passwordConfirm);
                     return false;
                 };
                 return true;
@@ -350,14 +350,17 @@
                 };
 
                 if(!this.moble_verifyBlur()){
+                    this.$store.commit('tips/show', this.lang[this.local].enterVerifCode);
                     return false;
                 };
 
                 if(!this.passwordBlur()){
+                    this.$store.commit('tips/show', this.lang[this.local].password);
                     return false;
                 };
 
                 if(!this.passwordConfirmBlur()){
+                    this.$store.commit('tips/show', this.lang[this.local].passwordConfirm);
                     return false;
                 };
 

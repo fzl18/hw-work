@@ -1,8 +1,7 @@
 <template>
     <section class="article-right">
         <h4>{{info.title || info && info.list && info.oneself && info.oneself.catname}}</h4>
-        <article class="article-info" v-if="info.content  && getState == getStateSuccess" v-html="info.content">
-        </article>
+        <article class="article-info" v-if="info.content  && getState == getStateSuccess" v-html="info.content"></article>
         <load v-if="getState == getStateStart" />
     </section>
 </template>
@@ -37,7 +36,7 @@
                 page = page || {};
                 this.getState = this.getStateStart;
                 this.axios({
-                    url : this.api.articleInfo,
+                    url : this.api.info,
                     data : {
                         id : this.$route.params.id,
                         pid : this.$route.params.pid || '',

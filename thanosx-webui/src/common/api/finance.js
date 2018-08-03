@@ -41,7 +41,7 @@ export const apiFinance = {
     "invit" : '/api/Finance/invit',
     "spreadActive" : '/api/Finance/spreadActive',
 
-    "delKey" : '/api/Finance/delKey',
+    // "delKey" : '/api/Finance/delKey',
 
     "loginlog" : '/api/Security/loginlog',
     "basicinfo" : '/api/Security/basicinfo',
