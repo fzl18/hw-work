@@ -60,6 +60,12 @@
                         </span>
                         </div>
                     </section>
+                    <section class="form-group" v-if="userBasicinfo.ga_trans">
+                        <!-- <label>{{lang[local].payPassword}}</label> -->
+                        <div class="input-box">
+                        <input @keyup.enter="upmyzc" name="ga-password" type="password" v-model="gaPw" :placeholder="lang[local][4009]" />
+                        </div>
+                    </section>
                     <section class="form-group form-group-btn">
                         <a href="javascript:;" @click="upmyzc" class="form-submit-btn">{{lang[local].takeCoin}}{{this.getState == this.getStateStart ? '...' : ''}}</a>
                     </section>
@@ -110,7 +116,8 @@
                 sendCodeCount : 0,
                 walletList : [],
                 selectedWallet : {},
-                upList : 1
+                upList : 1,
+                gaPw:''
             }
         },
         computed : {
@@ -151,7 +158,7 @@
                     return false;
                 };
 
-                var {coin, addr, num, paypassword, moble_verify, sendCodeCount} = this;
+                var {coin, addr, num, paypassword, moble_verify, sendCodeCount,gaPw} = this;
                 if(!addr){
                     this.$store.commit('msg/err', this.lang[this.local].walletNoEmpty);
                     return false;
@@ -180,6 +187,10 @@
                     this.$store.commit('msg/err', this.lang[this.local].sendVerifCode);
                     return false;
                 };
+                if(gaPw == ''){
+                    this.$store.commit('msg/err', this.lang[this.local].ga1);
+                    return false;
+                };
                 if(moble_verify.length != 6){
                     this.$store.commit('msg/err', this.lang[this.local].enterVerifCode);
                     return false;
@@ -190,7 +201,7 @@
                     url : this.api.upmyzc,
                     data : {
                         coin : this.lowerCase(coin),
-                        addr, num, paypassword, email_verify:moble_verify, sendCodeCount
+                        addr, num, paypassword, email_verify:moble_verify, sendCodeCount,gaPw
                     },
                 }).then((res) => {
                     this.getSuccess();

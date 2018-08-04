@@ -6,7 +6,7 @@
                 <Col span="12" class="appinfo">
                     <p class="tit">Thanos  X   1.0</p>
                     <p class="txt">{{lang[local].apptxt}}</p>
-                    <p class="download"><a href="">ios下载</a><a href="">Android下载</a></p>
+                    <p class="download"><a href="">ios {{lang[local].appDownload}}</a><a href="">Android {{lang[local].appDownload}}</a></p>
                 </Col>
             </Row>
         </div>
@@ -48,9 +48,9 @@
             .txt{margin:20px 0;color:#979797}
             .download{
                 a{
-                    color:#fff;width:130px;
-                    font-size:18px;
-                    height:44px;line-height:40px;background: #FF7100;
+                    color:#fff;min-width:150px;
+                    font-size:18px;background: #FF7100;
+                    padding:8px 15px;
                     border:2px solid #FF7100;
                     border-radius:2px;text-align: center;
                     display: inline-block;margin-right:20px;

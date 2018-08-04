@@ -137,7 +137,7 @@ export const methods = {
     },
 
     // 发送验证码倒计时
-    verifyCodeDown (){
+    verifyCodeDown (phone){
         var i = this.verifyCodeTime;
         this.verifyCodeTimeText = i + 's';
         this.verifyCodeInterval = setInterval(() => {
@@ -149,8 +149,11 @@ export const methods = {
             };
             this.verifyCodeTimeText = i + 's';
         }, 1000);
-        console.log(this.$store,this.lang[this.local].emailTips)
-        this.$store.commit('msg/add', this.lang[this.local].emailTips);
+        if(phone == 'phone'){
+            this.$store.commit('msg/add', this.lang[this.local].phoneTips);
+        }else{
+            this.$store.commit('msg/add', this.lang[this.local].emailTips);
+        }
     },
 
     hideName (val){

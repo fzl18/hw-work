@@ -276,12 +276,12 @@ body,html{
         &.trade-user-entrust-media{
             dl{
                 dd{
-                    @media screen and (max-width: $tradeMedia1){
+                    @media screen and (max-width: 1920px){
                         &:nth-child(6){
-                            display: none;
+                            width: 10%;
                         }
                         &:nth-child(7){
-                            display: none;
+                            width: 10%;
                         }
                         &:nth-child(1){
                             width: 24%;

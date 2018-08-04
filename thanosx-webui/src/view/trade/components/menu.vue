@@ -75,7 +75,7 @@
             hasmain(){
                 let num = 0
                 // console.log(this.list,this.mainblock)
-                this.districtInfo && this.districtInfo[this.selectActive].map( d => {                    
+                this.districtInfo.length && this.districtInfo[this.selectActive].map( d => {                    
                     if(this.mainblock.indexOf(d.xnb) == -1){
                         num ++
                     }
@@ -86,7 +86,7 @@
             },
             hasnew(){
                 let num = 0
-                this.districtInfo && this.districtInfo[this.selectActive].map( d => {                    
+                this.districtInfo.length && this.districtInfo[this.selectActive].map( d => {                    
                     if(this.mainblock.indexOf(d.xnb) != -1){
                         num ++
                     }                    

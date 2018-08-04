@@ -25,8 +25,8 @@
             <span @click="clickRate(1)">100%</span>
         </section>
         <p class="total"></p>
-        <p class="usable">{{lang[local].total}}：{{totalPrice}} {{rmb}}</p>
-        <p class="usable">{{lang[local].buyMay}}：{{maxNum}} {{rmb}} </p>
+        <p class="usable" style="text-align:left;padding-left:15px;"><b>{{lang[local].total}}</b>：{{totalPrice}} {{rmb}}</p>
+        <p class="usable"><b>{{lang[local].buyMay}}</b>：{{maxNum}} {{rmb}} </p>
              <!-- <span>{{rateText}}</span> -->
              
         <p class="nologin" v-if="loginInfo.uid == '' || loginInfo.username == ''">

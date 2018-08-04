@@ -7,7 +7,7 @@
                 <ul >
                     <template v-for="(item,index) in list">
                     <li :key="item.id" :class=" index == cur ? item.last_count !=0 ? 'cur': 'nocur' : item.last_count ==0 &&  'nocur' " @click=" item.last_count !=0 && handselect(index)">
-                        <p class="tit">{{item.name}}</p>
+                        <p class="tit">{{item.is_default == 1 ? lang[local].icoDefault : item.name}}</p>
                         <p class="num"> {{item.is_default != 0 ? `${item.pay_amount} ${item.pay_coin} = ${item.get_amount} ${item.get_coin}` : `${item.get_amount} ${item.get_coin}`}} <br/>
                         <span> <template v-if="item.get_free_amount > 0"> {{lang[local].icoFree}} {{item.get_free_amount}} {{item.get_coin}}</template></span>
                         </p>
@@ -24,7 +24,7 @@
                 <div class="ctx">
                     <div class="input">
                         <ul>
-                            <li> {{lang[local].icoNum}}<input type="text" v-model="num" :disabled="cur > 0 ? true : false " :style="cur > 0 && 'cursor:not-allowed' " style="text-align:right;"/> <span>{{pay_coin}}</span> </li>
+                            <li> {{lang[local].icoNum}}<input type="text" v-model="num" :disabled="cur > 0 ? true : false " :style="cur > 0 && 'cursor:not-allowed' " style="text-align:right;"/> <span>{{lang[local].icoamount3}}</span> </li>
                             <li> {{lang[local].icoPw}}<input type="password" v-model="pw" /> </li>
                             <li> {{lang[local].icoVerify}}<input type="text" v-model="verify" />
                                 <span @click="sendVerify" class="getVerifCode" :class="classActive(verifyCodeTimeText == -1 || verifyCodeTimeText.length )">
@@ -181,6 +181,8 @@
                     this.pw = ''
                     this.verify = ''
                     this.count++
+                    clearInterval(this.verifyCodeInterval);
+                    this.verifyCodeTimeText = '';
                 }).catch((err) => {
                     this.$store.commit('msg/err', err.message || this.lang[this.local].otc27)
                 });

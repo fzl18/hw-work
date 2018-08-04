@@ -61,6 +61,9 @@
                     });
                 };
             },
+            local (){
+                location.href = process.env.NODE_ENV == 'development' ? '/trade.html' : '/home/trade/'
+            }
         },
         mounted () {
             // console.log(TradingView.onready);
@@ -195,7 +198,7 @@
                     interval: this.resolution,
                     datafeed: this.datafeed(),
                     library_path: process.env.NODE_ENV == 'development' ?  "/static/js/chart/" : '/public/home/static/js/chart/',
-                    locale: "zh",
+                    locale: this.local =="zhtw" ? "zh_TW" : this.local ,
                     timezone: "Asia/Shanghai",
                     charts_storage_api_version: "1.1",
                     client_id: 'tradingview.com',

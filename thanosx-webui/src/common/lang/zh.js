@@ -15,6 +15,7 @@ const zh = {
     "nameauthstatus2":"待审核",
 
     "emailTips":"已发送成功！请注意查收。如果邮箱中未收到验证码邮件，请检查垃圾箱！",
+    "phoneTips":"已发送成功！请注意查收。",
 
     "hometitle":"平台优势",
     "hometit1":"技术保障",
@@ -66,7 +67,7 @@ const zh = {
     "freeRegister" : "注册",
     "loginExit" : "退出",
     "followWechat" : "关注微信",
-    "appDownload" : "APP 下载",
+    "appDownload" : "下载",
     "appDownloadWeChat" : "请选择在浏览器打开进行下载",
     "$toDeal" : "$ 去交易",
 
@@ -756,6 +757,7 @@ const zh = {
 
 
     "icoTrade":"币币交易",
+    "icoDefault":"默认",
     "icotip1":"认购说明：1、认购额度：单笔最低为",
     "icotip11":"份，单笔最高为",
     "icotip12":"份；不限认购次数；",

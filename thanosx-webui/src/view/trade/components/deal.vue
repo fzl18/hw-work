@@ -84,21 +84,21 @@
                 //     text-align: right;
                 //     padding-right: 5px;
                 // }
-                @media screen and (max-width: $tradeMedia1){
-                    &:nth-child(1){
-                        width: 22%;
-                        text-align: center;
-                    }
-                    &:nth-child(2){
-                        display: none;
-                    }
-                    &:nth-child(3){
-                        width: 39%;
-                    }
-                    &:nth-child(4){
-                        width: 39%;
-                    }
-                }
+                // @media screen and (max-width: $tradeMedia1){
+                //     &:nth-child(1){
+                //         width: 22%;
+                //         text-align: center;
+                //     }
+                //     &:nth-child(2){
+                //         display: none;
+                //     }
+                //     &:nth-child(3){
+                //         width: 39%;
+                //     }
+                //     &:nth-child(4){
+                //         width: 39%;
+                //     }
+                // }
             }
             &.deal-head{
                 // border-bottom: solid 1px $tradeBorderColor;

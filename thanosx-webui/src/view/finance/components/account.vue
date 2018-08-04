@@ -38,7 +38,7 @@
                 </Col>
                 <Col span="8" class="txt">
                     <p>{{lang[local].accLogintime}}：{{userBasicinfo.last_login_time}}</p>
-                    <p >{{lang[local].accIp}}：{{userBasicinfo.last_login_ip}}</p>
+                    <p>{{lang[local].accIp}}：{{userBasicinfo.last_login_ip}}</p>
                 </Col>
             </Row>
         </section>
@@ -58,7 +58,7 @@
             <dl>
                 <dt><i class="iconfont icon-shouji"></i></dt>
                 <dd>{{lang[local].acctit3}}</dd>
-                <dd class="txt">{{lang[local].acctxt3}}<br/><span style="font-size:14px;">({{userBasicinfo.moble !='' ? userBasicinfo.district_code +' '+ userBasicinfo.moble : lang[local].accunbind}})</span></dd>
+                <dd class="txt">{{lang[local].acctxt3}}<br/><span style="font-size:14px;">({{userBasicinfo.moble ? userBasicinfo.district_code +' '+ userBasicinfo.moble : lang[local].accunbind}})</span></dd>
                 <dd class="btn"> <router-link to="/mobileBind" >{{userBasicinfo.moble !='' ? lang[local].accbtnrest : lang[local].accbtnbind}}</router-link></dd>
             </dl>
             <dl>

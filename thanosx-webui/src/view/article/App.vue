@@ -12,7 +12,7 @@
                             {{item.is_category ? item.type_name : item.title}}
                             </router-link>
                         </dd> -->
-                        <dd v-for="(item,index) in categories">
+                        <dd v-for="(item,index) in lang[local].newslistside">
                             <router-link :class=" (item.type_alias == curClass && 'active') || (item.type_alias == info.type_alias &&  'active') " 
                             :to="`/list/${item.type_alias }`">
                             {{item.is_category ? item.type_name : item.title}}

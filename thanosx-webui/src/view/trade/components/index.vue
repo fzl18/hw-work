@@ -555,6 +555,9 @@
         bottom: -5px;
         width: 100%;
         height: $bottomH;
+        .coo{
+            height:100%;
+        }
     }
     .trade-right-bottom{height:45%;}
     .trade-box{
@@ -574,7 +577,12 @@
     @media screen and (max-height: 700px) {
         .trade-right-bottom{height:55%;}
         .trade-right-top{bottom:55%;}
-        .trade-left-bottom{height:35%;}
+        .trade-left-bottom{            
+            height:35%;
+            .coo{
+                height:100%;
+            }
+        }
         .trade-left-top{bottom:35%;}
     }
 </style>

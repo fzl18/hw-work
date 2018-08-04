@@ -8,7 +8,7 @@
         </dl>
         <section class="entrust-main">
             <section class="entrust-sell entrust-body" style="border-top: 1px solid #444">
-                <happy-scroll :key="111" color="rgba(255, 255, 255, .3)"
+                <happy-scroll color="rgba(255, 255, 255, .3)"
                     resize
                 >
                 <div class="con">
@@ -18,9 +18,10 @@
                         <dd :title="numAccuracy(item[1])">{{numAccuracy(item[1])}}</dd>
                         <dd :title="priceAccuracy(item[0] * item[1])">{{priceAccuracy(item[0] * item[1])}}</dd>
                     </dl>
-                </div>                
+                    <load v-if="!depthState" class="trade-load" />
+                </div>                 
                 </happy-scroll>
-                <load v-if="!depthState" class="trade-load" />
+                
             </section>
             <!-- <section class="entrust-middle">
                 <span>
@@ -34,7 +35,7 @@
                 </div>
             </section> -->
             <section class="entrust-buy entrust-body">
-                <happy-scroll :key="111" color="rgba(255, 255, 255, .3)"
+                <happy-scroll color="rgba(255, 255, 255, .3)"
                     resize
                 >
                 <div class="con">
@@ -44,9 +45,10 @@
                     <dd :title="numAccuracy(item[1])">{{numAccuracy(item[1])}}</dd>
                     <dd :title="priceAccuracy(item[0] * item[1])">{{priceAccuracy(item[0] * item[1])}}</dd>
                 </dl>
+                <load v-if="!depthState" class="trade-load" />
                 </div>
                 </happy-scroll>
-                <load v-if="!depthState" class="trade-load" />
+                
             </section>
         </section>
     </section>
@@ -102,16 +104,16 @@
                 white-space:nowrap; overflow:hidden;  -ms-text-overflow: ellipsis;text-overflow: ellipsis;
                 padding-left:10px;
                 &:nth-child(1){
-                    width: 30%;
+                    width: 33%;
                     text-align: left;
                 }
                 &:nth-child(2){
-                    width: 30%;
+                    width: 33%;
                     text-align: left;
                     padding-right: 5px;
                 }
                 &:nth-child(3){
-                    width: 40%;
+                    width: 34%;
                     text-align: right;
                     padding-right: 5px;
                 }
@@ -120,20 +122,20 @@
                 //     text-align: right;
                 //     padding-right: 5px;
                 // }
-                @media screen and (max-width: $tradeMedia1){
-                    &:nth-child(1){
-                        width: 16%;
-                    }
-                    &:nth-child(2){
-                        width: 42%;
-                    }
-                    &:nth-child(3){
-                        width: 42%;
-                    }
-                    &:nth-child(4){
-                        display: none;
-                    }
-                }
+                // @media screen and (max-width: $tradeMedia1){
+                //     &:nth-child(1){
+                //         width: 16%;
+                //     }
+                //     &:nth-child(2){
+                //         width: 42%;
+                //     }
+                //     &:nth-child(3){
+                //         width: 42%;
+                //     }
+                //     &:nth-child(4){
+                //         display: none;
+                //     }
+                // }
             }
             &.entrust-head{
                 // border-bottom: solid 1px $tradeBorderColor;
@@ -208,7 +210,7 @@
         position: absolute;
         height: 45%;
         // padding-top: $entrustMiddleH / 2 + $mH;
-        padding-top: 0;
+        padding-top: 8px;
         // bottom: $mH;
         bottom: 10px;
         left: 0px;

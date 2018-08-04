@@ -49,7 +49,7 @@
                 <label class="checkbox-my">
                     <input type="checkbox" v-model="agreement" />
                     <i class="iconfont " :class=" !agreement ? 'icon-huisekuang':'icon-icon2' "></i>
-                    {{lang[local].loginAgree}}  <a href="">{{lang[local].PrivacyClause}} </a> & <a href="">{{lang[local].Agreement}} </a> 
+                    {{lang[local].loginAgree}}  <a :href="articleUrl + '/list/' + lang[local].newslistside[3].type_alias" target="_blank">{{lang[local].PrivacyClause}} </a> & <a :href="articleUrl + '/list/' + lang[local].newslistside[4].type_alias" target="_blank">{{lang[local].Agreement}} </a> 
                 </label> 
             </section>
             <section class="login-form-group">

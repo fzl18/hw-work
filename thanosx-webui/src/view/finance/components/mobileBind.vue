@@ -45,6 +45,7 @@
                 </section>
             </section>
         </section>
+        <msg />
     </section>
 </template>
 
@@ -133,10 +134,11 @@
                         district_code:this.param.districtcode,
                         mobile : this.phone
                     }
-                }).then((res) => {
+                }).then((res) => {                    
                     this.sendCodeCount ++;
-                    this.verifyCodeDown();
+                    this.verifyCodeDown('phone');
                 }).catch((err) => {
+                    this.$store.commit('msg/err', err.message);
                     this.verifyCodeTimeText = '';
                 });
             }
