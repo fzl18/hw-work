@@ -6,6 +6,6 @@ export const apiLogin = {
     "registerVerifyCode" : '/api/login/registerVerifyCode',
     "findpwdVerifyCode" : '/api/login/findpwdVerifyCode',
     "findpwd" : '/api/login/findpwd',
-    "radarLogin" : '/api/login/radarLogin',
+    // "radarLogin" : '/api/login/radarLogin',
 };
 

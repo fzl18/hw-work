@@ -6,7 +6,7 @@
                 <div class="txt"><i class="iconfont iconfont icon-logo"></i> <br /><b v-html="lang[local].icoTit"></b>  </div>
                 <ul >
                     <template v-for="(item,index) in list">
-                    <li :key="item.id" :class=" index == cur ?  'cur' : '' " @click="handselect(index)">
+                    <li :key="item.id" :class=" index == cur ? item.last_count !=0 ? 'cur': 'nocur' : item.last_count ==0 &&  'nocur' " @click=" item.last_count !=0 && handselect(index)">
                         <p class="tit">{{item.name}}</p>
                         <p class="num"> {{item.is_default != 0 ? `${item.pay_amount} ${item.pay_coin} = ${item.get_amount} ${item.get_coin}` : `${item.get_amount} ${item.get_coin}`}} <br/>
                         <span> <template v-if="item.get_free_amount > 0"> {{lang[local].icoFree}} {{item.get_free_amount}} {{item.get_coin}}</template></span>
@@ -41,16 +41,16 @@
                         </ul>
                         <a href="javascript:;" class="submit" @click="createOrders">{{lang[local].icoSubmit}}</a>
                     </div>
-                    <div class="amount">{{lang[local].icoUse}}：{{eth}} {{pay_coin}}    <span>{{lang[local].icoGet}}：{{getcoin}} {{get_coin}}</span></div>                    
+                    <div class="amount">{{lang[local].icoUse}}：{{parseFloat(eth)}} {{pay_coin}}    <span>{{lang[local].icoGet}}：{{getcoin}} {{get_coin}}</span></div>                    
                 </div>
                 <div class="tip">
-                    {{lang[local].icotip}}
+                    {{lang[local].icotip1}} {{list.length && parseFloat(list[cur].min_buy_count)}} {{lang[local].icotip11}} {{list.length && parseFloat(list[cur].max_buy_count)}} {{lang[local].icotip12}} {{lang[local].icotip2}}{{lang[local].icotip3}}
                 </div>               
             </div>            
         </section>
         <section class="list container">
             <div class="tit">{{lang[local].icoBuylog}}</div>
-            <list class="finance-coin-table" :url="api.ordersLists" >
+            <list class="finance-coin-table" :url="api.ordersLists" :param="listParam">
                 <dl slot="head">
                     <dd>{{lang[local].icotabhead1}}</dd>
                     <dd>{{lang[local].icotabhead2}}</dd>
@@ -94,6 +94,7 @@
                     verify : '',
                 },
                 eth:0,
+                count:0
             }
         },
         watch : {
@@ -105,10 +106,15 @@
                 this.param.verify = n.replace(/[^0-9]*/g, '');
             },
             "num" (n, o){
-                this.num = n && n.replace(/[^0-9]*/g, '');
+                this.num = n && n.replace(/^0[0-9]/g, '');
             },
         },
         computed : {
+            listParam (){
+                return {
+                    count : this.count,
+                };
+            },
             getcoin(){
                 if(this.list.length){
                      return this.cur ? (parseInt(this.list[this.cur].get_amount) + parseInt(this.list[this.cur].get_free_amount)) : this.num * parseInt(this.list[this.cur].get_amount)
@@ -129,8 +135,10 @@
                 }).then((res) => {
                     this.list = res.data.list
                     this.eth = res.data.eth || 0
-                    this.get_coin = res.data[0].get_coin
-                    this.pay_coin = res.data[0].pay_coin                    
+                    this.get_coin = res.data.list[0].get_coin
+                    this.pay_coin = res.data.list[0].pay_coin
+                    this.cur = res.data.list[0].last_count == 0 ? 1 : 0
+                    this.num = res.data.list[0].last_count == 0 ? '1' : '0'
                 }).catch((err) => {
                     // this.list = [];
                     this.showStatus = false;
@@ -172,6 +180,7 @@
                     this.$store.commit('msg/add', this.lang[this.local].otc26)
                     this.pw = ''
                     this.verify = ''
+                    this.count++
                 }).catch((err) => {
                     this.$store.commit('msg/err', err.message || this.lang[this.local].otc27)
                 });

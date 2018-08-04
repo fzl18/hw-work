@@ -309,7 +309,7 @@
                     return false;
                 };
                 if(this.param.username.length < 3){
-                    this.$store.commit('tips/show', this.lang[this.local].phoneError);
+                    this.$store.commit('tips/show', this.lang[this.local].emailError);
                     return false;
                 };
                 this.verifyCodeTimeText = -1;

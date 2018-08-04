@@ -6,7 +6,7 @@ import commonRouter from '../../../common/router'
 import login from '../components/login'
 import register from '../components/register'
 import resetPassword from '../components/resetPassword'
-import radarLogin from '../components/radarLogin'
+// import radarLogin from '../components/radarLogin'
 
 import store from '../store/index';
 import {toUrl} from "../../../common/api/api";
@@ -36,11 +36,11 @@ const router = new Router({
             name: 'resetPassword',
             component: resetPassword
         },
-        {
-            path: '/radarLogin',
-            name: 'radarLogin',
-            component: radarLogin
-        },
+        // {
+        //     path: '/radarLogin',
+        //     name: 'radarLogin',
+        //     component: radarLogin
+        // },
         ...commonRouter,
     ]
 });

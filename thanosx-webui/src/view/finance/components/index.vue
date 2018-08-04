@@ -9,6 +9,7 @@
         <section class="amount">
             <span>{{lang[local].totalAssets}}：</span>
             <b class="totalAssets" :class="classActive(!totalAssetsState)"> <span>{{ totalAssets}}</span></b>
+            <span style="font-size:13px;padding:3px 10px;display:inline-block;background:#999;color:#fff;line-height:20px;border-radius: 15px;">USDT</span>
         </section>
         <section class="tab_btn">
             <a href="javascript:;" :class="!cur ? 'cur' :'' " @click="hadndleTab(0)">{{lang[local].mainCoin}}</a>

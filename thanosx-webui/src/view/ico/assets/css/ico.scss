@@ -56,6 +56,24 @@ a{
                     }
                     .tit{background:#448193;}
                 }
+                &.nocur{
+                    background:#777;
+                    .total{opacity:1;}
+                    .num{
+                        span{opacity:1;}
+                    }
+                    .tit{background:#555;}                    
+                }                
+            }
+            li.nocur:hover{
+                background:#999;
+                height:100%;
+                cursor: not-allowed;
+                .total{opacity:1;}
+                .num{
+                    span{opacity:1;}
+                }
+                .tit{background:#777;}   
             }
         }    
     

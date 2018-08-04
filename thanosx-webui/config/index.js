@@ -4,7 +4,7 @@
 
 const path = require('path')
 
-const entry = ['index', 'finance', 'login', 'article', 'safety', 'otc', 'trade', 'mobile','ico'];
+const entry = ['index', 'finance', 'login', 'article', 'trade', 'ico'];
 
 var php = {};
 var build = {};

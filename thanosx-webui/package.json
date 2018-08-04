@@ -2,7 +2,7 @@
   "name": "ThanosX",
   "version": "1.0.0",
   "description": "ThanosX",
-  "author": "Richie <251567110@qq.com>",
+  "author": "",
   "private": true,
   "scripts": {
     "dev": "webpack-dev-server --inline --progress --config build/webpack.dev.conf.js",

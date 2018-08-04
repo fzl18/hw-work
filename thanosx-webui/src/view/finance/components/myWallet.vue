@@ -220,6 +220,10 @@
                     this.$store.commit('msg/err', this.lang[this.local].addWalletSuccess);
                     this.getData();
                     this.isShow = false
+                    addr=''
+                    addr_child=''
+                    coinname='' 
+                    name=''
                 }).catch((err) => {
                     console.log(err);
                     this.getError();
@@ -268,6 +272,9 @@
             },
             close (){
                 this.isShow = false
+                this.addr=''
+                this.coinname='' 
+                this.name=''
             }
         }
     }
