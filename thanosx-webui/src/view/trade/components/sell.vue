@@ -136,11 +136,11 @@
                     this.$store.commit('msg/err', this.xnb + this.lang[this.local].balanceEmpty);
                     return false;
                 };
-                if(!!!this.price && this.price * 1 > 0){
+                if(!!!this.price){
                     this.$store.commit('msg/err', this.lang[this.local].tradePriceEmpty);
                     return false;
                 };
-                if(!!!this.num && this.num * 1 > 0){
+                if(!!!this.num){
                     this.$store.commit('msg/err', this.lang[this.local].tradeNumEmpty);
                     return false;
                 };

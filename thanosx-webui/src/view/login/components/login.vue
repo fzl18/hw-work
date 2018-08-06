@@ -168,22 +168,15 @@
                         time : this.verifTipTime,
                         el : ".login-btn",
                     });
-                    // console.log(this.$route.query.origin)
-                    let url = location.protocol + '//' + location.host + '/home/'
-                    let org = this.$route.query.origin.replace(url,'').split('/')
-                    console.log(url,org)
-                    if(this.$route.query.origin){
-                        if(org[0].substring(0,4) != 'login'){
-                            location.href = this.$route.query.origin                            
+                    if(this.$route.query && this.$route.query.origin){
+                        if(this.$route.query.origin.indexOf('login') == -1){
+                            location.href = this.$route.query.origin
                         }else{
                             location.href = '/';
                         }
                     }else{
                         location.href = '/';
-
                     }
-                    
-
 
                 }).catch((err) => {
                     this.getState = this.getStateError;

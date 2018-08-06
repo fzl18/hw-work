@@ -791,22 +791,22 @@ const zh = {
 
     "newslist1":[
         {title:'服务交易',type_alias:''},
-        {title:'交易中心',type_alias:''},
-        {title:'帮助手册',type_alias:''},
-        {title:'意见反馈',type_alias:''}
+        {title:'交易中心',type_alias:'trade_center'},
+        {title:'帮助手册',type_alias:'help'},
+        {title:'意见反馈',type_alias:'feedback'}
     ],
     "newslist2":[
         {title:'条款说明',type_alias:''},
         {title:'隐私条款',type_alias:'privacy_policy'},
         {title:'用户协议',type_alias:'user_protocol'},
-        {title:'费率说明',type_alias:''}
+        {title:'费率说明',type_alias:'rate'}
     ], 
     "newslist3":[
         {title:'关于我们',type_alias:''},
         {title:'联系我们',type_alias:'contact_us'},
-        {title:'新闻公告',type_alias:''},
-        {title:'申请上币',type_alias:''}
-    ],   
+        {title:'新闻公告',type_alias:'news'},
+        {title:'申请上币',type_alias:'apply_coin'}
+    ],  
     "newslistside":[
         {title:'帮助中心',type_alias:'help'},
         {title:'公告通知',type_alias:'announcement'},

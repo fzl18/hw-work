@@ -66,7 +66,7 @@ const en = {
     "freeRegister" : "Registered",
     "loginExit" : "Exit",
     "followWechat" : "TODO-关注微信",
-    "appDownload" : "TODO-APP 下载",
+    "appDownload" : "Download",
     "appDownloadWeChat" : "Please choose to open it in the browser to download it",
     "$toDeal" : "TODO-$ 去交易",
 
