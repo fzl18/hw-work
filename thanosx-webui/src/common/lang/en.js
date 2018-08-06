@@ -64,7 +64,7 @@ const en = {
     "login2" : "Log in",
     "inviteLogin" : "Log in",
     "freeRegister" : "Registered",
-    "loginExit" : "Drop out",
+    "loginExit" : "Exit",
     "followWechat" : "TODO-关注微信",
     "appDownload" : "TODO-APP 下载",
     "appDownloadWeChat" : "Please choose to open it in the browser to download it",
@@ -116,7 +116,7 @@ const en = {
     "phone" : "Cellphone number",
     "email" : "Email address",
     "registerPhoneDes" : "TODO-可通过手机号找回密码",
-    "getVerifCode" : "Get verification code",
+    "getVerifCode" : "GetVlCode",
     "SMSVerifCode" : "SMS verification code",
     "emailVerifCode" : "Email verification code",
     "verifCode" : "Verification code",
@@ -328,7 +328,7 @@ const en = {
     "finance9" : "TODO-列表请求URL为空",
     "finance10" : "TODO-ThanosX平台 APP",
     "takeCoinNum" : "quantity",
-    "payPassword" : "transaction password",
+    "payPassword" : "password",
     "payPasswordNoEmpty" : "Transaction password cannot be empty",
 
     "selectWallet" : "address",
@@ -771,11 +771,11 @@ const en = {
     "ico10":"TODO-数量、交易密码、验证码不能为空",
     "ico11":"TODO-交易数量超限",
     "ico12":"TODO-交易数量只能是正整数",
-    "icoUse":"available",
-    "icoGet":"available",
+    "icoUse":"Existing",
+    "icoGet":"Available",
     "icoNum":"Quantity",
     "icoPw":"transaction password",
-    "icoVerify":"verification code",
+    "icoVerify":"CAPTCHA",
     "icoNum":"Quantity",
     "icoBuylog":"Purchase History",
     "icoTit":`<span>Coin</span>market`,
@@ -784,31 +784,31 @@ const en = {
     "icoamount2":"TODO-余",
     "icoamount3":"copies",
 
-    "selectCountry":"TODO-选择国家",
+    "selectCountry":"choose county",
 
 
     "newslist1":[
-        {title:'Service transaction',type_alias:''},
-        {title:'Trading Center',type_alias:''},
-        {title:'Help Manual',type_alias:''},
-        {title:'Feedback',type_alias:''}
+        {title:'SERVICE',type_alias:''},
+        {title:'Exchange',type_alias:''},
+        {title:'Help',type_alias:''},
+        {title:'Reaction',type_alias:''}
     ],
     "newslist2":[
-        {title:'Terms and conditions',type_alias:''},
+        {title:'POLICIES',type_alias:''},
         {title:'Privacy Policy',type_alias:'privacy_policy'},
-        {title:'User Agreement',type_alias:'user_protocol'},
-        {title:'Rate Description',type_alias:''}
+        {title:'EULA',type_alias:'user_protocol'},
+        {title:'Tariff',type_alias:''}
     ], 
     "newslist3":[
-        {title:'about us',type_alias:''},
-        {title:'Contact us',type_alias:'contact_us'},
-        {title:'press announcement',type_alias:''},
-        {title:'apply for the currency',type_alias:''}
+        {title:'About us',type_alias:''},
+        {title:'Contact',type_alias:'contact_us'},
+        {title:'News',type_alias:''},
+        {title:'Apply to List',type_alias:''}
     ],   
     "newslistside":[
-        {title:'帮助中心',type_alias:'help'},
-        {title:'公告通知',type_alias:'announcement'},
-        {title:'新闻消息',type_alias:'news'},
+        {title:'Help',type_alias:'help'},
+        {title:'Notice',type_alias:'announcement'},
+        {title:'News',type_alias:'news'},
         {title:'Privacy Policy',type_alias:'privacy_policy'},
         {title:'User Agreement',type_alias:'user_protocol'},
         {title:'Contact us',type_alias:'contact_us'},

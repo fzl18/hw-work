@@ -12,7 +12,7 @@ if (type == "Netscape"){
 　　langtype = navigator.userLanguage
 };
 if(!localStorage.curLang){
-    if (langtype == "zh-CN"){
+    if (langtype == "zh-CN" || langtype == "zh"){
         local="zh"
     }else if(langtype == "zh-TW"){
         local="zhtw"

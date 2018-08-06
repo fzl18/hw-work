@@ -1,4 +1,4 @@
-const zh = {
+const zhtw = {
     //头部
     "webName" : 'ThanosX',
     "home" : "首頁",
@@ -14,7 +14,7 @@ const zh = {
     "nameauthstatus1":"未認證",
     "nameauthstatus2":"待審核",
 
-    "emailTips":"TODO-已发送成功！请注意查收。如果邮箱中未收到验证码邮件，请检查垃圾箱！",
+    "emailTips":"已發送成功！請注意查收。如果郵箱中未收到驗證碼郵件，請檢查垃圾箱！",
 
     "hometitle":"平台優勢",
     "hometit1":"技術保障",
@@ -40,7 +40,7 @@ const zh = {
     "platformIntroduction" : "TODO-平台介绍",
     "teamIntroduction" : "TODO-团队介绍",
     "latestAnnouncement" : "TODO-最新公告",
-    "helpCenter" : "TODO-帮助中心",
+    "helpCenter" : "幫助中心",
     "contactUs" : "聯繫我們",
     "transactionRelated" : "TODO-交易相关",
     "accountCenter" : "TODO-账户中心",
@@ -131,19 +131,19 @@ const zh = {
     "password2" : "必須包含數字、特殊字符",
     "password3" : "必須包含大、小寫字母",
     "passwordConfirm" : "交易密碼不一致",
-    "sendVerifCode" : "TODO-请先发送验证码",
+    "sendVerifCode" : "請先發送驗證碼",
     "enterVerifCode" : "TODO-请输入6位数字验证码",
     "sendVerifCodeError" : "驗證碼發送失敗，請重試",
     "resetPasswordTitle" : "重置密碼",
     "loginPassword" : "登錄密碼",
     "confirm" : "確定",
-    "confirmPassword" : "TODO-确定密码",
+    "confirmPassword" : "確定密碼",
     "loginTitle" : "登錄",
     "registerTitle" : "註冊",
     "radarLoginTitle" : "TODO-XXX钱包登录",
     "registerDes" : "TODO-绝佳交易体验，尽在ThanosX",
-    "agreementTip" : "TODO-请阅读并同意",
-    "registerAgreement" : "TODO-ThanosX 用户服务协议",
+    "agreementTip" : "請閱讀並同意",
+    "registerAgreement" : "ThanosX 用戶服務協議",
     "registerSuccess" : "註冊成功",
     "registerError" : "註冊失敗",
     "loginError" : "登錄失敗",
@@ -481,7 +481,7 @@ const zh = {
     "myDeal_OrderTime" : "成交時間",
     "myDeal_Asset" : "資產",
     "myDeal_OrderType" : "類型",
-    "myDeal_Price" : "TODO-成交价格",
+    "myDeal_Price" : "成交價格",
     "myDeal_Count" : "成交數量",
     "myDeal_Turnover" : "成交金額",
     "myDeal_ServiceCharge" : "手續費",
@@ -756,6 +756,7 @@ const zh = {
 
 
     "icoTrade":"幣幣交易",
+    "icoDefault":"默認",
     "icotip1":"認購說明：1、認購額度：單筆最低為",
     "icotip11":"TOD0-份，单笔最高为",
     "icotip12":"TODO-份；不限认购次数；",
@@ -768,9 +769,9 @@ const zh = {
     "icotabhead4":"單價",
     "icotabhead5":"贈送數量",
     "icotabhead6":"購得數量",
-    "ico10":"TODO-数量、交易密码、验证码不能为空",
-    "ico11":"TODO-交易数量超限",
-    "ico12":"TODO-交易数量只能是正整数",
+    "ico10":"數量、交易密碼、驗證碼不能為空",
+    "ico11":"交易數量超限",
+    "ico12":"交易數量只能是正整數",
     "icoUse":"可用",
     "icoGet":"可得",
     "icoNum":"數量",
@@ -808,7 +809,7 @@ const zh = {
     "newslistside":[
         {title:'帮助中心',type_alias:'help'},
         {title:'公告通知',type_alias:'announcement'},
-        {title:'新闻消息',type_alias:'news'},
+        {title:'新聞消息',type_alias:'news'},
         {title:'隱私條款',type_alias:'privacy_policy'},
         {title:'用戶協議',type_alias:'user_protocol'},
         {title:'聯繫我們',type_alias:'contact_us'},
@@ -816,4 +817,4 @@ const zh = {
 
 };
 
-export default zh
+export default zhtw
