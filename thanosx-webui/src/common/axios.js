@@ -56,6 +56,12 @@ instance.interceptors.response.use(function (res) {
     if(res.data && res.data.code && res.data.code == 1000){
         return Promise.resolve(res.data);
     }else{
+        //20003 重新登录
+        if(res.data && res.data.code && res.data.code == 20003){
+            this.$store.commit('login/loginStatus', false);
+            this.$store.commit('login/loginGetStatus', false);
+            this.$router.push(loginUrl);
+        }        
         return Promise.reject({code : res.data.code, message : (res.data  && res.data.message) || (res.config.url.replace(res.config.baseURL, '') + '<br />PHP Response Error！(*^▽^*)')});
     };
 }, function (error) {

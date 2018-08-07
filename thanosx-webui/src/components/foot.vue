@@ -4,9 +4,9 @@
             <div class="link">
                 <dl>
                     <dt><a href="javascript:;">{{lang[local].newslist1[0].title}}</a>></dt>
-                    <dd><a :href="articleUrl + '/list/' + lang[local].newslist1[1].type_alias">{{lang[local].newslist1[1].title}}</a></dd>
+                    <dd><a :href="tradeUrl">{{lang[local].newslist1[1].title}}</a></dd>
                     <dd><a :href="articleUrl + '/list/' + lang[local].newslist1[2].type_alias">{{lang[local].newslist1[2].title}}</a></dd>
-                    <dd><a :href="articleUrl + '/list/' + lang[local].newslist1[3].type_alias">{{lang[local].newslist1[3].title}}</a></dd>
+                    <dd><a href="mailto:contact@thanosx.com">{{lang[local].newslist1[3].title}}</a></dd>
                 </dl>
                 <dl style="text-align:center">
                     <dt><a href="javascript:;">{{lang[local].newslist2[0].title}}</a>></dt>
@@ -24,7 +24,7 @@
             <Row class="copyright">
                 <Col span="12">
                     <p>Copyright ©2018 All Rights Reserved</p>
-                    <p><a href="mailto:admin@gmail.com">Email：admin@gmail.com</a></p>
+                    <p><a href="mailto:contact@thanosx.com">Email：contact@thanosx.com</a></p>
                 </Col>
                 <Col span="12">
                     <p class="other">

@@ -24,9 +24,9 @@
                 <div class="ctx">
                     <div class="input">
                         <ul>
-                            <li> {{lang[local].icoNum}}<input type="text" v-model="num" :disabled="cur > 0 ? true : false " :style="cur > 0 && 'cursor:not-allowed' " style="text-align:right;"/> <span>{{lang[local].icoamount3}}</span> </li>
-                            <li> {{lang[local].icoPw}}<input type="password" v-model="pw" /> </li>
-                            <li> {{lang[local].icoVerify}}<input type="text" v-model="verify" />
+                            <li> {{lang[local].icoNum}} : <input type="text"  v-model="num" :disabled="cur > 0 ? true : false " :style=" cur > 0 && 'cursor:not-allowed' " style="text-align:left;width:76%" /> <!--<span>{{lang[local].icoamount3}}</span> --></li>
+                            <li> {{lang[local].icoPw}} : <input type="password" v-model="pw" style="width:76%"/> </li>
+                            <li> {{lang[local].icoVerify}} : <input type="text" v-model="verify" style="width:56%"/>
                                 <span @click="sendVerify" class="getVerifCode" :class="classActive(verifyCodeTimeText == -1 || verifyCodeTimeText.length )">
                                     {{
                                         verifyCodeTimeText == -1
@@ -60,9 +60,9 @@
                     <dd>{{lang[local].icotabhead6}}</dd>
                 </dl>
                 <dl slot="body" slot-scope="{item}" :key="item.id">
-                    <dd>{{item.buy_time}}</dd>
+                    <dd>{{localDate(item.buy_time)}}</dd>
                     <dd>{{item.pay_amount}}</dd>
-                    <dd>{{item.pay_type}}</dd>
+                    <dd>{{item.pay_type.toUpperCase()}}</dd>
                     <dd>{{item.price}}</dd>
                     <dd>{{item.free_amount}}</dd>
                     <dd>{{item.get_amount}}</dd>

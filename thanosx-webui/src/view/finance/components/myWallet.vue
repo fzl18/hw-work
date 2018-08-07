@@ -2,7 +2,7 @@
     <section>
         <financeHeader>
             <span>{{lang[local].myWallet}}</span>
-            <span class="addWallet" @click=" isShow = true" > + 添加钱包</span>
+            <span class="addWallet" @click=" isShow = true" > + {{lang[local].addmyWallet}}</span>
         </financeHeader>
         <section class="myWallet-box">
         
@@ -220,10 +220,10 @@
                     this.$store.commit('msg/err', this.lang[this.local].addWalletSuccess);
                     this.getData();
                     this.isShow = false
-                    addr=''
-                    addr_child=''
-                    coinname='' 
-                    name=''
+                    this.addr=''
+                    this.addr_child=''
+                    this.coinname='' 
+                    this.name=''
                 }).catch((err) => {
                     console.log(err);
                     this.getError();

@@ -2,7 +2,8 @@
 const state = {
     loginStatus : false,
     loginGetStatus : false,
-    loginInfo : {}
+    loginInfo : {},
+    nameauthStatus:0,
 };
 
 const getters = {
@@ -27,7 +28,10 @@ const mutations = {
     },
     loginGetStatus (state, val){
         state.loginGetStatus = val;
-    }
+    },
+    nameauthStatus (state, val){
+        state.nameauthStatus = val;
+    },
 };
 
 export default {

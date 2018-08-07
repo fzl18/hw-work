@@ -20,7 +20,7 @@
                 <dd>{{lang[local].entrustNum}}</dd>
                 <dd>{{lang[local].entrustTurnover}}</dd>
                 <dd>{{lang[local].unsettled}}</dd>
-                <dd>{{lang[local].operation}}</dd>
+                <dd :title="lang[local].operation">{{lang[local].operation}}</dd>
             </dl>
             <dl slot="body" slot-scope="{item}">
                 <dd>{{localDate(item.order_time)}}</dd>
@@ -35,7 +35,7 @@
                 <dd>{{item.deal}}</dd>
                 <dd>{{item.count}}</dd>
                 <dd>
-                    <a href="javascript:;" @click="chexiao(item)">{{lang[local].annul}}{{item.chexiao ? '...' : ''}}</a>
+                    <a :title="lang[local].annul" href="javascript:;" @click="chexiao(item)">{{lang[local].annul}}{{item.chexiao ? '...' : ''}}</a>
                 </dd>
             </dl>
         </list>

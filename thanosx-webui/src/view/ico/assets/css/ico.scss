@@ -91,7 +91,7 @@ a{
             ul{
                 width:89%;
                 li{
-                    float: left;width: 30%;margin-right:3%;border-bottom:3px solid #438293;line-height: 30px;padding-bottom:3px; position: relative;
+                    float: left;width: 30%;margin-right:3%;line-height: 30px;padding-bottom:3px; position: relative;
                     span{
                         position: absolute;right: 0;top:0px;cursor: pointer;
                     }
@@ -100,7 +100,7 @@ a{
             }
             
             
-            input{border:none;background: none; color:#fff;padding-left:10px;width:70%}
+            input{border:none;background: none; color:#fff;padding-left:10px;width:80%;border:1px solid #438293;}
         }
         .amount{
             margin-top:20px;width: 27%;
@@ -110,7 +110,7 @@ a{
             float: right;
             text-align: center;
             color:#fff;
-            padding:12px 45px;
+            padding:12px 25px;
             background: #215C6C;
         }
         .tip{background:#357080;padding:20px 30px;color:#9BC7D6;}

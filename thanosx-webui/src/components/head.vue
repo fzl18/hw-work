@@ -32,10 +32,10 @@
                     <div v-if="loginGetStatus && loginStatus" class="login">
                         <div class="login-name">
                                <i class="iconfont icon-yonghu-yuan" style="font-size:20px;margin-left:15px;"></i>
-                                <span>{{loginInfo.username.slice(0,15) }}{{loginInfo.username.length > 15 && '...'}}</span>
+                                <span>{{loginInfo.username.slice(0,15) }}{{loginInfo.username.length > 15 ? '...':''}}</span>
                             <ul>
                                 <li @click="goto(financeUrl)">{{lang[local].mymoney}}<!-- <a :href="" style="float:right;color:#FF6500;">{{lang[local].view}}</a>--> </li>
-                                <li @click="goto()">{{lang[local].accountSetting}} <a :href="financeUrl+'/account'"><span class="state">{{loginInfo.nameauthstatus==1 ? lang[local].nameauthstatus :loginInfo.nameauthstatus == 0 ? lang[local].nameauthstatus2 : lang[local].nameauthstatus1 }}</span> </a></li>
+                                <li @click="goto()">{{lang[local].accountSetting}} <a :href="financeUrl+'/account'"><span class="state">{{nameauthStatus==1 ? lang[local].nameauthstatus :nameauthStatus == 0 ? lang[local].nameauthstatus2 : lang[local].nameauthstatus1 }}</span> </a></li>
                                 <li @click="logout" class="exit"> <i class="iconfont icon-tuichu1"></i> {{lang[local].loginExit}}</li>
                             </ul>
                         </div>
@@ -92,14 +92,15 @@
             },
             toUrl (item){                
                 if(process.env.NODE_ENV == 'development'){
-                    if(item == 'newbies'){
-                        return '/article.html/49';
-                    };
+                    // if(item == 'whitebook'){
+                    //     return '/public/static/white_paper.pdf';
+                    // };
                     return '/' + (item == 'home' ? 'index' : item) + '.html';
                 }else{
-                    if(item == 'newbies'){
-                        return '/home/article/49';
-                    };
+                    // if(item == 'whitebook'){
+                    //     return '/public/static/white_paper.pdf';
+                    // };
+                    
                     return '/home/' + (item == 'home' ? 'index' : item);
                 }
                 
@@ -119,6 +120,12 @@
                         }
                         return
                     }
+
+                    if(item == 'whitebook'){
+                        window.open('/public/static/white_paper.pdf')
+                        return
+                    }
+
                     location.href = this.toUrl(item);
                 };
             },

@@ -6,7 +6,8 @@
                 <Col span="12" class="appinfo">
                     <p class="tit">Thanos  X   1.0</p>
                     <p class="txt">{{lang[local].apptxt}}</p>
-                    <p class="download"><a href="">ios {{lang[local].appDownload}}</a><a href="">Android {{lang[local].appDownload}}</a></p>
+                    <!-- <p class="download"><a href="">ios {{lang[local].appDownload}}</a><a href="">Android {{lang[local].appDownload}}</a></p> -->
+                    <p class="download" style="font-size:24px;font-weight:bold;color:#FF7100">{{lang[local].appCome}}</p>
                 </Col>
             </Row>
         </div>

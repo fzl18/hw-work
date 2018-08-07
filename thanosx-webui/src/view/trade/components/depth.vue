@@ -18,9 +18,9 @@
                         <dd :title="numAccuracy(item[1])">{{numAccuracy(item[1])}}</dd>
                         <dd :title="priceAccuracy(item[0] * item[1])">{{priceAccuracy(item[0] * item[1])}}</dd>
                     </dl>
-                    <load v-if="!depthState" class="trade-load" />
-                </div>                 
+                </div>
                 </happy-scroll>
+                    <load v-if="!depthState" class="trade-load" style="position: absolute;top:50%"/>
                 
             </section>
             <!-- <section class="entrust-middle">
@@ -45,9 +45,9 @@
                     <dd :title="numAccuracy(item[1])">{{numAccuracy(item[1])}}</dd>
                     <dd :title="priceAccuracy(item[0] * item[1])">{{priceAccuracy(item[0] * item[1])}}</dd>
                 </dl>
-                <load v-if="!depthState" class="trade-load" />
                 </div>
                 </happy-scroll>
+                <load v-if="!depthState" class="trade-load" style="position: absolute;top:50%" />
                 
             </section>
         </section>

@@ -187,10 +187,11 @@
                     this.$store.commit('msg/err', this.lang[this.local].sendVerifCode);
                     return false;
                 };
-                if(gaPw == ''){
+                if(this.userBasicinfo.gabind && this.gaPw == ''){
                     this.$store.commit('msg/err', this.lang[this.local].ga1);
                     return false;
                 };
+
                 if(moble_verify.length != 6){
                     this.$store.commit('msg/err', this.lang[this.local].enterVerifCode);
                     return false;

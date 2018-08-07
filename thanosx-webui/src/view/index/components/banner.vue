@@ -9,24 +9,25 @@
             </div>
             <ul class="bar">
                 <li class="bbox">
-                    <p>今日待分配收入累计折合</p>
-                    <p class="hot"><Icon type="social-bitcoin" color="#FFA202" /> 46.000990008</p>
-                    <p>连续持有TNSX每百万收入折合 <Icon type="social-bitcoin" color="#FFA202" /> 21354488</p>
-                    <div class="jiao"></div>
-                </li>
-                <li class="bbox" style="margin:0 2%">
-                    <template v-for=" item in helplist.list" >
+                    <template v-for=" item in help_data.list" >
                         <p><a :href="articleUrl + '/info/' + item.id ">{{item.title}}</a></p>
                     </template>
-                        <p class="more"><a :href="articleUrl + '/list/' + helplist.type_alias">{{lang[local].viewMore}}</a></p>
+                        <p class="more"><a :href="articleUrl + '/list/' + help_data.type_alias">{{lang[local].viewMore}}</a></p>
+                        <div class="jiao"></div>
+                </li>
+                <li class="bbox" style="margin:0 2%">
+                    <template v-for=" item in news_data.list" >
+                        <p><a :href="articleUrl + '/info/' + item.id ">{{item.title}}</a></p>
+                    </template>
+                        <p class="more"><a :href="articleUrl + '/list/' + news_data.type_alias">{{lang[local].viewMore}}</a></p>
                         <div class="jiao"></div>
                     
                 </li>
                 <li class="bbox">
-                    <template v-for=" item in noticelist.list" >
+                    <template v-for=" item in notice_data.list" >
                         <p><a :href="articleUrl + '/info/' + item.id ">{{item.title}}</a></p>
                     </template>
-                    <p class="more"><a :href="articleUrl + '/list/' + noticelist.type_alias">{{lang[local].viewMore}}</a></p>
+                    <p class="more"><a :href="articleUrl + '/list/' + notice_data.type_alias">{{lang[local].viewMore}}</a></p>
                     <div class="jiao"></div>
                 </li>
             </ul>            
@@ -50,8 +51,9 @@
                 time : 0,
                 timeInterval : null,
                 slideLength : 1,
-                helplist:[],
-                noticelist:[],
+                help_data:[],
+                news_data:[],
+                notice_data:[],
             };
         },
         created (){
@@ -90,8 +92,9 @@
                     }
                 }).then((res) => {
                     let list = res.data || [];
-                    this.helplist = list.help_data || []
-                    this.noticelist = list.notice_data || []
+                    this.help_data = list.help_data || []
+                    this.notice_data = list.notice_data || []
+                    this.news_data = list.news_data || []
                     this.noticeShowStatus = true;
                 }).catch((err) => {
                     this.noticeShowStatus = false;

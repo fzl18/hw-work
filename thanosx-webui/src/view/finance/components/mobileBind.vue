@@ -123,10 +123,10 @@
                 if(this.verifyCodeTimeText){
                     return false;
                 };
-                if(this.phone.length != 11){
-                    this.$store.commit('msg/err', this.lang[this.local].phoneError);
-                    return false;
-                };
+                // if(this.phone.length != 11){
+                //     this.$store.commit('msg/err', this.lang[this.local].phoneError);
+                //     return false;
+                // };
                 this.verifyCodeTimeText = -1;
                 this.axios({
                     url : this.api.upmobleVerify,

@@ -7,6 +7,7 @@ const zhtw = {
     "ico":"幣幣交易",
     "app":"下載app",
     //
+    "appCome":"即將發佈敬請期待",
     "apptxt":"自主研發撮合系統，能每秒處理上萬筆交易,算法支持多種專業交易",
     "mymoney":"我的資產",
     "accountSetting":"賬戶設置",
@@ -446,7 +447,7 @@ const zhtw = {
     "uploadFile1" : "上傳圖片成功",
     "uploadFile2" : "上傳圖片失敗",
     "uploadpicbtn" : "上傳",
-    
+    "addmyWallet":"添加錢包",
 
     "myAssets" : "我的資產",
     "myBankCard" : "TODO-我的银行卡",
@@ -506,11 +507,11 @@ const zhtw = {
     "pushCoinError" : "獲取充幣地址失敗",
 
     "takeCoin" : "提幣",
-    "takeCoinBan" : "TODO-钱包维护",
+    "takeCoinBan" : "錢包維護",
     "takeCoinRecord" : "提幣記錄",
     "takeCoinTime" : "時間",
     "takeCoinId" : "轉賬HASH",
-    "takeCoinURL" : "TODO-提币地址",
+    "takeCoinURL" : "提幣地址",
     "takeCoinState" : "狀態",
     "takeCoinSuccess" : "提幣成功",
     "takeCoinError" : "提幣失敗",
@@ -518,13 +519,13 @@ const zhtw = {
     "takeCoinNumEmpty2" : "可用數量小於手續費+最小數量",
     "takeCoinNumMin" : "不能小於最小轉出數量",
     "takeCoinNumMax" : "不能大於最大轉出數量",
-    "takeCoinExplain1" : "TODO-提币说明：",
-    "takeCoinExplain2" : "TODO-1、为了您账户的安全，转出币是由人工处理，您提交后，工作人员将在1个工作日内处理。",
-    "takeCoinExplain3" : "TODO-2、由于网络稳定性，部分操作可能会出现延时，请耐心等待。",
-    "takeCoinExplain4" : "TODO-3、提币手续费为：",
-    "takeCoinExplain5" : "TODO-个",
-    "takeCoinExplain6" : "TODO-4、单笔最小转出数量",
-    "takeCoinExplain7" : "TODO-单笔最大转出数量",
+    "takeCoinExplain1" : "提幣說明：",
+    "takeCoinExplain2" : "1、為了您帳戶的安全，轉出幣是由人工處理，您提交後，工作人員將在1個工作日內處理。",
+    "takeCoinExplain3" : "2、由於網絡穩定性，部分操作可能會出現延時，請耐心等待。",
+    "takeCoinExplain4" : "3、提幣手續費為：",
+    "takeCoinExplain5" : "个",
+    "takeCoinExplain6" : "4、單筆最小轉出數量",
+    "takeCoinExplain7" : "單筆最大轉出數量",
 
     "transfer" : "TODO-转出",
     "transferBan" : "TODO-禁止转出",
@@ -534,9 +535,9 @@ const zhtw = {
     "receiveCoinUser" : "TODO-对方账号",
     "transferCoinNumEmpty" : "TODO-转出数量不能为空",
     "receiveCoinUserEmpty" : "TODO-接收账号不能为空",
-    "transferCoinSuccess" : "TODO-转出成功",
-    "transferCoinSuccess2" : "TODO-转入成功",
-    "transferCoinError" : "TODO-转出失败",
+    "transferCoinSuccess" : "轉出成功",
+    "transferCoinSuccess2" : "轉入成功",
+    "transferCoinError" : "轉出失敗",
 
     "transferCoinTime" : "時間",
     "transferCoinId" : "ID",
@@ -785,26 +786,26 @@ const zhtw = {
     "icoamount2":"餘",
     "icoamount3":"份",
 
-    "selectCountry":"TODO-选择国家",
+    "selectCountry":"選擇國家或地區",
 
 
     "newslist1":[
         {title:'服務交易',type_alias:''},
-        {title:'交易中心',type_alias:''},
-        {title:'幫助手冊',type_alias:''},
-        {title:'意見反饋',type_alias:''}
+        {title:'交易中心',type_alias:'trade_center'},
+        {title:'幫助手冊',type_alias:'help'},
+        {title:'意見反饋',type_alias:'feedback'}
     ],
     "newslist2":[
         {title:'條款說明',type_alias:''},
         {title:'隱私條款',type_alias:'privacy_policy'},
         {title:'用戶協議',type_alias:'user_protocol'},
-        {title:'費率說明',type_alias:''}
+        {title:'費率說明',type_alias:'rate'}
     ], 
     "newslist3":[
         {title:'關於我們',type_alias:''},
         {title:'聯繫我們',type_alias:'contact_us'},
-        {title:'新聞公告',type_alias:''},
-        {title:'申請上幣',type_alias:''}
+        {title:'新聞公告',type_alias:'news'},
+        {title:'申請上幣',type_alias:'apply_coin'}
     ],   
     "newslistside":[
         {title:'帮助中心',type_alias:'help'},

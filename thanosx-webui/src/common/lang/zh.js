@@ -7,6 +7,7 @@ const zh = {
     "ico":"币币市场",
     "app":"下载APP",
     //
+    "appCome":"即将发布 敬请期待",
     "apptxt":"自主研发撮合系统，能每秒处理上万笔交易,算法支持多种专业交易",
     "mymoney":"我的资产",
     "accountSetting":"账户设置",
@@ -447,7 +448,7 @@ const zh = {
     "uploadFile1" : "上传图片成功",
     "uploadFile2" : "上传图片失败",
     "uploadpicbtn" : "上传",
-    
+    "addmyWallet":"添加钱包",
 
     "myAssets" : "我的资产",
     "myBankCard" : "我的银行卡",

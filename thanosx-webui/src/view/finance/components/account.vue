@@ -37,7 +37,7 @@
                     </p>
                 </Col>
                 <Col span="8" class="txt">
-                    <p>{{lang[local].accLogintime}}：{{userBasicinfo.last_login_time}}</p>
+                    <p>{{lang[local].accLogintime}}：{{localDate(userBasicinfo.last_login_time)}}</p>
                     <p>{{lang[local].accIp}}：{{userBasicinfo.last_login_ip}}</p>
                 </Col>
             </Row>
@@ -52,14 +52,14 @@
             <dl>
                 <dt><i class="iconfont icon-yuechi"></i></dt>
                 <dd>{{lang[local].acctit2}}</dd>
-                <dd class="txt">{{lang[local].acctxt2}} <span>({{userBasicinfo.paypassword ? lang[local].safety9 : lang[local].safety10}})</span></dd>
+                <dd class="txt" :style="local == 'en' && 'font-size:12px;line-height:16px' ">{{lang[local].acctxt2}} <span>({{userBasicinfo.paypassword ? lang[local].safety9 : lang[local].safety10}})</span></dd>
                 <dd class="btn"> <router-link to="/setTradePassword" >{{userBasicinfo.paypassword ? lang[local].accbtnrest :lang[local].accbtnset}}</router-link></dd>
             </dl>
             <dl>
                 <dt><i class="iconfont icon-shouji"></i></dt>
                 <dd>{{lang[local].acctit3}}</dd>
-                <dd class="txt">{{lang[local].acctxt3}}<br/><span style="font-size:14px;">({{userBasicinfo.moble ? userBasicinfo.district_code +' '+ userBasicinfo.moble : lang[local].accunbind}})</span></dd>
-                <dd class="btn"> <router-link to="/mobileBind" >{{userBasicinfo.moble !='' ? lang[local].accbtnrest : lang[local].accbtnbind}}</router-link></dd>
+                <dd class="txt" :style="local == 'en' && 'font-size:12px;line-height:16px' ">{{lang[local].acctxt3}}<br/><span style="font-size:14px;">({{userBasicinfo.moble ? userBasicinfo.district_code +' '+ userBasicinfo.moble : lang[local].accunbind}})</span></dd>
+                <dd class="btn"> <router-link to="/mobileBind" >{{userBasicinfo.moble ? lang[local].accbtnrest : lang[local].accbtnbind}}</router-link></dd>
             </dl>
             <dl>
                 <dt><i class="iconfont icon-yanzheng"></i></dt>
@@ -73,21 +73,21 @@
         <h4 class="finance-title">
             <span>{{lang[local].loginLog}}</span>
         </h4>
-        <list class="finance-coin-table" :url="api.loginlog" >
+        <list class="finance-coin-table" :url="api.loginlog" :param="count">
             <dl slot="head">
-                <dd>{{lang[local].safety31}}</dd>
-                <dd>{{lang[local].safety32}}</dd>
-                <dd>{{lang[local].safety35}}</dd>
-                <dd>{{lang[local].safety36}}</dd>
-                <dd>{{lang[local].safety34}}</dd>
+                <dd style="width:25%">{{lang[local].safety31}}</dd>
+                <dd style="width:25%">{{lang[local].safety32}}</dd>
+                <dd style="width:25%">{{lang[local].safety35}}</dd>
+                <dd style="width:25%">{{lang[local].safety36}}</dd>
+                <!-- <dd>{{lang[local].safety34}}</dd> -->
                 <!-- <dd>{{lang[local].state}}</dd> -->
             </dl>
             <dl slot="body" slot-scope="{item}" :key="item.id">
-                <dd>{{localDate(item.addtime)}}</dd>
-                <dd>{{item.type}}</dd>
-                <dd>{{item.addip}}</dd>
-                <dd>{{item.addr}}</dd>
-                <dd>{{item.remark}}</dd>
+                <dd style="width:25%">{{localDate(item.addtime)}}</dd>
+                <dd style="width:25%">{{item.type}}</dd>
+                <dd style="width:25%">{{item.addip}}</dd>
+                <dd style="width:25%">{{item.addr}}</dd>
+                <!-- <dd>{{item.remark}}</dd> -->
                 <!-- <dd>{{item.status == 1 ? lang[local].normal : lang[local].otc21}}</dd> -->
             </dl>
         </list>
@@ -102,12 +102,18 @@
                 updatePwdStatus : false,
                 password : '',
                 moble : '',
+                count:0
             };
         },
         created (){
             this.basicinfo();
         },
         mounted (){
+        },
+        watch:{
+            local(){
+                this.count++
+            }
         },
         methods : {
         },

@@ -14,7 +14,10 @@
         color:#979797;
         &:hover, &.cur{color:#fff;}
     }
-    .lang{float: left;padding:0 20px;font-size:12px;margin:0 20px;background:rgba(255,255,255,.1)}
+    .lang{
+        float: left;padding:0 20px;font-size:12px;margin:0 20px;
+        &:hover{background:rgba(255,255,255,.1)}
+    }
     .nav{
         float: left;
         a{margin-right:20px;}
@@ -32,10 +35,12 @@
             width: 65%;display: inline-block;
             text-align:left;
             position: relative;color: #f1f1f1;
-            background:rgba(29, 29, 29, 0.8);            
             font-size:16px;
             text-overflow: ellipsis;
-            white-space: nowrap;
+            white-space: nowrap;           
+            &:hover{
+                background:rgba(29, 29, 29, 0.8);
+            }
             a{
                 display: inline;
                 padding-left:20px;

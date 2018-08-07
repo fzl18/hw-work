@@ -375,6 +375,7 @@
                 this.navStatus = index;
                 var self = this;
                 this.setMarketList();
+                this.seek();
                 for(var chart in this.chartObject){
                     if(this.chartObject[chart]){
                         this.chartObject[chart].destroy();

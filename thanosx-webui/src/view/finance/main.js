@@ -42,6 +42,7 @@ Vue.mixin({
             }).then((res) => {
                 this.$store.commit('userBasicinfo', res.data);
                 this.$store.commit('userBasicinfoState', 1);
+                this.$store.commit('login/nameauthStatus', res.data.nameauthstatus);
             }).catch((err) => {
                 this.$store.commit('userBasicinfoState', -1);
                 this.$store.commit('userBasicinfo', {});
