@@ -7,7 +7,7 @@ import index from '../components/index'
 import myBankCard from '../components/myBankCard'
 import myDeal from '../components/myDeal'
 import myEntrust from '../components/myEntrust'
-import myPay from '../components/myPay'
+// import myPay from '../components/myPay'
 import myWallet from '../components/myWallet'
 import addAlipay from '../components/addAlipay'
 import addWeChat from '../components/addWeChat'
@@ -18,7 +18,7 @@ import takeCoin from '../components/takeCoin'
 import pushCoin from '../components/pushCoin'
 import transferCoin from '../components/transferCoin'
 import coinRecord from '../components/coinRecord'
-import inviteFriends from '../components/inviteFriends'
+// import inviteFriends from '../components/inviteFriends'
 import mapDel from '../components/mapDel'
 
 
@@ -102,32 +102,32 @@ const router = new Router({
             name: 'myEntrust',
             component: myEntrust
         },
-        {
-            path: '/myPay',
-            name: 'myPay',
-            component: myPay
-        },
+        // {
+        //     path: '/myPay',
+        //     name: 'myPay',
+        //     component: myPay
+        // },
         {
             path: '/myWallet',
             name: 'myWallet',
             component: myWallet
         },
-        {
-            path: '/addAlipay',
-            name: 'addAlipay',
-            component: addAlipay,
-            meta : {
-                parent : 'myPay'
-            }
-        },
-        {
-            path: '/addWeChat',
-            name: 'addWeChat',
-            component: addWeChat,
-            meta : {
-                parent : 'myPay'
-            }
-        },
+        // {
+        //     path: '/addAlipay',
+        //     name: 'addAlipay',
+        //     component: addAlipay,
+        //     meta : {
+        //         parent : 'myPay'
+        //     }
+        // },
+        // {
+        //     path: '/addWeChat',
+        //     name: 'addWeChat',
+        //     component: addWeChat,
+        //     meta : {
+        //         parent : 'myPay'
+        //     }
+        // },
         {
             path: '/addWallet',
             name: 'addWallet',
@@ -144,11 +144,11 @@ const router = new Router({
                 parent : 'myBankCard'
             }
         },
-        {
-            path: '/inviteFriends',
-            name: 'inviteFriends',
-            component: inviteFriends,
-        },
+        // {
+        //     path: '/inviteFriends',
+        //     name: 'inviteFriends',
+        //     component: inviteFriends,
+        // },
         {
             path: '/mapDel',
             name: 'mapDel',

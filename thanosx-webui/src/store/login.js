@@ -4,6 +4,7 @@ const state = {
     loginGetStatus : false,
     loginInfo : {},
     nameauthStatus:0,
+    restLogin:false,
 };
 
 const getters = {
@@ -31,6 +32,9 @@ const mutations = {
     },
     nameauthStatus (state, val){
         state.nameauthStatus = val;
+    },
+    restLogin (state, val){
+        state.restLogin = val;
     },
 };
 

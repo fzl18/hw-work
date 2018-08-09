@@ -6,7 +6,7 @@
                 <div class="txt"><i class="iconfont iconfont icon-logo"></i> <br /><b v-html="lang[local].icoTit"></b>  </div>
                 <ul >
                     <template v-for="(item,index) in list">
-                    <li :key="item.id" :class=" index == cur ? item.last_count !=0 ? 'cur': 'nocur' : item.last_count ==0 &&  'nocur' " @click=" item.last_count !=0 && handselect(index)">
+                    <li :key="item.id" :class=" index == cur ? item.last_count !=0 ? 'cur': 'nocur' : (item.last_count ==0 || item.is_disabled ==1) &&  'nocur' " @click=" (item.last_count !=0 && item.is_disabled != 1) && handselect(index)">
                         <p class="tit">{{item.is_default == 1 ? lang[local].icoDefault : item.name}}</p>
                         <p class="num"> {{item.is_default != 0 ? `${item.pay_amount} ${item.pay_coin} = ${item.get_amount} ${item.get_coin}` : `${item.get_amount} ${item.get_coin}`}} <br/>
                         <span> <template v-if="item.get_free_amount > 0"> {{lang[local].icoFree}} {{item.get_free_amount}} {{item.get_coin}}</template></span>
@@ -24,9 +24,9 @@
                 <div class="ctx">
                     <div class="input">
                         <ul>
-                            <li> {{lang[local].icoNum}} : <input type="text"  v-model="num" :disabled="cur > 0 ? true : false " :style=" cur > 0 && 'cursor:not-allowed' " style="text-align:left;width:76%" /> <!--<span>{{lang[local].icoamount3}}</span> --></li>
-                            <li> {{lang[local].icoPw}} : <input type="password" v-model="pw" style="width:76%"/> </li>
-                            <li> {{lang[local].icoVerify}} : <input type="text" v-model="verify" style="width:56%"/>
+                            <li> {{lang[local].icoNum}} : <input type="text"  v-model="num" :disabled="cur > 0 ? true : false " :style=" cur > 0 && 'cursor:not-allowed' " style="text-align:left;width:calc(100% - 100px)" /> <!--<span>{{lang[local].icoamount3}}</span> --></li>
+                            <li> {{lang[local].icoPw}} : <input type="password" v-model="pw" style="width:calc(100% - 100px)"/> </li>
+                            <li> {{lang[local].icoVerify}} : <input type="text" v-model="verify" style="width:calc(100% - 160px)"/>
                                 <span @click="sendVerify" class="getVerifCode" :class="classActive(verifyCodeTimeText == -1 || verifyCodeTimeText.length )">
                                     {{
                                         verifyCodeTimeText == -1
@@ -137,8 +137,18 @@
                     this.eth = res.data.eth || 0
                     this.get_coin = res.data.list[0].get_coin
                     this.pay_coin = res.data.list[0].pay_coin
-                    this.cur = res.data.list[0].last_count == 0 ? 1 : 0
-                    this.num = res.data.list[0].last_count == 0 ? '1' : '0'
+
+                    const index = []
+                    res.data.list.map((d,i)=>{
+                        if(d.last_count != 0 && d.is_disabled !=1){
+                            index.push(i)
+                        }                        
+                    })
+
+                    let now = index.length > 0 ? index[0] :0
+
+                    this.cur = now //res.data.list[0].last_count == 0 ? 1 : 0
+                    this.num = res.data.list[now].min_buy_count
                 }).catch((err) => {
                     // this.list = [];
                     this.showStatus = false;
@@ -168,6 +178,10 @@
                     this.$store.commit('msg/err', this.lang[this.local].ico11);
                     return false;
                 }
+                if(this.num > parseFloat(this.list[this.cur].last_count)){
+                    this.$store.commit('msg/err', this.lang[this.local].ico11);
+                    return false;
+                }
                 this.axios({
                     url : this.api.createOrders,
                     data:{
@@ -183,6 +197,7 @@
                     this.count++
                     clearInterval(this.verifyCodeInterval);
                     this.verifyCodeTimeText = '';
+                     this.getIcoList()
                 }).catch((err) => {
                     this.$store.commit('msg/err', err.message || this.lang[this.local].otc27)
                 });
@@ -190,6 +205,7 @@
 
 
             handselect(index){
+                console.log(index)
                 this.cur = index                
                 this.num = index && parseInt(this.list[index].max_buy_count) + ''
             }

@@ -35,15 +35,17 @@ Vue.mixin({
             return num;
         },
         rmbSplit (num){
+            console.log('rmb:',this.rmbLen)
             return this.numSplit(num, this.rmbLen);
         },
         xnbSplit (num){
+            console.log('xnb:',this.xnbLen)
             return this.numSplit(num, this.xnbLen);
         },
         priceAccuracy (val){
             return  parseFloat(this.toDecimals(val, this.rmbLen))
         },
-        numAccuracy (val){
+        numAccuracy (val){            
             return parseFloat(this.toDecimals(val, this.xnbLen))
         },
         decimals (val){

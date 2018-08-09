@@ -10,7 +10,7 @@ var php = {};
 var build = {};
 
 entry.forEach((item) => {
-    php[item] = path.resolve('D:\\phpStudy\\PHPTutorial\\WWW\\radar-new\\app\\home\\view\\' + item + '\\index.html');
+    php[item] = path.resolve('D:\\phpStudy\\PHPTutorial\\WWW\\app\\home\\view\\' + item + '\\index.html');
     build[item] = path.resolve(__dirname, '../dist/' + item + '.html');
 });
 
@@ -108,9 +108,9 @@ module.exports = {
         // otc: path.resolve('D:\\phpStudy\\PHPTutorial\\WWW\\radar-new\\app\\home\\view\\otc\\index.html'),
         ...php,
 
-        assetsRoot: path.resolve('D:\\phpStudy\\PHPTutorial\\WWW\\radar-new\\public\\home'),
+        assetsRoot: path.resolve('D:\\phpStudy\\PHPTutorial\\WWW\\public\\home'),
         assetsSubDirectory: 'static',
-        assetsPublicPath: '/public/home/',
+        assetsPublicPath: '/home/',
         productionSourceMap: false,
         devtool: '#source-map',
 

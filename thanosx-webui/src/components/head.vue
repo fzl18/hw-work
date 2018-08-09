@@ -25,17 +25,17 @@
                     </div>                         
                 </Col>
                 <Col span='6'>
-                    <div v-if="!loginStatus && loginGetStatus" class="login">
+                    <div v-if="!loginStatus && loginGetStatus " class="login">
                         <a href="" class="cur" @click.prevent="toLogin()">{{lang[local].login }}</a>
                         <a href="" @click.prevent="toRegister()">{{lang[local].freeRegister }}</a>
                     </div>
-                    <div v-if="loginGetStatus && loginStatus" class="login">
+                    <div v-if="loginGetStatus && loginStatus " class="login">
                         <div class="login-name">
                                <i class="iconfont icon-yonghu-yuan" style="font-size:20px;margin-left:15px;"></i>
                                 <span>{{loginInfo.username.slice(0,15) }}{{loginInfo.username.length > 15 ? '...':''}}</span>
                             <ul>
                                 <li @click="goto(financeUrl)">{{lang[local].mymoney}}<!-- <a :href="" style="float:right;color:#FF6500;">{{lang[local].view}}</a>--> </li>
-                                <li @click="goto()">{{lang[local].accountSetting}} <a :href="financeUrl+'/account'"><span class="state">{{nameauthStatus==1 ? lang[local].nameauthstatus :nameauthStatus == 0 ? lang[local].nameauthstatus2 : lang[local].nameauthstatus1 }}</span> </a></li>
+                                <li @click="goto()">{{lang[local].accountSetting}} <a :href="financeUrl+'/account'"><span class="state">{{nameauthStatus==1 ? lang[local].certified : nameauthStatus == 0 ? lang[local].unauthorized : nameauthStatus == 2 ? lang[local].nameAuth31 : lang[local].unauthorized }}</span> </a></li>
                                 <li @click="logout" class="exit"> <i class="iconfont icon-tuichu1"></i> {{lang[local].loginExit}}</li>
                             </ul>
                         </div>
@@ -53,7 +53,7 @@
         props : ['active'],
         data (){
             return {
-                menu : ['home', 'trade', 'whitebook','ico', 'app'],
+                menu : ['home', 'trade', 'whitebook', 'app'], // 'ico'
                 loginTo : ['safety', 'finance'],
             };
         },
@@ -69,20 +69,21 @@
             },
         },
         created (){
+            console.log(this.restLogin,this.loginStatus)
             if(typeof userData == 'object'){
                 if(userData.uid){
                     this.$store.commit('login/loginInfo', userData);
                     this.$store.commit('login/loginStatus', true);
                     this.$store.commit('login/loginGetStatus', true);
                 }else{
-                    // if(typeof this.getLoginInfo == 'function'){
+                    if(typeof this.getLoginInfo == 'function'){
                         this.getLoginInfo();
-                    // };
+                    };
                 };
             }else{
-                // if(typeof this.getLoginInfo == 'function'){
+                if(typeof this.getLoginInfo == 'function'){
                     this.getLoginInfo();
-                // };
+                };
             };
             this.$store.commit('headerActive', this.active);
         },
@@ -122,7 +123,13 @@
                     }
 
                     if(item == 'whitebook'){
-                        window.open('/public/static/white_paper.pdf')
+                        if(this.local =='zh'){
+                            window.open('/static/white_paper_cn.pdf')
+                        }else if(this.local =='zhtw'){
+                            window.open('/static/white_paper_tw.pdf')
+                        }else{
+                            window.open('/static/white_paper_en.pdf')
+                        }                        
                         return
                     }
 

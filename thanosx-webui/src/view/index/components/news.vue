@@ -133,7 +133,7 @@
             $newHeight : 335px;
             li:nth-child(2){
                 a.news-img{
-                    background-image: url("../assets/images/new2.png");
+                    // background-image: url("../assets/images/new2.png");
                 }
             }
             li{
@@ -154,7 +154,7 @@
                     transition: all 1s ease 0s;
                     transform: translateX(-200px);
                     opacity: 0;
-                    background: url("../assets/images/new1.png") no-repeat;
+                    // background: url("../assets/images/new1.png") no-repeat;
                     img{
                         display: block;
                         @include fullWH;

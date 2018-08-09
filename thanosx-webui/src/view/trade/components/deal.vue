@@ -8,17 +8,15 @@
         </dl>
         <load class="deal-load" v-if="!dealState" />
             <transition-group v-if="dealState" name="deal" tag="section" class="deal-body">
-            <happy-scroll :key="111" color="rgba(255, 255, 255, .3)"
-                resize
-            >
-            <div class="con">
-                <dl v-for="item in deal" :key="item[4]" @click="clickItem(item)">
-                    <!-- <dd :class="item[1] + 'Color'">{{lang[local][item[1]]}}</dd> -->
-                    <dd :class="item[1] + 'Color'" :title="priceAccuracy(item[2])">{{priceAccuracy(item[2])}}</dd>
-                    <dd :title="numAccuracy(item[3])">{{numAccuracy(item[3])}}</dd>
-                    <dd :title="localDate(item[0], true)" style="padding-right:10px">{{localDate(item[0], true)}}</dd>
-                </dl>
-            </div>                
+            <happy-scroll :key='111' color="rgba(255, 255, 255, .3)">
+                <div  class="con">
+                    <dl v-for="item in deal" :key="item[4]" @click="clickItem(item)">
+                        <!-- <dd :class="item[1] + 'Color'">{{lang[local][item[1]]}}</dd> -->
+                        <dd :class="item[1] + 'Color'" :title="priceAccuracy(item[2])">{{priceAccuracy(item[2])}}</dd>
+                        <dd :title="numAccuracy(item[3])">{{numAccuracy(item[3])}}</dd>
+                        <dd :title="localDate(item[0], true)" style="padding-right:10px">{{localDate(item[0], true)}}</dd>
+                    </dl>
+                </div>                
             </happy-scroll>
             </transition-group>
     </section>

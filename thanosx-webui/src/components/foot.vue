@@ -24,7 +24,7 @@
             <Row class="copyright">
                 <Col span="12">
                     <p>Copyright ©2018 All Rights Reserved</p>
-                    <p><a href="mailto:contact@thanosx.com">Email：contact@thanosx.com</a></p>
+                    <p><a href="mailto:service@thanosx.com">Email：service@thanosx.com</a></p>
                 </Col>
                 <Col span="12">
                     <p class="other">

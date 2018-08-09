@@ -105,6 +105,9 @@
             };
         },
         watch : {
+            local(){
+                this.dcType();
+            },
             idcardpic1 (n, o){
                 if(n.state == this.getStateSuccess){
                     this.$store.commit('msg/add', this.lang[this.local].nameAuth13);
@@ -220,7 +223,7 @@
                 display: block;
                 height: 350px;
                 width: 100%;
-                background: url("../assets/images/sfz.jpg") no-repeat center center;
+                // background: url("../assets/images/sfz.jpg") no-repeat center center;
                 background-size: auto 100%;
                 margin-top: 0;
             }

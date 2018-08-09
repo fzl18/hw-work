@@ -44,6 +44,6 @@ export const toUrl = {
 };
 
 // export const webSocketUrl = process.env.NODE_ENV == 'development' ? 'ws://23.91.100.214:8686/sub' : 'wss://market-api.rdb.one/sub';
-export const webSocketUrl = process.env.NODE_ENV == 'development' ? 'ws://116.62.233.139:8686/sub' : window.webSocketUrl ? window.webSocketUrl : 'wss://market-api.rdb.one/sub';
+export const webSocketUrl = process.env.NODE_ENV == 'development' ? 'ws://116.62.233.139:8686/sub' : window.webSocketUrl ? window.webSocketUrl : 'wss://market.thanosx.com/sub';
 
 

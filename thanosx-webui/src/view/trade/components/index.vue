@@ -175,6 +175,16 @@
             this.connect();
         },
         methods : {
+            logout (){
+                this.axios({
+                    url : this.api.logout,
+                }).then((res) => {
+                    this.loginStatus = false;
+                }).catch((err) => {
+                    console.log(err);
+                    location.reload();
+                });
+            },
             sendK (){
                 var n = this.resolution;
                 this.socket.send('pull_kline_graph', {
@@ -262,6 +272,7 @@
                 this.axios({
                     url : this.api.getMarketInfo
                 }).then((res) => {
+                    // console.log(reg.data)
                     this.$store.commit('coins', res.data.coins || {});
                     this.$store.commit('districtInfo', res.data.districtInfo || {});
                     this.$store.commit('markets', res.data.markets || {});
@@ -288,6 +299,7 @@
                         };
                     }else{
                         this.$store.commit('msg/err', this.lang[this.local].tradeLogin4);
+                        this.logout()
                         setTimeout(() => {
                             this.toLogin();
                         }, 2000);

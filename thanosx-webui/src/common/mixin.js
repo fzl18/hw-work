@@ -16,7 +16,7 @@ export const data = {
 };
 
 export const computed = {
-    ...mapState('login', ['loginInfo', 'loginStatus', 'loginGetStatus','nameauthStatus']),
+    ...mapState('login', ['loginInfo', 'loginStatus', 'loginGetStatus','nameauthStatus','restLogin']),
     ...mapState([
         'lang',
         'local',
@@ -217,9 +217,10 @@ export const methods = {
                 };
                 val = l + e[0];
             }else{
-                val = (val + '').replace(eval('/(\-?)([0-9]*)(\.?)([0-9]{1,' + len + '})(.*)/'), '$1$2$3$4');
+                // val = (val + '').replace(eval('/(\-?)([0-9]*)(\.?)([0-9]{1,' + len + '})(.*)/'), '$1$2$3$4');
             };
             if(/\./.test(val)){
+                val = val + ''
                 val = val.split('.');
                 var s = '';
                 for(var i = 0; i < len; i ++){
@@ -271,6 +272,8 @@ export const methods = {
             this.$store.commit('login/loginGetStatus', true);
             this.$store.commit('login/loginStatus', true);
             this.$store.commit('login/nameauthStatus', res.data.nameauthstatus);
+            // this.$store.commit('login/restLogin', false);
+            
         }).catch((err) => {
             this.$store.commit('login/loginInfo', {});
             this.$store.commit('login/loginGetStatus', true);

@@ -2,7 +2,7 @@
     <section  class="safety-block">
         <financeHeader>
             <span>{{lang[local].uppassword1}}</span>
-            <span class="tips"><Icon type="information-circled" color="#ff0000"/> {{lang[local].tradePassword10 + ' ' + (userBasicinfo.username || '') + ' ' +  lang[local].uppassword1}}</span>
+            <!-- <span class="tips"><Icon type="information-circled" color="#ff0000"/> {{lang[local].tradePassword10 + ' ' + (userBasicinfo.username || '') + ' ' +  lang[local].uppassword1}}</span> -->
         </financeHeader>
         <section class="safety-form">
             <div class="tit">{{lang[local].uppassword1}}</div>

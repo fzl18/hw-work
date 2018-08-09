@@ -197,7 +197,7 @@
                     legend_context_menu:'off',
                     interval: this.resolution,
                     datafeed: this.datafeed(),
-                    library_path: process.env.NODE_ENV == 'development' ?  "/static/js/chart/" : '/public/home/static/js/chart/',
+                    library_path: process.env.NODE_ENV == 'development' ?  "/static/js/chart/" : '/home/static/js/chart/',
                     locale: this.local =="zhtw" ? "zh_TW" : this.local ,
                     timezone: "Asia/Shanghai",
                     charts_storage_api_version: "1.1",

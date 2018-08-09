@@ -46,7 +46,7 @@
             <dl>
                 <dt><i class="iconfont icon-mima1"></i></dt>
                 <dd>{{lang[local].acctit1}}</dd>
-                <dd class="txt">{{lang[local].acctxt1}}：<span>{{userBasicinfo.level == 2 ? lang[local].safety25 : userBasicinfo.level == 1 ? lang[local].safety26 :  userBasicinfo.level == 0 ?  lang[local].safety27 : ''}}</span></dd>
+                <dd class="txt">{{lang[local].acctxt1}}：<span>{{userBasicinfo.level == 2 ? lang[local].safety25 : userBasicinfo.level == 1 ? lang[local].safety25 :  userBasicinfo.level == 0 ?  lang[local].safety25 : ''}}</span></dd>
                 <dd class="btn"> <router-link to="/uppassword" >{{lang[local].accbtn}}</router-link></dd>
             </dl>
             <dl>
@@ -64,7 +64,7 @@
             <dl>
                 <dt><i class="iconfont icon-yanzheng"></i></dt>
                 <dd>{{lang[local].acctit4}}</dd>
-                <dd class="txt">{{lang[local].acctxt4}}</dd>
+                <dd class="txt">{{lang[local].acctxt4}}<br /><span style="font-size:14px;">({{userBasicinfo.gabind ? lang[local].accbind:lang[local].accunbind}}) </span> </dd>
                 <dd class="btn"> <router-link to="/ga" >{{ userBasicinfo.gabind ? lang[local].accbtnunbind : lang[local].accbtnbind }}</router-link></dd>
             </dl>
 

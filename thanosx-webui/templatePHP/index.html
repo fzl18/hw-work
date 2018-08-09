@@ -14,10 +14,9 @@
 <div id="app"></div>
 <% for (var chunk in htmlWebpackPlugin.files.chunks) { %>
     <% if (chunk == 'trade'){ %>
-        <script src="/public/home/static/js/chart/charting_library.min.js"></script>
+        <script src="/home/static/js/chart/charting_library.min.js"></script>
     <%}%>
 <script type="text/javascript" src="<%=htmlWebpackPlugin.files.chunks[chunk].entry %>"></script>
 <% } %>
 {include file="common/footer" /}
-</body>
 </html>

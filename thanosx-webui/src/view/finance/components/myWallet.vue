@@ -78,17 +78,17 @@
                         </section>
                         <section class="form-group">
                             <div class="input-box">
-                              <i class="iconfont icon-dizhi1"></i>   <input type="text" v-model="addr" :placeholder="lang[local].walletUrl" />
+                              <i class="iconfont icon-dizhi1"></i>   <input type="text" v-model="addr" :placeholder="lang[local].walletUrl" style="width:calc(100% - 80px)"/>
                             </div>                       
                         </section>
                         <section class="form-group" v-if="qb_title">
                             <div class="input-box">
-                            <i class="iconfont icon-yuyan"></i> <input type="text" v-model="addr_child" :placeholder="qb_title" />
+                            <i class="iconfont icon-yuyan"></i> <input type="text" v-model="addr_child" :placeholder="qb_title" style="width:calc(100% - 80px)" />
                             </div>
                         </section>
                         <section class="form-group">
                             <div class="input-box">
-                            <i class="iconfont icon-icon-"></i>  <input type="text" v-model="name" :placeholder="lang[local].walletName" />
+                            <i class="iconfont icon-icon-"></i>  <input type="text" v-model="name" :placeholder="lang[local].walletName" style="width:calc(100% - 80px)"/>
                             </div>
                         </section>
                         <!-- <section class="form-group" style="text-align: right">
