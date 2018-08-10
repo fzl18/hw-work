@@ -13,28 +13,28 @@
         </financeHeader>
         <list class="myEntrust-table" :url="api.weituo" :param="listParam">
             <dl slot="head">
-                <dd>{{lang[local].entrustTime}}</dd>
-                <dd>{{lang[local].market}}</dd>
-                <dd>{{lang[local].tradeType}}</dd>
-                <dd>{{lang[local].unitPrice}}</dd>
-                <dd>{{lang[local].entrustNum}}</dd>
-                <dd>{{lang[local].entrustTurnover}}</dd>
-                <dd>{{lang[local].unsettled}}</dd>
-                <dd :title="lang[local].operation">{{lang[local].operation}}</dd>
+                <dd style="width:25%">{{lang[local].entrustTime}}</dd>
+                <dd style="width:10%">{{lang[local].market}}</dd>
+                <dd style="width:10%">{{lang[local].tradeType}}</dd>
+                <dd style="width:10%">{{lang[local].unitPrice}}</dd>
+                <dd style="width:10%">{{lang[local].entrustNum}}</dd>
+                <dd style="width:10%">{{lang[local].entrustTurnover}}</dd>
+                <dd style="width:10%">{{lang[local].unsettled}}</dd>
+                <dd :title="lang[local].operation" style="width:15%">{{lang[local].operation}}</dd>
             </dl>
             <dl slot="body" slot-scope="{item}">
-                <dd>{{localDate(item.order_time)}}</dd>
-                <dd>{{upperCase(item.market)}}/{{upperCase(item.market2)}}</dd>
-                <dd>
+                <dd style="width:25%">{{localDate(item.order_time)}}</dd>
+                <dd style="width:10%">{{upperCase(item.market)}}/{{upperCase(item.market2)}}</dd>
+                <dd style="width:10%">
                     <span :class="item.order_type == 'Buy' ? 'buyColor' : 'sellColor'">
                         {{item.order_type == 'Buy' ? lang[local].buy : lang[local].sell }}
                     </span>
                 </dd>
-                <dd>{{item.price}}</dd>
-                <dd>{{item.order_count}}</dd>
-                <dd>{{item.deal}}</dd>
-                <dd>{{item.count}}</dd>
-                <dd>
+                <dd style="width:10%">{{item.price}}</dd>
+                <dd style="width:10%">{{item.order_count}}</dd>
+                <dd style="width:10%">{{item.deal}}</dd>
+                <dd style="width:10%">{{item.count}}</dd>
+                <dd style="width:15%">
                     <a :title="lang[local].annul" href="javascript:;" @click="chexiao(item)">{{lang[local].annul}}{{item.chexiao ? '...' : ''}}</a>
                 </dd>
             </dl>
