@@ -693,8 +693,8 @@ const zhtw = {
     "success"  : '成功',
     "limit"  : 'TODO-限额',
     "defeated"  : '失敗',
-    "tradePriceEmpty"  : 'TODO-交易价格不能为空',
-    "tradeNumEmpty"  : 'TODO-交易数量不能为空',
+    "tradePriceEmpty"  : '交易價格不能為空',
+    "tradeNumEmpty"  : '交易數量不能為空',
     "balanceEmpty"  : '餘額空白',
 
     "orderId"  : 'TODO-订单号',
