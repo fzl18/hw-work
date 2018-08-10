@@ -13,7 +13,7 @@
                 <div class="gaCode-block-text" v-html="lang[local].gaCode4"></div>
                 <div class="gaCode-block-btn">
                     <a href="https://itunes.apple.com/cn/app/google-authenticator/id388497605?mt=8" target="_blank"> <i class="iconfont icon-ai-ios"></i> APP Store</a>
-                    <a href="http://sj.qq.com/myapp/detail.htm?apkName=com.google.android.apps.authenticator2" target="_blank"><i class="iconfont icon-guge-play"></i> Google Play</a>
+                    <a href="https://play.google.com/store/apps/details?id=com.google.android.apps.authenticator2" target="_blank"><i class="iconfont icon-guge-play"></i> Google Play</a>
                 </div>
             </section>
             <section class="gaCode-block">

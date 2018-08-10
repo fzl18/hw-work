@@ -45,7 +45,7 @@
                             <li> {{lang[local].icoNum}} : <input type="text"  v-model="num" :disabled="cur > 0 ? true : !loginStatus ? true:false " :style=" (cur > 0 || !loginStatus ) && 'cursor:not-allowed' " style="text-align:left;width:calc(100% - 80px)" @blur="verifyNum" /> <!--<span>{{lang[local].icoamount3}}</span> --></li>
                             <li> {{lang[local].icoPw}} : <input type="password" v-model="pw" style="width:calc(100% - 100px)" :disabled="!loginStatus ? true:false" :style=" !loginStatus && 'cursor:not-allowed' " @focus="verifyNum"/> </li>
                             <li> {{lang[local].icoVerify}} : <input type="text" v-model="verify" style="width:calc(100% - 160px)" :disabled="!loginStatus ? true:false" :style=" !loginStatus && 'cursor:not-allowed' " @focus="verifyNum"/>
-                                <span @click=" loginStatus && sendVerify" class="getVerifCode" :class="classActive(verifyCodeTimeText == -1 || verifyCodeTimeText.length )">
+                                <span @click=" userData.uid && sendVerify " class="getVerifCode" :class="classActive(verifyCodeTimeText == -1 || verifyCodeTimeText.length )">
                                     {{
                                         verifyCodeTimeText == -1
                                         ? lang[local].getVerifCode + '...'

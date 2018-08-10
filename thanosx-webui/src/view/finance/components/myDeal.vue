@@ -28,7 +28,7 @@
                 <dd>{{priceDecimals(item.price)}}</dd>
                 <dd>{{numDecimals(item.count)}}</dd>
                 <dd>{{priceDecimals(item.price*item.count)}}</dd>
-                <dd>{{priceDecimals(item.service)}}</dd>
+                <dd>{{parseFloat(item.service)}}</dd>
             </dl>
         </list>
     </section>

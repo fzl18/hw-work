@@ -35,7 +35,7 @@
                                 <span>{{loginInfo.username.slice(0,15) }}{{loginInfo.username.length > 15 ? '...':''}}</span>
                             <ul>
                                 <li @click="goto(financeUrl)">{{lang[local].mymoney}}<!-- <a :href="" style="float:right;color:#FF6500;">{{lang[local].view}}</a>--> </li>
-                                <li @click="goto()">{{lang[local].accountSetting}} <a :href="financeUrl+'/account'"><span class="state">{{ userData && nameauthstatus==1 ? lang[local].certified : userData && userData.nameauthstatus == 0 ? lang[local].unauthorized : userData && userData.nameauthstatus == 2 ? lang[local].nameAuth31 : lang[local].unauthorized }}</span> </a></li>
+                                <li @click="goto()"><span style="float:left;color:inherit;font-weight:normal">{{lang[local].accountSetting}}</span><a :href="financeUrl+'/account'"><span class="state">{{ loginInfo && loginInfo.nameauthstatus==1 ? lang[local].certified : loginInfo && loginInfo.nameauthstatus == 0 ? lang[local].unauthorized : loginInfo && loginInfo.nameauthstatus == 2 ? lang[local].nameAuth31 : lang[local].unauthorized }}</span> </a></li>
                                 <li @click="logout" class="exit"> <i class="iconfont icon-tuichu1"></i> {{lang[local].loginExit}}</li>
                             </ul>
                         </div>
@@ -48,6 +48,7 @@
 </template>
 
 <script>
+    import {mapState} from "vuex";
     export default {
         name : "tophead",
         props : ['active'],
@@ -68,23 +69,26 @@
                 };
             },
         },
+        computed : {
+            ...mapState('login',['loginInfo','loginStatus','loginGetStatus'])
+        },
         created (){
-            console.log(this.restLogin,this.loginStatus)
-            if(typeof userData == 'object'){
-                if(userData.uid){
-                    this.$store.commit('login/loginInfo', userData);
-                    this.$store.commit('login/loginStatus', true);
-                    this.$store.commit('login/loginGetStatus', true);
-                }else{
-                    if(typeof this.getLoginInfo == 'function'){
-                        this.getLoginInfo();
-                    };
-                };
-            }else{
-                if(typeof this.getLoginInfo == 'function'){
-                    this.getLoginInfo();
-                };
-            };
+            this.getLoginInfo();
+            // if(typeof userData == 'object'){
+            //     if(userData.uid){
+            //         this.$store.commit('login/loginInfo', userData);
+            //         this.$store.commit('login/loginStatus', true);
+            //         this.$store.commit('login/loginGetStatus', true);
+            //     }else{
+            //         if(typeof this.getLoginInfo == 'function'){
+            //             this.getLoginInfo();
+            //         };
+            //     };
+            // }else{
+            //     if(typeof this.getLoginInfo == 'function'){
+            //         this.getLoginInfo();
+            //     };
+            // };
             this.$store.commit('headerActive', this.active);
         },
         mounted(){

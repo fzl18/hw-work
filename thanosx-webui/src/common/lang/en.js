@@ -804,7 +804,7 @@ const en = {
         {title:'POLICIES',type_alias:''},
         {title:'Privacy Policy',type_alias:'privacy_policy'},
         {title:'EULA',type_alias:'user_protocol'},
-        {title:'Fee description',type_alias:'rate_descrip'}
+        {title:'Fee',type_alias:'rate_description'}
     ], 
     "newslist3":[
         {title:'About us',type_alias:''},

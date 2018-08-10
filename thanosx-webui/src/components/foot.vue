@@ -6,7 +6,7 @@
                     <dt><a href="javascript:;">{{lang[local].newslist1[0].title}}</a>></dt>
                     <dd><a :href="tradeUrl">{{lang[local].newslist1[1].title}}</a></dd>
                     <dd><a :href="articleUrl + '/list/' + lang[local].newslist1[2].type_alias">{{lang[local].newslist1[2].title}}</a></dd>
-                    <dd><a href="mailto:servicet@thanosx.com">{{lang[local].newslist1[3].title}}</a></dd>
+                    <dd><a href="mailto:service@thanosx.com">{{lang[local].newslist1[3].title}}</a></dd>
                 </dl>
                 <dl style="text-align:center">
                     <dt><a href="javascript:;">{{lang[local].newslist2[0].title}}</a>></dt>

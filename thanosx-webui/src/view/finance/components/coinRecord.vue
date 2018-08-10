@@ -12,13 +12,14 @@
                 <dd style="width:20%">{{lang[local].coinRecordCoin}}</dd>
                 <dd style="width:20%">{{lang[local].coinRecordNum}}</dd>
             </dl>
-            <dl slot="body" slot-scope="{item}">
+            <dl slot="body" slot-scope="{item}" >
                 <!-- <dd>{{item.id}}</dd> -->
                 <dd style="width:30%">{{localDate(item.time)}}</dd>
                 <dd style="width:30%">{{item.type == 1 ? lang[local].takeCoin:item.type == 2 ? lang[local].myDeal_ServiceCharge:item.type == 3 ? lang[local].pushCoin:item.type == 4 ? lang[local].otcTrade : lang[local].icoTrade}}</dd>
                 <!-- <dd><span class="line-feed">{{item.addr}}</span></dd> -->
                 <dd style="width:20%">{{upperCase(item.coin)}}</dd>
-                <dd style="width:20%">{{numDecimals(item.num)}}</dd>
+                <!-- <dd style="width:20%">{{numDecimals(item.num)}}</dd> -->
+                <dd style="width:20%">{{parseFloat(item.num)}}</dd>
             </dl>
         </list>
     </section>
