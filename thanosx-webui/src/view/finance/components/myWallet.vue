@@ -73,7 +73,7 @@
                             <div class="input-box">
                             <!-- <label>{{lang[local].gu_finance43}}</label> -->
                             <i class="iconfont icon-qian"></i> 
-                            <select-my class="safety-issue-select selectmy coin" style="width:90%" v-model="coinname" :list="coinList" selected="" @change="coinChange" :placeholder="lang[local].gu_finance43"/>
+                            <select-my class="safety-issue-select selectmy coin" style="width:90%" v-model="coinname" :list="coinList" selected="" @change="coinChange" :placeholder="lang[local].gu_finance43" :param="count"/>
                             </div>
                         </section>
                         <section class="form-group">
@@ -147,6 +147,7 @@
                 name :"" ,
                 moble_verify : '',
                 addr_child : '',
+                count:0,
             };
         },
         created (){
@@ -224,6 +225,7 @@
                     this.addr_child=''
                     this.coinname='' 
                     this.name=''
+                    this.count++
                 }).catch((err) => {
                     console.log(err);
                     this.getError();
@@ -262,19 +264,20 @@
                     console.log(err);
                 });
             },
-            coinChange (val){
+            coinChange (val,rest){
                 this.qb_title = val[2];
-                if(val[0]){
+                if(val[0]){                    
                     this.$store.commit('msg/del', this.lang[this.local].selectCoin)
                 }else{
-                    this.$store.commit('msg/err', this.lang[this.local].selectCoin)
+                    !rest && this.$store.commit('msg/err', this.lang[this.local].selectCoin)
                 };
             },
             close (){
                 this.isShow = false
                 this.addr=''
                 this.coinname='' 
-                this.name=''
+                this.name=''                
+                this.count++
             }
         }
     }

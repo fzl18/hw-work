@@ -35,7 +35,7 @@
                                 <span>{{loginInfo.username.slice(0,15) }}{{loginInfo.username.length > 15 ? '...':''}}</span>
                             <ul>
                                 <li @click="goto(financeUrl)">{{lang[local].mymoney}}<!-- <a :href="" style="float:right;color:#FF6500;">{{lang[local].view}}</a>--> </li>
-                                <li @click="goto()">{{lang[local].accountSetting}} <a :href="financeUrl+'/account'"><span class="state">{{nameauthStatus==1 ? lang[local].certified : nameauthStatus == 0 ? lang[local].unauthorized : nameauthStatus == 2 ? lang[local].nameAuth31 : lang[local].unauthorized }}</span> </a></li>
+                                <li @click="goto()">{{lang[local].accountSetting}} <a :href="financeUrl+'/account'"><span class="state">{{ userData && nameauthstatus==1 ? lang[local].certified : userData && userData.nameauthstatus == 0 ? lang[local].unauthorized : userData && userData.nameauthstatus == 2 ? lang[local].nameAuth31 : lang[local].unauthorized }}</span> </a></li>
                                 <li @click="logout" class="exit"> <i class="iconfont icon-tuichu1"></i> {{lang[local].loginExit}}</li>
                             </ul>
                         </div>
@@ -53,7 +53,7 @@
         props : ['active'],
         data (){
             return {
-                menu : ['home', 'trade', 'whitebook', 'app'], // 'ico'
+                menu : ['home', 'trade', 'whitebook','ico', 'app'], // 'ico'
                 loginTo : ['safety', 'finance'],
             };
         },
@@ -87,9 +87,13 @@
             };
             this.$store.commit('headerActive', this.active);
         },
+        mounted(){
+            document.title = this.lang[this.local].htmlTitle || ''
+        },
         methods : {
             changeLang(lang){
                 this.$store.commit('changeLang', lang);
+                document.title = this.lang[this.local].htmlTitle || ''
             },
             toUrl (item){                
                 if(process.env.NODE_ENV == 'development'){

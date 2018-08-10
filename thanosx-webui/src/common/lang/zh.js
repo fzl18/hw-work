@@ -1,11 +1,13 @@
 const zh = {
     //头部
+    "htmlTitle":"ThanosX-您可信赖的全方位数字资产服务商",
     "webName" : 'ThanosX',
     "home" : "首页",
     "trade" : "币币交易",
     "whitebook":"白皮书",
-    "ico":"币币市场",
+    "ico":"资产发行",
     "app":"下载APP",
+    "indexTxt":"由于本社区严格遵守相关法律法规，目前暂不接收来自美国的用户交易买卖。",
     //
     "appCome":"即将发布 敬请期待",
     "apptxt":"自主研发撮合系统，能每秒处理上万笔交易,算法支持多种专业交易",
@@ -34,6 +36,7 @@ const zh = {
     "PrivacyClause":"隐私条款",
     "Agreement":"用户协议",
     "loginTips":"密码要求：8 - 32个字符，至少一个小写字母，至少一个大写字母，至少一个数字，至少一个特殊字符〜！@＃$％^＆*（）_ +",
+    "loginTips2":"密码要求：8 - 32个字符",
 
     "account":"账户设置",
     "loginLog":"登录日志",
@@ -232,6 +235,8 @@ const zh = {
     "tradePassword13" : "设置交易密码成功",
     "tradePassword14" : "找回交易密码成功",
     "tradePassword15" : "找回交易密码失败",
+    "tradePassword16" : "手机绑定成功",
+
 
     "uppassword1" : "修改登录密码",
     "uppassword2" : "原登录密码",
@@ -757,7 +762,7 @@ const zh = {
 
 
 
-    "icoTrade":"币币交易",
+    "icoTrade":"资产发行",
     "icoDefault":"默认",
     "icotip1":"认购说明：1、认购额度：单笔最低为",
     "icotip11":"份，单笔最高为",
@@ -781,13 +786,13 @@ const zh = {
     "icoVerify":"验证码",
     "icoNum":"数量",
     "icoBuylog":"购买记录",
-    "icoTit":`<span>币币</span>市场`,
+    "icoTit":`<span>资产</span>发行`,
     "icoFree":"赠",
     "icoamount1":"共",
     "icoamount2":"余",
     "icoamount3":"份",
 
-    "selectCountry":"选择国家",
+    "selectCountry":"选择国家或地区",
 
 
     "newslist1":[
@@ -800,7 +805,7 @@ const zh = {
         {title:'条款说明',type_alias:''},
         {title:'隐私条款',type_alias:'privacy_policy'},
         {title:'用户协议',type_alias:'user_protocol'},
-        {title:'费率说明',type_alias:'rate'}
+        {title:'费率说明',type_alias:'rate_description'}
     ], 
     "newslist3":[
         {title:'关于我们',type_alias:''},

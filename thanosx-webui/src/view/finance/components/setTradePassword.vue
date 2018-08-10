@@ -33,7 +33,7 @@
                     </div>
                 </section>
                 <section class="login-form-group">
-                    <span class="tips" style="color:#999">{{lang[local].loginTips}}</span>
+                    <span class="tips" style="color:#999">{{lang[local].loginTips2}}</span>
                 </section>
                 <section class="form-group form-group-btn">
                     <a href="javascript:;" @click="uppaypassword" class="form-submit-btn">{{lang[local].confirm}}{{this.getState == this.getStateStart ? '...' : ''}}</a>

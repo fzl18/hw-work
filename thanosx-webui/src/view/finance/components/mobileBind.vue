@@ -117,7 +117,7 @@
                     }
                 }).then((res) => {
                     this.getSuccess();
-                    this.$store.commit('msg/add', this.lang[this.local].tradePassword13);
+                    this.$store.commit('msg/add', this.lang[this.local].tradePassword16);
                     this.$router.push('./');
                 }).catch((err) => {
                     this.getError();

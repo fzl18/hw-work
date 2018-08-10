@@ -7,7 +7,7 @@
         <app-banner />
         <advantage />
         <!-- <news /> -->        
-        <Link />
+        <!-- <Link /> -->
         <footer-component />
         <msg />
     </section>

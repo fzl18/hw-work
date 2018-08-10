@@ -35,11 +35,16 @@
             disabled : {
                 default : false,
             },
-            placeholder:''
+            placeholder:'',
+            param :''
         },
         watch : {
             list (n, o){
                 this.initList();
+            },
+            param (n, o){
+                console.log(n,o)
+                this.changeSelect(this.list[0],true);
             }
         },
         created (){
@@ -80,13 +85,13 @@
                     this.active = !this.active;
                 };
             },
-            changeSelect (n){
+            changeSelect (n,rest){
                 this.active = false;
                 var s = typeof n != 'object' ? true : false;
                 this.valText = s ? n : n[1];
                 this.val = s ? n : n[0];
                 this.$emit('input', s ? n : n[0]);
-                this.$emit('change', n);
+                this.$emit('change', n, rest);
             }
         }
     }

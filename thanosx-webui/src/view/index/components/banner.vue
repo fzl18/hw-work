@@ -32,6 +32,15 @@
                 </li>
             </ul>            
         </section>
+        <Modal
+            v-model="isShow"
+            class-name="vertical-center-modal"
+            :mask-closable= "false"
+            :footer-hide = true
+            @on-visible-change="handletxt"
+            >
+            <div style="padding-bottom:40px;font-size:15px">{{lang[local].indexTxt}}</div>
+        </Modal>
     </section>
 </template>
 
@@ -41,6 +50,7 @@
         name: "banner",
         data (){
             return {
+                isShow:true,
                 noticeShowStatus : false,
                 noticeY : 0,
                 noticeIndex : 0,
@@ -59,6 +69,9 @@
         created (){
             // this.getHomeAnnouncement();
             this.getNotice();
+            if(sessionStorage.htmlTxt == 1){
+                this.isShow = false
+            }
         },
         watch:{
             local(n, o){
@@ -66,6 +79,9 @@
             },
         },
         methods : {
+            handletxt(){
+                sessionStorage.htmlTxt = 1
+            },
             // getHomeAnnouncement (){
             //     this.axios({
             //         url : this.api.articleInfo,

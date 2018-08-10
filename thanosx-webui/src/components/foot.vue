@@ -6,7 +6,7 @@
                     <dt><a href="javascript:;">{{lang[local].newslist1[0].title}}</a>></dt>
                     <dd><a :href="tradeUrl">{{lang[local].newslist1[1].title}}</a></dd>
                     <dd><a :href="articleUrl + '/list/' + lang[local].newslist1[2].type_alias">{{lang[local].newslist1[2].title}}</a></dd>
-                    <dd><a href="mailto:contact@thanosx.com">{{lang[local].newslist1[3].title}}</a></dd>
+                    <dd><a href="mailto:servicet@thanosx.com">{{lang[local].newslist1[3].title}}</a></dd>
                 </dl>
                 <dl style="text-align:center">
                     <dt><a href="javascript:;">{{lang[local].newslist2[0].title}}</a>></dt>
@@ -18,7 +18,7 @@
                     <dt><a href="javascript:;">{{lang[local].newslist3[0].title}}</a>></dt>
                     <dd><a :href="articleUrl + '/list/' + lang[local].newslist3[1].type_alias">{{lang[local].newslist3[1].title}}</a></dd>
                     <dd><a :href="articleUrl + '/list/' + lang[local].newslist3[2].type_alias">{{lang[local].newslist3[2].title}}</a></dd>
-                    <dd><a :href="articleUrl + '/list/' + lang[local].newslist3[3].type_alias">{{lang[local].newslist3[3].title}}</a></dd>
+                    <!-- <dd><a :href="articleUrl + '/list/' + lang[local].newslist3[3].type_alias">{{lang[local].newslist3[3].title}}</a></dd> -->
                 </dl>
             </div>
             <Row class="copyright">
@@ -29,13 +29,15 @@
                 <Col span="12">
                     <p class="other">
                         <!-- <a href=""><i class="iconfont icon-Git"></i></a> -->
-                        <a href=""><i class="iconfont icon-facebook"></i></a>
-                        <a href=""><i class="iconfont icon-stumble_upon"></i></a>
-                        <a href=""><i class="iconfont icon-twitter"></i></a>
-                        <a href=""><i class="iconfont icon-youtube"></i></a>
-                        <a href=""><i class="iconfont icon-linkedin"></i></a>
-                        <a href=""><i class="iconfont icon-weibo"></i></a>
-                        <a href=""><i class="iconfont icon-icon4"></i></a>
+                        <a target="_blank" href="https://www.crypton.global/space.php?id=5b56c521326a7c6"><i class="iconfont icon-icon3" style="font-size:24px;font-weight:bold"></i></a>
+                        <a target="_blank" href="https://www.facebook.com/imthanosx/"><i class="iconfont icon-facebook"></i></a>
+                        <!-- <a href=""><i class="iconfont icon-stumble_upon"></i></a> -->
+                        <a target="_blank" href="https://twitter.com/imthanosx"><i class="iconfont icon-twitter"></i></a>
+                        <a target="_blank" href="https://www.youtube.com/channel/UCl1w7Rm81ZOpZEoIJukpXFQ"><i class="iconfont icon-youtube"></i></a>
+                        <!-- <a href=""><i class="iconfont icon-linkedin"></i></a> -->
+                        <a target="_blank" href="https://www.reddit.com/user/IMTHANOSX/"><i class="iconfont icon-reddit-alien"></i></a>
+                        <a target="_blank" href="javascript:;" class="weixin"><i class="iconfont icon-icon4" style="font-size:20px;"></i><span><img src="../view/index/assets/images/wx.jpg" alt=""></span></a>
+                        <a target="_blank" href="https://medium.com/@thanosx"><i class="iconfont icon-icon1"></i></a>
                     </p>
                 </Col>
             </Row>
@@ -95,3 +97,20 @@
     }
 </script>
 
+<style lang="scss" scoped>
+    .weixin{
+        position: relative;
+        span{            
+            display:none;
+            position: absolute;
+            right:10px;
+            bottom:20px;
+            img{width:200px;}
+        }
+        &:hover{
+            span{
+                display:block;
+            }
+        }
+    }
+</style>

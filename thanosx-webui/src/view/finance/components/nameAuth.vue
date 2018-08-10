@@ -36,7 +36,7 @@
                                     </div>
                                     <div> 
                                         <!-- <i class="iconfont icon-jia"></i> <br /><br /><br /> -->
-                                        {{lang[local].nameAuth9}} <span>{{lang[local].uploadpicbtn}}</span> </div>
+                                        {{lang[local].nameAuth9}} <br /><span>{{lang[local].uploadpicbtn}}</span> </div>
                                 </uploadFile>
                             </li>
                             <li>
@@ -49,7 +49,7 @@
                                     </div>
                                     <div> 
                                         <!-- <i class="iconfont icon-jia"></i> <br /><br /><br /> -->
-                                    {{lang[local].nameAuth10}} <span>{{lang[local].uploadpicbtn}}</span>
+                                    {{lang[local].nameAuth10}} <br /><span>{{lang[local].uploadpicbtn}}</span>
                                     </div>
                                 </uploadFile>
                             </li>
@@ -64,7 +64,7 @@
                                     </div>
                                     <div>
                                          <!-- <i class="iconfont icon-jia"></i> <br /><br /><br /> -->
-                                        {{lang[local].nameAuth11}} <span>{{lang[local].uploadpicbtn}}</span>
+                                        {{lang[local].nameAuth11}} <br /><span>{{lang[local].uploadpicbtn}}</span>
                                     </div>
                                 </uploadFile>
                                 

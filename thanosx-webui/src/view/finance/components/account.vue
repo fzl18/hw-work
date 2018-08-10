@@ -11,7 +11,7 @@
                 </Col>
                 <Col span="6" class="name">
                     <p>{{lang[local].accName}}</p>
-                    <p class="con">{{userBasicinfo.username}}</p>
+                    <p class="con" :title="userBasicinfo.username">{{userBasicinfo.username}}</p>
                 </Col>
                 <Col span="6" class="name">
                     <p>{{lang[local].accAuth}}</p>

@@ -7,7 +7,7 @@
             <section class="safety-form">
                 <section class="form-group">
                     <div class="input-box">
-                    <input type="text" @keyup.enter="unbindGa"  v-model="token" name="safety-unbindGa-token" :placeholder="lang[local]['4009']" />
+                    <input type="text" @keyup.enter="unbindGa"  v-model="token" name="safety-unbindGa-token" :placeholder="lang[local]['4009']" style="width:85%"/>
                     </div>
                 </section>
                 <section class="form-group form-group-btn">

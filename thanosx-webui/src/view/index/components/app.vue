@@ -2,7 +2,7 @@
     <section  id="app" class="app" :class="animateClass">
         <div class="container">
             <Row>
-                <Col span="12" class="pic"><img src="../assets/images/index_mobile.png" alt="" /></Col>
+                <Col span="12" class="pic"><img :src="pic" alt=""/></Col>
                 <Col span="12" class="appinfo">
                     <p class="tit">Thanos  X   1.0</p>
                     <p class="txt">{{lang[local].apptxt}}</p>
@@ -17,6 +17,16 @@
 <script>
     export default {
         name: "app-banner",
+        data(){
+            return {
+                
+            }
+        },
+        computed : {
+            pic(){
+                return  require(`../assets/images/index_mobile_${this.local}.png`)
+            }
+        },
         mounted (){
             var self = this;
             var dom = document.querySelector('body').scrollTop ? document.querySelector('body') : document.querySelector('html');
@@ -41,7 +51,7 @@
         height: 332px;
         .pic{
             text-align:center;
-            img{margin-top:65px;}
+            img{margin-top:55px;}
         }
         .appinfo{
             margin-top:100px;            

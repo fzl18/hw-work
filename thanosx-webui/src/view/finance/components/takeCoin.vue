@@ -33,7 +33,7 @@
                     </section>
                     <section class="form-group">
                         <div class="input-box">
-                            <input @keyup.enter="upmyzc" name="takeCoin-num" type="text" @blur="num > balance.xnb ? num = balance.xnb : num < balance.minZc ?num = balance.minZc : ''" v-model="num" :placeholder="lang[local].takeCoinNum" />
+                            <input @keyup.enter="upmyzc" name="takeCoin-num" type="text"  v-model="num" :placeholder="lang[local].takeCoinNum" />
                         </div>
                     </section>
                     <section class="form-group">                        
