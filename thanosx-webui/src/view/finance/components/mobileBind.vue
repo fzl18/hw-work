@@ -91,7 +91,7 @@
                 };
 
                 let mobile = this.phone, verify = this.verify
-                if(mobile.length != 11){
+                if(mobile.length < 7){
                     this.$store.commit('msg/err', this.lang[this.local].phoneError);
                     return false;
                 };

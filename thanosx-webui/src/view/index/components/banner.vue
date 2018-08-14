@@ -153,24 +153,28 @@
                 padding:10px 0;
                 float: left;
                 width:32%;
+                
                 position: relative;
                 border-radius:4px;
                 p{
                     padding:0 20px;color: #979797;line-height:24px;
+                    text-overflow:ellipsis;
+                    white-space: nowrap;
+                    overflow: hidden;
                     &.more{
-                        text-align: right;text-decoration:underline;
+                        text-align: right;text-decoration:underline;                        
                         a{
                             color:#FFF;
                             position: absolute;
                             bottom: 10px;
                             display: block;
-                            right: 15px;
+                            right: 15px;                            
                             &:hover{opacity:.8;}
                         }
                     }
                 }
                 a{
-                    color: #979797;
+                    color: #979797;                    
                     &:hover{color:#fff;}
                 }
                 .hot{font-size: 20px;color:#fff;font-weight:bold;line-height:30px;}
