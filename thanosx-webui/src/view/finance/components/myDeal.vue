@@ -27,7 +27,7 @@
                 <dd><span :class="item.order_type != 'Buy' ? 'buyColor' : 'sellColor'">{{item.order_type != 'Buy' ? lang[local].myDeal_Buy : lang[local].myDeal_Sell}}</span></dd>
                 <dd>{{priceDecimals(item.price)}}</dd>
                 <dd>{{numDecimals(item.count)}}</dd>
-                <dd>{{priceDecimals(item.price*item.count)}}</dd>
+                <dd>{{parseFloat(item.mum)}}</dd>
                 <dd>{{parseFloat(item.service)}}</dd>
             </dl>
         </list>

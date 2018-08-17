@@ -17,19 +17,19 @@
                 <section class="form-group">
                     <!-- <label>{{lang[local].walletUrl}}</label> -->
                     <div class="input-box">
-                    <input type="text" v-model="addr" :placeholder="lang[local].walletUrl" />
+                    <input type="text" v-model="addr" :placeholder="lang[local].walletUrl" style="width:100%"/>
                     </div>
                 </section>
                 <section class="form-group" v-if="qb_title">
                     <!-- <label>{{qb_title}}</label> -->
                     <div class="input-box">
-                    <input type="text" v-model="addr_child" :placeholder="qb_title" />
+                    <input type="text" v-model="addr_child" :placeholder="qb_title" style="width:100%"/>
                     </div>
                 </section>
                 <section class="form-group">
                     <!-- <label>{{lang[local].walletName}}</label> -->
                     <div class="input-box">
-                    <input type="text" v-model="name" :placeholder="lang[local].walletName" />
+                    <input type="text" v-model="name" :placeholder="lang[local].walletName" style="width:100%"/>
                     </div>
                 </section>
                 <!-- <section class="form-group" style="text-align: right">

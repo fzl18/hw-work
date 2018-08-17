@@ -156,6 +156,8 @@ export const methods = {
         }
     },
 
+   
+
     hideName (val){
         val = val ? val + '' : '';
         return val.replace(/^.{1}/, '*');

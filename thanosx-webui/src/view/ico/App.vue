@@ -1,6 +1,6 @@
 <template>
     <section class="home-box main-box ico">
-        <template v-if="!isOpen && !loading">
+        <template v-if="isOpen && !loading">
             <header-component active="ico" />
             <div class="container">
                 <div style="padding:20vh 0;overflow:hidden">
@@ -8,18 +8,18 @@
                         <p style="color:#333;font-size:40px;margin-bottom:20px"><span style="color:#FF5D43">Thanos X</span> <br v-if="local == 'en'" /> {{lang[local].icoTrade}}</p>
                         <p style="font-size:35px;font-weight:bold">{{lang[local].appCome}} …</p>
                     </div>
-                    <div style="float:right;width:50%;text-align:center;"><img src="./assets/images/pc.jpg" alt=""></div>
-                    
+                    <div style="float:right;width:50%;text-align:center;"><img src="./assets/images/pc.jpg" alt=""></div>                    
                 </div> 
             </div>
             <footer-component />
         </template>
 
-
-
-        <template v-if="isOpen && !loading">
+        <template v-if="!isOpen && !loading">
         <header-component active="ico" />
-        <div class="banner">
+            <div style="min-height:90vh;">
+                <router-view />
+            </div>
+        <!-- <div class="banner">
             <div class="container">
                 <div class="txt"><i class="iconfont iconfont icon-logo"></i> <br /><b v-html="lang[local].icoTit"></b>  </div>
                 <ul >
@@ -36,13 +36,13 @@
                 </ul>
                 
             </div>            
-        </div>
-        <section class="from ">
+        </div> -->
+        <!-- <section class="from ">
             <div class="container">
                 <div class="ctx">
                     <div class="input">
                         <ul>
-                            <li> {{lang[local].icoNum}} : <input type="text"  v-model="num" :disabled="cur > 0 ? true : !loginStatus ? true:false " :style=" (cur > 0 || !loginStatus ) && 'cursor:not-allowed' " style="text-align:left;width:calc(100% - 80px)" @blur="verifyNum" /> <!--<span>{{lang[local].icoamount3}}</span> --></li>
+                            <li> {{lang[local].icoNum}} : <input type="text"  v-model="num" :disabled="cur > 0 ? true : !loginStatus ? true:false " :style=" (cur > 0 || !loginStatus ) && 'cursor:not-allowed' " style="text-align:left;width:calc(100% - 80px)" @blur="verifyNum" /> </li>
                             <li> {{lang[local].icoPw}} : <input type="password" v-model="pw" style="width:calc(100% - 100px)" :disabled="!loginStatus ? true:false" :style=" !loginStatus && 'cursor:not-allowed' " @focus="verifyNum"/> </li>
                             <li> {{lang[local].icoVerify}} : <input type="text" v-model="verify" style="width:calc(100% - 160px)" :disabled="!loginStatus ? true:false" :style=" !loginStatus && 'cursor:not-allowed' " @focus="verifyNum"/>
                                 <span @click=" userData.uid && sendVerify " class="getVerifCode" :class="classActive(verifyCodeTimeText == -1 || verifyCodeTimeText.length )">
@@ -91,8 +91,10 @@
                     <dd>{{item.get_amount}}</dd>
                 </dl>
             </list>
-        </section>
+        </section> -->
         
+
+
         <load v-if="getState == getStateStart" />
         <msg />
         <footer-component />
@@ -123,31 +125,6 @@
                 count:0
             }
         },
-        watch : {
-            "param.verify" (n, o){
-                if(n.length > this.verifCodeLen){
-                    this.param.verify = o;
-                    return;
-                };
-                this.param.verify = n.replace(/[^0-9]*/g, '');
-            },
-            "num" (n, o){
-                this.num = n && (n + '').replace(/[^\-?\d.]/g,'')
-            },
-        },
-        computed : {
-            listParam (){
-                return {
-                    count : this.count,
-                };
-            },
-            getcoin(){
-                if(this.list.length){
-                     return this.cur ? (parseInt(this.list[this.cur].get_amount) + parseInt(this.list[this.cur].get_free_amount)) : this.num * parseInt(this.list[this.cur].get_amount)
-                }
-            },
-            ...mapState(['info'])
-        },
 
         created (){
             this.getIcoList()
@@ -155,109 +132,17 @@
         methods : {
             getIcoList(){
                 this.axios({
-                    url : this.api.ico,
+                    url : this.api.lists,
                     data : {
                     }
                 }).then((res) => {
+                    res.data
                     this.loading = false
-                    this.list = res.data.list
-                    this.eth = res.data.eth || 0
-                    this.get_coin = res.data.list[0].get_coin
-                    this.pay_coin = res.data.list[0].pay_coin
-
-                    const index = []
-                    let see = []
-                    res.data.list.map((d,i)=>{
-                        if(d.last_count != 0 && d.is_disabled !=1){
-                            index.push(i)
-                        }
-                        if(d.is_disabled !=1){
-                            see.push(i)
-                        }
-                    })
-
-                    let now = index.length > 0 ? index[0] : 0
-                    
-                    if(see.length > 0){
-                        this.isOpen = true
-                    }else{
-                        this.isOpen = false
-                    }
-                    this.cur = now //res.data.list[0].last_count == 0 ? 1 : 0
-                    this.num = res.data.list[now].min_buy_count
                 }).catch((err) => {
                     // this.list = [];
                     this.showStatus = false;
                 });
             },
-            sendVerify (){
-                if(this.verifyCodeTimeText){
-                    return false;
-                };
-                this.verifyCodeTimeText = -1;
-                this.axios({
-                    url : this.api.ordersVerifyCode,
-                }).then((res) => {
-                    this.sendCodeCount ++;
-                    this.verifyCodeDown();
-                }).catch((err) => {
-                    this.verifyCodeTimeText = '';
-                });
-            },
-            verifyNum(){
-                
-                if(this.num * 1 > this.list[this.cur].max_buy_count ){
-                    this.num =  parseFloat(this.list[this.cur].max_buy_count) 
-                }else if(this.num * 1 < this.list[this.cur].min_buy_count){
-                    this.num = parseFloat(this.list[this.cur].min_buy_count)
-                }else{
-                    this.num = parseFloat((this.num *1).toFixed( this.list[this.cur].decimal_limit || 2))
-                }
-
-                if( this.num.toString() == 'NaN'){
-                    this.num = 0
-                }
-            },
-            createOrders(){
-                if(!this.verify || !this.pw || !this.num){
-                    this.$store.commit('msg/err', this.lang[this.local].ico10);
-                    return false;
-                }
-                if(this.num > parseFloat(this.list[this.cur].max_buy_count) || this.num < parseFloat(this.list[this.cur].min_buy_count)){
-                    this.$store.commit('msg/err', this.lang[this.local].ico11);
-                    return false;
-                }
-                if(this.num > parseFloat(this.list[this.cur].last_count)){
-                    this.$store.commit('msg/err', this.lang[this.local].ico11);
-                    return false;
-                }
-                this.axios({
-                    url : this.api.createOrders,
-                    data:{
-                        pay_password:this.pw,
-                        email_verify:this.verify,
-                        id:this.list[this.cur].id,
-                        buy_count:this.num,
-                    }
-                }).then((res) => {
-                    this.$store.commit('msg/add', this.lang[this.local].otc26)
-                    this.pw = ''
-                    this.verify = ''
-                    this.count++
-                    clearInterval(this.verifyCodeInterval);
-                    this.verifyCodeTimeText = '';
-                     this.getIcoList()
-                }).catch((err) => {
-                    this.$store.commit('msg/err', err.message || this.lang[this.local].otc27)
-                });
-            },
-
-
-            handselect(index){
-                console.log(index)
-                this.cur = index                
-                this.num = index && parseInt(this.list[index].max_buy_count) + ''
-            }
         }
     }
 </script>

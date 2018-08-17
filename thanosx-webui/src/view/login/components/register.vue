@@ -17,7 +17,14 @@
                 <div class="login-form-group">
                     <div class="input-box">
                         <i class="iconfont icon-youxiang"></i> <input type="text" @keyup.enter="submit"  v-model="param.username" @focus="usernameFocus" @blur="usernameBlur" name="register-mobile" :placeholder="lang[local].email" />
+                        
                     </div>
+                </div>
+            </section>
+            <section class="login-form-group">                
+                <div class="input-box" style="position: relative;">
+                    <i class="iconfont icon-yanzhengma" style="font-size:18px"></i> <input type="text" @keyup.enter="submit"  v-model="param.pic_verify" name="register-mobile" :placeholder="lang[local].picVerifCode" style="width:calc(100% - 150px)"/>
+                    <span @click="captcha" style="cursor: pointer; display:block; position: absolute;right:0;top:-10px;background:#333;width:100px;height:40px;"> <img :src="vpic" alt="" style="width:100px;height:40px;"> </span>
                 </div>
             </section>
             <section class="login-form-group">
@@ -76,9 +83,11 @@
                 submitStatus : false,
                 stateCode : false,
                 districtCode : {},
+                vpic:'',
                 param : {
                     username : '',
                     moble_verify : '',
+                    pic_verify:'',
                     password : '',
                     confirmPassword : '',
                     invit : '',
@@ -147,6 +156,7 @@
 
         created (){
             // this.getDistrictCode();
+            this.captcha()
             this.param.invit = this.$route.params.invite || ''
         },
 
@@ -216,6 +226,9 @@
             //         this.districtCode = {cn : '+86'}
             //     });
             // },
+            captcha(){                
+                this.vpic = this.api.captcha +'?v=' +new Date()
+            },
             getPasswordStatus (){
                 return this.$store.getters['tips/tip']['registerPasTip'].tipsData || {};
             },
@@ -301,14 +314,22 @@
             },
 
             sendCode (){
-                if(this.verifyCodeTimeText){
-                    return false;
-                };
+                // if(this.verifyCodeTimeText){
+                //     return false;
+                // };
+                console.log('sdfwefsdfef')
                 if(this.param.username == ''){
+                    console.log('111111111')
                     this.$store.commit('tips/show', this.lang[this.local].enterEmail);
                     return false;
                 };
+                if(this.param.pic_verify == ''){
+                    console.log('2222222222222')
+                    this.$store.commit('msg/err', this.lang[this.local].picCodeEmpty);
+                    return false;
+                };
                 if(this.param.username.length < 3){
+                    console.log('33333333333')
                     this.$store.commit('tips/show', this.lang[this.local].emailError);
                     return false;
                 };
@@ -317,12 +338,14 @@
                     url : this.api.registerVerifyCode,
                     data : {
                         email : this.param.username,
+                        code:this.param.pic_verify
                     }
                 }).then((res) => {
                     this.sendCodeStatus = true;
                     this.sendCodeCount ++;
                     this.verifyCodeDown();
                 }).catch((err) => {
+                    console.log('wefsdfef')
                     this.$store.commit('tips/hide', this.lang[this.local].sendVerifCode);
                     this.$store.commit('tips/add', {
                         text : err.message || this.lang[this.local].sendVerifCodeError,
@@ -332,10 +355,14 @@
                     });
                     this.verifyCodeTimeText = '';
                     this.sendCodeStatus = false;
+                    this.captcha()
+                    this.param.pic_verify = ''
 
                 });
                 return true;
             },
+
+            
 
             submit (){
                 if(this.submitStatus){

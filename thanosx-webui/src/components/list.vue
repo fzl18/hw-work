@@ -103,6 +103,7 @@
                 };
                 this.getState = this.getStateStart;
                 var data = Object.assign({}, page, this.param);
+                console.log(data)
                 this.axios({
                     url : this.url,
                     data : data

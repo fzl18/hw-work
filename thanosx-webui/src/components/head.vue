@@ -2,13 +2,13 @@
 <!-- <Affix offset-top="100" @on-change="change">   -->
     <section class="tophead">
         <header :class=" active == 'trade' ? 'trade' : 'container' ">
-            <Row>
-                <Col span='18'>                    
+            <div>
+                <div style="width:75%;float:left;">                    
                     <div class="logo"><a href="/" ></a> </div>
                     <div class="lang">
                         <Dropdown @on-click="changeLang">
                             <a href="javascript:void(0)">
-                                <template v-for=" curlang in  lang.type">
+                                <template v-for=" curlang in lang.type">
                                     {{local == curlang.val ? curlang.title : null }}
                                 </template>
                                 <Icon type="arrow-down-b"></Icon>
@@ -23,25 +23,26 @@
                     <div class="nav" v-for="nav in menu" >
                         <a href="" :class=" active == nav && 'cur' " @click.stop.prevent="toModule(nav)">{{lang[local][nav]}}</a>
                     </div>                         
-                </Col>
-                <Col span='6'>
+                </div>
+                <div style="width:25%;float:right">
                     <div v-if="!loginStatus && loginGetStatus " class="login">
                         <a href="" class="cur" @click.prevent="toLogin()">{{lang[local].login }}</a>
                         <a href="" @click.prevent="toRegister()">{{lang[local].freeRegister }}</a>
                     </div>
                     <div v-if="loginGetStatus && loginStatus " class="login">
-                        <div class="login-name">
+                        <div class="login-name" @click="taphandle">
                                <i class="iconfont icon-yonghu-yuan" style="font-size:20px;margin-left:15px;"></i>
                                 <span>{{loginInfo.username.slice(0,15) }}{{loginInfo.username.length > 15 ? '...':''}}</span>
-                            <ul>
+                            <ul :style="isMobile ? isShow ?'display:block':'display:none;':'' ">
+                                <li>UID：{{loginInfo.uid}}</li>
                                 <li @click="goto(financeUrl)">{{lang[local].mymoney}}<!-- <a :href="" style="float:right;color:#FF6500;">{{lang[local].view}}</a>--> </li>
-                                <li @click="goto()"><span style="float:left;color:inherit;font-weight:normal">{{lang[local].accountSetting}}</span><a :href="financeUrl+'/account'"><span class="state">{{ loginInfo && loginInfo.nameauthstatus==1 ? lang[local].certified : loginInfo && loginInfo.nameauthstatus == 0 ? lang[local].nameauthstatus2 : loginInfo && loginInfo.nameauthstatus == 2 ? lang[local].nameAuth31 : lang[local].unauthorized }}</span> </a></li>
+                                <li @click="goto()"><span style="float:left;color:inherit;font-weight:normal">{{lang[local].accountSetting}}</span><a :href="financeUrl+'/account'"><span class="state" :style="local =='en'? 'font-size:12px':'' ">{{ loginInfo && loginInfo.nameauthstatus==1 ? lang[local].certified : loginInfo && loginInfo.nameauthstatus == 0 ? lang[local].nameauthstatus2 : loginInfo && loginInfo.nameauthstatus == 2 ? lang[local].nameAuth31 : lang[local].unauthorized }}</span> </a></li>
                                 <li @click="logout" class="exit"> <i class="iconfont icon-tuichu1"></i> {{lang[local].loginExit}}</li>
                             </ul>
                         </div>
                     </div>
-                </Col>
-            </Row>
+                </div>
+            </div>
         </header>
     </section>
 <!-- </Affix> -->
@@ -56,6 +57,8 @@
             return {
                 menu : ['home', 'trade', 'whitebook','ico', 'app'], // 'ico'
                 loginTo : ['safety', 'finance'],
+                isShow:false,
+                isMobile:false,
             };
         },
         watch : {
@@ -93,11 +96,21 @@
         },
         mounted(){
             document.title = this.lang[this.local].htmlTitle || ''
+            this.isphone()
         },
         methods : {
             changeLang(lang){
                 this.$store.commit('changeLang', lang);
                 document.title = this.lang[this.local].htmlTitle || ''
+            },
+            isphone() {
+            let flag = navigator.userAgent.match(/(phone|pad|pod|iPhone|iPod|ios|iPad|Android|Mobile|BlackBerry|IEMobile|MQQBrowser|JUC|Fennec|wOSBrowser|BrowserNG|WebOS|Symbian|Windows Phone)/i)
+            this.isMobile = (flag && flag.length) >0 ? true : false
+            },
+            taphandle(){
+                if(this.isMobile){
+                    this.isShow = !this.isShow
+                }                
             },
             toUrl (item){                
                 if(process.env.NODE_ENV == 'development'){

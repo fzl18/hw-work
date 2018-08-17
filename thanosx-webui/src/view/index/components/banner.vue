@@ -127,6 +127,7 @@
         background: #000 url("../assets/images/index_bg.jpg") top center no-repeat;
         background-size:100% 100%;
         height:525px;
+        width: 100%;
         overflow: hidden;
         position: relative;
         .cti{            

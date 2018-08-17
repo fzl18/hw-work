@@ -8,6 +8,7 @@ a{
     &:hover{opacity:1;}
 }
 .ico{
+    // .info{min-height:90vh;}
     .banner{
         $articleH : 590px;    
         background: url("../images/ico_bg.png") center top repeat-x;
@@ -43,7 +44,7 @@ a{
                 .num{
                     font-size:20px;
                     margin-top:40px;
-                    span{font-size:14px;opacity:.3;display: block;height: 40px;}
+                    // span{font-size:14px;opacity:.3;display: block;height: 40px;}
                 }
                 .total{opacity:.3;}
                 &:last-child{margin-right:0}
@@ -78,7 +79,24 @@ a{
         }    
     
     }
-    
+    ul.tab{
+        overflow: hidden;
+        li{
+            width:calc(18% - 20px);
+            margin-right:20px;
+            text-align: center;
+            border:1px solid #F3F3F3;
+            padding:10px 15px;
+            background: #F3F3F3;      
+            float: left;      
+            &:hover, &.cur{
+                border: 1px solid $mainColor;
+                background: none;
+                color:$mainColor;
+                cursor: pointer;
+            }
+        }
+    }
     .from{
         .ctx{
             background:#3A7585;
@@ -118,6 +136,7 @@ a{
     }
     .list{
         margin:30px auto;
+        margin-bottom:50px;
         min-height:500px;
         .tit{font-size: 18px;font-weight: bold;border-left:4px solid $mainColor;padding-left:10px;margin-bottom:20px;}
     }
