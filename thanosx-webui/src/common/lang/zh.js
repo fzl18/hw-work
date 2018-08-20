@@ -8,6 +8,9 @@ const zh = {
     "ico":"资产发行",
     "app":"下载APP",
     "indexTxt":"由于本社区严格遵守相关法律法规，目前暂不支持IP地址来自美国、中国的用户注册或交易。",
+    "noway1":"抱歉，由于您的IP",
+    "noway2":"来自",
+    "noway3":"平台暂未开放该地区的服务。",
     //
     "appCome":"即将发布 敬请期待",
     "apptxt":"自主研发撮合系统，能每秒处理上万笔交易,算法支持多种专业交易",
@@ -267,6 +270,7 @@ const zh = {
     "nameAuth4" : "身份证",
     "nameAuth5" : "真实姓名",
     "nameAuth6" : "证件号码 ",
+    "nameAuth100" : "请输入您所在的详细地址信息 ",
     "nameAuth7" : "证件照片",
     "nameAuth8" : "请上传证件正面、反面照片、手持证件照片（文件大小不超过4M）",
     "nameAuth9" : "证件照正面",
@@ -799,6 +803,19 @@ const zh = {
     "icoamount3":"份",
     "icobuy":"购买",
 
+    "icoselltip1":"注意事项：",
+    "icoselltip2":"· 鉴于购买后，无法修改与回溯，请在购买前仔细阅读 ",
+    "icoselltip3":"发售免责条款",
+    "icoselltip4":"· 购买前请详阅该资产发售项目说明，确保您自身权益。",
+    "icoselltip5":"· 购买时请再次确认购买数量与金额。",
+    "icoselltip6":"· 购买代币不保证获利，请谨慎选择。",
+    "icoselltip7":"* 免责声明：若发现帐户有不正当交易行为，官方将有权调整、保留或终止该帐号的权利。重要异动将公告在官方网站与频道，恕不另行通知。",
+    "icoselltip8":"",
+    "icoselltip9":"",
+    "icoselltip10":"发售协议",
+
+
+
     "going":"进行中的",
     "comesoon":"即将开始",
     "timeover":"已结束",
@@ -813,8 +830,12 @@ const zh = {
     "icotime":"发行时间",
     "icoempty":"暂无项目",
     "iconame":"发行方",
+    "icoagree":"请确认同意发售协议",
+    
 
     "selectCountry":"选择国家或地区",
+    "country1":"美国",
+    "country2":"中国大陆",
 
     "newslist1":[
         {title:'服务交易',type_alias:''},

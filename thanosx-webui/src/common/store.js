@@ -32,6 +32,8 @@ export default {
         api : apiCommon,
         mobile : 0,
         apiStatus,
+        ip:{},
+        county:{},
         webSocketUrl,
         verifyCodeTime : 60,
         verifCodeLen : 6,
@@ -64,7 +66,15 @@ export default {
         changeLang (state,param){
             state.local = param
             window.localStorage.curLang = param
-        }
+        },
+        
+        ip(state,param){
+            state.ip = param;
+        },
+        county(state,param){
+            state.county = param;
+        },
+        
     },
     modules : {
         login,

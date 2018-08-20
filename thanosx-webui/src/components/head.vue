@@ -50,6 +50,7 @@
 
 <script>
     import {mapState} from "vuex";
+    import {toUrl} from "../common/api/api";
     export default {
         name : "tophead",
         props : ['active'],
@@ -76,7 +77,7 @@
             ...mapState('login',['loginInfo','loginStatus','loginGetStatus'])
         },
         created (){
-            this.getLoginInfo();
+            this.getLoginInfo()
             // if(typeof userData == 'object'){
             //     if(userData.uid){
             //         this.$store.commit('login/loginInfo', userData);
@@ -97,6 +98,7 @@
         mounted(){
             document.title = this.lang[this.local].htmlTitle || ''
             this.isphone()
+            this.comeFrom()
         },
         methods : {
             changeLang(lang){
@@ -132,7 +134,6 @@
                     this.toLogin(this.toUrl(item));
                 }else{
                     if(item == 'app'){
-                        console.log(this.active)
                         if(this.active == 'home'){
                             let anchorElement = document.getElementById('app');
                             if(anchorElement) { anchorElement.scrollIntoView(); }
@@ -178,7 +179,26 @@
                 }else{
                     location.href = this.financeUrl + '/account'
                 }
-            }
+            },
+            comeFrom (){
+                this.axios({
+                    url : this.api.ipfrom,
+                }).then((res) => {
+
+                    if(this.$router.history.base == toUrl.indexUrl && this.$router.history.current.name =="prohibit"){
+                        return false
+                    }
+                    if(res.data.status != "success"){
+                        // this.$store.commit('ip', res.data.ip)
+                        // this.$store.commit('county', res.data.county)
+                        // this.$router.push('/prohibit')
+                        location.href = toUrl.indexUrl + '/prohibit'
+                    }
+                    
+                }).catch((err) => {
+                    // location.reload();
+                });
+            },
         },
     }
 </script>

@@ -2,6 +2,16 @@
 <div class="icoindex">
     <section class="icolist container">
         <h4>{{lang[local].ico}}</h4>
+        <div class="selltip">
+            <ul>
+                <li>{{lang[local].icoselltip1}}</li>
+                <li>{{lang[local].icoselltip2}} <a :href= "articleUrl + '/list/ico_protocol' " target="_blank"> {{lang[local].icoselltip3}}</a> {{lang[local].icoselltip8}}</li>
+                <li>{{lang[local].icoselltip4}}</li>
+                <li>{{lang[local].icoselltip5}}</li>
+                <li>{{lang[local].icoselltip6}}</li>
+                <li>{{lang[local].icoselltip7}}</li>
+            </ul>
+        </div>
         <dl >
             <dt>{{lang[local].going}}</dt>
             <dd v-if="list.normal_list && list.normal_list.length" @click="gotoInfo(item.coin_type,item.id)" v-for="(item,index) in list.normal_list">
@@ -61,10 +71,19 @@
                 leftMut:{},
                 comepage:1,
                 endpage:1,
+                delcur:null,
             };
         },
         created (){
             this.getList()
+        },
+        watch:{
+            // delcur(n,o){
+            //     this.list.normal_list.splice(n,1)
+            //     this.list.finish_list.unshift(this.list.normal_list[n])
+            //     this.getList()
+            //     location.reload()
+            // }
         },
         computed : {
             // ...mapState(['activeObject'])
@@ -106,22 +125,26 @@
                 }).then((res) => {
                     this.loading = false
                     this.list = res.data
-                    
                     setInterval(()=>{
                         const dd=[],h=[],m=[],s=[]
                             res.data.normal_list.map((d,i)=>{
-                            //获取当前时间
-                            let date = new Date();
-                            let now = date.getTime();
-                            let end = d.end_time*1000
-                            //时间差
-                            let leftTime2 = end-now;
-                            if (leftTime2>=0) {
-                                dd.push( Math.floor(leftTime2/1000/60/60/24) )
-                                h.push( Math.floor(leftTime2/1000/60/60%24))
-                                m.push( Math.floor(leftTime2/1000/60%60))
-                                s.push( Math.floor(leftTime2/1000%60))
-                            }
+                                //获取当前时间
+                                let date = new Date();
+                                let now = res.time*1000 || date.getTime();
+                                let end = d.end_time*1000
+                                //时间差
+                                let leftTime2 = end-now;
+                                if (leftTime2>=0) {
+                                    dd.push( Math.floor(leftTime2/1000/60/60/24) )
+                                    h.push( Math.floor(leftTime2/1000/60/60%24))
+                                    m.push( Math.floor(leftTime2/1000/60%60))
+                                    s.push( Math.floor(leftTime2/1000%60))
+                                }else{
+                                    dd.push(0)
+                                    h.push(0)
+                                    m.push(0)
+                                    s.push(0)
+                                }
                             })
                         this.leftDay = dd
                         this.leftHour = h
@@ -143,6 +166,22 @@
     .icoindex{
         padding-top: 52px;
         background:url("../assets/images/beijing.jpg") center -25px no-repeat;
+        .selltip{
+            font-size:15px;
+            line-height: 30px;
+            margin-bottom:50px;
+            li{
+                margin-left:25px;
+                &:first-child{
+                    font-weight:bold;
+                    font-size:18px;
+                    margin-left:0
+                }
+                &:last-child{
+                    color:#FF6600
+                }
+            }
+        }
     }
     .icolist{
         margin-top:50px;

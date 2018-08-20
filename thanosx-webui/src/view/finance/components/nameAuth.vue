@@ -21,6 +21,24 @@
                     </div>
                 </section>
                 <section class="form-group">
+                    <div class="login-state input-box">
+                        <select v-model="param.districtcode">
+                            <option v-for="v,k in districtCode" :value="v">{{k}}</option>
+                        </select>
+                        <span :class="classActive(stateCode)" @click="stateCode = !stateCode" style="padding-left:10px;">
+                            {{param.country && param.country + '  '}} <span style="color:#929292">{{param.districtcode ? '' : lang[local].selectCountry }}</span>
+                        </span>
+                        <ul class="login-state-select" v-if="stateCode">
+                            <li v-for="v,k in districtCode" @click="stateCode = false;param.districtcode=v ; param.country = k"><span>{{k}}</span> <!--<i>{{v}} </i> --></li>
+                        </ul>
+                    </div>
+                </section>
+                <section class="form-group">
+                    <div class="input-box">
+                        <textarea type="text" name="safety-answer" rows="3" v-model="addr" :placeholder="lang[local].nameAuth100" style="width:100%;border:none;padding:10px;"/>
+                    </div>
+                </section>
+                <section class="form-group">
                     <div class="tit" style="font-size:16px;">
                         {{lang[local].nameAuth7}}
                     </div>                    
@@ -102,11 +120,19 @@
                 truename : '',
                 type : '',
                 idcard : '',
+                addr:'',
+                stateCode:false,         
+                districtCode : {},
+                param : {
+                    districtcode : '',
+                    country:''
+                }
             };
         },
         watch : {
             local(){
-                this.dcType();
+                this.dcType()
+                this.getDistrictCode()
             },
             idcardpic1 (n, o){
                 if(n.state == this.getStateSuccess){
@@ -136,8 +162,24 @@
         created (){
             this.nameAuthType = [['', this.nameAuth3]];
             this.dcType();
+            this.getDistrictCode();
         },
         methods : {
+            
+            getDistrictCode (){
+                this.axios({
+                    url : this.api.getDistrictCode,
+                    data:{
+                        type:2
+                    }
+                }).then((res) => {
+                    this.districtCode = res.data || {};
+                    // this.stateCode = true
+                }).catch((err) => {
+                    console.log(err);
+                    this.districtCode = {cn : '+86'}
+                });
+            },
             nameauth (){
 
                 if(!!!this.type){
@@ -164,6 +206,10 @@
                     this.$store.commit('msg/err', this.lang[this.local].nameAuth21);
                     return false;
                 };
+                if(!this.addr || this.addr ==''){
+                    this.$store.commit('msg/err', this.lang[this.local].nameAuth100);
+                    return false;
+                };
 
                 this.getStart();
                 this.axios({
@@ -175,6 +221,8 @@
                         idcardpic1 : this.idcardpic1.data,
                         idcardpic2 : this.idcardpic2.data,
                         idcardpic3 : this.idcardpic3.data,
+                        district_code:this.param.districtcode,
+                        district_address:this.addr
                     }
                 }).then((res) => {
                     this.getSuccess();
@@ -211,7 +259,69 @@
     }
 </script>
 
-<style lang="scss">
+<style scoped lang="scss">
+    @import "../../../assets/css/var.scss";
+    .login-state{
+        width: 100%;
+        & > select{
+            display: none;
+        }
+        & > span{
+            cursor: pointer;
+            font-size: 16px;
+            position: relative;
+            line-height: 40px;
+            display: block;
+            
+            &.active{
+                &:after{
+                    transform:translateY(-50%) rotateZ(180deg);
+                }
+            }
+            &:after{
+                content: '\F104';
+                @include iconfont(16px);
+                display: block;
+                position: absolute;
+                right: 10px;
+                top: 50%;
+                transform: translateY(-50%);
+                transition: transform 0.4s ease;
+            }
+        }
+        .login-state-select{
+            position: absolute;
+            width: 100%;
+            top: 40px - 1px;
+            background: #ffffff;            
+            box-shadow: 0 0 5px rgba(0,0,0,.3);
+            max-height: 200px;
+            z-index:999;
+            overflow: auto;
+            @media screen and (max-width: 820px){
+                top: 40px - 1px;
+            }
+            li{
+                display: block;
+                padding: 15px 20px;
+                font-size: 16px;
+                color: $fontColor;
+                overflow: hidden;
+                cursor: pointer;
+                text-transform: uppercase;
+                span{
+                    float: left;
+                }
+                i{
+                    display: block;
+                    float: right;
+                    font-style: normal;
+                }
+                &:nth-child(even){background:#eee;}
+            }
+        }
+    }
+
     .nameAuth ul.maxImg{
         li{
             position: absolute;
@@ -238,3 +348,4 @@
         }
     }
 </style>
+

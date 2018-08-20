@@ -58,7 +58,13 @@
                              
                              </li>
                         </ul>
-
+                        <section class="login-form-group">
+                            <label class="checkbox-my">
+                                <input type="checkbox" v-model="agreement" />
+                                <i class="iconfont " :class=" !agreement ? 'icon-huisekuang':'icon-icon2' "></i>
+                                {{lang[local].loginAgree}}  <a :href="articleUrl + '/list/ico_protocol'" target="_blank">{{lang[local].icoselltip10}} </a></a> 
+                            </label> 
+                        </section>
                         <template v-if="loginStatus">
                             <a href="javascript:;" class="submit" @click="createOrders" :disabled="(!isStart || isTimeover || coininfo.status !=1) ? true:false" :style=" (!isStart || isTimeover || coininfo.status !=1) && 'cursor:not-allowed;' ">{{!isStart ? lang[local].comesoon : isTimeover ? lang[local].timeover : coininfo.status !=1 ? lang[local].icostop : lang[local].icoSubmit}}</a>
                         </template>
@@ -106,6 +112,7 @@
 
 <script>
     import {mapState} from "vuex";
+    import BigNumber from "bignumber.js";
     export default {
         name: "app",
         data (){
@@ -133,7 +140,8 @@
                 coin:this.$route.params.xnb,
                 isTimeover:false,
                 isStart:true,
-                id:0
+                id:0,
+                agreement:false,
             }
         },
         watch : {
@@ -162,9 +170,8 @@
                 };
             },
             getcoin(){
-                let len = this.tab[this.cur].decimal_limit*1 + 1
                 if(this.tab.length){
-                     return  parseFloat(((this.num*1000 /1000) * (this.tab[this.cur].price*1000 / 1000 )).toFixed(len))
+                     return this.num ? parseFloat(BigNumber(this.num).multipliedBy(BigNumber(this.tab[this.cur].price))) : 0
                 }
             },
             // ...mapState(['info'])
@@ -177,13 +184,13 @@
         },
         methods : {
              //倒计时
-            countTime(endDate) {
+            countTime(endDate,sertime) {
                 //获取当前时间
                 let date = new Date();
-                let now = date.getTime();
+                let now = sertime*1000 || date.getTime();
                 //设置截止时间
                 // let endDate = endTime || new Date("2016-10-22 23:23:23");
-                let end = endDate
+                let end = endDate *1000
                 //时间差
                 let leftTime2 = end-now;
                 if (leftTime2>=0) {
@@ -208,7 +215,7 @@
                     this.tab = res.data.list || []
 
                     setInterval(()=>{
-                        this.countTime(res.data.item.end_time*1000)
+                        this.countTime(res.data.item.end_time,res.data.time)
                     },1000)
 
                     const index = []
@@ -228,7 +235,7 @@
                     if( res.data.item.end_time*1000 < new Date().getTime() ){
                         this.isTimeover = true
                     }
-                    console.log(res.data.item.end_time*1000 > new Date().getTime())
+                    // console.log(res.data.item.end_time*1000 > new Date().getTime())
 
                     // let now = index.length > 0 ? index[0] : 0
 
@@ -296,6 +303,10 @@
                     this.$store.commit('msg/err', this.lang[this.local].webSocketError2);
                     return false;
                 }
+                if(!this.agreement){
+                    this.$store.commit('msg/err', this.lang[this.local].agreementTip);
+                    return false;
+                }                
                 this.axios({
                     url : this.api.createOrders,
                     data:{
@@ -319,7 +330,7 @@
 
 
             handselect(index){
-                console.log(index)
+                // console.log(index)
                 this.cur = index                
                 // this.num = index && parseInt(this.tab[index].max_buy_count) + ''
             }
@@ -344,7 +355,7 @@
             font-weight: bold;
         }
     }
-    .txt{margin-bottom: 30px;text-indent:2em;}
+    .txt{margin-bottom: 30px;text-indent:2em;line-height:24px;}
     .time{
         display: inline-block;
         margin-top:30px;
@@ -420,6 +431,10 @@
                 }
             }
         }
+    }
+    .login-form-group{
+        margin-bottom:20px;
+        font-size:16px;
     }
 
 }

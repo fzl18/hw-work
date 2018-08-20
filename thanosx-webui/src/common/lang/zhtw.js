@@ -8,6 +8,9 @@ const zhtw = {
     "ico":"資產發行",
     "app":"下載APP",
     "indexTxt":"本社區嚴格遵守相關法律法規，暫不支持IP地址來自美國、中國大陸的用戶註冊或交易。",
+    "noway1":"抱歉，由於您的IP",
+    "noway2":"來自",
+    "noway3":"平臺暫未開放該地區的服務",
 
     //
     "appCome":"即將發佈敬請期待",
@@ -264,6 +267,7 @@ const zhtw = {
     "nameAuth4" : "身份證",
     "nameAuth5" : "真實姓名",
     "nameAuth6" : "證件號碼 ",
+    "nameAuth100" : "請輸入您所在的詳細地址資訊 ",
     "nameAuth7" : "證件照片",
     "nameAuth8" : "請上傳證件正面、反面照片、手持證件照片（文件大小不超過4M）",
     "nameAuth9" : "證件照正面",
@@ -795,6 +799,8 @@ const zhtw = {
     "icoamount2":"餘",
     "icoamount3":"份",
 
+
+
     "icobuy":"購買",
     "going":"進行中的",
     "comesoon":"即將開始",
@@ -811,8 +817,22 @@ const zhtw = {
     "icoempty":"暫無項目",
     "iconame":"發行方",
 
-    "selectCountry":"選擇國家或地區",
 
+    "icoselltip1":"注意事項：",
+    "icoselltip2":"· 鑑於購買後，無法修改與回溯。請在購買前仔細閱讀",
+    "icoselltip3":"發售免責條款",
+    "icoselltip4":"· 購買前請詳閱該資產發售項目說明，確保您自身權益。",
+    "icoselltip5":"· 購買時請再次確認購買數量與金額。",
+    "icoselltip6":"· 購買代幣不保證獲利，請謹慎選擇。",
+    "icoselltip7":"* 免責聲明：若發現帳戶有不正當交易行為，官方將有權調整、保留或終止該帳號的權利。重要異動將公告在官方網站與頻道，恕不另行通知。",
+    "icoselltip8":"",
+    "icoselltip9":"",
+    "icoselltip10":"發售協定",
+    "icoagree":"請確認同意發售協議",
+
+    "selectCountry":"選擇國家或地區",
+    "country1":"美國",
+    "country2":"中國大陸",
 
     "newslist1":[
         {title:'服務交易',type_alias:''},

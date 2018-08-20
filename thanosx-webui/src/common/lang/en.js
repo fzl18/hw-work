@@ -8,6 +8,9 @@ const en = {
     "ico":"Assets Release",
     "app":"APP",
     "indexTxt":"ThanosX does not support user registrations or transactions originated from the US or China IP addresses.",
+    "noway1":"Sorry,because of your IP ",
+    "noway2":" form ",
+    "noway3":"The platform has not yet opened services in the region.",
 
     //
     "appCome":"Look forward to the upcoming release",
@@ -265,6 +268,7 @@ const en = {
     "nameAuth4" : "ID",
     "nameAuth5" : "actual name",
     "nameAuth6" : "ID number ",
+    "nameAuth100" : "Please enter your detailed address.",
     "nameAuth7" : "Photo of the certificate",
     "nameAuth8" : "Please upload the photos of the ID card with both front-side and back-side and the photo of you holding your ID (the file size should not exceed 4M)",
     "nameAuth9" : "front of the photo",
@@ -812,9 +816,23 @@ const en = {
     "icoempty":"No project",
     "iconame":"Issuer",
 
+    "icoselltip1":"Note:",
+    "icoselltip2":"· Given  after purchase, you cannot modify the back. Please read  ",
+    "icoselltip3":"the release disclaimer carefully ",
+    "icoselltip4":"· Please read the description of the asset offering item before purchase to ensure your own rights and interests.",
+    "icoselltip5":"· Please reconfirm the purchase quantity and amount when purchasing",
+    "icoselltip6":"· Buy tokens does not guarantee a profit, please choose carefully",
+    "icoselltip7":"* Disclaimer: If discovered account of improper trading practices, the official will be entitled to adjust, the right to retain or terminate the account. Important changes will be posted on the official website and channel without notice",
+    "icoselltip8":"before purchasing.",
+    "icoselltip9":"",
+    "icoselltip10":"the sale agreement",
+    "icoagree":"Please confirm agree to the sale agreement",
+
 
     "selectCountry":"Choose country or region",
     "default" : "Default",
+    "country1":"USA",
+    "country2":"Chinese Mainland",
 
     "newslist1":[
         {title:'SERVICE',type_alias:''},

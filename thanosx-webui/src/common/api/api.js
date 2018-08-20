@@ -14,6 +14,7 @@ export const apiCommon = {
     'noticeId' : 36,
     'newsId' : 58,
     'appDownload' : 'https://www.rdb.one/home/mobile/appDownload',
+    'ipfrom':'/api/ip/ipFrom',
 
 };
 
@@ -40,6 +41,7 @@ export const toUrl = {
     tradeMarketUrl : process.env.NODE_ENV == 'development' ? '/trade.html/{xnb}/{rmb}' : '/home/trade/{xnb}/{rmb}',
     truenametUrl : process.env.NODE_ENV == 'development' ? '/safety.html/nameAuth' : '/home/safety/nameAuth',
     articleUrl : process.env.NODE_ENV == 'development' ? '/article.html' : '/home/article',
+    indexUrl : process.env.NODE_ENV == 'development' ? '/index.html' : '/home/index',
     icoUrl : process.env.NODE_ENV == 'development' ? '/ico.html' : '/home/ico',
 };
 
