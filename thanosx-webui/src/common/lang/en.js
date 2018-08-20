@@ -772,7 +772,7 @@ const en = {
     "icotip1":"Purchase instructions:",
     "icotip10":" 1. Purchase amount: the minimum single is",
     "icotip11":"the maximum single is",
-    "icotip12":"the number of subscriptions is not limited.",
+    "icotip12":" ;the number of subscriptions is not limited.",
     "icotip2":"2. Once the purchase is complete, you cannot return it. Please confirm.",
     "icotip3":"3. Please go to <Purchase History> for enquiry.",
     "icoSubmit":"Buy",

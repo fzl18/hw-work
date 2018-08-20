@@ -44,7 +44,7 @@
                 <section class="safety-form" style="box-shadow:none;padding:0">
                     <section class="form-group">
                         <div class="input-box">
-                        <input type="text" v-model="token" @keyup.enter="bindGa"  name="safety-answer" :placeholder="lang[local]['4009']" />
+                        <input type="text" v-model="token" @keyup.enter="bindGa"  name="safety-answer" :placeholder="lang[local]['4009']" style="width:100%;"/>
                         </div>
                     </section>
                     <section class="form-group">

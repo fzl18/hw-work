@@ -145,6 +145,9 @@
             }
         },
         watch : {
+            local(){
+                this.getInfo()
+            },
             "param.verify" (n, o){
                 if(n.length > this.verifCodeLen){
                     this.param.verify = o;
@@ -184,10 +187,10 @@
         },
         methods : {
              //倒计时
-            countTime(endDate,sertime) {
+            countTime(endDate,sertime,timer) {
                 //获取当前时间
                 let date = new Date();
-                let now = sertime*1000 || date.getTime();
+                let now = (sertime*1000 + (timer*1000)) || date.getTime();
                 //设置截止时间
                 // let endDate = endTime || new Date("2016-10-22 23:23:23");
                 let end = endDate *1000
@@ -213,9 +216,10 @@
                     this.loading = false
                     this.coininfo = res.data.item || {}
                     this.tab = res.data.list || []
-
+                    let timer = 0
                     setInterval(()=>{
-                        this.countTime(res.data.item.end_time,res.data.time)
+                        this.countTime(res.data.item.end_time,res.data.time,timer)
+                        timer++
                     },1000)
 
                     const index = []
@@ -355,7 +359,7 @@
             font-weight: bold;
         }
     }
-    .txt{margin-bottom: 30px;text-indent:2em;line-height:24px;}
+    .txt{margin-bottom: 30px;line-height:24px;}
     .time{
         display: inline-block;
         margin-top:30px;

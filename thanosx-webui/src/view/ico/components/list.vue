@@ -100,7 +100,7 @@
                     url : this.api.getMore,
                     data : {
                         type,
-                        currPage:page
+                        currPage:page+1
                     }
                 }).then((res) => {
                     this.moreLoading = false                    
@@ -125,12 +125,13 @@
                 }).then((res) => {
                     this.loading = false
                     this.list = res.data
+                    let timer = 0
                     setInterval(()=>{
                         const dd=[],h=[],m=[],s=[]
                             res.data.normal_list.map((d,i)=>{
                                 //获取当前时间
                                 let date = new Date();
-                                let now = res.time*1000 || date.getTime();
+                                let now = (res.data.time*1000 + (timer*1000)) || date.getTime();
                                 let end = d.end_time*1000
                                 //时间差
                                 let leftTime2 = end-now;
@@ -150,6 +151,7 @@
                         this.leftHour = h
                         this.leftMut = m
                         this.leftSec = s
+                        timer++
                     },1000)
                         
                     
