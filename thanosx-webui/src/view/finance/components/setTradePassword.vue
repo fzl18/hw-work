@@ -113,6 +113,7 @@
                     this.verifyCodeDown();
                 }).catch((err) => {
                     this.verifyCodeTimeText = '';
+                    this.$store.commit('msg/err', err.message);
                 });
             }
         },

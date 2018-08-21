@@ -8,17 +8,17 @@
             <div class="tit">{{lang[local].uppassword1}}</div>
             <section class="form-group">
                 <div class="input-box">
-                    <i class="iconfont icon-mima" ></i> <input type="password" @keyup.enter="uppassword"  v-model="param.oldpwd" name="safety-trade-oldpaypwd" :placeholder="lang[local].uppassword2" />
+                    <i class="iconfont icon-mima" ></i> <input type="password" @keyup.enter="uppassword"  v-model="param.oldpwd" name="safety-trade-oldpaypwd" :placeholder="lang[local].uppassword2" style="width:300px"/>
                 </div>
             </section>
             <section class="form-group">
                 <div class="input-box">
-                    <i class="iconfont icon-mima" ></i> <input type="password" @keyup.enter="uppassword" v-model="param.newpwd" name="safety-trade-newpaypwd" :placeholder="lang[local].uppassword3" />
+                    <i class="iconfont icon-mima" ></i> <input type="password" @keyup.enter="uppassword" v-model="param.newpwd" name="safety-trade-newpaypwd" :placeholder="lang[local].uppassword3" style="width:300px"/>
                 </div>
             </section>
             <section class="form-group">
                 <div class="input-box">
-                    <i class="iconfont icon-mima" ></i> <input type="password" @keyup.enter="uppassword" v-model="param.repwd" name="safety-trade-repaypwd" :placeholder="lang[local].uppassword4" />
+                    <i class="iconfont icon-mima" ></i> <input type="password" @keyup.enter="uppassword" v-model="param.repwd" name="safety-trade-repaypwd" :placeholder="lang[local].uppassword4" style="width:300px"/>
                 </div>
             </section>
             <!-- <section class="form-group" style="text-align: right">
