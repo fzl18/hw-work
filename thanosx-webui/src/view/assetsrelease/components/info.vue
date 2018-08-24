@@ -62,7 +62,7 @@
                             <label class="checkbox-my">
                                 <input type="checkbox" v-model="agreement" />
                                 <i class="iconfont " :class=" !agreement ? 'icon-huisekuang':'icon-icon2' "></i>
-                                {{lang[local].loginAgree}}  <a :href="articleUrl + '/list/ico_protocol'" target="_blank">{{lang[local].icoselltip10}} </a></a> 
+                                {{lang[local].loginAgree}}  <a :href="articleUrl + '/list/assetsrelease_protocol'" target="_blank">{{lang[local].icoselltip10}} </a>
                             </label> 
                         </section>
                         <template v-if="loginStatus">
@@ -236,17 +236,10 @@
                     if( res.data.item.start_time*1000 > new Date().getTime() ){
                         this.isStart = false
                     }
-                    if( res.data.item.end_time*1000 < new Date().getTime() ){
+                    if( res.data.item.end_time*1000 < new Date().getTime() || res.data.item.status == '3' || res.data.item.status == '4' || res.data.item.status == '5'){
                         this.isTimeover = true
                     }
-                    // console.log(res.data.item.end_time*1000 > new Date().getTime())
-
-                    // let now = index.length > 0 ? index[0] : 0
-
-                    // this.cur = now              //res.data.list[0].last_count == 0 ? 1 : 0
-                    // this.num = res.data.list[now].min_buy_count
                 }).catch((err) => {
-                    // this.list = [];
                     this.showStatus = false;
                 });
             },
@@ -266,6 +259,7 @@
                     this.verifyCodeDown();
                 }).catch((err) => {
                     this.verifyCodeTimeText = '';
+                    this.$store.commit('msg/err', err.message);
                 });
             },
             verifyNum(){

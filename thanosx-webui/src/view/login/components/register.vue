@@ -49,6 +49,11 @@
                     <i class="iconfont icon-mima"></i> <input class="register-confirm-paw" @keyup.enter="submit" type="password" @blur="passwordConfirmBlur" v-model="param.confirmPassword" name="register-confirmPassword" :placeholder="lang[local].confirmPassword" />
                 </div>
             </section>
+            <!-- <section class="login-form-group">
+                <div class="input-box">
+                    <i class="iconfont icon-mn_yonghu"></i> <input class="" @keyup.enter="submit" type="text" @blur="passwordConfirmBlur" v-model="param.invit" name="register-invit" :placeholder="lang[local].invit" />
+                </div>
+            </section> -->
             <section class="login-form-group">
                 <span class="tips">{{lang[local].loginTips}}</span>
             </section>
@@ -96,6 +101,9 @@
             };
         },
         watch : {
+            "param.invit" (n, o){
+                this.param.invit = n.replace(/[^0-9]*/g, '');
+            },
             "param.username" (n, o){
                 let reg = new RegExp(/^([a-zA-Z0-9._-])+@([a-zA-Z0-9_-])+(\.[a-zA-Z0-9_-])+/)           
                 // this.param.username = n.replace(/^[A-Za-z\d]+([-_.][A-Za-z\d]+)*@([A-Za-z\d]+[-.])+[A-Za-z\d]{2,4}$/, '');
@@ -215,17 +223,7 @@
             });
         },
 
-        methods : {
-            // getDistrictCode (){
-            //     this.axios({
-            //         url : this.api.getDistrictCode,
-            //     }).then((res) => {
-            //         this.districtCode = res.data || {};
-            //     }).catch((err) => {
-            //         console.log(err);
-            //         this.districtCode = {cn : '+86'}
-            //     });
-            // },
+        methods: {
             captcha(){                
                 this.vpic = this.api.captcha +'?v=' +new Date()
             },
@@ -270,7 +268,7 @@
                 };
 
                 if(this.sendCodeCount <= 0){
-                    this.$store.commit('tips/show', this.lang[this.local].sendVerifCode);
+                    this.$store.commit('msg/err', this.lang[this.local].sendVerifCode);
                     this.param.moble_verify = '';
                     return false;
                 }
@@ -317,19 +315,15 @@
                 // if(this.verifyCodeTimeText){
                 //     return false;
                 // };
-                console.log('sdfwefsdfef')
                 if(this.param.username == ''){
-                    console.log('111111111')
                     this.$store.commit('tips/show', this.lang[this.local].enterEmail);
                     return false;
                 };
                 if(this.param.pic_verify == ''){
-                    console.log('2222222222222')
                     this.$store.commit('msg/err', this.lang[this.local].picCodeEmpty);
                     return false;
                 };
                 if(this.param.username.length < 3){
-                    console.log('33333333333')
                     this.$store.commit('tips/show', this.lang[this.local].emailError);
                     return false;
                 };
@@ -345,14 +339,14 @@
                     this.sendCodeCount ++;
                     this.verifyCodeDown();
                 }).catch((err) => {
-                    console.log('wefsdfef')
                     this.$store.commit('tips/hide', this.lang[this.local].sendVerifCode);
-                    this.$store.commit('tips/add', {
-                        text : err.message || this.lang[this.local].sendVerifCodeError,
-                        status : true,
-                        time : this.verifTipTime,
-                        el : ".register-code-btn",
-                    });
+                    this.$store.commit('msg/err', err.message);
+                    // {
+                    //     text : err.message || this.lang[this.local].sendVerifCodeError,
+                    //     status : true,
+                    //     time : this.verifTipTime,
+                    //     el : ".register-code-btn",
+                    // }
                     this.verifyCodeTimeText = '';
                     this.sendCodeStatus = false;
                     this.captcha()
@@ -429,7 +423,6 @@
                     });
                 });
             },
-
         }
     }
 </script>

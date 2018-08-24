@@ -18,11 +18,18 @@
         },
         methods : {
             position (tip){
-                var p = {};
+                var p = {};                
+                let flag = navigator.userAgent.match(/(phone|pad|pod|iPhone|iPod|ios|iPad|Android|Mobile|BlackBerry|IEMobile|MQQBrowser|JUC|Fennec|wOSBrowser|BrowserNG|WebOS|Symbian|Windows Phone)/i)
+                let isMobile = (flag && flag.length) >0 ? true : false
                 if(tip.el && document.querySelector(tip.el)){
-                    var el = document.querySelector(tip.el);
-                    p.top = this.offsetTop(el) + 'px';
-                    p.left = this.offsetLeft(el) + 'px';
+                    var el = document.querySelector(tip.el);                    
+                    if(isMobile){
+                        p.top = this.offsetTop(el) - 50 + 'px';
+                        p.left = this.offsetLeft(el) + 'px';
+                    }else{
+                        p.top = this.offsetTop(el) + 'px';
+                        p.left = this.offsetLeft(el) + 'px';
+                    }
                     p.transform = 'translateY(-100%) translateX(0%)';
                     // if(tip.align == 'left'){
                     //     p.left = this.offsetLeft(el) + 'px';

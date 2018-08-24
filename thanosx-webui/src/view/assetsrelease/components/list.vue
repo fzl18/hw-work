@@ -5,7 +5,7 @@
         <div class="selltip">
             <ul>
                 <li>{{lang[local].icoselltip1}}</li>
-                <li>{{lang[local].icoselltip2}} <a :href= "articleUrl + '/list/ico_protocol' " target="_blank"> {{lang[local].icoselltip3}}</a> {{lang[local].icoselltip8}}</li>
+                <li>{{lang[local].icoselltip2}} <a :href= "articleUrl + '/list/assetsrelease_protocol' " target="_blank"> {{lang[local].icoselltip3}}</a> {{lang[local].icoselltip8}}</li>
                 <li>{{lang[local].icoselltip4}}</li>
                 <li>{{lang[local].icoselltip5}}</li>
                 <li>{{lang[local].icoselltip6}}</li>

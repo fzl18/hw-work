@@ -9,7 +9,7 @@ import {toUrl} from "../../../common/api/api";
 Vue.use(Router);
 const router = new Router({
     mode: 'history',
-    base : toUrl.icoUrl,
+    base : toUrl.assetsreleaseUrl,
     routes: [
         {
             path: '/',

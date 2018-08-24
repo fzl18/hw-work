@@ -9,7 +9,7 @@ import  icoCss from "./assets/css/ico.scss"
 
 import {mapState} from "vuex"
 
-import {apiIco} from "../../common/api/ico"
+import {apiIco} from "../../common/api/assetsrelease"
 store.commit('updateApi', apiIco);
 
 Vue.mixin({

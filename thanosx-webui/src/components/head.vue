@@ -4,7 +4,7 @@
         <header :class=" active == 'trade' ? 'trade' : 'container' ">
             <div>
                 <div style="width:75%;float:left;">                    
-                    <div class="logo"><a href="/" ></a> </div>
+                    <div class="logo"><a href="/" ></a> <span class="beta">alpha</span> </div>
                     <div class="lang">
                         <Dropdown @on-click="changeLang">
                             <a href="javascript:void(0)">
@@ -56,7 +56,7 @@
         props : ['active'],
         data (){
             return {
-                menu : ['home', 'trade', 'whitebook','ico', 'app'], // 'ico'
+                menu : ['home', 'trade', 'whitebook','assetsrelease', 'app'], 
                 loginTo : ['safety', 'finance'],
                 isShow:false,
                 isMobile:false,

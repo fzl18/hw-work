@@ -42,7 +42,7 @@ export const toUrl = {
     truenametUrl : process.env.NODE_ENV == 'development' ? '/safety.html/nameAuth' : '/home/safety/nameAuth',
     articleUrl : process.env.NODE_ENV == 'development' ? '/article.html' : '/home/article',
     indexUrl : process.env.NODE_ENV == 'development' ? '/index.html' : '/home/index',
-    icoUrl : process.env.NODE_ENV == 'development' ? '/ico.html' : '/home/ico',
+    assetsreleaseUrl : process.env.NODE_ENV == 'development' ? '/assetsrelease.html' : '/home/assetsrelease',
 };
 
 // export const webSocketUrl = process.env.NODE_ENV == 'development' ? 'ws://23.91.100.214:8686/sub' : 'wss://market-api.rdb.one/sub';
