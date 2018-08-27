@@ -23,7 +23,7 @@
             </section>
             <section class="login-form-group">                
                 <div class="input-box" style="position: relative;">
-                    <i class="iconfont icon-yanzhengma" style="font-size:18px"></i> <input type="text" @keyup.enter="submit"  v-model="param.pic_verify" name="register-mobile" :placeholder="lang[local].picVerifCode" style="width:calc(100% - 150px)"/>
+                    <i class="iconfont icon-yanzhengma" style="font-size:18px"></i> <input type="text" @keyup.enter="submit"  v-model="param.pic_verify" name="register-mobile" :placeholder="lang[local].picVerifCode" style="width:calc(100% - 150px);padding-right:0"/>
                     <span @click="captcha" style="cursor: pointer; display:block; position: absolute;right:0;top:-10px;background:#333;width:100px;height:40px;"> <img :src="vpic" alt="" style="width:100px;height:40px;"> </span>
                 </div>
             </section>
@@ -49,11 +49,11 @@
                     <i class="iconfont icon-mima"></i> <input class="register-confirm-paw" @keyup.enter="submit" type="password" @blur="passwordConfirmBlur" v-model="param.confirmPassword" name="register-confirmPassword" :placeholder="lang[local].confirmPassword" />
                 </div>
             </section>
-            <!-- <section class="login-form-group">
+            <section class="login-form-group">
                 <div class="input-box">
                     <i class="iconfont icon-mn_yonghu"></i> <input class="" @keyup.enter="submit" type="text" @blur="passwordConfirmBlur" v-model="param.invit" name="register-invit" :placeholder="lang[local].invit" />
                 </div>
-            </section> -->
+            </section>
             <section class="login-form-group">
                 <span class="tips">{{lang[local].loginTips}}</span>
             </section>
