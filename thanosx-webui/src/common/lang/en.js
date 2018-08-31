@@ -798,6 +798,7 @@ const en = {
     "icoFree1":"offline give",
     "icoFree2":"recommend give",
     "icoFree3":"register give",
+    "icoFree4":"system give",
     "icoamount1":"A total of",
     "icoamount2":"Left",
     "icoamount3":"copies",

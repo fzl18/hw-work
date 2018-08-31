@@ -798,6 +798,7 @@ const zhtw = {
     "icoFree1":"空投贈送",
     "icoFree2":"推薦贈送",
     "icoFree3":"注册贈送",
+    "icoFree4":"系統贈送",
     "icoamount1":"共",
     "icoamount2":"餘",
     "icoamount3":"份",

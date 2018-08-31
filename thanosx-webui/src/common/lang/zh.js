@@ -801,6 +801,7 @@ const zh = {
     "icoFree1":"空投赠送",
     "icoFree2":"推荐赠送",
     "icoFree3":"注册赠送",
+    "icoFree4":"系统赠送",
     "icoamount1":"共",
     "icoamount2":"余",
     "icoamount3":"份",

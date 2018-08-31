@@ -14,7 +14,7 @@ import {mapState} from "vuex";
 Vue.mixin({
     data (){
         return {
-            serviceCharge : 0,
+            serviceCharge : 0.001,
         }
     },
     computed : {
