@@ -64,8 +64,10 @@ export default {
             state.headerActive = headerActive;
         },
         changeLang (state,param){
-            state.local = param
-            window.localStorage.curLang = param
+            if(param == 'zh' || param == 'zhtw' || param == 'en'){
+                state.local = param
+                window.localStorage.curLang = param
+            }
         },
         
         ip(state,param){

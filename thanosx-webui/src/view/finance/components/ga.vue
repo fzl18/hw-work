@@ -104,7 +104,7 @@
                 }).then((res) => {
                     this.getSuccess();
                     this.$store.commit('msg/add', this.lang[this.local].ga2);
-                    this.$router.push('./');
+                    this.$router.push('/account');
                 }).catch((err) => {
                     this.getError();
                     this.$store.commit('msg/err', err.message || this.lang[this.local].ga3);

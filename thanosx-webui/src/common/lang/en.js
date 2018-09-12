@@ -755,10 +755,12 @@ const en = {
     "acctit2":"transaction password",
     "acctit3":"cellphone number",
     "acctit4":"Google Authenticator",
+    "acctit5":"Trading API",
     "acctxt1":"Security level",
     "acctxt2":"Used for currency verification, C2C transfer security verification, modification",
     "acctxt3":"When the account is abnormal, the customer service can contact you in time.",
     "acctxt4":"For login and security setup validation",
+    "acctxt5":"Set transaction services via API RSA",
     "accbtn":"Edit",
     "accbtnbind":"Bind",
     "accbtnunbind":"Untied",
@@ -767,7 +769,10 @@ const en = {
     "accbtnrest":"Reset",
     "accbtnset":"Set",
 
-
+    "setRsaTit":"API Settings",
+    "setRsaTxt":"You can use the third-party tools to perform ThanosX market query and quantify transactions by creating an API RSA public key.",
+    "setRsaTxt1":"For details, please see <a style='color:#FF6500' href='https://github.com/thanosxcom/thanosx-trade-quant' target='_blank'>the ThanosX Trading API documentation.</a>",
+    "setRsaTip":"Please bind Google verification code first and bind API RSA again.",
 
     "icoTrade":"Assets release",
     "icotip1":"Purchase instructions:",
@@ -799,6 +804,8 @@ const en = {
     "icoFree2":"recommend give",
     "icoFree3":"register give",
     "icoFree4":"system give",
+    "icoFree5":"Fee refund",
+    "icoFree6":"Bonus",
     "icoamount1":"A total of",
     "icoamount2":"Left",
     "icoamount3":"copies",

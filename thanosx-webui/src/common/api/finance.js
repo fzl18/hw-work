@@ -62,5 +62,10 @@ export const apiFinance = {
     "payPasswordVerifyCode":"/api/Security/payPasswordVerifyCode",
     "withdrawVerifyCode":"/api/Finance/withdrawVerifyCode",
     "getMainCoins":"/api/finance/getMainCoins",
+
+    "getRsaMailCode":"/api/security/RsaVerifyCode",
+    "setRsa":"/api/security/setRsa",
+    "rsaInfo":"/api/security/rsaInfo",
+    
 };
 

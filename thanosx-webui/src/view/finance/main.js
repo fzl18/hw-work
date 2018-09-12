@@ -27,7 +27,15 @@ Vue.mixin({
     computed : {
         ...mapState(['userBasicinfo', 'userBasicinfoState'])
     },
+    mounted(){
+        if(this.$route.query.lang){
+            this.$store.commit('changeLang', this.$route.query.lang)
+        }
+    },
     methods : {
+        watchLang(){
+
+        },
         coinChange (){
             if(this.$route.query.coin){
                 this.coin = this.$route.query.coin

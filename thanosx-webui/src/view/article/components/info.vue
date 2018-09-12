@@ -35,11 +35,13 @@
             articleInfo (page){
                 page = page || {};
                 this.getState = this.getStateStart;
+                console.log(this.$route)
                 this.axios({
                     url : this.api.info,
                     data : {
                         id : this.$route.params.id,
                         pid : this.$route.params.pid || '',
+                        // lang: (this.$route.query && this.$route.query.lang) || (localStorage.curLang == 'zh' ? 'zh-cn':localStorage.curLang == 'zhtw' ?'zh-tw':'en'),
                         ...page
                     }
                 }).then((res) => {

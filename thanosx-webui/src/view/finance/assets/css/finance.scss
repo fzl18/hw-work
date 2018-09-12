@@ -499,7 +499,7 @@ $financeMinHeight : 820px;
 
 .myWallet-box,.bankCard-box{
     overflow: hidden;
-    margin-top: 40px;
+    // margin-top: 40px;
     & > section{
         margin-left: 17.5px;
         &:nth-child(3n + 1){
@@ -1001,7 +1001,7 @@ $financeMinHeight : 820px;
         background:#F8F8F8;
         dl{
             display: inline-block;
-            width:24%;
+            width:19%;
             text-align:center;
             padding: 30px 4%;
             position: relative;
@@ -1022,7 +1022,7 @@ $financeMinHeight : 820px;
                 line-height: 30px;
                 font-size:15px;
                 span{color:$mainColor;font-weight:bold;}
-                &.txt{height:60px;}
+                &.txt{height:80px;}
                 &.btn{                    
                     margin-top:50px;
                     a{

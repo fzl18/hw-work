@@ -52,13 +52,13 @@
             <dl>
                 <dt><i class="iconfont icon-yuechi"></i></dt>
                 <dd>{{lang[local].acctit2}}</dd>
-                <dd class="txt" :style="local == 'en' && 'font-size:12px;line-height:16px' ">{{lang[local].acctxt2}} <span>({{userBasicinfo.paypassword ? lang[local].safety9 : lang[local].safety10}})</span></dd>
+                <dd class="txt" :style="local == 'en' && 'font-size:12px;line-height:16px' ">{{lang[local].acctxt2}} <br/><span>({{userBasicinfo.paypassword ? lang[local].safety9 : lang[local].safety10}})</span></dd>
                 <dd class="btn"> <router-link to="/setTradePassword" >{{userBasicinfo.paypassword ? lang[local].accbtnrest :lang[local].accbtnset}}</router-link></dd>
             </dl>
             <dl>
                 <dt><i class="iconfont icon-shouji"></i></dt>
                 <dd>{{lang[local].acctit3}}</dd>
-                <dd class="txt" :style="local == 'en' && 'font-size:12px;line-height:16px' ">{{lang[local].acctxt3}}<br/><span style="font-size:14px;">({{userBasicinfo.moble ? userBasicinfo.district_code +' '+ userBasicinfo.moble : lang[local].accunbind}})</span></dd>
+                <dd class="txt" :style="local == 'en' && 'font-size:12px;line-height:16px' ">{{lang[local].acctxt3}}<br/><span style="font-size:13px;">({{userBasicinfo.moble ? userBasicinfo.district_code + userBasicinfo.moble : lang[local].accunbind}})</span></dd>
                 <dd class="btn"> <router-link to="/mobileBind" >{{userBasicinfo.moble ? lang[local].accbtnrest : lang[local].accbtnbind}}</router-link></dd>
             </dl>
             <dl>
@@ -66,6 +66,12 @@
                 <dd>{{lang[local].acctit4}}</dd>
                 <dd class="txt">{{lang[local].acctxt4}}<br /><span style="font-size:14px;">({{userBasicinfo.gabind ? lang[local].accbind:lang[local].accunbind}}) </span> </dd>
                 <dd class="btn"> <router-link to="/ga" >{{ userBasicinfo.gabind ? lang[local].accbtnunbind : lang[local].accbtnbind }}</router-link></dd>
+            </dl>
+            <dl>
+                <dt><i class="iconfont icon-yanzheng"></i></dt>
+                <dd>{{lang[local].acctit5}}</dd>
+                <dd class="txt">{{lang[local].acctxt5}}<br /><span style="font-size:14px;">({{apiBind ? lang[local].safety9:lang[local].safety10}}) </span> </dd>
+                <dd class="btn"> <a href="javascript:;" @click="setRsa">{{ apiBind ? lang[local].accbtnrest : lang[local].accbtnset }}</a></dd>
             </dl>
 
         </section>
@@ -102,13 +108,15 @@
                 updatePwdStatus : false,
                 password : '',
                 moble : '',
-                count:0
+                count:0,
+                apiBind:false
             };
         },
         created (){
             this.basicinfo();
         },
         mounted (){
+            this.rsaInfo()
         },
         watch:{
             local(){
@@ -116,6 +124,27 @@
             }
         },
         methods : {
+            setRsa(){
+                if(this.userBasicinfo.gabind){
+                    this.$router.push('/setRsa')
+                }else{
+                    this.$store.commit('msg/err', this.lang[this.local].setRsaTip)
+                    this.$router.push('/ga')
+                }
+            },
+            rsaInfo(){
+                this.axios({
+                    url : this.api.rsaInfo,
+                    data : {
+                    }
+                }).then((res) => {
+                    if(res.data.google_is_bind){
+                        this.apiBind = res.data.rsa_is_bind
+                    }
+                }).catch((err) => {
+                    console.log(err)
+                });
+            }
         },
     }
 </script>

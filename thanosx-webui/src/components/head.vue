@@ -62,7 +62,7 @@
                 isMobile:false,
             };
         },
-        watch : {
+        watch : {            
             "loginInfo" (n, o){
                 if(!(n && n.uid)){
                     this.loginTo.forEach((n) => {
@@ -99,6 +99,12 @@
             document.title = this.lang[this.local].htmlTitle || ''
             this.isphone()
             this.comeFrom()
+            if(Object.keys(this.$router.history.current.query).length >0){
+                let lang = this.$router.history.current.query.lang && this.$router.history.current.query.lang                
+                if(lang){
+                    this.$store.commit('changeLang', lang)
+                }
+            }
         },
         methods : {
             changeLang(lang){

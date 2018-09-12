@@ -37,6 +37,8 @@ import nameAuth from '../components/nameAuth'
 import nameAuthDetails from '../components/nameAuthDetails'
 import mobileBind from '../components/mobileBind'
 
+import setRsa from '../components/setRsa'
+
 import store from '../store/index'
 import {toUrl} from "../../../common/api/api";
 import {apiFinance} from '../../../common/api/finance'
@@ -250,6 +252,14 @@ const router = new Router({
                 parent : 'account'
             }
         },
+        {
+            path: '/setRsa',
+            name: 'setRsa',
+            component: setRsa,
+            meta : {
+                parent : 'account'
+            }
+        },
         ...commonRouter,
     ]
 })
@@ -262,6 +272,7 @@ const routeGuard = function (to, from, next){
         next();
         return true;
     };
+
     var userBasicinfo = store.getters.userBasicinfo;
     if(userBasicinfo && userBasicinfo.userid){
         if(to.name == 'issue'){
@@ -288,6 +299,7 @@ const routeGuard = function (to, from, next){
             };
             return;
         };
+       
         if(to.name == 'ga'){
             if(userBasicinfo.gabind){
                 next('./gaRemove');
@@ -317,6 +329,14 @@ const routeGuard = function (to, from, next){
                 next('./nameAuthDetails');
             }else{
                 next();
+            };
+            return;
+        };
+        if(to.name == 'nameAuthDetails'){
+            if(userBasicinfo.truename){
+                next();
+            }else{
+                next('./nameAuth');
             };
             return;
         };

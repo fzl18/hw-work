@@ -757,10 +757,12 @@ const zh = {
     "acctit2":"交易密码",
     "acctit3":"手机号码",
     "acctit4":"谷歌身份验证器",
+    "acctit5":"交易API",
     "acctxt1":"安全等级",
     "acctxt2":"用于提币、C2C转账时安全验证",
     "acctxt3":"在账户异常时，客服能及时联系到您",
     "acctxt4":"用于登录和安全设置验证",
+    "acctxt5":"通过API RSA设置交易服务",
     "accbtn":"修改",
     "accbtnbind":"绑定",
     "accbtnunbind":"解绑",
@@ -768,6 +770,11 @@ const zh = {
     "accunbind":"未绑定",
     "accbtnrest":"重置",
     "accbtnset":"设置",
+
+    "setRsaTit":"API设置",
+    "setRsaTxt":"您可以通过创建API RSA公钥借助第三方工具进行ThanosX行情查询、量化交易等服务。",
+    "setRsaTxt1":"具体方法请查看<a style='color:#FF6500' href='https://github.com/thanosxcom/thanosx-trade-quant' target='_blank'>ThanosX 交易API文档。</a>",
+    "setRsaTip":"请先绑定google验证码，再绑定API RSA",
 
 
 
@@ -802,6 +809,8 @@ const zh = {
     "icoFree2":"推荐赠送",
     "icoFree3":"注册赠送",
     "icoFree4":"系统赠送",
+    "icoFree5":"手续费返还",
+    "icoFree6":"分红",
     "icoamount1":"共",
     "icoamount2":"余",
     "icoamount3":"份",

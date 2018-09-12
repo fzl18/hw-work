@@ -1,5 +1,4 @@
 import axios from 'axios'
-
 var instance = axios.create({
     baseURL: process.env.NODE_ENV == 'development' ? '' : '',
     withCredentials : process.env.NODE_ENV == 'development' ? true : false,
@@ -31,12 +30,16 @@ instance.interceptors.request.use(function (config) {
     if(process.env.NODE_ENV == 'development'){
         
         config.data = {
-            data :{ ...config.data,lang:lang},
+            data :{ 
+                lang:lang, 
+                ...config.data},
             // cookie : document.cookie
         };
     }else{
         config.data = {
-            data : { ...config.data,lang:lang},
+            data : { 
+                lang:lang, 
+                ...config.data},
         };
     };
     return config;
