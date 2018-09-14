@@ -1,0 +1,32 @@
+
+body{background:#F6F6F6;}
+a{transition:all 300ms;color:#1BB7F9}
+a:hover{opacity:.85;}
+.btn a:hover{opacity:.85;}
+.txtblue{color:#1BB7F9}
+/* 主容器 */
+.main{
+    max-width:1200px;
+    margin:0 auto;
+}
+.middle {
+    margin-top:-80px;
+}
+.spin-icon-load{
+    animation: ani-demo-spin 1s linear infinite;
+}
+@keyframes ani-demo-spin {
+    from { transform: rotate(0deg);}
+    50%  { transform: rotate(180deg);}
+    to   { transform: rotate(360deg);}
+}
+.pin-col{
+    height: 100px;
+    position: relative;
+    border: 1px solid #eee;
+}
+
+.content{position: relative;background:#fff;min-height:75vh;}
+.ivu-spin-text{
+    position: absolute; top:200px;left:46%;
+}
