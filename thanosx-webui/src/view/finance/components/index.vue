@@ -84,7 +84,7 @@
                 totalAssets : 0,
                 coinSeekSatet : false,
                 totalAssetsState : false,
-                origin : process.env.NODE_ENV == 'development' ? 'http://120.79.219.175' : ''
+                origin : process.env.NODE_ENV == 'development' ? 'http://39.108.169.210' : ''
             };
         },
         watch : {

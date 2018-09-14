@@ -88,7 +88,7 @@ export default {
           axisLine:{show:false},
         }],
         series: [{
-            name: '高度',
+            name: '交易量',
             type: 'line',
             // symbol: 'none',
             symbolSize:4 | 8,
@@ -115,7 +115,7 @@ export default {
     
     Promise.all(
     this.xdata.map((d,i)=>
-      i< 8 && Promise.resolve(this.getChartsInfo((i * this.timeOffset),(8-i)))    
+       Promise.resolve(this.getChartsInfo((i * this.timeOffset),(8-i)))    
     ))
     .then(()=>{
       Chart.setOption({

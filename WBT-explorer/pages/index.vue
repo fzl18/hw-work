@@ -28,9 +28,9 @@
         <tbody>
           <tr v-for=" (list,key) in listdata" :key="key">
               <td> 
-                  <Icon type='checkmark-circled' class="txtgreen"></Icon>
-                  <!-- <template v-if="list.status == 'OK'"><Icon type='checkmark-circled' class="txtgreen"></Icon></template> -->
-                  <!-- <template v-else><Icon type='close-circled' class="txtred"></Icon></template> -->
+                  <!-- <Icon type='checkmark-circled' class="txtgreen"></Icon> -->
+                  <template v-if="list.meta.TransactionResult == 'tesSUCCESS'"><Icon type='checkmark-circled' class="txtgreen"></Icon></template>
+                  <template v-else><Icon type='close-circled' class="txtred" :title="list.meta.TransactionResult"></Icon></template>
               </td>
             <td><a href="javascript:;" @click="gotoHash(list.hash)">{{list.hash}}</a></td>
             <td>{{list.ledger_index}}</td>

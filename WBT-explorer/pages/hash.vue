@@ -22,8 +22,9 @@
             <td><a href="javascript:;" @click="gotoAccount(con.tx.Account)">{{con.tx.Account}}</a></td>
           </tr>
           <tr >
-            <td>{{local[lang].hash.inaddr}}</td>
-            <td><a href="javascript:;" @click="gotoAccount(con.tx.Destination)">{{con.tx.Destination}}</a></td>
+            <td>{{con.tx.TransactionType=="OfferCreate" ?'支付金额' :local[lang].hash.inaddr}}</td>
+            <td v-if="con.tx.TransactionType !='OfferCreate'"><a href="javascript:;" @click="gotoAccount(con.tx.Destination)">{{con.tx.Destination}}</a></td>
+            <td v-if="con.tx.TransactionType =='OfferCreate'">{{con.tx.TakerGets && con.tx.TakerGets / 100000 + ' CSL'}} <span v-if="con.tx.TakerGets.issuer">( 发行地址：<a href="javascript:;" @click="gotoAccount(con.tx.TakerGets.issuer)">{{con.tx.TakerGets.issuer}}</a> )</span></td>
           </tr>
           <tr >
             <td>{{local[lang].hash.otype}}</td>
@@ -37,13 +38,14 @@
             <td>{{local[lang].hash.fee}}</td>
             <td>{{con.tx.Fee/1000000}} CSL</td>
           </tr>
-          <tr >
+          <tr v-if="con.tx.TransactionType !='OfferCreate'">
             <td>{{local[lang].hash.token}}</td>
             <td><a href="javascript:;">{{typeof con.tx.Amount  == 'object' ? con.tx.Amount.currency : 'CSL' }}</a></td>
           </tr>
           <tr >
-            <td>{{local[lang].hash.num}}</td>
-            <td>{{ typeof con.tx.Amount == 'string' ? parseInt(con.tx.Amount)/1000000 : con.tx.Amount ? con.tx.Amount.value : (con.tx.TakerGets && con.tx.TakerGets / 100000 + ' CSL' ) }}</td>
+            <td>{{con.tx.TransactionType=="OfferCreate"? '预收入':local[lang].hash.num}}</td>
+            <td v-if="con.tx.TransactionType !='OfferCreate'">{{ typeof con.tx.Amount == 'string' ? parseInt(con.tx.Amount)/1000000 : con.tx.Amount ? con.tx.Amount.value :'' }}</td>
+            <td v-if="con.tx.TransactionType =='OfferCreate'">{{ con.tx.TakerPays.value }} {{parseCurrency(con.tx.TakerPays.currency)}} <span v-if="con.tx.TakerPays.issuer"> ( 发行地址：<a href="javascript:;" @click="gotoAccount(con.tx.TakerPays.issuer)">{{con.tx.TakerPays.issuer}}</a> )</span></td>
           </tr>
           <tr >
             <td>{{local[lang].hash.time}}</td>
@@ -82,12 +84,7 @@ export default {
     }
   },
   watch:{
-    '$route': 'getList'
-// 　　　handler(){
-// 　　　　this.getList()
-// 　　　},
-// 　　　deep:true
-    
+    '$route': 'getList'    
   },
   created(){
     this.getList()
@@ -130,6 +127,35 @@ export default {
       this.changSearchKey({type:'searchKey',val:val.toUpperCase()})
       this.$router.push({path: '/infolist/distribution'})
     },
+
+    hexCharCodeToStr (hexCharCodeStr) {
+    var trimedStr = hexCharCodeStr.trim()
+    var rawStr =
+    trimedStr.substr(0, 2).toLowerCase() === '0x'
+      ?
+      trimedStr.substr(2)
+      :
+      trimedStr
+    var len = rawStr.length
+    if (len % 2 !== 0) {
+      alert('Illegal Format ASCII Code!')
+      return ''
+    }
+    var curCharCode
+    var resultStr = []
+    for (var i = 0; i < len;i = i + 2) {
+      curCharCode = parseInt(rawStr.substr(i, 2), 16)
+      resultStr.push(String.fromCharCode(curCharCode))
+    }
+    return resultStr.join('')
+  },  
+   parseCurrency(currency) {
+      if (currency.length == 40) {
+        return this.hexCharCodeToStr(currency.replace(/0/g, ''))
+      }else {
+        return currency
+      }
+    }
   }
 }
 </script>
