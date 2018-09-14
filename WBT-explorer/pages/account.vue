@@ -29,10 +29,10 @@
             <td><a href="javascript:;">{{list.currency}}</a></td>
             <td>{{list.amount}}</td>
             <td>
-              <template v-if=" list.source != account">
+              <template v-if=" list.source != $route.query.v">
                 <span class="in">in</span>
               </template>
-              <template v-if=" list.source == account">
+              <template v-if=" list.source == $route.query.v">
                 <span class="out">out</span>
               </template>
             </td>
