@@ -163,7 +163,7 @@ parseValue(tx) {
         case 'OfferCreate':
           var takerPays = typeof tx.TakerPays == 'object' ? tx.TakerPays.value + ' ' + this.parseCurrency(tx.TakerPays.currency) : tx.TakerPays / 1000000 + ' ' + 'CSL'
           var takerGets = typeof tx.TakerGets == 'object' ? tx.TakerGets.value + ' ' + this.parseCurrency(tx.TakerGets.currency) : tx.TakerGets / 1000000 + ' ' + 'CSL'
-          value = takerPays + ' => ' + takerGets
+          value = takerPays + ' = ' + takerGets
           break
         case 'TrustSet':
           value = typeof tx.LimitAmount == 'object' ? tx.LimitAmount.value + ' ' + this.parseCurrency(tx.LimitAmount.currency) : tx.LimitAmount / 1000000 + ' ' + 'CSL'

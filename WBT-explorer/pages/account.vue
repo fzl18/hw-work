@@ -67,7 +67,7 @@ export default {
     ])
   },
   watch:{
-    '$routee':'getList'    
+    '$route':'getList'    
   },
   mounted(){
     this.getList()

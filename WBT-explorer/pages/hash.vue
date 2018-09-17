@@ -24,7 +24,7 @@
           <tr >
             <td>{{con.tx.TransactionType=="OfferCreate" ?'支付金额' :local[lang].hash.inaddr}}</td>
             <td v-if="con.tx.TransactionType !='OfferCreate'"><a href="javascript:;" @click="gotoAccount(con.tx.Destination)">{{con.tx.Destination}}</a></td>
-            <td v-if="con.tx.TransactionType =='OfferCreate'">{{typeof con.tx.TakerGets == 'string' ? (con.tx.TakerGets / 100000 + ' CSL'): con.tx.TakerGets.value}} <span v-if="con.tx.TakerGets.issuer">( 发行地址：<a href="javascript:;" @click="gotoAccount(con.tx.TakerGets.issuer)">{{con.tx.TakerGets.issuer}}</a> )</span></td>
+            <td v-if="con.tx.TransactionType =='OfferCreate'">{{typeof con.tx.TakerGets == 'string' ? (con.tx.TakerGets / 100000 + ' CSL') : (con.tx.TakerGets.value + ' '+ (con.tx.TakerGets.currency ? parseCurrency(con.tx.TakerGets.currency):'CSL'))}} <span v-if="con.tx.TakerGets.issuer">( 发行地址：<a href="javascript:;" @click="gotoAccount(con.tx.TakerGets.issuer)">{{con.tx.TakerGets.issuer}}</a> )</span></td>
           </tr>
           <tr >
             <td>{{local[lang].hash.otype}}</td>
@@ -84,7 +84,7 @@ export default {
     }
   },
   watch:{
-    '$route': 'getList'    
+    '$route': 'getList'
   },
   created(){
     this.getList()

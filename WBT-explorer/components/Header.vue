@@ -25,7 +25,10 @@ export default {
     this.fetchData()
   },
   watch: {
-    '$route': 'fetchData'
+    '$route'(){
+      this.fetchData()
+      // this.search()
+    }
   },
   computed: mapState([
     'local','lang'
