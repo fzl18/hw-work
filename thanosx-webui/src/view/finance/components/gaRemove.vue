@@ -50,11 +50,11 @@
                     }
                 }).then((res) => {
                     this.getSuccess();
-                    this.$store.commit('msg/add', this.lang[this.local].ga2);
+                    this.$store.commit('msg/add', this.lang[this.local].ga5);
                     this.$router.push('./');
                 }).catch((err) => {
                     this.getError();
-                    this.$store.commit('msg/err', err.message || this.lang[this.local].ga3);
+                    this.$store.commit('msg/err', err.message || this.lang[this.local].ga6);
                 });
             },
         }

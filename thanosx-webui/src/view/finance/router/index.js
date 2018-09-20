@@ -29,6 +29,9 @@ import setTradePassword from '../components/setTradePassword'
 import findTradePassword from '../components/findTradePassword'
 import uppassword from '../components/uppassword'
 
+import c2cOrder from '../components/c2c/c2cOrder'
+import transferMode from '../components/c2c/transferMode'
+
 const ga = () => import(/* webpackChunkName: "ga" */ '../components/ga')
 const gaRemove = () => import(/* webpackChunkName: "ga" */ '../components/gaRemove')
 const gaSet = () => import(/* webpackChunkName: "ga" */ '../components/gaSet')
@@ -260,6 +263,22 @@ const router = new Router({
                 parent : 'account'
             }
         },
+        // {
+        //     path: '/c2cOrder',
+        //     name: 'c2cOrder',
+        //     component: c2cOrder,
+        //     meta : {
+        //         parent : 'c2cOrder'
+        //     }
+        // },
+        // {
+        //     path: '/transferMode',
+        //     name: 'transferMode',
+        //     component: transferMode,
+        //     meta : {
+        //         parent : 'transferMode'
+        //     }
+        // },
         ...commonRouter,
     ]
 })

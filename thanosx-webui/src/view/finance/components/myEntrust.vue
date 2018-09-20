@@ -30,10 +30,10 @@
                         {{item.order_type == 'Buy' ? lang[local].buy : lang[local].sell }}
                     </span>
                 </dd>
-                <dd style="width:10%">{{item.price}}</dd>
-                <dd style="width:10%">{{item.order_count}}</dd>
-                <dd style="width:10%">{{item.deal}}</dd>
-                <dd style="width:10%">{{item.count}}</dd>
+                <dd style="width:10%">{{tobigNumber(item.price)}}</dd>
+                <dd style="width:10%">{{tobigNumber(item.order_count)}}</dd>
+                <dd style="width:10%">{{tobigNumber(item.deal)}}</dd>
+                <dd style="width:10%">{{tobigNumber(item.count)}}</dd>
                 <dd style="width:15%">
                     <a :title="lang[local].annul" href="javascript:;" @click="chexiao(item)">{{lang[local].annul}}{{item.chexiao ? '...' : ''}}</a>
                 </dd>
@@ -43,6 +43,7 @@
 </template>
 
 <script>
+    import bigNum from "bignumber.js"
     export default {
         name: "my-entrust",
         data (){
@@ -71,6 +72,9 @@
             this.getMarketInfo();
         },
         methods : {
+            tobigNumber(val){
+                return bigNum(val).toString(10)
+            },
             chexiao (item){
                 item.chexiao = true;
                 this.axios({

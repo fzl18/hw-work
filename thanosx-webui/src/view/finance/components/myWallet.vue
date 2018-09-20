@@ -2,7 +2,7 @@
     <section>
         <financeHeader>
             <span>{{lang[local].myWallet}}</span>
-            <span class="addWallet" @click=" isShow = true" > + {{lang[local].addmyWallet}}</span>
+            <span class="addWallet" @click="addWallet" > + {{lang[local].addmyWallet}}</span>
         </financeHeader>
         <section class="myWallet-box">
         
@@ -151,7 +151,7 @@
             };
         },
         created (){
-            this.getData();
+            this.getData();            
             this.getcoinList();
         },
         methods : {
@@ -271,6 +271,10 @@
                 }else{
                     !rest && this.$store.commit('msg/err', this.lang[this.local].selectCoin)
                 };
+            },
+            addWallet(){
+                this.isShow = true
+                this.getcoinList()
             },
             close (){
                 this.isShow = false

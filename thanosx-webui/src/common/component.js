@@ -15,7 +15,7 @@ import listLoadTemplate from '../components/listLoadTemplate';
 import uploadFile from '../components/uploadFile';
 import appDownload from '../components/appDownload';
 import {HappyScroll} from 'vue-happy-scroll';
-import { Row, Col,Dropdown,DropdownMenu,DropdownItem,Icon,Affix,Modal } from 'iview';
+import { Row, Col,Dropdown,DropdownMenu,DropdownItem,Icon,Affix,Modal,Poptip } from 'iview';
 import 'babel-polyfill'
 
 const copy = () => import(/* webpackChunkName: "copy" */ '../components/copy');
@@ -46,4 +46,5 @@ Vue.component('DropdownItem', DropdownItem);
 Vue.component('Icon', Icon);
 Vue.component('Affix', Affix);
 Vue.component('Modal', Modal);
+Vue.component('Poptip', Poptip);
 Vue.component('happy-scroll', HappyScroll)

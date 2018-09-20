@@ -8,8 +8,16 @@
                     <p class="txt">{{lang[local].apptxt}}</p>
                     <!-- <p class="download"><a href="">ios {{lang[local].appDownload}}</a><a href="">Android {{lang[local].appDownload}}</a></p> -->
                     <p class="download" style="font-size:24px;font-weight:bold;color:#FF7100">
-                        <a href="javascritp:;" @click="openWindow('ios')"><i class="iconfont icon-ios"></i> iOS</a>
-                        <a href="javascritp:;" @click="openWindow('android')"><i class="iconfont icon-anzhuo"></i> Android</a>
+                        
+                        <a href="javascritp:;" style="background:#ccc;border-color:#ccc"><i class="iconfont icon-ios"></i> iOS</a>
+                        <a href="javascritp:;" style="background:#ccc;border-color:#ccc"><i class="iconfont icon-anzhuo"></i> Android</a>
+                        
+                        <!-- <Poptip trigger="hover" content="content" placement="bottom" width="200">
+                            <a href="javascritp:;"><i class="iconfont icon-anzhuo"></i> Android</a>
+                            <div class="api" slot="content" style="text-align:center">
+                                <ewm :value="androidUrl"></ewm>
+                            </div>
+                        </Poptip> -->
                     </p>
                 </Col>
             </Row>
@@ -22,7 +30,8 @@
         name: "app-banner",
         data(){
             return {
-                
+                iosUrl:window.iosUrl || 'iosUrl' ,
+                androidUrl:window.androidUrl || 'androidUrl',
             }
         },
         computed : {
@@ -77,7 +86,8 @@
                     min-width:200px;
                     display: inline-block;margin-right:20px;
                     &:hover{
-                        background: #FFF;color:#FF7100;
+                        // background: #FFF;color:#FF7100;
+                        cursor: not-allowed;
                     }
                     .iconfont{
                         font-size:24px;

@@ -19,15 +19,21 @@
                 <!-- <dd><span class="line-feed">{{item.addr}}</span></dd> -->
                 <dd style="width:20%">{{upperCase(item.coin)}}</dd>
                 <!-- <dd style="width:20%">{{numDecimals(item.num)}}</dd> -->
-                <dd style="width:20%">{{parseFloat(item.num)}}</dd>
+                <dd style="width:20%">{{tobigNumber(item.num)}}</dd>
             </dl>
         </list>
     </section>
 </template>
 
 <script>
+    import bigNum from "bignumber.js"
     export default {
-        name: "coinRecord"
+        name: "coinRecord",
+        methods : {
+            tobigNumber(val){
+                return bigNum(val).toString(10)
+            },
+        },
     }
 </script>
 

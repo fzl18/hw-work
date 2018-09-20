@@ -14,9 +14,12 @@
                 <div class="con">
                     <dl v-for="(item, index) in depthSell" :key="item[0]" @click="clickItem('sell', item)">
                         <!-- <dd class="sellColor">{{lang[local].depthSell}}{{index + 1}}</dd> -->
-                        <dd :title="priceAccuracy(item[0])" class="sellColor">{{priceAccuracy(item[0])}}</dd>
-                        <dd :title="numAccuracy(item[1])">{{numAccuracy(item[1])}}</dd>
-                        <dd :title="priceAccuracy(item[0] * item[1])">{{priceAccuracy(item[0] * item[1])}}</dd>
+                        <!-- <dd :title="priceAccuracy(item[0])" class="sellColor">{{priceAccuracy(item[0])}}</dd> -->
+                        <dd :title="tobigNumber(item[0])" class="sellColor">{{tobigNumber(item[0])}}</dd>
+                        <!-- <dd :title="numAccuracy(item[1])">{{numAccuracy(item[1])}}</dd> -->
+                        <dd :title="tobigNumber(item[1])">{{tobigNumber(item[1])}}</dd>
+                        <!-- <dd :title="priceAccuracy(item[0] * item[1])">{{priceAccuracy(item[0] * item[1])}}</dd> -->
+                        <dd :title="tobigNumber(item[0] * item[1])">{{tobigNumber(item[0] * item[1])}}</dd>
                     </dl>
                 </div>
                 </happy-scroll>
@@ -41,9 +44,12 @@
                 <div class="con">
                 <dl v-for="(item, index) in depthBuy" :key="item[0]" @click="clickItem('buy', item)">
                     <!-- <dd class="buyColor">{{lang[local].depthBuy}}{{index + 1}}</dd> -->
-                    <dd :title="priceAccuracy(item[0])" class="buyColor">{{priceAccuracy(item[0])}}</dd>
-                    <dd :title="numAccuracy(item[1])">{{numAccuracy(item[1])}}</dd>
-                    <dd :title="priceAccuracy(item[0] * item[1])">{{priceAccuracy(item[0] * item[1])}}</dd>
+                    <!-- <dd :title="priceAccuracy(item[0])" class="buyColor">{{priceAccuracy(item[0])}}</dd> -->
+                    <dd :title="tobigNumber(item[0])" class="buyColor">{{tobigNumber(item[0])}}</dd>
+                    <!-- <dd :title="numAccuracy(item[1])">{{numAccuracy(item[1])}}</dd> -->
+                    <dd :title="tobigNumber(item[1])">{{tobigNumber(item[1])}}</dd>
+                    <!-- <dd :title="priceAccuracy(item[0] * item[1])">{{priceAccuracy(item[0] * item[1])}}</dd> -->
+                    <dd :title="tobigNumber(item[0] * item[1])">{{tobigNumber(item[0] * item[1])}}</dd>
                 </dl>
                 </div>
                 </happy-scroll>
@@ -56,6 +62,7 @@
 
 <script>
     import {mapState} from 'vuex'
+    import bigNum from "bignumber.js"
     export default {
         name: "depth",
         data (){
@@ -70,6 +77,9 @@
         created (){
         },
         methods : {
+            tobigNumber(val){
+                return bigNum(val).toString(10)
+            },
             clickItem (type, item){
                 this.$store.commit('clickData', [type].concat(item));
             },
@@ -114,7 +124,7 @@
                 }
                 &:nth-child(3){
                     width: 34%;
-                    text-align: right;
+                    text-align: left;
                     padding-right: 5px;
                 }
                 // &:nth-child(4){

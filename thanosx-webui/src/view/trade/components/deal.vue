@@ -13,7 +13,8 @@
                     <dl v-for="item in deal" :key="item[4]" @click="clickItem(item)">
                         <!-- <dd :class="item[1] + 'Color'">{{lang[local][item[1]]}}</dd> -->
                         <dd :class="item[1] + 'Color'" :title="priceAccuracy(item[2])">{{priceAccuracy(item[2])}}</dd>
-                        <dd :title="numAccuracy(item[3])">{{numAccuracy(item[3])}}</dd>
+                        <!-- <dd :title="numAccuracy(item[3])">{{numAccuracy(item[3]).toString()}}</dd> -->
+                        <dd :title="item[3]">{{item[3]}}</dd>
                         <dd :title="localDate(item[0], true)" style="padding-right:10px">{{localDate(item[0], true)}}</dd>
                     </dl>
                 </div>                

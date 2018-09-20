@@ -60,7 +60,8 @@
                         </dd>
                         <dd><span>{{toDecimals(getItemMarketData(coin, 3), (coins[coin.rmb] && coins[coin.rmb].accuracy) || 4)}}</span></dd>
                         <dd><span>{{toDecimals(getItemMarketData(coin, 4),  (coins[coin.rmb] && coins[coin.rmb].accuracy) || 4)}}</span></dd>
-                        <dd><span>{{numDecimals(getItemMarketData(coin, 5),  (coins[coin.rmb] && coins[coin.rmb].accuracy) || 4)}}</span></dd>
+                        <!-- <dd><span>{{numDecimals(getItemMarketData(coin, 5),  (coins[coin.rmb] && coins[coin.rmb].accuracy) || 4)}}</span></dd> -->
+                        <dd><span>{{toDecimals(getItemMarketData(coin, 5),  (coins[coin.rmb] && coins[coin.rmb].accuracy) || 4)}}</span></dd>
                         <dd><i class="iconfont icon-cf-c41" style="color:#4DC61E;font-size:25px;cursor: pointer;" @click="toTrade(coin)"></i></dd>
                         
                     </dl>

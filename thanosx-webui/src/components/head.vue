@@ -36,6 +36,7 @@
                             <ul :style="isMobile ? isShow ?'display:block':'display:none;':'' ">
                                 <li>UID：{{loginInfo.uid}}</li>
                                 <li @click="goto(financeUrl)">{{lang[local].mymoney}}<!-- <a :href="" style="float:right;color:#FF6500;">{{lang[local].view}}</a>--> </li>
+                                <!-- <li @click="goto()">{{lang[local].c2cOrder}}</li>-->
                                 <li @click="goto()"><span style="float:left;color:inherit;font-weight:normal">{{lang[local].accountSetting}}</span><a :href="financeUrl+'/account'"><span class="state" :style="local =='en'? 'font-size:12px':'' ">{{ loginInfo && loginInfo.nameauthstatus==1 ? lang[local].certified : loginInfo && loginInfo.nameauthstatus == 0 ? lang[local].nameauthstatus2 : loginInfo && loginInfo.nameauthstatus == 2 ? lang[local].nameAuth31 : lang[local].unauthorized }}</span> </a></li>
                                 <li @click="logout" class="exit"> <i class="iconfont icon-tuichu1"></i> {{lang[local].loginExit}}</li>
                             </ul>
@@ -181,7 +182,7 @@
             }, 
             goto(url){
                 if(url){
-                    location.href = this.financeUrl;
+                    location.href = url;
                 }else{
                     location.href = this.financeUrl + '/account'
                 }

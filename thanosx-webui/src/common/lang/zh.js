@@ -850,6 +850,17 @@ const zh = {
     "country1":"美国",
     "country2":"中国大陆",
 
+
+
+
+    'c2cOrder':'C2C订单',
+    "transferMode":"转账方式",
+
+
+
+
+
+
     "newslist1":[
         {title:'服务交易',type_alias:''},
         {title:'交易中心',type_alias:'trade_center'},

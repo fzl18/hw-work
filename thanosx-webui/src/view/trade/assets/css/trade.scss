@@ -3,6 +3,9 @@
 body,html{
     background: $tradeBg;
 }
+.trade-main{
+    min-width:1200px;
+}
 
 .deal-enter, .deal-leave-to{
     opacity: 0;

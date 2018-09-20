@@ -4,7 +4,7 @@ var instance = axios.create({
     withCredentials : process.env.NODE_ENV == 'development' ? true : false,
     method: 'post',
     responseType: 'json',
-    timeout : 10000,
+    timeout : 20000,
     headers: {
     }
 });

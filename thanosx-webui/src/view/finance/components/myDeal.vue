@@ -25,16 +25,19 @@
                 <dd>{{localDate(item.timestamp)}}</dd>
                 <dd>{{upperCase(item.market)}}/{{upperCase(item.market2)}}</dd>
                 <dd><span :class="item.order_type != 'Buy' ? 'buyColor' : 'sellColor'">{{item.order_type != 'Buy' ? lang[local].myDeal_Buy : lang[local].myDeal_Sell}}</span></dd>
-                <dd>{{priceDecimals(item.price)}}</dd>
-                <dd>{{numDecimals(item.count)}}</dd>
-                <dd>{{parseFloat(item.mum)}}</dd>
-                <dd>{{parseFloat(item.service)}}</dd>
+                <!-- <dd>{{priceDecimals(item.price)}}</dd> -->
+                <dd :title="tobigNumber(item.price)">{{tobigNumber(item.price)}}</dd>
+                <!-- <dd>{{numDecimals(item.count)}}</dd> -->
+                <dd :title="tobigNumber(item.count)">{{tobigNumber(item.count)}}</dd>
+                <dd :title="tobigNumber(item.mum)">{{tobigNumber(item.mum)}}</dd>
+                <dd :title="tobigNumber(item.service)">{{tobigNumber(item.service)}}</dd>
             </dl>
         </list>
     </section>
 </template>
 
 <script>
+    import bigNum from "bignumber.js"
     export default {
         name: "my-deal",
         data (){
@@ -47,6 +50,7 @@
             }
         },
         computed :{
+            
             marketType (){
                 return [['', this.lang[this.local].all],['Sell', this.lang[this.local].sell], ['Buy', this.lang[this.local].buy]];
             },
@@ -63,6 +67,9 @@
             this.getMarketInfo();
         },
         methods : {
+            tobigNumber(val){
+                return bigNum(val).toString(10)
+            },
             getMarketInfo (){
                 this.axios({
                     url : this.api.getMarketInfo,

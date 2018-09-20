@@ -487,7 +487,7 @@
                                             ? '<span class="buyColor">' + this.lang[this.local].buy + '</span> '
                                             : '<span  class="sellColor">' + this.lang[this.local].sell + '</span> '
                                     )  + ' ' +
-                                    this.numAccuracy(item[4]) +
+                                    item[4] +    //this.numAccuracy(item[4])
                                     this.upperCase(this.xnb) + ' ' +
                                     this.lang[this.local].deal;
                                 if(!msgTime){

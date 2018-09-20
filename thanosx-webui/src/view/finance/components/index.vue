@@ -36,22 +36,23 @@
                 </dd>
                 <dd>
                     <span>
-                        <b>{{numDecimals(item.available)}}</b>
+                        <!-- <b>{{numDecimals(item.available)}}</b> -->
+                        <b>{{tobigNumber(item.available)}}</b>
                     </span>
                 </dd>
                 <dd>
                     <span>
-                        <b>{{numDecimals(item.availabled)}}</b>
+                        <b>{{tobigNumber(item.availabled)}}</b>
                     </span>
                 </dd>
                 <dd>
                     <span>
-                        <b>{{numDecimals(item.availablelock)}}</b>
+                        <b>{{tobigNumber(item.availablelock)}}</b>
                     </span>
                 </dd>
                 <dd>
                     <span>
-                        <b>{{numDecimals(item.total)}}</b>
+                        <b>{{tobigNumber(item.total)}}</b>
                         <!-- <small>≈¥{{rmbDecimals(item.total_cny)}}</small> -->
                     </span>
                 </dd>
@@ -73,6 +74,7 @@
 </template>
 
 <script>
+    import bigNum from "bignumber.js"
     export default {
         name: "index",
         data (){
@@ -106,6 +108,9 @@
             console.log(this.mainChain)
         },
         methods : {
+            tobigNumber(val){
+                return bigNum(val).toString(10)
+            },
             myasset (){
                 this.axios({
                     url : this.api.myasset,
