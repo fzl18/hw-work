@@ -170,6 +170,8 @@ $financeMinHeight : 820px;
     padding:0 20px;
     color:$mainColor;
     font-weight: bold;
+    border-bottom:3px solid #E5E5E5;
+    margin-bottom:30px;
     .totalAssets{
         margin-left: 10px;
         line-height: 1;
@@ -182,6 +184,20 @@ $financeMinHeight : 820px;
         &.active span{
             transform: translateY(0px);
         }
+    }
+    .filter{
+        float: right;
+        height:40px;
+        line-height:40px;
+        // background:$mainColor;
+        text-align:center;
+        position: relative;
+        top:10px;
+        font-weight:normal;
+        color:#666;
+        // span{
+        //     cursor: pointer;
+        // }
     }
 }
 .tab_btn{
@@ -199,21 +215,7 @@ $financeMinHeight : 820px;
             color:$mainColor;
         }
     }
-    .filter{
-        float: right;
-        // width:150px;
-        padding:0 30px;
-        height:40px;
-        line-height:40px;
-        background:$mainColor;
-        text-align:center;
-        position: relative;
-        top:25px;
-        color:#fff;
-        span{
-            cursor: pointer;
-        }
-    }
+    
 }
 .coinRecord{
     dl{
@@ -998,33 +1000,26 @@ $financeMinHeight : 820px;
     }
     .userSet{
         margin:50px 0;
-        background:#F8F8F8;
+        
         dl{
-            display: inline-block;
-            width:19%;
-            text-align:center;
-            padding: 30px 4%;
+            display:block;
+            padding: 10px 2%;
             position: relative;
-            &:after{
-                content:'';
-                width: 100%;
-                height:1px;
-                background:#fff;
-                position: absolute;
-                top:90px;
-                left: 0;
-            }
+            margin-bottom:10px;
+            background:#F8F8F8;
+            line-height:45px;
             dt{
-                margin-bottom:30px;                
-                .iconfont{font-size:50px;color:#DBDBDB;background:#F8F8F8;border-radius:50%;padding:30px;position: relative;top:-20px;}                
+                display: inline-block;
+                .iconfont{font-size:40px;color:#DBDBDB;position: relative;top:10px;}                
             }
             dd{
                 line-height: 30px;
                 font-size:15px;
+                display: inline-block;
                 span{color:$mainColor;font-weight:bold;}
-                &.txt{height:80px;}
+                &.txt{font-weight: bold;color:#000;margin:0 20px;}
                 &.btn{                    
-                    margin-top:50px;
+                    float: right;
                     a{
                         background:$mainColor;
                         text-align: center;
@@ -1033,7 +1028,9 @@ $financeMinHeight : 820px;
                         height:45px;
                         line-height:45px;
                         font-size:16px;
+                        padding:0 20px;
                         border:1px solid $mainColor;
+                        display:block;
                         &:hover{
                             background:none;
                             color: $mainColor;
@@ -1336,3 +1333,4 @@ $financeMinHeight : 820px;
         }
     }
 }
+

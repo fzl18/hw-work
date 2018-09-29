@@ -42,7 +42,7 @@
                     <div class="tit" style="font-size:16px;">
                         {{lang[local].nameAuth7}}
                     </div>                    
-                    <section class="nameAuth">                        
+                    <section class="nameAuth">
                         <ul>
                             <li>
                                 <uploadFile path="nameAuth" v-model="idcardpic1" :class="idcardpic1.state == getStateStart ? 'focus' : ''">

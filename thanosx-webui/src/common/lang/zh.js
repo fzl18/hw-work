@@ -543,6 +543,7 @@ const zh = {
     "takeCoinExplain7" : "单笔最大转出数量",
 
     "transfer" : "转出",
+    "transferIn" : "转入",
     "transferBan" : "禁止转出",
     "transferCoinRecord" : "转出转入记录",
     "transferCoin" : "站内转出",
@@ -750,6 +751,7 @@ const zh = {
 
     "accUid":"UID",
     "accName":"用户名",
+    "niName":"昵称",
     "accAuth":"实名认证",
     "accLogintime":"最近登录时间",
     "accIp":"IP",
@@ -853,8 +855,13 @@ const zh = {
 
 
 
+    'c2c':'C2C交易',
     'c2cOrder':'C2C订单',
     "transferMode":"转账方式",
+
+
+    "transferAccount":"交易账户",
+    "c2cAccount":"C2C账户",
 
 
 

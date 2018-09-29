@@ -41,7 +41,6 @@ import nameAuthDetails from '../components/nameAuthDetails'
 import mobileBind from '../components/mobileBind'
 
 import setRsa from '../components/setRsa'
-
 import store from '../store/index'
 import {toUrl} from "../../../common/api/api";
 import {apiFinance} from '../../../common/api/finance'
@@ -263,22 +262,22 @@ const router = new Router({
                 parent : 'account'
             }
         },
-        // {
-        //     path: '/c2cOrder',
-        //     name: 'c2cOrder',
-        //     component: c2cOrder,
-        //     meta : {
-        //         parent : 'c2cOrder'
-        //     }
-        // },
-        // {
-        //     path: '/transferMode',
-        //     name: 'transferMode',
-        //     component: transferMode,
-        //     meta : {
-        //         parent : 'transferMode'
-        //     }
-        // },
+        {
+            path: '/c2cOrder',
+            name: 'c2cOrder',
+            component: c2cOrder,
+            meta : {
+                parent : 'c2cOrder'
+            }
+        },
+        {
+            path: '/transferMode',
+            name: 'transferMode',
+            component: transferMode,
+            meta : {
+                parent : 'transferMode'
+            }
+        },
         ...commonRouter,
     ]
 })

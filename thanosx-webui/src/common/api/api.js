@@ -10,7 +10,7 @@ export const apiCommon = {
     "navListArticle" : '/api/Article/navList',
     'articleInfo' : '/api/Article/info',
     'getDistrictCode' : '/api/index/getDistrictCode',
-    'origin' : process.env.NODE_ENV == 'development' ? 'http://39.108.169.210' : '',
+    'origin' : process.env.NODE_ENV == 'development' ? 'http://47.99.115.225' : '',
     'noticeId' : 36,
     'newsId' : 58,
     'appDownload' : 'https://www.rdb.one/home/mobile/appDownload',
@@ -43,6 +43,7 @@ export const toUrl = {
     articleUrl : process.env.NODE_ENV == 'development' ? '/article.html' : '/home/article',
     indexUrl : process.env.NODE_ENV == 'development' ? '/index.html' : '/home/index',
     assetsreleaseUrl : process.env.NODE_ENV == 'development' ? '/assetsrelease.html' : '/home/assetsrelease',
+    c2cUrl : process.env.NODE_ENV == 'development' ? '/c2c.html' : '/home/c2c',
 };
 
 // export const webSocketUrl = process.env.NODE_ENV == 'development' ? 'ws://23.91.100.214:8686/sub' : 'wss://market-api.rdb.one/sub';

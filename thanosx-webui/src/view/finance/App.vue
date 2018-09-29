@@ -53,18 +53,18 @@
                         icon: 'icon-jiaoyicopy'
                         
                     },
-                    // {
-                    //     text : 'c2cOrder',
-                    //     name : 'c2cOrder',
-                    //     icon: 'icon-jiaoyicopy'
+                    {
+                        text : 'c2cOrder',
+                        name : 'c2cOrder',
+                        icon: 'icon-jiaoyicopy'
                         
-                    // },
-                    // {
-                    //     text : 'transferMode',
-                    //     name : 'transferMode',
-                    //     icon: 'icon-jiaoyicopy'
+                    },
+                    {
+                        text : 'transferMode',
+                        name : 'transferMode',
+                        icon: 'icon-jiaoyicopy'
                         
-                    // },
+                    },
                     {
                         text : 'account',
                         name : 'account',

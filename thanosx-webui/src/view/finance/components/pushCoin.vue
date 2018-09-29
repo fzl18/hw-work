@@ -52,18 +52,18 @@
         </h4>
         <list class="finance-coin-table" :url="api.myzrLog" :param="routeParam">
             <dl slot="head">
-                <dd>{{lang[local].pushCoinTime}}</dd>
-                <dd>{{lang[local].pushCoinId}}</dd>
-                <dd>{{lang[local].pushCoinURL}}</dd>
-                <dd>{{lang[local].pushCoinNum}}</dd>
-                <dd>{{lang[local].pushCoinState}}</dd>
+                <dd style="width:20%">{{lang[local].pushCoinTime}}</dd>
+                <dd style="width:30%">{{lang[local].pushCoinId}}</dd>
+                <dd style="width:30%">{{lang[local].pushCoinURL}}</dd>
+                <dd style="width:10%">{{lang[local].pushCoinNum}}</dd>
+                <dd style="width:10%">{{lang[local].pushCoinState}}</dd>
             </dl>
             <dl slot="body" slot-scope="{item}">
-                <dd>{{localDate(item.addtime)}}</dd>
-                <dd><span class="line-feed">{{item.id}}</span></dd>
-                <dd><span class="line-feed">{{item.to}}</span></dd>
-                <dd>{{item.num}}</dd>
-                <dd><span class="mainColor">{{item.state}}</span></dd>
+                <dd style="width:20%">{{localDate(item.addtime)}}</dd>
+                <dd style="width:30%"><span class="line-feed">{{item.id}}</span></dd>
+                <dd style="width:30%"><span class="line-feed">{{item.to}}</span></dd>
+                <dd style="width:10%">{{item.num}}</dd>
+                <dd style="width:10%"><span class="mainColor">{{item.state}}</span></dd>
             </dl>
         </list>
     </section>

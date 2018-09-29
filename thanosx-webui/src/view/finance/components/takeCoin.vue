@@ -85,18 +85,18 @@
         </h4>
         <list class="finance-coin-table" :url="api.myzcLog" :param="routeParam" >
             <dl slot="head">
-                <dd>{{lang[local].takeCoinTime}}</dd>
-                <dd>{{lang[local].takeCoinId}}</dd>
-                <dd>{{lang[local].takeCoinURL}}</dd>
-                <dd>{{lang[local].takeCoinNum}}</dd>
-                <dd>{{lang[local].takeCoinState}}</dd>
+                <dd style="width:20%">{{lang[local].takeCoinTime}}</dd>
+                <dd style="width:30%">{{lang[local].takeCoinId}}</dd>
+                <dd style="width:30%">{{lang[local].takeCoinURL}}</dd>
+                <dd style="width:10%">{{lang[local].takeCoinNum}}</dd>
+                <dd style="width:10%">{{lang[local].takeCoinState}}</dd>
             </dl>
             <dl slot="body" slot-scope="{item}" :key="item.id">
-                <dd>{{localDate(item.addtime)}}</dd>
-                <dd><span class="line-feed">{{item.txid}}</span></dd>
-                <dd><span class="line-feed">{{item.to}}</span></dd>
-                <dd>{{item.num}}</dd>
-                <dd><span class="mainColor">{{item.state}}</span></dd>
+                <dd style="width:20%">{{localDate(item.addtime)}}</dd>
+                <dd style="width:30%"><span class="line-feed">{{item.txid}}</span></dd>
+                <dd style="width:30%"><span class="line-feed">{{item.to}}</span></dd>
+                <dd style="width:10%">{{item.num}}</dd>
+                <dd style="width:10%"><span class="mainColor">{{item.state}}</span></dd>
             </dl>
         </list>
     </section>

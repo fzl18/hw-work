@@ -10,14 +10,14 @@
                     <p class="download" style="font-size:24px;font-weight:bold;color:#FF7100">
                         
                         <a href="javascritp:;" style="background:#ccc;border-color:#ccc"><i class="iconfont icon-ios"></i> iOS</a>
-                        <a href="javascritp:;" style="background:#ccc;border-color:#ccc"><i class="iconfont icon-anzhuo"></i> Android</a>
+                        <!-- <a href="javascritp:;" style="background:#ccc;border-color:#ccc"><i class="iconfont icon-anzhuo"></i> Android</a> -->
                         
-                        <!-- <Poptip trigger="hover" content="content" placement="bottom" width="200">
+                        <Poptip trigger="hover" content="content" placement="bottom" width="200">
                             <a href="javascritp:;"><i class="iconfont icon-anzhuo"></i> Android</a>
                             <div class="api" slot="content" style="text-align:center">
                                 <ewm :value="androidUrl"></ewm>
                             </div>
-                        </Poptip> -->
+                        </Poptip>
                     </p>
                 </Col>
             </Row>
@@ -86,8 +86,8 @@
                     min-width:200px;
                     display: inline-block;margin-right:20px;
                     &:hover{
-                        // background: #FFF;color:#FF7100;
-                        cursor: not-allowed;
+                        background: #FFF;color:#FF7100;
+                        // cursor: not-allowed;
                     }
                     .iconfont{
                         font-size:24px;

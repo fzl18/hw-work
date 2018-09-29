@@ -523,10 +523,56 @@ input:-webkit-autofill {
     .ivu-modal-content{
         border-radius:0;
         .ivu-modal-body{
-            padding:50px 30px 0px 30px;
+            padding:30px 50px;
         }
     }
     .ivu-modal-footer{
         border-top:none;
+    }
+}
+
+.org{color:#FF6600;}
+.green{color:#32A91A;}
+.blue{color:#008CC7;}
+.buy{
+    color:#10AA00;
+}
+.tbuy{
+    color:#10AA00;font-weight:bold;
+}
+.sell{
+    color:#F92200;
+}
+.tsell{
+    color:#F92200;font-weight:bold;
+}
+.blue{
+    color:#3D8ACE;
+}
+.tblue{
+    color:#3D8ACE;font-weight:bold;
+}
+
+.torg{
+    color:#FF6600;font-weight:bold;
+}
+.ivu-btn-primary{
+    background:#FF6600;font-size:15px;border-radius:0;padding:8px 30px;border:none;box-shadow:none;
+    &:hover{
+        background-color:#FF6600;
+        border-color:rgb(255, 168, 54);
+        opacity:.9;
+    }
+    &:focus{
+        box-shadow:none
+    }
+}
+.ivu-select-selection-focused, .ivu-select-selection:hover{
+    border-color:#FF6600;
+}
+.ivu-btn-text{
+    color:#FF6600;font-size:15px;border-radius:0;padding:8px 30px;border:none;box-shadow:none;
+    &:focus{
+        box-shadow:none
     }
 }

@@ -5,7 +5,7 @@
 const path = require('path')
 
 // const entry = ['assetsrelease'];
-const entry = ['index', 'finance', 'login', 'article', 'trade', 'assetsrelease'];
+const entry = ['index', 'finance', 'login', 'article', 'trade', 'assetsrelease','c2c'];
 
 var php = {};
 var build = {};
@@ -24,14 +24,14 @@ module.exports = {
         assetsPublicPath: '/',
         proxyTable: {
             '/api': {
-                target: 'http://39.108.169.210/',
+                target: 'http://47.99.115.225/',
                 secure: false,
                 changeOrigin: true,
                 pathRewrite: {
                 }
             },
             '/home/': {
-                target: 'http://39.108.169.210/',    //39.108.169.210
+                target: 'http://47.99.115.225/',    //47.99.115.225
                 secure: false,
                 changeOrigin: true,
                 pathRewrite: {

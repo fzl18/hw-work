@@ -20,8 +20,12 @@
                         <dd>{{localDate(item[1])}}</dd>
                         <dd :class="item[2] + 'Color'">{{lang[local][item[2]]}}</dd>
                         <dd>{{priceAccuracy(item[3])}}</dd>
-                        <dd>{{numAccuracy(item[5])}}</dd>
-                        <dd>{{numAccuracy(item[4])}}</dd>
+
+                        <!-- <dd>{{numAccuracy(item[5])}}</dd> -->
+                        <dd>{{tobigNumber(item[5])}}</dd>
+                        <!-- <dd>{{numAccuracy(item[4])}}</dd> -->
+                        <dd>{{tobigNumber(item[4])}}</dd>
+
                         <!-- <dd>{{numAccuracy(item[5] - item[4])}}</dd>
                         <dd>{{priceAccuracy(item[3] * item[5])}}</dd> -->
                         <dd>{{item[6] == 'ing' ? lang[local].orderConduct : ''}}</dd>
@@ -38,6 +42,7 @@
 
 <script>
     import {mapState} from 'vuex'
+    import bigNum from "bignumber.js"
     export default {
         name: "userEntrust",
         data (){
@@ -47,6 +52,9 @@
             ...mapState(['userOrder', 'userOrderState']),
         },
         methods : {
+            tobigNumber(val){
+                return bigNum(val).toString(10)
+            },
             clickWithdrawal (item){
                 item.push(true);
                 this.$store.commit('withdrawal', {

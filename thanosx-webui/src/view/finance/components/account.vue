@@ -10,7 +10,7 @@
                     <p class="con">{{userBasicinfo.userid}}</p>
                 </Col>
                 <Col span="6" class="name">
-                    <p>{{lang[local].accName}}</p>
+                    <p>{{lang[local].niName}} <i class="iconfont icon-bianji org" style="font-size:22px;cursor: pointer;margin:0 20px" @click="editniName = true"/></p>
                     <p class="con" :title="userBasicinfo.username">{{userBasicinfo.username}}</p>
                 </Col>
                 <Col span="6" class="name">
@@ -40,37 +40,44 @@
                     <p>{{lang[local].accLogintime}}：{{localDate(userBasicinfo.last_login_time)}}</p>
                     <p>{{lang[local].accIp}}：{{userBasicinfo.last_login_ip}}</p>
                 </Col>
+                <Col span="24" style="border-top:1px dotted #aaa;margin-top:20px;padding-top:20px;">
+                    <span>{{lang[local].accName}}：{{userBasicinfo.username}}</span> <span>{{lang[local].inviteRecord2}}：</span>
+                </Col>
             </Row>
         </section>
+       
         <section class="userSet">
+            <h4 class="finance-title">
+                <span>{{lang[local].loginLog}}</span>
+            </h4>
             <dl>
                 <dt><i class="iconfont icon-mima1"></i></dt>
-                <dd>{{lang[local].acctit1}}</dd>
-                <dd class="txt">{{lang[local].acctxt1}}：<span>{{userBasicinfo.level == 2 ? lang[local].safety25 : userBasicinfo.level == 1 ? lang[local].safety25 :  userBasicinfo.level == 0 ?  lang[local].safety25 : ''}}</span></dd>
+                <dd class="txt">{{lang[local].acctit1}}</dd>
+                <dd>{{lang[local].acctxt1}}：<span>{{userBasicinfo.level == 2 ? lang[local].safety25 : userBasicinfo.level == 1 ? lang[local].safety25 :  userBasicinfo.level == 0 ?  lang[local].safety25 : ''}}</span></dd>
                 <dd class="btn"> <router-link to="/uppassword" >{{lang[local].accbtn}}</router-link></dd>
             </dl>
             <dl>
                 <dt><i class="iconfont icon-yuechi"></i></dt>
-                <dd>{{lang[local].acctit2}}</dd>
-                <dd class="txt" :style="local == 'en' && 'font-size:12px;line-height:16px' ">{{lang[local].acctxt2}} <br/><span>({{userBasicinfo.paypassword ? lang[local].safety9 : lang[local].safety10}})</span></dd>
+                <dd class="txt">{{lang[local].acctit2}}</dd>
+                <dd :style="local == 'en' && 'font-size:12px;line-height:16px' ">{{lang[local].acctxt2}} <span>({{userBasicinfo.paypassword ? lang[local].safety9 : lang[local].safety10}})</span></dd>
                 <dd class="btn"> <router-link to="/setTradePassword" >{{userBasicinfo.paypassword ? lang[local].accbtnrest :lang[local].accbtnset}}</router-link></dd>
             </dl>
             <dl>
                 <dt><i class="iconfont icon-shouji"></i></dt>
-                <dd>{{lang[local].acctit3}}</dd>
-                <dd class="txt" :style="local == 'en' && 'font-size:12px;line-height:16px' ">{{lang[local].acctxt3}}<br/><span style="font-size:13px;">({{userBasicinfo.moble ? userBasicinfo.district_code + userBasicinfo.moble : lang[local].accunbind}})</span></dd>
+                <dd class="txt">{{lang[local].acctit3}}</dd>
+                <dd :style="local == 'en' && 'font-size:12px;line-height:16px' ">{{lang[local].acctxt3}} <span style="font-size:13px;">({{userBasicinfo.moble ? userBasicinfo.district_code + userBasicinfo.moble : lang[local].accunbind}})</span></dd>
                 <dd class="btn"> <router-link to="/mobileBind" >{{userBasicinfo.moble ? lang[local].accbtnrest : lang[local].accbtnbind}}</router-link></dd>
             </dl>
             <dl>
                 <dt><i class="iconfont icon-yanzheng"></i></dt>
-                <dd>{{lang[local].acctit4}}</dd>
-                <dd class="txt">{{lang[local].acctxt4}}<br /><span style="font-size:14px;">({{userBasicinfo.gabind ? lang[local].accbind:lang[local].accunbind}}) </span> </dd>
+                <dd class="txt">{{lang[local].acctit4}}</dd>
+                <dd>{{lang[local].acctxt4}} <span style="font-size:14px;">({{userBasicinfo.gabind ? lang[local].accbind:lang[local].accunbind}}) </span> </dd>
                 <dd class="btn"> <router-link to="/ga" >{{ userBasicinfo.gabind ? lang[local].accbtnunbind : lang[local].accbtnbind }}</router-link></dd>
             </dl>
             <dl>
                 <dt><i class="iconfont icon-yanzheng"></i></dt>
-                <dd>{{lang[local].acctit5}}</dd>
-                <dd class="txt">{{lang[local].acctxt5}}<br /><span style="font-size:14px;">({{apiBind ? lang[local].safety9:lang[local].safety10}}) </span> </dd>
+                <dd class="txt">{{lang[local].acctit5}}</dd>
+                <dd>{{lang[local].acctxt5}} <span style="font-size:14px;">({{apiBind ? lang[local].safety9:lang[local].safety10}}) </span> </dd>
                 <dd class="btn"> <a href="javascript:;" @click="setRsa">{{ apiBind ? lang[local].accbtnrest : lang[local].accbtnset }}</a></dd>
             </dl>
 
@@ -97,6 +104,32 @@
                 <!-- <dd>{{item.status == 1 ? lang[local].normal : lang[local].otc21}}</dd> -->
             </dl>
         </list>
+        <Modal
+            v-model="editniName"
+            :closable = false
+            :footer-hide = true
+            class-name="vertical-center-modal">
+            <h1>修改商家名称</h1>
+            <table class="editniName">
+                <tr>
+                    <td>名称</td>
+                    <td align="right"><Input size="large" v-model="business_name"/></td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        为了隐私安全，仅在OTC交易中显示商家信息，不显示注册信息。商家最长支持10个字符
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <Row style="margin-top:50px">
+                            <Col span="12"><Button type="primary" size="large" @click="saveName">保存</Button></Col>
+                            <Col span="6" offset="6"><Button type="text" size="large" @click="editniName=false">关闭</Button></Col>
+                        </Row>
+                    </td>
+                </tr>
+            </table>
+        </Modal>
     </section>
 </template>
 
@@ -109,7 +142,9 @@
                 password : '',
                 moble : '',
                 count:0,
-                apiBind:false
+                apiBind:false,
+                editniName:false,
+                business_name:'',
             };
         },
         created (){
@@ -144,6 +179,21 @@
                 }).catch((err) => {
                     console.log(err)
                 });
+            },
+            saveName(){
+                if(!this.business_name.trim()){
+                    this.$store.commit('msg/err', '名称不能为空')
+                    return
+                } 
+                this.axios({
+                    url : this.api.updateName,
+                    data : {
+                        business_name:this.business_name.trim()
+                    }
+                }).then(res=>{
+                    this.$store.commit('msg/add', res.message)
+                    this.editniName=false
+                })           
             }
         },
     }

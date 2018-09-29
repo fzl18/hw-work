@@ -2,7 +2,7 @@
     <label>
         <input style="display: none;" value="" type="file" @change="submit($event)" />
         <slot>
-            <span>{{lang[local].uploadFile}}</span>
+            <span>{{tit}}</span>
         </slot>
     </label>
 </template>
@@ -16,15 +16,23 @@
             },
             path : {
                 default : ''
-            }
+            },
+            txt : {
+                default : ''
+            },
         },
         data (){
             return {
                 fileData : {
                     state : -1,
                 },
-                origin : process.env.NODE_ENV == 'development' ? 'http://39.108.169.210/' : '',
+                origin : process.env.NODE_ENV == 'development' ? 'http://47.99.115.225/' : '',
             };
+        },
+        computed:{
+            tit(){
+                return this.txt ? this.txt : this.lang[this.local.upFiles]
+            }
         },
         methods :{
             submit (e){
@@ -80,7 +88,8 @@
                     this.fileData = {
                         state : this.getStateSuccess,
                         data : res.data.url,
-                        origin : this.origin + res.data.url,
+                        // origin : this.origin + res.data.url,
+                        origin : res.data.url,
                         message : this.lang[this.local].uploadFile1,
                         file : fileVal
                     };

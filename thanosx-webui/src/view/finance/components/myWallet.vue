@@ -9,10 +9,10 @@
         <section class="finance-table myWallet-table">
             <section class="head">
             <dl>
-                <dd style="width:20%">{{lang[local].currency}} </dd>
-                <dd>{{lang[local].site}}</dd>
-                <dd>{{lang[local].walletName}}</dd>
-                <dd>{{lang[local].operation}}</dd>
+                <dd style="width:10%">{{lang[local].currency}} </dd>
+                <dd style="width:65%">{{lang[local].site}}</dd>
+                <dd style="width:15%">{{lang[local].walletName}}</dd>
+                <dd style="width:10%">{{lang[local].operation}}</dd>
             </dl>
             </section>
             <section  v-if="getState == getStateStart">
@@ -20,10 +20,10 @@
             </section>
             <section class="tbody">
                 <dl v-for="item in listData">
-                    <dd style="width:20%">{{upperCase(item.coinname)}}</dd>
-                    <dd>{{item.addr}}</dd>
-                    <dd>{{item.name}}</dd>
-                    <dd>
+                    <dd style="width:10%">{{upperCase(item.coinname)}}</dd>
+                    <dd style="width:65%" :title="item.addr + '.' + item.addr_child">{{item.addr + (item.addr_child && ('.' + item.addr_child))}}</dd>
+                    <dd style="width:15%" :title="item.name">{{item.name}}</dd>
+                    <dd style="width:10%">
                         <!-- <a href="javascript:;"><copy :val="item.addr">{{lang[local].copy}}</copy></a> <br /> -->
                         <a href="javascript:;" @click="del(item)">{{lang[local].del}}</a>
                     </dd>
