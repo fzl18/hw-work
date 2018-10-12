@@ -12,7 +12,7 @@
         </section>
         <section class="amount">
             <span>{{lang[local].totalAssets}}：</span>
-            <b class="totalAssets" :class="classActive(!totalAssetsState)"> <span>{{ totalAssets}}</span></b>
+            <b class="totalAssets" :class="classActive(!totalAssetsState)"> <span>{{totalAssets}}</span></b>
             <span style="font-size:13px;padding:3px 10px;display:inline-block;background:#999;color:#fff;line-height:20px;border-radius: 15px;">USDT</span>
             <div class="filter" v-if="!cur">
                 <!-- <span @click=" isChecked = !isChecked "> <i class="iconfont" :class=" isChecked ? 'icon-icon2' : 'icon-huisekuang'"></i> {{lang[local].filter}}</span> -->
@@ -23,7 +23,7 @@
                 {{lang[local].filter}}
             </div>
             <div class="filter" v-if="cur">
-                <Button size="large" type="primary" @click="addOrderModal = true"> 添加委托单</Button>
+                <Button size="large" type="primary" @click="addOrder"> 添加委托单</Button>
             </div>
         </section>
         <!-- <section class="tab_btn">
@@ -31,16 +31,16 @@
             <a href="javascript:;" :class="cur ? 'cur' :'' " @click="hadndleTab(1)">{{lang[local].newCoin}}</a>
             
         </section> -->
-        <list class="finance-index-table" :url="api.assets" pageSize="100" :pageStatus="false" :seek="seek">
+        <list class="finance-index-table" v-if="!cur" :url="api.assets" pageSize="10" :pageStatus="false" :seek="seek">
             <dl slot="head">
                 <dd>{{lang[local].currency}}</dd>
                 <dd>{{lang[local].usable}}</dd>
                 <dd>{{lang[local].freeze}}</dd>
-                <dd v-if="!cur">{{lang[local].lock}}</dd>
+                <dd>{{lang[local].lock}}</dd>
                 <dd>{{lang[local].totalCurrency}}</dd>
-                <dd :style=" cur ? 'width:36%':''">{{lang[local].operation}}</dd>
+                <dd>{{lang[local].operation}}</dd>
             </dl>            
-            <dl slot="body" slot-scope="{item}"  v-if=" !cur ?  mainChain.indexOf(item.market2.toLowerCase()) != -1 : mainChain.indexOf(item.market2.toLowerCase()) == -1" >
+            <dl slot="body" slot-scope="{item}">
                 <template v-if=" isChecked ? item.total > 0 : true ">
                 <dd>
                     <span>
@@ -58,7 +58,7 @@
                         <b>{{tobigNumber(item.availabled)}}</b>
                     </span>
                 </dd>
-                <dd v-if="!cur">
+                <dd>
                     <span>
                         <b>{{tobigNumber(item.availablelock)}}</b>
                     </span>
@@ -69,7 +69,7 @@
                         <!-- <small>≈¥{{rmbDecimals(item.total_cny)}}</small> -->
                     </span>
                 </dd>
-                <dd v-if="!cur">
+                <dd>
                     <router-link :class="item.zr_jz != 1 ? 'disabled' : ''" :to="item.zr_jz != 1 ? '' : './pushCoin?coin=' + item.market2">
                         {{lang[local].pushCoin}}
                     </router-link>
@@ -80,13 +80,53 @@
                         {{lang[local].transferCoin}}
                     </router-link> -->
                 </dd>
-                <dd v-if="cur" style="width:36%">
-                    <Button size="large" type="text" @click="handleTransfer('in')">{{lang[local].transferIn}}</Button>
-                    <Button size="large" type="text" @click="handleTransfer('out')">{{lang[local].transfer}}</Button>
-                </dd>
                 </template>
             </dl>
         </list>
+
+
+        <section class="finance-table" v-if="cur">
+            <section class="head">
+                <dl>
+                    <dd style="width:20%">{{lang[local].currency}}</dd>
+                    <dd style="width:20%">{{lang[local].usable}}</dd>
+                    <dd style="width:20%">{{lang[local].freeze}}</dd>
+                    <dd style="width:20%">{{lang[local].totalCurrency}}</dd>
+                    <dd style="width:20%">{{lang[local].operation}}</dd>
+                </dl> 
+            </section>
+            <section class="tbody">
+                <dl v-for="item in accountListArrary">
+                        <dd style="width:20%">
+                            <span>
+                                {{item.coin.toUpperCase()}}
+                            </span>
+                        </dd>
+                        <dd style="width:20%">
+                            <span>
+                                {{item.available}}
+                            </span>
+                        </dd>
+                        <dd style="width:20%">
+                            <span>
+                                {{item.frozen}}
+                            </span>
+                        </dd>
+                        <dd style="width:20%">
+                            <span>
+                                {{item.total}}
+                            </span>
+                        </dd>              
+                        <dd style="width:20%">
+                            <Button size="large" type="text" @click="handleTransfer(item.coin,item.tran_available,'in')">{{lang[local].transferIn}}</Button>
+                            <Button size="large" type="text" @click="handleTransfer(item.coin,item.available,'out')">{{lang[local].transfer}}</Button>
+                        </dd>
+                </dl>
+            </section>
+            <!-- <page :page="page" @pageChange="pageChange" /> -->
+        </section>
+
+
         <Modal
             v-model="addOrderModal"
             :closable = false
@@ -94,7 +134,7 @@
             width="1000"
             class-name="vertical-center-modal">
             
-            <addOrder @ok="ok" @close="close"/>
+            <addOrder @ok="ok" @close="close" :url="api.basicCoin" :params="transferInfoOB"/>
         </Modal>
         <Modal
             v-model="transfer"
@@ -105,21 +145,21 @@
             <table>
                 <tr>
                     <td width="80">币种</td>
-                    <td align="right">ETH</td>
+                    <td align="right">{{transferCoin}}</td>
                 </tr>
                 <tr>
                     <td>数量</td>
-                    <td align="right"><InputNumber size="large" style="width:50%"/></td>
+                    <td align="right"><InputNumber :min="0" :max="availableCoin" v-model="transferAmount" size="large" style="width:50%"/></td>
                 </tr>
                 <tr>
-                    <td>交易账户</td>
-                    <td align="right">可用：<span style="font-weight:bold">1000000000 ETH</span> </td>
+                    <td>{{transferType == 'in' ? '交易账户':'C2C账户'}}</td>
+                    <td align="right">可用：<span style="font-weight:bold">{{availableCoin}} {{transferCoin}}</span> </td>
                 </tr>
                 <tr>
                     <td colspan="2">
                         <Row>
-                            <Col span="12"><Button type="primary" size="large" @click="transfer=false">确认</Button></Col>
-                            <Col span="6" offset="6"><Button type="text" size="large" @click="transfer=false">取消</Button></Col>
+                            <Col span="12"><Button type="primary" size="large" @click="assetsTransfer">确认</Button></Col>                
+                            <Col span="6" offset="6"><Button type="text" size="large" @click="assetsTransferClose">取消</Button></Col>
                         </Row>
                     </td>
                 </tr>
@@ -144,7 +184,12 @@
                 origin : process.env.NODE_ENV == 'development' ? 'http://47.99.115.225' : '',
                 addOrderModal:false,
                 transfer:false,
-                transferType:''
+                transferType:'',
+                accountListArrary:[],
+                transferCoin:'',
+                availableCoin:0,
+                transferAmount:null,
+                transferInfoOB:{}
             };
         },
         watch : {
@@ -161,9 +206,9 @@
         created (){
             this.myasset()
             this.getMainCoins()
+            // this.accountList()
         },
         mounted(){
-            console.log(this.mainChain)
         },
         methods : {
             tobigNumber(val){
@@ -180,6 +225,11 @@
             },
             hadndleTab (index){
                 this.cur = index
+                if(!index){
+                    this.myasset()
+                }else{
+                    this.accountList()
+                }
             },
             getMainCoins(){
                 this.axios({
@@ -188,18 +238,110 @@
                     }
                 }).then(res => {
                     this.mainChain = res.data
-                    console.log(res.data)
                 }).catch()
             },
-            ok(){
-                this.addOrderModal = false
+            accountList(){
+                this.axios({
+                    url : this.api.accountList,
+                    data : {
+                        
+                    }
+                }).then(res => {
+                    this.accountListArrary = res.data.list
+                    this.totalAssets = res.data.usdt
+                }).catch(err=>{
+                    console.log(err)
+                })
+            },
+            addOrder(){
+                this.transferInfo()
+                this.addOrderModal = true
+            },
+            ok(val){
+                let bank_pay = 0, wx_pay = 0, ali_pay = 0
+                val.payment.map(d=>{
+                    switch (d) {
+                        case '1':
+                            bank_pay = 1
+                            break;
+                        case '2':
+                            ali_pay = 1
+                            break;
+                        case '3':
+                            wx_pay = 1
+                            break;
+                    
+                        default:
+                            break;
+                    }
+                })
+                let playload = {
+                    "coin": val.coin,
+                    "amount": val.count,
+                    "price": val.price,
+                    "type": val.type,
+                    "currency": val.currency,
+                    bank_pay,
+                    wx_pay,
+                    ali_pay,
+                    "min": val.min,
+                    "max": val.max,
+                    "remark": val.note
+                }
+                console.log(playload)                
+                this.axios({
+                    url : this.api.createPend,
+                    data : {
+                        ...playload
+                    }
+                }).then(res => {                    
+                    this.addOrderModal = false
+                    this.$store.commit('msg/add', res.message)
+                }).catch(err=>{
+                    console.log(err)
+                })                
+                
             },
             close(){
                 this.addOrderModal = false
             },
-            handleTransfer(val){
+            handleTransfer(coin,available,val){
                 this.transferType = val
                 this.transfer = true
+                this.transferCoin = coin.toUpperCase()
+                this.availableCoin = available
+            },
+            assetsTransferClose(){
+                this.transfer = false
+                this.transferAmount = null
+            },
+            assetsTransfer(){
+                this.axios({
+                    url : this.api.assetsTransfer,
+                    data : {
+                        direction:this.transferType == 'in' ? 1 : 2,
+                        count:this.transferAmount,
+                        symbol:this.transferCoin.toLowerCase()
+                    }
+                }).then(res => {                    
+                    this.accountList()
+                    this.$store.commit('msg/add', res.message)
+                    this.assetsTransferClose()
+                }).catch(err=>{
+                    console.log(err)
+                })
+            },
+            transferInfo(){
+                this.axios({
+                    url : this.api.transferInfo,
+                    data : {
+
+                    }
+                }).then(res=>{
+                    this.transferInfoOB = res.data
+                }).catch( err=>{
+                    console.log(err);
+                })
             }
         },
     }

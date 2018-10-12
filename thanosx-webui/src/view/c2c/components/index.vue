@@ -4,37 +4,37 @@
         <ul class="type">
             <li @click="handleClass('buy')" :class="curType =='buy' ? 'cur':''">购买</li>
             <li @click="handleClass('sell')" :class="curType =='sell' ? 'cur':''">售出</li>
-            <li @click="handleClass('myOrder')" :class="curType =='myOrder' ? 'cur':''">我的委托单</li>
+            <li v-if="loginGetStatus && loginStatus " @click="handleClass('myOrder')" :class="curType =='myOrder' ? 'cur':''">我的委托单</li>
         </ul>
-        <div class="seller" v-if="curType == 'myOrder'">
+        <div class="seller" v-if="curType == 'myOrder' && status == 4">
             <Row>
                 <Col span="12" class="lt">
-                    <h2>商家名称002 <i class="iconfont icon-bianji org" style="font-size:22px;cursor: pointer;margin:0 20px" @click="editBizName = true"/></h2>
-                    <div>入驻时间：2018-05-62 14：25：33</div>
+                    <h2>{{businessInfo.name}}<i class="iconfont icon-bianji org" style="font-size:22px;cursor: pointer;margin:0 20px" @click="editBizName = true"/></h2>
+                    <div>入驻时间：{{localDate(businessInfo.checked_time)}}</div>
                 </Col>
                 <Col span="12" class="rt">
                     <ul>
-                        <li><span>1000W TNSX</span><br/>商家保证金</li>
-                        <li><span>3</span><br/>近30天成单</li>
-                        <li><span>30</span><br/>总成单</li>
-                        <li><span>20%</span><br/>总成单率</li>
+                        <li><span>{{businessInfo.deposit}}</span><br/>商家保证金</li>
+                        <li><span>{{businessInfo.month_orders}}</span><br/>近30天成单</li>
+                        <li><span>{{businessInfo.total_orders}}</span><br/>总成单</li>
+                        <li><span>{{businessInfo.order_rate}}</span><br/>总成单率</li>
                     </ul>
                 </Col>
             </Row>
         </div>
         <div class="coin">
             <div class="tit" v-if="curType != 'myOrder'">
-                <a v-for="(item,index) in coinList" href="javascript:;" @click="changeCoin(index)" :class="curCoin == index ?'cur':''">{{item}}</a>
+                <a v-for="(item,index) in coinList" href="javascript:;" @click="changeCoin(index)" :class="curCoin == index ?'cur':''">{{item.toUpperCase()}}</a>
             </div>
             <div class="tit" v-if="curType == 'myOrder'">
-                <Button @click="addOrder" size="large" type="primary" ><i class="iconfont icon-tianjia" style="fontSize:20px;margin-right:10px;"/> 添加委托单</Button>
-                <Button size="large" type="primary" :disabled="false" style="background:#777;color:#fff;" @click="$router.push('/apply')"> <i class="iconfont icon-tianjia" style="fontSize:20px;margin-right:10px;"/>  商家申请 </Button>
-                <div class="tip"> <span class="torg">审核未通过！</span>  理由为：应该</div>
-            </div>            
+                <Button v-if="status==4" @click="addOrder" size="large" type="primary" ><i class="iconfont icon-tianjia" style="fontSize:20px;margin-right:10px;"/> 添加委托单</Button>
+                <Button v-if="status && status <= 3" size="large" type="primary" :disabled="status == 2 ? true : false" :style="status == 2 ? 'background:#777;color:#fff;':''" @click="$router.push('/apply')"> <i class="iconfont icon-tianjia" style="fontSize:20px;margin-right:10px;"/>  商家申请 </Button>
+                <div class="tip" v-if="status == 2 || status == 3"> <span class="torg"> {{status == 2 ? '待审核！':'审核未通过' }}</span> <span v-if="status == 3">理由为：{{remark}}</span> </div>
+            </div>
             <div class="search" @click="showSearch">
                 <div class="box">
                     <template v-for="(item,index) in searchList">
-                        <span v-if="item">{{item}} <Icon type="close" size="12" class="close" @click="delSearchTxt(index)"/></span>
+                        <span v-if="item">{{item=='bankpay'? '银行卡': item=='alipay' ? '支付宝' : item=='wxpay' ? '微信支付' : item}} <Icon type="close" size="12" class="close" @click="delSearchTxt(index)"/></span>
                     </template>
                 </div>
                 <Poptip trigger="hover" placement="bottom-end" ref="searchBox" :width=460>
@@ -42,13 +42,12 @@
                     <div class="api" slot="content">
                         <table class="select" >
                             <tbody>
-
                                 <template v-if="curType != 'myOrder'">
                                     <tr>
                                         <td>法币币种：</td>
                                         <td>
                                             <Select v-model="searchTxt1.fCoin" size="large" style="width:300px">
-                                                <Option v-for="item in cityList" :value="item.value" :key="item.value">{{ item.label }}</Option>
+                                                <Option v-for="item in currencyList" :value="item.label" :key="item.value">{{ item.label}}</Option>
                                             </Select>
                                         </td>
                                     </tr>
@@ -56,7 +55,7 @@
                                         <td>支付方式：</td>
                                         <td>
                                             <Select v-model="searchTxt1.payType" size="large" style="width:300px">
-                                                <Option v-for="item in cityList1" :value="item.value" :key="item.value">{{ item.label }}</Option>
+                                                <Option v-for="item in payList" :value="item" :key="item">{{ item=='bankpay'? '银行卡': item=='alipay' ? '支付宝' : '微信支付' }}</Option>
                                             </Select>
                                         </td>
                                     </tr>
@@ -72,7 +71,7 @@
                                         <td>交易类型：</td>
                                         <td>
                                             <Select v-model="searchTxt2.transferType" size="large" style="width:300px">
-                                                <Option v-for="item in cityList" :value="item.value" :key="item.value">{{ item.label }}</Option>
+                                                <Option v-for="item in transferType" :value="item" :key="item">{{ item }}</Option>
                                             </Select>
                                         </td>
                                     </tr>
@@ -80,7 +79,7 @@
                                         <td>币种：</td>
                                         <td>
                                             <Select v-model="searchTxt2.coin" size="large" style="width:300px">
-                                                <Option v-for="item in cityList1" :value="item.value" :key="item.value">{{ item.label }}</Option>
+                                                <Option v-for="item in coinList" :value="item" :key="item">{{ item }}</Option>
                                             </Select>
                                         </td>
                                     </tr>
@@ -88,7 +87,7 @@
                                         <td>法币币种：</td>
                                         <td>
                                             <Select v-model="searchTxt2.fCoin" size="large" style="width:300px">
-                                                <Option v-for="item in cityList2" :value="item.value" :key="item.value">{{ item.label }}</Option>
+                                                <Option v-for="item in currencyList" :value="item.label" :key="item.value">{{ item.label }}</Option>
                                             </Select>
                                         </td>
                                     </tr>
@@ -98,7 +97,7 @@
                                         <Button size="large" type="text" class="org" @click="allClear">清空筛选</Button>
                                     </td>
                                     <td align="center" >
-                                        <Button size="large" type="primary">搜索</Button> <Button size="large" type="text">取消</Button>
+                                        <Button size="large" type="primary" @click.stop="handleSearch">搜索</Button> <Button size="large" type="text" @click.stop="closeSearch">取消</Button>
                                     </td>
                                 </tr>
                             </tbody>
@@ -130,115 +129,82 @@
                         <li>操作</li>
                     </ul>
                 </dt>
-                <dd>
-                    <ul v-if="curType != 'myOrder'">
-                        <li @click="$router.push('/biz?id=11')"><span class="tblue">商家</span> (106)</li>
-                        <li>5665599.00000 BTC</li>
-                        <li>199.990~52236.000 CNY</li>
-                        <li class="tbuy">6.88CNY</li>
+                <dd v-for="(item,index) in pendListArray">
+                    <ul v-if="curType != 'myOrder'" >
+                        <li><span @click="$router.push(`/biz?id=${item.uid}`)" class="tblue cursor">{{item.business_name}}</span> ({{item.month_orders}})</li>
+                        <li>{{item.amount}} {{item.symbol.toUpperCase()}}</li>
+                        <li>{{item.minvolume}}~{{item.maxvolume}} {{item.currency_name}}</li>
+                        <li class="tbuy">{{item.price}} {{item.currency_name}}</li>
                         <li>
-                            <i class="iconfont icon-yinxingqia org" />
-                            <i class="iconfont icon-ai-weixin buy" />
-                            <i class="iconfont icon-ZFBZD blue" />
+                            <i v-if="item.bankpay" class="iconfont icon-yinxingqia org" />
+                            <i v-if="item.wxpay" class="iconfont icon-ai-weixin buy" />
+                            <i v-if="item.alipay" class="iconfont icon-ZFBZD blue" />
                         </li>
-                        <li><Button size="large" type="primary" :loading="false" @click="operation(0)">{{curType == 'buy' ? `购买 BTC` : `售出 BTC`}}</Button></li>
-                        <li v-if="checkMore == 0" class="more">                            
+                        <li><Button size="large" type="primary" :loading="false" @click="operation(index)">{{curType == 'buy' ? `购买 ${coinList[curCoin].toUpperCase()}` : `售出 ${coinList[curCoin].toUpperCase()}`}}</Button></li>
+                        <li v-if="checkMore == index" class="more">                            
                             <Row>
-                                <Col span="4">商家00655 (256)</Col>
-                                <Col span="4" class="tbuy">6.88 CNY</Col>
+                                <Col span="4">{{item.business_name}} ({{item.month_orders}})</Col>
+                                <Col span="4" class="tbuy">{{item.price}} {{item.currency_name}}</Col>
                                 <Col span="12">
                                     <Row>
-                                        <Col span="8"><Input size="large" v-model="model4" placeholder="..."><span slot="append">CNY</span></Input></Col>
+                                        <Col span="8"><Input size="large" v-model="currencyAmount" placeholder="请输入..." @input="changeMoney('currencyAmount',item.price)"><span slot="append">{{item.currency_name}}</span></Input></Col>
                                         <Col span="2" style="line-height: 36px;text-align: center;"><i class="iconfont icon-jiaohuan" /></Col>
-                                        <Col span="8"><Input size="large" v-model="model4" placeholder="E..."><span slot="append" class="blue">全部</span></Input></Col>
+                                        <Col span="8"><Input size="large" v-model="coinAmount " placeholder="请输入..." @input="changeMoney('coinAmount',item.price)"><span slot="append" class="blue cursor" @click="allpay(item.amount,item.price)">全部</span></Input></Col>
                                     </Row>
                                 </Col>
                                 <Col span="4" style="position: relative;top:20px;text-align:right">
-                                    <Button size="large" type="primary">下单</Button>
-                                    <Button size="large" type="text" @click="cancel">取消</Button>
+                                    <template v-if="paypassword">
+                                        <Button size="large" type="primary" @click="createOrder(item.id)">下单</Button>
+                                        <Button size="large" type="text" @click="cancel">取消</Button>
+                                    </template>
+                                    <template v-if="loginGetStatus && loginStatus && !paypassword">
+                                        您未设置交易密码，请<Button size="large" type="text" @click="$router.push(toUrl.financeUrl + '/setTradePassword')">设置</Button>                                        
+                                    </template>
+                                    <template v-if="!loginGetStatus || !loginStatus">
+                                        您未登陆，请<Button size="large" type="text" @click="$router.push(toUrl.loginUrl)">登陆</Button>                                        
+                                    </template>
+                                    
                                 </Col>
                                 <br />
-                                <Col span="4">数量：</Col>
-                                <Col span="4">199.02554~3256.22155</Col>
+                                <Col span="4">数量：{{item.amount}}</Col>
+                                <Col span="4">{{item.minvolume}}~{{item.maxvolume}}</Col>
                                 <Col span="12">
                                     <Row v-if="curType =='sell'">
-                                        <Col span="8" style="margin-top:8px;"><Input size="large" placeholder="..." clearable ><span slot="append" class="blue">获取验证码</span></Input></Col>
-                                        <Col span="8" offset="2"><Input size="large" placeholder="..." clearable /></Col>
+                                        <Col span="8" style="margin-top:8px;"><Input size="large" placeholder="邮件验证码" clearable ><span slot="append" class="blue cursor">获取验证码</span></Input></Col>
+                                        <Col span="8" offset="2"><Input size="large" placeholder="交易密码" clearable /></Col>
                                     </Row>
                                 </Col>
                             </Row>
                             <Row class="n2">
-                                <Col span="3"><i class="iconfont icon-yinxingqia org" /> 银行卡</Col>
-                                <Col span="3"><i class="iconfont icon-ai-weixin buy" /> 微信支付</Col>
-                                <Col span="3"><i class="iconfont icon-ZFBZD blue" /> 支付宝支付</Col>
-                                <Col span="16"> <span style="color:red">*</span> 备注备注备注备注备注备注备注备注备注备注备注备注备注</Col>
+                                <Col span="3" v-if="item.bankpay"><i class="iconfont icon-yinxingqia org" /> 银行卡</Col>
+                                <Col span="3" v-if="item.wxpay"><i class="iconfont icon-ai-weixin buy" /> 微信支付</Col>
+                                <Col span="3" v-if="item.alipay"><i class="iconfont icon-ZFBZD blue" /> 支付宝支付</Col>
+                                <Col span="24"></Col>
+                                <Col span="16"> <span style="color:red">*</span>备注： {{item.remark}}</Col>
                                 <Col span="8" style="textAlign:right">买方付款时限为<span class="torg">30</span>分钟</Col>
                             </Row>
                         </li>                        
                     </ul>
                     <ul v-if="curType == 'myOrder'">
-                        <li>BTV</li>
-                        <li style="color:green">购买</li>
-                        <li>199.990~52236.000 CNY</li>
-                        <li>6.88CNY</li>
-                        <li>ssdfe</li>
-                        <li>ssdfe</li>
-                        <li>时间</li>
-                        <li><Button size="large" type="text" :loading="false">{{ `取消委托单`}}</Button></li>
+                        <li>{{item.symbol.toUpperCase()}}</li>
+                        <li :class="item.type == 1 ?'buy':'sell'">{{item.type == 1 ? '购买' : '售出'}}</li>
+                        <li>{{item.amount}}</li>
+                        <li>{{item.minvolume}}~{{item.maxvolume}} {{item.symbol.toUpperCase()}}</li>
+                        <li>{{item.price}} {{item.currency_name}}</li>
+                        <li>
+                            <i v-if="item.bankpay" class="iconfont icon-yinxingqia org" />
+                            <i v-if="item.wxpay" class="iconfont icon-ai-weixin buy" />
+                            <i v-if="item.alipay" class="iconfont icon-ZFBZD blue" />
+                        </li>
+                        <li>{{localDate(item.time)}}</li>
+                        <li><Button size="large" type="text" :loading="false" @click="cancelPend(item.id)">{{ `取消委托单`}}</Button></li>
                     </ul>
                 </dd> 
-                <dd>
-                    <ul v-if="curType != 'myOrder'">
-                        <li><span>商家</span> (106)</li>
-                        <li>5665599.00000 BTC</li>
-                        <li>199.990~52236.000 CNY</li>
-                        <li class="tbuy">6.88CNY</li>
-                        <li>ssdfe</li>
-                        <li><Button size="large" type="primary" :loading="false" @click="operation(1)">{{curType == 'buy' ? `购买 BTC` : `售出 BTC`}}</Button></li>
-                        <li v-if="checkMore == 1" class="more">                            
-                            <Row>
-                                <Col span="4">商家00655 (256)</Col>
-                                <Col span="4" class="tbuy">6.88 CNY</Col>
-                                <Col span="12">
-                                    <Row>
-                                        <Col span="8"><InputNumber v-model="model4" style="width:100%" placeholder="数量"/></Col>
-                                        <Col span="8" offset="2"><InputNumber v-model="model4" style="width:100%" placeholder="E..."/></Col>
-                                    </Row>
-                                </Col>
-                                <Col span="4" style="position: relative;top:20px;text-align:right">
-                                    <Button size="large" type="primary">下单</Button>
-                                    <Button size="large" type="text" @click="cancel">取消</Button>
-                                </Col>
-                                <br />
-                                <Col span="4">数量：</Col>
-                                <Col span="4">199.02554~3256.22155</Col>
-                                <Col span="12">
-                                    <Row>
-                                        <Col span="8"><Input placeholder="Enter something..." clearable /></Col>
-                                        <Col span="8" offset="2"><Input placeholder="Enter something..." clearable /></Col>
-                                    </Row>
-                                </Col>
-                            </Row>
-                            <Row class="n2">
-                                <Col span="3"><i class="iconfont icon-yinxingqia org" /> 银行卡</Col>
-                                <Col span="3"><i class="iconfont icon-ai-weixin buy" /> 微信支付</Col>
-                                <Col span="3"><i class="iconfont icon-ZFBZD blue" /> 支付宝支付</Col>
-                                <Col span="24"> <span style="color:red">*</span> 备注备注备注备注备注备注备注备注备注备注备注备注备注</Col>
-                            </Row>
-                        </li>                        
-                    </ul>
-                    <ul v-if="curType == 'myOrder'">
-                        <li>BTV</li>
-                        <li style="color:green">购买</li>
-                        <li>199.990~52236.000 CNY</li>
-                        <li>6.88CNY</li>
-                        <li>ssdfe</li>
-                        <li>ssdfe</li>
-                        <li>时间</li>
-                        <li><Button size="large" type="text" :loading="false">{{ `取消委托单`}}</Button></li>
-                    </ul>
-                </dd>              
+            
             </dl>
+        </div>
+        <div class="pageList">
+            <page :page="page && page" @pageChange="pageChange" v-if="page.totalPage > 0" />
         </div>
         <Modal
             v-model="addOrderModal"
@@ -247,7 +213,7 @@
             width="1000"
             class-name="vertical-center-modal">
             
-            <addOrder @ok="ok" @close="close"/>
+            <addOrder @ok="ok" @close="close" :url="this.api.basicInfo" :params="transferInfoOB"/>
         </Modal>
         <!-- <load v-if="loading" /> -->
         <Modal
@@ -289,9 +255,15 @@
         data (){
             return {
                 loading:true,
+                page : {
+                    currPage : 0,
+                    totalPage : 0,
+                    pageSize : 10,
+                    totalCount : 10,
+                },
                 curType:'buy',
                 curCoin:0,
-                coinList:['BTC','ETH','USDT'],
+                coinList:[],
                 checkMore:null,
                 searchTxt1:{
                     fCoin:null,
@@ -303,55 +275,62 @@
                     coin:null,
                     fCoin:null,
                 },
-                cityList: [
-                    {
-                        value: 'New York',
-                        label: 'New York'
-                    },
-                    {
-                        value: 'London',
-                        label: 'London'
-                    }
-                ],
-                cityList1: [
-                    {
-                        value: 'New York1',
-                        label: 'New York1'
-                    },
-                    {
-                        value: 'London1',
-                        label: 'London1'
-                    }
-                ],
-                cityList2: [
-                    {
-                        value: 'New York2',
-                        label: 'New York2'
-                    },
-                    {
-                        value: 'London2',
-                        label: 'London2'
-                    }
-                ],
+                payList:['bankpay','alipay','wxpay'],
+                transferType:['buy','sell'],
                 model4:'',
                 addOrderModal:false,
                 editBizName:false,
-                business_name:''
+                business_name:'',
+                status:0,
+                remark:'',
+                buyList:[],
+                sellList:[],
+                myList:[],
+                currencyList:[],
+                pendListArray:[],
+                businessInfo:{},
+                paypassword:false,
+                coinAmount:null,
+                currencyAmount:null,
+                orderCoinAmount:null,
+                orderCurrencyAmount:null,
+                money:null,
+                transferInfoOB:{}
             };
         },
         created (){
+            // this.basicInfo()
+            this.userInfo()
+        },
+        mounted(){
+            this.axios({
+                url : this.api.basicInfo,
+                data : {
 
+                }
+            }).then(res=>{
+                this.coinList = res.data.coin_list
+                this.currencyList = res.data.currency_list
+                this.pendList()
+            }).catch( err=>{
+                console.log(err)
+            })
         },
         watch:{
+
             // delcur(n,o){
             //     this.list.normal_list.splice(n,1)
             //     this.list.finish_list.unshift(this.list.normal_list[n])
             //     this.getList()
             //     location.reload()
-            // }
+            // }            
         },
         computed : {
             // ...mapState(['activeObject'])
+            // coinAmount(){
+            //     return 
+            // },
+            
             searchList(){
                 let date
                 if(this.searchTxt2.date){
@@ -369,11 +348,40 @@
             }
         },
         methods : {
+            pageChange (page){
+                this.page = page
+                if(this.curType=='buy' || this.curType=='sell'){                    
+                    this.pendList()
+                }else{
+                    this.personalPendList()
+                }
+            },
             handleClass(val){
                 this.curType = val
+                if(val == "myOrder"){
+                    this.personalPendList()
+                    this.personalDetail()
+                    this.page = {
+                        currPage : 0,
+                        totalPage : 0,
+                        pageSize : 10,
+                        totalCount : 10,
+                    }
+                }else{
+                    this.pendList(this.page)
+                    this.page = {
+                        currPage : 0,
+                        totalPage : 0,
+                        pageSize : 10,
+                        totalCount : 10,
+                    }
+                }
+                this.checkMore = null
             },
             changeCoin(index){
                 this.curCoin = index
+                this.pendList(this.page)
+                this.checkMore = null
             },
             delSearchTxt(index){
                 if(this.curType == 'myOrder'){
@@ -385,23 +393,83 @@
             showSearch(){
                this.$refs.searchBox.handleMouseenter()
             },
+            handleSearch(){
+                
+                if(this.curType=='buy' || this.curType=='sell'){                    
+                    this.pendList()
+                }else{                    
+                    this.personalPendList(this.page)
+                }
+                this.$refs.searchBox.handleMouseleave()
+            },
+            closeSearch(){
+                this.$refs.searchBox.handleMouseleave() 
+            },
             getList(info,id){
 
             },
             operation(index){
+                this.coinAmount=null
+                this.currencyAmount = null
                 this.checkMore = index
             },
             cancel(){
                 this.checkMore = null
+                this.coinAmount=null
+                this.currencyAmount = null
             },
-            ok(){
-                this.addOrderModal = false
+            ok(val){
+                let bank_pay = 0, wx_pay = 0, ali_pay = 0
+                console.log(val);
+                
+                val.payment.map(d=>{
+                    switch (d) {
+                        case '1':
+                            bank_pay = 1
+                            break;
+                        case '2':
+                            ali_pay = 1
+                            break;
+                        case '3':
+                            wx_pay = 1
+                            break;
+                    
+                        default:
+                            break;
+                    }
+                })
+                let playload = {
+                    coin: val.coin,
+                    amount: val.count,
+                    price: val.price,
+                    type: val.type,
+                    currency: val.currency,
+                    bank_pay,
+                    wx_pay,
+                    ali_pay,
+                    min: val.min,
+                    max: val.max,
+                    remark: val.note,
+                }         
+                this.axios({
+                    url : this.api.createPend,
+                    data : {
+                        ...playload
+                    }
+                }).then(res => {
+                    this.personalPendList(this.page)
+                    this.addOrderModal = false
+                    this.$store.commit('msg/add', res.message)
+                }).catch(err=>{
+                    console.log(err)
+                })
             },
             close(){
                 this.addOrderModal = false
             },
             addOrder(){
                 this.addOrderModal = true
+                this.transferInfo()
             },
             allClear(){
                 if(this.curType == 'myOrder'){
@@ -426,9 +494,170 @@
                         business_name:this.business_name.trim()
                     }
                 }).then(res=>{
+                    this.personalDetail()
                     this.$store.commit('msg/add', res.message)
                     this.editBizName=false
                 })           
+            },
+            basicInfo(){
+                this.axios({
+                    url : this.api.basicInfo,
+                    data : {
+
+                    }
+                }).then(res=>{
+                    console.log(res);
+                    this.coinList = res.data.coin_list
+                    this.currencyList = res.data.currency_list
+                }).catch( err=>{
+                    console.log(err);
+                })
+            },
+            userInfo(){
+                this.axios({
+                    url : this.api.userInfo,
+                    data : {
+
+                    }
+                }).then(res=>{
+                    console.log(res);
+                    this.paypassword = res.data.paypassword
+                }).catch( err=>{
+                    console.log(err);
+                })
+            },
+            personalDetail(){
+                this.axios({
+                    url : this.api.personalDetail,
+                    data : {
+                    }
+                }).then(res=>{
+                    console.log(res);
+                    this.status = res.data.status
+                    this.remark = res.data.remark
+                    if(res.data.status == 4){
+                        this.businessInfo = res.data.business_info
+                    }
+                    
+                }).catch( err=>{
+                    console.log(err);
+                })
+            },
+            personalPendList(searchInfo){
+                if(!searchInfo){
+                    searchInfo = {
+                        type:this.searchTxt2.transferType =='buy' ? 1 : this.searchTxt2.transferType =='sell' ? 2 : 0,
+                        coin:this.searchTxt2.coin,
+                        currency:this.searchTxt2.fCoin,
+                        from_date: this.searchTxt2.date[0] && dayjs(this.searchTxt2.date[0]).format('YYYY-MM-DD'),
+                        to_date: this.searchTxt2.date[1] && dayjs(this.searchTxt2.date[1]).format('YYYY-MM-DD'),
+                    }
+                }
+                this.axios({
+                    url : this.api.personalPendList,
+                    data : {
+                        ...searchInfo,
+                        ...this.page
+                    }
+                }).then(res=>{
+                    console.log(res);
+                    this.pendListArray = res.data.list
+                    this.page = res.data.page                    
+                }).catch( err=>{
+                    console.log(err);
+                })
+            },            
+            pendList(searchInfo){
+                let type
+                switch (this.curType) {
+                    case 'buy':
+                        type = 2
+                        break;
+                    case 'sell':
+                        type = 1
+                        break;
+                    default:
+                        break;
+                }
+                if(!searchInfo){
+                    searchInfo = {
+                        currency:this.searchTxt1.fCoin,
+                        pay_type:this.searchTxt1.payType,
+                    }
+                }
+                console.log(this.page)
+                this.axios({
+                    url : this.api.pendList,
+                    data : {
+                        type,
+                        coin:this.coinList[this.curCoin],
+                        ...searchInfo,
+                        ...this.page
+                    }
+                }).then(res=>{
+                    let data = res.data
+                    this.pendListArray = data.list
+                    this.page = data.page
+                }).catch( err=>{
+                    console.log(err);
+                })
+            },
+            cancelPend(id){
+                this.axios({
+                    url : this.api.cancelPend,
+                    data : {
+                        pend_id:id,
+                    }
+                }).then(res=>{
+                    this.personalPendList()
+                    this.$store.commit('msg/add', res.message)
+                }).catch( err=>{
+                    console.log(err);
+                })
+            },
+            createOrder(id){
+                this.axios({
+                    url : this.api.createOrder,
+                    data : {
+                        pend_id:id,
+                        money:this.currencyAmount
+                    }
+                }).then(res=>{
+                    this.pendList()
+                    this.checkMore = null
+                    this.coinAmount = null
+                    this.currencyAmount = null
+                    this.$store.commit('msg/add', res.message)
+                }).catch( err=>{
+                    this.checkMore = null
+                    this.coinAmount = null
+                    this.currencyAmount = null                    
+                    this.$store.commit('msg/err', err.message)
+                })
+            },
+            changeMoney(v,price){
+                console.log(v)
+                if(v == 'currencyAmount'){
+                    this.coinAmount = this.currencyAmount / price
+                }else{
+                    this.currencyAmount = this.coinAmount * price
+                }
+            },
+            allpay(v,price){
+                this.coinAmount = v
+                this.currencyAmount = v * price
+            },
+            transferInfo(){
+                this.axios({
+                    url : this.api.transferInfo,
+                    data : {
+
+                    }
+                }).then(res=>{
+                    this.transferInfoOB= res.data
+                }).catch( err=>{
+                    console.log(err);
+                })
             }
 
         }
@@ -437,6 +666,8 @@
 
 <style scoped lang="scss" >
     .list{
+        overflow: hidden;
+        margin-bottom: 30px;
         li{
             float: left;white-space:nowrap;
             .iconfont{font-size:22px;margin-right:5px;}
@@ -450,7 +681,7 @@
                 width: 100%;
                 background: #F8F8F8;
                 border:1px solid #FBE7DC;
-                margin-top:-50px;
+                margin-top:-53px;
                 padding:20px 30px;
                 text-align:left;
                 position: relative;
@@ -463,6 +694,7 @@
         }
         dl{
             &.myOrder{
+                ul{overflow: hidden;}
                 li{
                     &:nth-child(1){width:10%}
                     &:nth-child(2){width:10%}
@@ -508,5 +740,12 @@
             } 
         }
         
+    }
+    .cursor{
+        cursor: pointer;
+    }
+    .pageList{
+        width: 100%;
+        padding:30px auto;
     }
 </style>

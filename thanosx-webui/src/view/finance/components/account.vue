@@ -1,7 +1,7 @@
 <template>
     <section class="account">
         <financeHeader>
-            <span>{{lang[local].account}}</span>
+            <span>{{lang[local].account}}</span> 
         </financeHeader>
         <section class="userinfo">
             <Row>
@@ -10,7 +10,7 @@
                     <p class="con">{{userBasicinfo.userid}}</p>
                 </Col>
                 <Col span="6" class="name">
-                    <p>{{lang[local].niName}} <i class="iconfont icon-bianji org" style="font-size:22px;cursor: pointer;margin:0 20px" @click="editniName = true"/></p>
+                    <p>{{lang[local].niName}} : {{business_name}}<i class="iconfont icon-bianji org" style="font-size:22px;cursor: pointer;margin:0 20px" @click="editniName = true"/></p>
                     <p class="con" :title="userBasicinfo.username">{{userBasicinfo.username}}</p>
                 </Col>
                 <Col span="6" class="name">
@@ -144,11 +144,12 @@
                 count:0,
                 apiBind:false,
                 editniName:false,
-                business_name:'',
+                business_name:'',                
             };
         },
         created (){
-            this.basicinfo();
+            this.basicinfo()
+            this.getNickname()
         },
         mounted (){
             this.rsaInfo()
@@ -180,15 +181,25 @@
                     console.log(err)
                 });
             },
+            getNickname(){
+                this.axios({
+                    url : this.api.getNickname,
+                    data : {
+                        
+                    }
+                }).then(res=>{
+                    this.business_name = res.data.nickname
+                })           
+            },
             saveName(){
                 if(!this.business_name.trim()){
                     this.$store.commit('msg/err', '名称不能为空')
                     return
                 } 
                 this.axios({
-                    url : this.api.updateName,
+                    url : this.api.setNickname,
                     data : {
-                        business_name:this.business_name.trim()
+                        nickname:this.business_name.trim()
                     }
                 }).then(res=>{
                     this.$store.commit('msg/add', res.message)
@@ -198,3 +209,14 @@
         },
     }
 </script>
+<style lang="scss" scoped>
+.editniName{
+    margin:30px auto;
+    tr{
+        td{
+            line-height: 30px;font-size: 14px;padding:10px 0;
+        } 
+    }
+    
+}
+</style>

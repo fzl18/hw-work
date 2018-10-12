@@ -531,6 +531,41 @@ input:-webkit-autofill {
     }
 }
 
+
+.ivu-btn-primary{
+    background:#FF6600;font-size:15px;border-radius:0;padding:8px 30px;border:none;box-shadow:none;
+    &:hover{
+        background-color:#FF6600;
+        border-color:rgb(255, 168, 54);
+        opacity:.9;
+    }
+    &:focus{
+        box-shadow:none
+    }
+}
+.ivu-select-selection-focused, .ivu-select-selection:hover{
+    border-color:#FF6600;
+}
+.ivu-btn-text{
+    color:#FF6600;font-size:15px;border-radius:0;padding:8px 30px;border:none;box-shadow:none;
+    &:focus{
+        box-shadow:none
+    }
+    &:hover{
+        color:rgb(248, 150, 85);
+    }
+}
+
+.ivu-input:hover, .ivu-input:focus, .ivu-input-number:hover, .ivu-input-number:focus, .ivu-select-visible .ivu-select-selection,{
+    border-color:#FF6600;box-shadow:none;
+}
+.ivu-select-item-selected.ivu-select-item-focus, .ivu-select-item-selected, .ivu-date-picker-cells-cell-selected:hover em, .ivu-date-picker-cells-cell-selected em{background:#FF6600;}
+.ivu-checkbox-checked:focus .ivu-checkbox-inner, .ivu-checkbox-checked:hover .ivu-checkbox-inner{border-color:#FF6600;box-shadow:none;}
+.ivu-checkbox-checked .ivu-checkbox-inner{background:#FF6600;border-color:#FF6600;box-shadow:none;}
+.ivu-checkbox-wrapper.ivu-checkbox-large{font-size:15px;}
+.ivu-date-picker-cells-focused em, .ivu-checkbox-focus{box-shadow:none;}
+.ivu-date-picker-cells-cell-today em:after{background:#FF6600;}
+.ivu-date-picker-cells-cell-range:before{background:rgb(255, 225, 205);}
 .org{color:#FF6600;}
 .green{color:#32A91A;}
 .blue{color:#008CC7;}
@@ -555,24 +590,4 @@ input:-webkit-autofill {
 
 .torg{
     color:#FF6600;font-weight:bold;
-}
-.ivu-btn-primary{
-    background:#FF6600;font-size:15px;border-radius:0;padding:8px 30px;border:none;box-shadow:none;
-    &:hover{
-        background-color:#FF6600;
-        border-color:rgb(255, 168, 54);
-        opacity:.9;
-    }
-    &:focus{
-        box-shadow:none
-    }
-}
-.ivu-select-selection-focused, .ivu-select-selection:hover{
-    border-color:#FF6600;
-}
-.ivu-btn-text{
-    color:#FF6600;font-size:15px;border-radius:0;padding:8px 30px;border:none;box-shadow:none;
-    &:focus{
-        box-shadow:none
-    }
 }

@@ -1,19 +1,20 @@
 <template>
     <section class="finance-box main-box">
         <header-component active="finance" />
-        <section class="finance-main container">
+        <section class="finance-main container" v-if="$route.name !='c2cDetail' ">            
             <section class="finance-left">
                 <div class="finance-nav">
                     <router-link v-for="m in menu" :key="m.name" :class="m.name + ' ' + classActive(($route.meta.parent || $route.name) == m.name)" :to="'/' + m.name"><i class="iconfont" :class="m.icon"></i> {{lang[local][m.text]}}</router-link>
                 </div>
-                <!-- <a href="javascript:;" target="_blank" class="finance-app">
-                    <ewm :value="api.appDownload" :size="110"></ewm>
-                    <p>{{lang[local].finance10}}</p>
-                </a> -->
             </section>
             <section class="finance-right">
                 <router-view />
             </section>
+        </section>
+        <section class="container" v-if="$route.name =='c2cDetail' ">
+            <div style="min-height:90vh">
+                <router-view />
+            </div>            
         </section>
         <msg />
         <footer-component />
@@ -88,8 +89,8 @@
                 // console.log(n)
             }
         },
-        created (){
-            // console.log(this.$route)
+        mounted (){
+            console.log(this.$route)
         },
     }
 </script>

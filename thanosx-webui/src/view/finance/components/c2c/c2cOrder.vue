@@ -5,45 +5,67 @@
         </financeHeader>
         <section class="c2cindex">
         <div class="coin">
-            <div class="search" @click="showSearch">
+            <div class="search" @click.stop="showSearch" style="width:40%">
                 <div class="box">
-                    <span v-for="(item,index) in searchTxt ">{{item.val}} <Icon type="close" size="12" class="close" @click="delSearchTxt(index)"/></span>
+                    <template v-for="(item,index) in searchList">
+                        <span v-if="item">{{item=='buy'?'购买':item=='sell'?'售出':item=='1'?'待付款':item=='2'?'已关闭':item=='3'?'已付款':item=='4'?'已完成':item=='5'?'申诉中':item=='sell'?'':item}} <Icon type="close" size="12" class="close" @click="delSearchTxt(index)"/></span>
+                    </template>
                 </div>
                 <Poptip trigger="hover" placement="bottom-end" ref="searchBox" :width=460>
                     <Icon type="ios-search" size="26" class="btn"/>
                     <div class="api" slot="content">
-                        <table class="select">
+                        <table class="select" >
                             <tbody>
+                                    <tr>
+                                        <td align="right">日期：</td>
+                                        <td>
+                                            <DatePicker v-model="searchTxt.date" size="large" type="daterange" placement="bottom-end" placeholder="Select date" style="width: 300px"></DatePicker>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td align="right">订单状态：</td>
+                                        <td>
+                                            <Select v-model="searchTxt.status" size="large" style="width:300px">
+                                                <Option v-for="item in status" :value="item.value" :key="item.value">{{ item.label }}</Option>
+                                            </Select>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td align="right">订单编号：</td>
+                                        <td>
+                                            <Input v-model="searchTxt.id" size="large" />
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td align="right">交易类型：</td>
+                                        <td>
+                                            <Select v-model="searchTxt.transferType" size="large" style="width:300px">
+                                                <Option v-for="item in type" :value="item.value" :key="item.value">{{ item.label }}</Option>
+                                            </Select>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td align="right">币种：</td>
+                                        <td>
+                                            <Select v-model="searchTxt.coin" size="large" style="width:300px">
+                                                <Option v-for="item in coinList" :value="item.toUpperCase()" :key="item">{{ item.toUpperCase() }}</Option>
+                                            </Select>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td align="right">法币币种：</td>
+                                        <td>
+                                            <Select v-model="searchTxt.fCoin" size="large" style="width:300px">
+                                                <Option v-for="item in currencyList" :value="item.label" :key="item.label">{{ item.label }}</Option>
+                                            </Select>
+                                        </td>
+                                    </tr>
                                 <tr>
-                                    <td>国家/地区：</td>
-                                    <td>
-                                        <Select v-model="model4" size="large" style="width:300px">
-                                            <Option v-for="item in cityList" :value="item.value" :key="item.value">{{ item.label }}</Option>
-                                        </Select>
+                                    <td align="center" style="padding:50px 0 20px 0">
+                                        <Button size="large" type="text" class="org" @click="allClear">清空筛选</Button>
                                     </td>
-                                </tr>
-                                <tr>
-                                    <td>法币币种：</td>
-                                    <td>
-                                        <Select v-model="model4" size="large" style="width:300px">
-                                            <Option v-for="item in cityList" :value="item.value" :key="item.value">{{ item.label }}</Option>
-                                        </Select>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>支付方式：</td>
-                                    <td>
-                                        <Select v-model="model4" size="large" style="width:300px">
-                                            <Option v-for="item in cityList" :value="item.value" :key="item.value">{{ item.label }}</Option>
-                                        </Select>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td align="center">
-                                        <Button size="large" type="text" class="org">清空筛选</Button>
-                                    </td>
-                                    <td align="center" >
-                                        <Button size="large" type="primary">搜索</Button> <Button size="large" type="text">取消</Button>
+                                    <td align="right"  style="padding:50px 0 20px 0">
+                                        <Button size="large" type="primary" @click.stop="handleSearch">搜索</Button> <Button size="large" type="text" @click.stop="closeSearch">取消</Button>
                                     </td>
                                 </tr>
                             </tbody>
@@ -56,154 +78,192 @@
             <dl>
                 <dt>
                     <ul>
-                        <li>商家</li>
+                        <li>订单编号</li>
+                        <li>类型</li>
                         <li>数量</li>
-                        <li>限额</li>
+                        <li>总价</li>
                         <li>单价</li>
-                        <li>支付方式</li>
+                        <li>手续费</li>
+                        <li>状态</li>
                         <li>操作</li>
                     </ul>
 
                 </dt>
-                <dd>
-                    <ul v-if="curType != 'myOrder'">
-                        <li><span class="tblue">商家</span> (106)</li>
-                        <li>5665599.00000 BTC</li>
-                        <li>199.990~52236.000 CNY</li>
-                        <li class="tbuy">6.88CNY</li>
-                        <li>
-                            <i class="iconfont icon-yinxingqia org" />
-                            <i class="iconfont icon-ai-weixin buy" />
-                            <i class="iconfont icon-ZFBZD blue" />
+                <dd v-for="item in orderListArrary">
+                    <ul>
+                        <li :title="item.orderid">{{item.orderid}}</li>
+                        <li :class="item.type == 1 ? 'tbuy' : 'tsell'">{{item.type == 1 ? '购买' : '售出'}}</li>
+                        <li>{{item.amount}} {{item.symbol.toUpperCase()}}</li>
+                        <li>{{item.money}} CNY</li>
+                        <li>{{item.price}} CNY</li>
+                        <li>{{item.fee}}</li>
+                        <li>{{item.status == 1 ? '待付款':item.status == 2 ? '已关闭':item.status == 3 ? '已付款':item.status == 4 ? '已完成':''}}</li>
+                        <li class="btn">
+                            <Button type="text" :loading="false" class="blue" @click="$router.push(`/c2cDetail?id=${item.id}`)">交易详情</Button><br/>
+                            <Button type="text" :loading="false" class="blue" v-if="item.status == 1 && item.type == 1">支付</Button>
+                            <Button type="text" :loading="false" class="blue" v-if="item.status == 3 && item.type == 2">确认转账</Button>
                         </li>
-                        <li><Button size="large" type="primary" :loading="false" @click="operation(0)">{{curType == 'buy' ? `购买 BTC` : `售出 BTC`}}</Button></li>
-                        <li v-if="checkMore == 0" class="more">                            
-                            <Row>
-                                <Col span="4">商家00655 (256)</Col>
-                                <Col span="4" class="tbuy">6.88 CNY</Col>
-                                <Col span="12">
-                                    <Row>
-                                        <Col span="8"><Input v-model="model4" style="width:100%" placeholder="..."><span slot="append">CNY</span></Input></Col>
-                                        <Col span="2"><i class="iconfont icon-jiaohuan" /></Col>
-                                        <Col span="8"><Input v-model="model4" style="width:100%" placeholder="E..."><span slot="append">CNY</span></Input></Col>
-                                    </Row>
-                                </Col>
-                                <Col span="4" style="position: relative;top:20px;text-align:right">
-                                    <Button size="large" type="primary">下单</Button>
-                                    <Button size="large" type="text" @click="cancel">取消</Button>
-                                </Col>
-                                <br />
-                                <Col span="4">数量：</Col>
-                                <Col span="4">199.02554~3256.22155</Col>
-                                <Col span="12">
-                                    <Row>
-                                        <Col span="8"><Input placeholder="Enter something..." clearable /></Col>
-                                        <Col span="8" offset="2"><Input placeholder="Enter something..." clearable /></Col>
-                                    </Row>
-                                </Col>
-                            </Row>
-                            <Row class="n2">
-                                <Col span="3"><i class="iconfont icon-yinxingqia org" /> 银行卡</Col>
-                                <Col span="3"><i class="iconfont icon-ai-weixin buy" /> 微信支付</Col>
-                                <Col span="3"><i class="iconfont icon-ZFBZD blue" /> 支付宝支付</Col>
-                                <Col span="24"> <span style="color:red">*</span> 备注备注备注备注备注备注备注备注备注备注备注备注备注</Col>
-                            </Row>
-                        </li>                        
+                        <li class="info">
+                            <time>时间：</time> <span style="margin:0 20px;color:#aaa;">|</span> <span class="blue">{{localDate(item.createtime)}}</span>  
+                        </li>
                     </ul>
-                    <ul v-if="curType == 'myOrder'">
-                        <li>BTV</li>
-                        <li style="color:green">购买</li>
-                        <li>199.990~52236.000 CNY</li>
-                        <li>6.88CNY</li>
-                        <li>ssdfe</li>
-                        <li>ssdfe</li>
-                        <li>时间</li>
-                        <li><Button size="large" type="text" :loading="false">{{ `取消委托单`}}</Button></li>
-                    </ul>
-                </dd> 
-            
+                </dd>
             </dl>
+        </div>
+        <div class="pageList">
+            <page :page="page && page" @pageChange="pageChange" v-if="page.totalPage > 0" />
         </div>
 
         <!-- <load v-if="loading" /> -->
+        
     </section>
     </section>
     
 </template>
 
 <script>
-    import bigNum from "bignumber.js"
+    import bigNum from "bignumber.js"    
+    import dayjs from 'dayjs'
+    const dayformat = 'YYYY/MM/DD'
     export default {
         name: "index",
         data (){
             return {
-                mainChain:[],
-                isChecked:false,
-                cur:0,
-                market2 : '',
-                totalAssets : 0,
-                coinSeekSatet : false,
-                totalAssetsState : false,
-                origin : process.env.NODE_ENV == 'development' ? 'http://47.99.115.225' : '',
-                addOrderModal:false,
-                transfer:false,
-                transferType:''
+                searchTxt:{
+                    date:['',''],
+                    status:null,
+                    id:null,
+                    transferType:null,
+                    coin:null,
+                    fCoin:null,
+                },
+                page : {
+                    currPage : 1,
+                    totalPage : 1,
+                    pageSize : 10,
+                    totalCount : 10,
+                },
+                type: [
+                    {
+                        value: 'buy',
+                        label: '购买'
+                    },
+                    {
+                        value: 'sell',
+                        label: '售出'
+                    }
+                ],
+                status:[ 
+                    {
+                        value:1,
+                        label:'待付款'
+                    },
+                    {
+                        value:2,
+                        label:'已关闭'
+                    },
+                    {
+                        value:3,
+                        label:'已付款'
+                    },
+                    {
+                        value:4,
+                        label:'已完成'
+                    },
+                    {
+                        value:5,
+                        label:'申诉中'
+                    },
+                ],
+                coinList:[],
+                currencyList:[],
+                orderListArrary:[]
             };
         },
         watch : {
         },
         computed : {
-            seek (){
-                return {market2 : this.market2};
-            },
-            // ismain (){
-            //     return  this.mainChain.indexOf(this.item.market2) == -1
-            // }
-            
+           searchList(){
+                let date
+                if(this.searchTxt.date){
+                    if(this.searchTxt.date[0] == ''){
+                        date == null
+                    }else{
+                        date = `${dayjs(this.searchTxt.date[0]).format(dayformat)}~${dayjs(this.searchTxt.date[1]).format(dayformat)}`
+                    }
+                }else{
+                    date = null
+                }
+                let val = [date,this.searchTxt.status, this.searchTxt.id, this.searchTxt.transferType , this.searchTxt.coin , this.searchTxt.fCoin]
+                return val
+            }
         },
         created (){
-            this.myasset()
-            this.getMainCoins()
+            this.axios({
+                url : this.api.basicCoin,
+                data : {
+                }
+            }).then(res=>{
+                this.coinList = res.data.coin_list
+                this.currencyList = res.data.currency_list
+            }).catch( err=>{
+                console.log(err)
+            })
+            this.orderList()
         },
         mounted(){
-            console.log(this.mainChain)
+
         },
         methods : {
-            tobigNumber(val){
-                return bigNum(val).toString(10)
+            handleSearch(){
+                this.orderList()
+                this.closeSearch()
             },
-            myasset (){
+            delSearchTxt(index){
+                this.searchTxt[Object.keys(this.searchTxt)[index]] = null
+            },
+            showSearch(){
+               this.$refs.searchBox.handleMouseenter()
+            },
+            closeSearch(){
+                this.$refs.searchBox.handleMouseleave() 
+            },
+            allClear(){
+                this.searchTxt.fCoin = null
+                this.searchTxt.status = null
+                this.searchTxt.id = null
+                this.searchTxt.transferType = null
+                this.searchTxt.coin = null
+                this.searchTxt.date = null              
+            },
+            orderList(){
+                let params ={
+                    order_id:this.searchTxt.id,//订单编号
+                    symbol:this.searchTxt.coin,//币种
+                    type:this.searchTxt.transferType == 'buy' ? 1:2,//类型 1=购买 2=售出
+                    status:this.searchTxt.status,//状态  1=待付款 2=已关闭 3=已付款  4=已完成 5=申诉中
+                    start_time:this.searchTxt.date[0] && dayjs(this.searchTxt.date[0]).format("YYYY-MM-DD"),//开始时间
+                    end_time:this.searchTxt.date[1] && dayjs(this.searchTxt.date[1]).format("YYYY-MM-DD"),//结束时间
+                    currency:this.searchTxt.fCoin,//法币,
+                }
                 this.axios({
-                    url : this.api.myasset,
-                }).then((res) => {
-                    this.totalAssets = res.data.tol || 0;
-                }).catch((err) => {
-                    console.log(err);
-                });
-            },
-            hadndleTab (index){
-                this.cur = index
-            },
-            getMainCoins(){
-                this.axios({
-                    url : this.api.getMainCoins,
+                    url : this.api.orderList,
                     data : {
+                        ...this.page,
+                        ...params
                     }
-                }).then(res => {
-                    this.mainChain = res.data
-                    console.log(res.data)
-                }).catch()
+                }).then(res=>{
+                    this.orderListArrary = res.data.list
+                    this.page = res.data.page
+                }).catch( err=>{
+                    console.log(err)
+                })
             },
-            ok(){
-                this.addOrderModal = false
+            pageChange(page){
+                this.page = page
+                this.orderList()
             },
-            close(){
-                this.addOrderModal = false
-            },
-            handleTransfer(val){
-                this.transferType = val
-                this.transfer = true
-            }
+            
         },
     }
 </script>
@@ -215,28 +275,6 @@
         padding:15px;
         min-height:80vh;
         box-shadow:0 0 10px rgba(0, 0, 0, .1)
-    }
-    ul.type{
-        overflow: hidden;
-        margin-bottom: 20px;
-        li{
-            float: left;
-            font-size:16px;
-            font-weight: bold;
-            color:#666;
-            text-align: center;
-            min-width:180px;
-            height:60px;
-            line-height: 60px;
-            padding-bottom: 10px;
-            border-bottom:2px solid #CECECE;
-            margin-right:10px;
-            cursor: pointer;
-            &:hover, &.cur{
-                color:#FF6600;
-                border-bottom-color: #FF6600;
-            }
-        }        
     }
     .coin{
         background: #F6F4F5;
@@ -326,41 +364,25 @@
         }
     }
     .list{
+        ul{position: relative;}
         li{
-            float: left;white-space:nowrap;
+            float: left;white-space:nowrap;text-overflow: ellipsis;overflow: hidden;
             .iconfont{font-size:22px;margin-right:5px;}
-            &:nth-child(1){width:25%}
-            &:nth-child(2){width:20%}
+            &:nth-child(1){width:18%}
+            &:nth-child(2){width:7%}
             &:nth-child(3){width:15%}
             &:nth-child(4){width:15%}
             &:nth-child(5){width:15%}
-            &:nth-child(6){width:10%}
-            &.more{
-                width: 100%;
-                background: #F8F8F8;
-                border:1px solid #FBE7DC;
-                margin-top:-50px;
-                padding:20px 30px;
-                text-align:left;
-                .n2{
-                    border-top:1px dashed #ddd;margin-top:20px;padding-top:20px;
-                    .iconfont{font-size:26px;position: relative;top:5px;margin-right:5px;}
-                }
+            &:nth-child(6){width:12%}
+            &:nth-child(7){width:8%}
+            &:nth-child(8){width:10%;}
+            &.btn{
+                position:absolute;right:0;top:0;
             }
-        }
-        dl{
-            &.myOrder{
-                li{
-                    &:nth-child(1){width:10%}
-                    &:nth-child(2){width:10%}
-                    &:nth-child(3){width:15%}
-                    &:nth-child(4){width:15%}
-                    &:nth-child(5){width:10%}
-                    &:nth-child(6){width:10%}
-                    &:nth-child(7){width:20%}
-                    &:nth-child(8){width:10%}
-                }
-           }
+            &.info{
+                clear:both;width:100%;text-align: left;border-top:1px dashed #A9A9A9;
+                time{color:#aaa}
+            }
         }
         dt{
            background: #F8F8F8;
@@ -371,7 +393,7 @@
         //    border:1px dashed #333;
         }
          dd{
-            height:50px;
+            overflow: hidden;
             line-height: 50px;
             text-align: center;
             &:nth-child(odd){
@@ -386,5 +408,12 @@
             }
             
         }
+    }
+    .ivu-btn-text{
+        padding:8px 12px;
+    }
+    .pageList{
+        margin:30px auto;
+        width: 100%;
     }
 </style>

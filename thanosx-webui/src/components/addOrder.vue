@@ -15,39 +15,39 @@
                                 <tr>
                                     <td width="100">币种</td>
                                     <td>
-                                        <Select v-model="model4" size="large" style="width:300px">
-                                            <Option v-for="item in cityList" :value="item.value" :key="item.value">{{ item.label }}</Option>
+                                        <Select v-model="order.coin" size="large" style="width:300px">
+                                            <Option v-for="(item,index) in coinList" :value="item" :key="item">{{ item && item.toUpperCase() }}</Option>
                                         </Select>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>数量</td>
                                     <td>
-                                        <InputNumber size="large" style="width:100%"/>
+                                        <InputNumber v-model="order.count" size="large" style="width:100%" :min="0"/>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>法币币种</td>
                                     <td>
-                                        <Select v-model="model4" size="large" style="width:300px">
-                                            <Option v-for="item in cityList" :value="item.value" :key="item.value">{{ item.label }}</Option>
+                                        <Select v-model="order.currency" size="large" style="width:300px">
+                                            <Option v-for="item in currencyList" :value="item.label" :key="item.label">{{ item.label }}</Option>
                                         </Select>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>单价</td>
                                     <td>
-                                        <Input size="large"><span slot="append">CNY</span></Input>
-                                        <div>总价：<span class="torg">--CNY</span></div>
+                                        <Input v-model="order.price" size="large"><span slot="append">{{order.currency || 'CNY'}}</span></Input>
+                                        <div>总价：<span class="torg"> {{(order.price * order.count) || '--'}} {{order.currency || 'CNY'}}</span></div>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>收款方式</td>
                                     <td>
-                                        <CheckboxGroup size="large" v-model="payment">
-                                            <Checkbox size="large" label="银行卡" value="1"></Checkbox>
-                                            <Checkbox size="large" label="微信" value="2"></Checkbox>
-                                            <Checkbox size="large" label="支付宝" value="3"></Checkbox>
+                                        <CheckboxGroup size="large" v-model="order.payment">
+                                            <Checkbox size="large" label="1" value="1" disabled>银行卡</Checkbox>
+                                            <Checkbox v-if="params.wxpay" size="large" label="3" value="2">微信</Checkbox>
+                                            <Checkbox v-if="params.alipay" size="large" label="2" value="3">支付宝</Checkbox>
                                         </CheckboxGroup>
                                     </td>
                                 </tr>
@@ -57,15 +57,15 @@
                     <Col span="10" offset="2">
                         <table style="width:100%">
                             <tr>
-                                <td colspan="2">* 单笔交易设置</td>
+                                <td colspan="2"> <span class="torg">*</span> 单笔交易设置</td>
                             </tr>
                             <tr>
                                 <td width="80">最小交易</td>
-                                <td><Input size="large" v-model="order.min"><span slot="append">CNY</span></Input></td>
+                                <td><Input size="large" v-model="order.min"><span slot="append">{{order.coin && order.coin.toUpperCase()}}</span></Input></td>
                             </tr>
                             <tr>
                                 <td>最大交易</td>
-                                <td><Input size="large" v-model="order.max"><span slot="append">CNY</span></Input></td>
+                                <td><Input size="large" v-model="order.max"><span slot="append">{{order.coin && order.coin.toUpperCase()}}</span></Input></td>
                             </tr>
                             <tr>
                                 <td>备注说明</td>
@@ -84,55 +84,109 @@
 
 <script>
 export default {
+    props:['url','params'],
     data(){
-        return{
-            curTransferType:'buy',
-            payment:[],
-            model4:'',
-            cityList: [
-                    {
-                        value: 'New York',
-                        label: 'New York'
-                    },
-                    {
-                        value: 'London',
-                        label: 'London'
-                    },
-                    {
-                        value: 'Sydney',
-                        label: 'Sydney'
-                    },
-                    {
-                        value: 'Ottawa',
-                        label: 'Ottawa'
-                    },
-                    {
-                        value: 'Paris',
-                        label: 'Paris'
-                    },
-                    {
-                        value: 'Canberra',
-                        label: 'Canberra'
-                    }
-                ],
+        return{                     
+            curTransferType:'buy',   
             order:{
-                coinType:'',
-                count:'',
-                fcoin:'',
-                price:0,
-                min:0,
-                max:0,
+                coin:'',
+                count:null,
+                currency:'',
+                payment:['1'],
+                price:null,
+                min:null,
+                max:null,
+                note:'',
+                agree:false,
+            },
+            coinList:[],
+            currencyList:[],
+        }
+    },
+    created(){
+        this.basicInfo()
+    },
+    mounted(){
+        console.log(this.order)        
+    },
+    watch:{
+        curTransferType(){
+            this.order = {
+                coin:'',
+                count:null,
+                currency:'',
+                payment:['1'],
+                price:null,
+                min:null,
+                max:null,
                 note:'',
                 agree:false,
             }
         }
     },
+    computed:{
+        // order(){
+        //     let data
+        //     if(this.curTransferType == 'buy'){
+        //         data = { ...this.orderBuy}
+        //     }else{
+        //         data = {...this.orderSell}
+        //     }
+        //     return data
+        // }
+    },
     methods:{
         ok(){
-            this.$emit('ok')
+            const d = this.order
+            if(d.coin){
+
+            }
+            if(this.order.agree){
+                this.$emit('ok',{...this.order,type:this.curTransferType =='buy' ? 1:2})
+                this.order = {
+                    coin:'',
+                    count:null,
+                    currency:'',
+                    payment:['1'],
+                    price:null,
+                    min:null,
+                    max:null,
+                    note:'',
+                    agree:false,
+                }
+            }else{
+                this.$store.commit('msg/err', '必须先同意服务协议')
+                return
+            }
+            
         },
         close(){
             this.$emit('close')
+            this.order = {
+                coin:'',
+                count:null,
+                currency:'',
+                payment:['1'],
+                price:null,
+                min:null,
+                max:null,
+                note:'',
+                agree:false,
+            }
+        },
+        basicInfo(){
+            this.axios({
+                url : this.url,
+                data : {
+
+                }
+            }).then(res=>{
+                console.log(res);
+                this.coinList = res.data.coin_list
+                this.currencyList = res.data.currency_list
+            }).catch( err=>{
+                console.log(err);
+            })
         },
     }
 }

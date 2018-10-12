@@ -12,7 +12,8 @@
         <section class="part1 " v-if="step==1">
             <div class="read">
                 <div class="title"><h3>协议必读</h3></div>
-                <div class="con">asdfasdfsdfwefwefwefwefwefasdfwefsdfefefdfe</div>
+                <div class="con">请确认，在认证商家前，已详细阅读了本协议所有内容，一旦开始认证流程，即表示您已充分理解并同意本下一的全部内容。
+为提高交易的安全性和平台注册用户身份的可信度，ThanosX（以下简称T网）向您提供认证服务。您申请认证，T网有权采取各种其认为必要手段对用户的身份进行识别。但，作为普通的网络服务提供商，T网所能采取的方法有限，且在网络上用户身份识别也存在一定的困难。因此，T网对完全认证的用户身份的准去性和绝对真实性不做任何保证。</div>
             </div>
             <h3>认证所需材料</h3>
             <Row :gutter="16" class="auth">                
@@ -23,41 +24,41 @@
                 <Col span="4"><div><i class="iconfont icon-shenfenzheng"></i>身份认证</div> </Col>
                 <Col span="4"><div><i class="iconfont icon-fengxianbaozhangjihua"></i>风控策略</div> </Col>
             </Row>
-            <div style="margin:40px 0 80px 0" class="blue">认证所需材料</div>
+            <div style="margin:40px 0 80px 0" class="blue">认证所需材料+资产保证金（商家需要缴纳保证金，保证金具体数额会在用户的个人信息中展示）</div>
             <div>
                 <h3>认证流程</h3>
-                <p>1) </p>
-                <p>2) </p>
+                <p>1) 提交商家申请后，T网工作人员将在3个工作日内审核处理；</p>
+                <p>2) 保证金将在申请后自动锁定在交易账户内。商家无法对该笔资金进行交易。若审核不通过，将释放保证金。</p>
             </div>
             <div class="btn">
                 <div style="margin:30px 0"><Checkbox v-model="tAgree" size="large"> 已阅读并同意 </Checkbox><a href="" target="_blank">商家认证协议</a> </div>
-                <Button size="large" type="primary" @click="step++">申请</Button>
+                <Button size="large" type="primary" @click="gonext">申请</Button>
             </div>
         </section>
         <section class="part2" v-if="step==2">
             <div class="box">
                 <div class="title"><h3>2 实名认证信息</h3></div>
                 <Row>
-                    <Col span="4">真实姓名：</Col>
-                    <Col span="4">证件类型：</Col>
-                    <Col span="4">证件号码：</Col>
-                    <Col span="24">居住地址：</Col>
+                    <Col span="4">真实姓名：{{userDetail.truename}}</Col>
+                    <Col span="4">证件类型：{{userDetail.dctype}}</Col>
+                    <Col span="4">证件号码：{{userDetail.idcard}}</Col>
+                    <Col span="24">居住地址：{{userDetail.address}}</Col>
                 </Row>
             </div>
             <Row :gutter="24">
                 <Col span="8">
                     <div class="box">
-                        <img src="" alt="">
+                        <img :src="userDetail.idcard1" alt="">
                     </div>
                 </Col>
                 <Col span="8">
                     <div class="box">
-                        <img src="" alt="">
+                        <img :src="userDetail.idcard2" alt="">
                     </div>
                 </Col>
                 <Col span="8">
                     <div class="box">
-                        <img src="" alt="">
+                        <img :src="userDetail.idcard3" alt="">
                     </div>
                 </Col>
             </Row>
@@ -66,13 +67,13 @@
             <div class="box">
                 <div class="title"><h3>3 联系方式</h3></div>
                 <Row>
-                    <Col span="4">真实姓名：</Col>
-                    <Col span="4"><i class="iconfont icon-shouji1"></i> </Col>
-                    <Col span="4"><i class="iconfont icon-letter"></i> </Col>
+                    <Col span="4">真实姓名：{{userDetail.truename}}</Col>
+                    <Col span="4"><i class="iconfont icon-shouji1"></i> {{userDetail.mobile}}</Col>
+                    <Col span="4"><i class="iconfont icon-letter"></i> {{userDetail.email}} </Col>
                 </Row>                
             </div>
             <Row>
-                <Col span="8"><Input v-model="weixin" type="text" size="large" style="width:300px" placeholder="请输入微信号"><span slot="prepend">微信号</span></Input></Col>
+                <Col span="8"><Input v-model="weixin" type="text" size="large" style="width:300px" placeholder=" 请输入微信号"><span slot="prepend">微信号</span></Input></Col>
                 <Col span="8"><Input v-model="QQ" type="text" size="large" style="width:300px" placeholder="请输入QQ号"><span slot="prepend">QQ</span></Input></Col>
                 <Col span="24" style="margin-top:40px">请输入微信号及QQ号码，至少填写一项，便于我们能与您联系，确认真人信息。</Col>
             </Row>
@@ -81,9 +82,9 @@
             <div class="box">
                 <div class="title"><h3>4 资产证明及风控</h3></div>
                 <Row>
-                    <Col span="24">真实姓名：</Col>
-                    <Col span="11">个人资产情况 <Input size="large" type="textarea" :rows="5"/></Col>
-                    <Col span="11" offset="2">个人风控策略 <Input size="large" type="textarea" :rows="5"/></Col>
+                    <Col span="24">真实姓名：{{userDetail.truename}}</Col>
+                    <Col span="11">个人资产情况 <Input v-model="assets" size="large" type="textarea" :rows="5"/></Col>
+                    <Col span="11" offset="2">个人风控策略 <Input v-model="risk" size="large" type="textarea" :rows="5"/></Col>
                 </Row> 
             </div>
             <hr />
@@ -111,9 +112,24 @@
         </section>
         <div class="footer" v-if="step != 1">
             <Button size="large" type="text" @click="step--" style="border:1px solid #FF6600">上一步</Button>
-            <Button v-if="step != 4" size="large" type="primary" @click="step++" style="border:1px solid #FF6600">确认</Button>
-            <Button v-if="step == 4" size="large" type="primary" @click="step++" style="border:1px solid #FF6600">提交</Button>
+            <Button v-if="step != 4" size="large" type="primary" @click="gonext" style="border:1px solid #FF6600">确认</Button>
+            <Button v-if="step == 4" size="large" type="primary" @click="submit" style="border:1px solid #FF6600">提交</Button>
         </div>
+        <Modal
+            v-model="errModel"
+            :closable = false
+            :footer-hide = true
+            :mask-closable = false
+            class-name="vertical-center-modal">            
+            <div>
+                <h2>
+                    {{errInfo}}
+                </h2>
+                <div style="text-align:right;">
+                 <Button type="primary" size="large" style="font-size:16px" @click="$router.push('/')">返回 </Button>
+                </div>
+            </div>
+        </Modal>
     </div>
 </template>
 
@@ -127,7 +143,15 @@ export default {
             weixin:'',
             QQ:'',
             pNum:[''],
+            userDetail:{},
+            assets:'',
+            risk:'',
+            errModel:false,
+            errInfo:''
         }
+    },
+    mounted(){
+        this.applyConfirm()
     },
     methods:{
         addpic(){
@@ -135,8 +159,91 @@ export default {
         },
         delpic(index){
             this.pNum.splice(index,1)
+        },
+        gonext(){
+            console.log(this.step);
+            
+            if(this.tAgree){
+                if(this.step == 1){
+                    this.applyData()
+                    this.step++ 
+                    return
+                }
+                if(this.step == 2){
+                    this.step++
+                    return
+                }
+                if(this.step == 3){
+                    if(!this.QQ && !this.weixin){
+                        this.$store.commit('msg/err', '微信号及QQ号码，至少填写一项')
+                    }else{
+                        this.step++
+                    }
+                }
+            }else{
+                this.$store.commit('msg/err', '必须先阅读并同意协议')
+            }
+        },
+        applyConfirm(){
+            this.axios({
+                url : this.api.applyConfirm,
+                data : {
+                }
+            }).then(res=>{
+
+            }).catch( err=>{
+                console.log(err);
+                this.errModel = true 
+                this.errInfo = err.message
+            })
+        },
+
+        applyData(){
+            this.axios({
+                url : this.api.applyData,
+                data : {
+                }
+            }).then(res=>{
+                this.userDetail = res.data
+                this.QQ = res.data.qq
+                this.weixin = res.data.wechat
+                
+            }).catch( err=>{
+                console.log(err)
+            })
+        },
+        submit(){
+            let assets_images=''
+            this.pNum.map(d => {
+                if(d){
+                    assets_images = assets_images + d.data +','
+                }
+            })
+            if(!this.bAgree){
+                this.$store.commit('msg/err', '必须同意冻结保证金')
+                return
+            }
+            if(this.pNum.length <1){
+                this.$store.commit('msg/err', '至少上传一张资产证明图')
+                return
+            }
+            this.axios({
+                url : this.api.applySubmit,
+                data : {
+                    qq:this.QQ,
+                    wechat:this.weixin,
+                    assets_info:this.assets,
+                    risk_info:this.risk,
+                    assets_images
+                }
+            }).then(res=>{
+                this.$store.commit('msg/add', res.message)
+                this.$route.push(toUrl.c2cUrl)
+            }).catch( err=>{
+                console.log(err)
+            })
         }
-    }
+}
 }
 </script>
 
@@ -144,8 +251,10 @@ export default {
 .apply{
     background: #fff;
     padding: 15px;
+    padding-bottom: 35px;
     min-height: 80vh;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin-bottom:50px;
     h3{
         margin:20px 0;
         &.tit{
@@ -190,7 +299,11 @@ export default {
                 color:#FF6600;text-align:center;padding-bottom:20px;margin-bottom:20px;border-bottom:1px dotted #FF6600;
                 h3{margin:0}
             }
-            .con{}
+            .con{
+                line-height:26px;
+                font-size:15px;
+                padding:10px 0 20px 0;
+            }
             
         }
         p{line-height:36px;}
@@ -210,11 +323,16 @@ export default {
         .btn{text-align: center;line-height:36px;}
     }
     .part2{
-        
+        .box{
+
+        }
+        img{
+            width:100%;
+        }
 
     }
     .part3{
-        .iconfont{font-size:26px;}
+        .iconfont{font-size:26px;position: relative;top:4px;}
     }
     .part4{
         .uploadpic{

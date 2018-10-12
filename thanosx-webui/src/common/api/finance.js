@@ -66,6 +66,23 @@ export const apiFinance = {
     "getRsaMailCode":"/api/security/RsaVerifyCode",
     "setRsa":"/api/security/setRsa",
     "rsaInfo":"/api/security/rsaInfo",
-    
+
+    // C2C
+    "transferInfo" : '/api/business/transferInfo',//拿用户账户信息
+    "accountList":"/api/C2C/accountList",  //我的资产--c2c账户列表
+    "assetsTransfer":"/api/C2C/assetsTransfer", //c2c资产转移
+    "orderList":"/api/C2C/orderList", //c2c订单列表
+    "orderDetail":"/api/C2C/orderDetail", //c2c订单详情
+    "cancelOrder":"/api/C2C/cancelOrder", //取消c2c订单
+    "confirmPay":"/api/C2C/confirmPay", //c2c确认付款
+    "confirmReceivable":"/api/C2C/confirmReceivable", //确认收款
+    "sendCapthca":"/api/email/sendCapthca", //发送确认收款验证码
+    "transferModeSet":"/api/C2C/transferModeSet", //转账方式设置
+    "transferMode":"/api/C2C/transferMode", //转账方式
+    "unbindTransferMode":"/api/C2C/unbindTransferMode", //转账方式解绑
+    "basicCoin":"/api/trade/basicInfo",  //获取币种和法币基础信息
+    "createPend":"/api/trade/createPend", //我的委托单: 创建委托单
+    "setNickname":"/api/member/setNickname", //设置用户昵称
+    "getNickname":"/api//member/getNickname", //获取用户昵称
 };
 

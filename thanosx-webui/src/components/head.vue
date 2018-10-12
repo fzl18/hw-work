@@ -29,7 +29,7 @@
                         <a href="" class="cur" @click.prevent="toLogin()">{{lang[local].login }}</a>
                         <a href="" @click.prevent="toRegister()">{{lang[local].freeRegister }}</a>
                     </div>
-                    <div v-if="loginGetStatus && loginStatus " class="login">
+                    <div v-if="loginGetStatus && loginStatus" class="login">
                         <div class="login-name" @click="taphandle">
                                <i class="iconfont icon-yonghu-yuan" style="font-size:20px;margin-left:15px;"></i>
                                 <span>{{loginInfo.username.slice(0,15) }}{{loginInfo.username.length > 15 ? '...':''}}</span>

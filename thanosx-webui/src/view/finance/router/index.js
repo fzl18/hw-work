@@ -31,6 +31,7 @@ import uppassword from '../components/uppassword'
 
 import c2cOrder from '../components/c2c/c2cOrder'
 import transferMode from '../components/c2c/transferMode'
+import c2cDetail from '../components/c2c/c2cDetail'
 
 const ga = () => import(/* webpackChunkName: "ga" */ '../components/ga')
 const gaRemove = () => import(/* webpackChunkName: "ga" */ '../components/gaRemove')
@@ -276,6 +277,14 @@ const router = new Router({
             component: transferMode,
             meta : {
                 parent : 'transferMode'
+            }
+        },
+        {
+            path: '/c2cDetail',
+            name: 'c2cDetail',
+            component: c2cDetail,
+            meta : {
+                parent : 'c2cDetail'
             }
         },
         ...commonRouter,
