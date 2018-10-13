@@ -158,10 +158,10 @@
                                         <Button size="large" type="text" @click="cancel">取消</Button>
                                     </template>
                                     <template v-if="loginGetStatus && loginStatus && !paypassword">
-                                        您未设置交易密码，请<Button size="large" type="text" @click="$router.push(toUrl.financeUrl + '/setTradePassword')">设置</Button>                                        
+                                        您未设置交易密码，请<Button size="large" type="text" @click="go('set')">设置</Button>                                        
                                     </template>
                                     <template v-if="!loginGetStatus || !loginStatus">
-                                        您未登陆，请<Button size="large" type="text" @click="$router.push(toUrl.loginUrl)">登陆</Button>                                        
+                                        您未登陆，请<Button size="large" type="text" @click="go('login')">登陆</Button>
                                     </template>
                                     
                                 </Col>
@@ -170,8 +170,8 @@
                                 <Col span="4">{{item.minvolume}}~{{item.maxvolume}}</Col>
                                 <Col span="12">
                                     <Row v-if="curType =='sell'">
-                                        <Col span="8" style="margin-top:8px;"><Input size="large" placeholder="邮件验证码" clearable ><span slot="append" class="blue cursor">获取验证码</span></Input></Col>
-                                        <Col span="8" offset="2"><Input size="large" placeholder="交易密码" clearable /></Col>
+                                        <Col span="8" style="margin-top:8px;"><Input v-model="emailVerify" size="large" placeholder="邮件验证码" clearable ><span slot="append" class="blue cursor" @click="sendCode">{{verifyCodeTimeText === -1 ? lang[local].getVerifCode + '...' : verifyCodeTimeText ? verifyCodeTimeText : lang[local].getVerifCode}}</span></Input></Col>
+                                        <Col span="8" offset="2"><Input v-model="payPassword" size="large" placeholder="交易密码" clearable /></Col>
                                     </Row>
                                 </Col>
                             </Row>
@@ -249,6 +249,7 @@
 <script>
     import {mapState} from "vuex"
     import dayjs from 'dayjs'
+    import {toUrl} from "../../../common/api/api"
     const dayformat = 'YYYY/MM/DD'
     export default {
         name: "list",
@@ -295,12 +296,16 @@
                 orderCoinAmount:null,
                 orderCurrencyAmount:null,
                 money:null,
-                transferInfoOB:{}
+                transferInfoOB:{},
+                sendCodeStatus:false,
+                sendCodeCount:0,
+                emailVerify:'',
+                payPassword:'',
             };
         },
         created (){
             // this.basicInfo()
-            this.userInfo()
+            this.userInfo()            
         },
         mounted(){
             this.axios({
@@ -585,7 +590,6 @@
                         pay_type:this.searchTxt1.payType,
                     }
                 }
-                console.log(this.page)
                 this.axios({
                     url : this.api.pendList,
                     data : {
@@ -620,7 +624,9 @@
                     url : this.api.createOrder,
                     data : {
                         pend_id:id,
-                        money:this.currencyAmount
+                        money:this.currencyAmount,
+                        email_verify:this.emailVerify,
+                        pay_password:this.payPassword
                     }
                 }).then(res=>{
                     this.pendList()
@@ -636,7 +642,6 @@
                 })
             },
             changeMoney(v,price){
-                console.log(v)
                 if(v == 'currencyAmount'){
                     this.coinAmount = this.currencyAmount / price
                 }else{
@@ -658,7 +663,37 @@
                 }).catch( err=>{
                     console.log(err);
                 })
-            }
+            },
+            go(val){
+                if(val == 'set'){
+                    location.href = toUrl.financeUrl + '/setTradePassword' 
+                }else{
+                    location.href = toUrl.loginUrl
+                }
+            },
+
+
+            sendCode (){
+                if(this.verifyCodeTimeText){
+                    return false;
+                };
+                this.verifyCodeTimeText = -1;
+                this.axios({
+                    url : this.api.sendCaptcha,
+                    data : {
+                        type:9
+                    }
+                }).then((res) => {
+                    this.sendCodeStatus = true;
+                    this.sendCodeCount ++;
+                    this.verifyCodeDown();
+                }).catch((err) => {
+                    this.$store.commit('msg/err', err.message);
+                    this.verifyCodeTimeText = '';
+                    this.sendCodeStatus = false;
+                });
+                return true;
+            },
 
         }
     }

@@ -100,8 +100,8 @@
                         <li>{{item.status == 1 ? '待付款':item.status == 2 ? '已关闭':item.status == 3 ? '已付款':item.status == 4 ? '已完成':''}}</li>
                         <li class="btn">
                             <Button type="text" :loading="false" class="blue" @click="$router.push(`/c2cDetail?id=${item.id}`)">交易详情</Button><br/>
-                            <Button type="text" :loading="false" class="blue" v-if="item.status == 1 && item.type == 1">支付</Button>
-                            <Button type="text" :loading="false" class="blue" v-if="item.status == 3 && item.type == 2">确认转账</Button>
+                            <Button type="text" :loading="false" class="blue" v-if="item.status == 1 && item.type == 1" @click="$router.push(`/c2cDetail?id=${item.id}`)">支付</Button>
+                            <Button type="text" :loading="false" class="blue" v-if="item.status == 3 && item.type == 2" @click="$router.push(`/c2cDetail?id=${item.id}`)">确认转账</Button>
                         </li>
                         <li class="info">
                             <time>时间：</time> <span style="margin:0 20px;color:#aaa;">|</span> <span class="blue">{{localDate(item.createtime)}}</span>  
@@ -239,12 +239,12 @@
             orderList(){
                 let params ={
                     order_id:this.searchTxt.id,//订单编号
-                    symbol:this.searchTxt.coin,//币种
-                    type:this.searchTxt.transferType == 'buy' ? 1:2,//类型 1=购买 2=售出
+                    symbol:this.searchTxt.coin && this.searchTxt.coin.toLowerCase(),//币种
+                    type:this.searchTxt.transferType == 'buy' ? 1: this.searchTxt.transferType == 'sell' ? 2 : 0,//类型 1=购买 2=售出
                     status:this.searchTxt.status,//状态  1=待付款 2=已关闭 3=已付款  4=已完成 5=申诉中
                     start_time:this.searchTxt.date[0] && dayjs(this.searchTxt.date[0]).format("YYYY-MM-DD"),//开始时间
                     end_time:this.searchTxt.date[1] && dayjs(this.searchTxt.date[1]).format("YYYY-MM-DD"),//结束时间
-                    currency:this.searchTxt.fCoin,//法币,
+                    currency:this.searchTxt.fCoin == 'CNY' ?  1 : this.searchTxt.fCoin == 'USD' ?  2 : this.searchTxt.fCoin == 'TWD' ? 3 : ''  ,//法币,
                 }
                 this.axios({
                     url : this.api.orderList,

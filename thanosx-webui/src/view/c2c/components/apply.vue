@@ -134,6 +134,7 @@
 </template>
 
 <script>
+import {toUrl} from "../../../common/api/api"
 export default {
     data(){
         return{
@@ -238,7 +239,7 @@ export default {
                 }
             }).then(res=>{
                 this.$store.commit('msg/add', res.message)
-                this.$route.push(toUrl.c2cUrl)
+                location.href = toUrl.c2cUrl
             }).catch( err=>{
                 console.log(err)
             })

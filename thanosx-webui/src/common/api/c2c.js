@@ -14,4 +14,5 @@ export const apiC2c = {
     "createOrder":"/api/trade/createOrder", //下单
     "userInfo" : '/api/Security/basicinfo',//拿用户信息
     "transferInfo" : '/api/business/transferInfo',//拿用户账户信息
+    "sendCaptcha" : '/api/email/sendCaptcha',//下单验证码
 };

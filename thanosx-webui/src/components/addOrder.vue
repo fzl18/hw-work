@@ -61,11 +61,11 @@
                             </tr>
                             <tr>
                                 <td width="80">最小交易</td>
-                                <td><Input size="large" v-model="order.min"><span slot="append">{{order.coin && order.coin.toUpperCase()}}</span></Input></td>
+                                <td><Input size="large" v-model="order.min"><span slot="append">{{order.currency && order.currency.toUpperCase()}}</span></Input></td>
                             </tr>
                             <tr>
                                 <td>最大交易</td>
-                                <td><Input size="large" v-model="order.max"><span slot="append">{{order.coin && order.coin.toUpperCase()}}</span></Input></td>
+                                <td><Input size="large" v-model="order.max"><span slot="append">{{order.currency && order.currency.toUpperCase()}}</span></Input></td>
                             </tr>
                             <tr>
                                 <td>备注说明</td>

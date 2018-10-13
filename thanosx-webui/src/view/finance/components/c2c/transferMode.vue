@@ -165,7 +165,7 @@
                     必须先实名认证，去认证   
                 </h2>
                 <div style="text-align:right;">
-                 <Button type="primary" size="large" style="font-size:16px" @click="$router.push(toUrl.financeUrl + '/nameAuth')"> OK </Button>
+                 <Button type="primary" size="large" style="font-size:16px" @click="go()"> OK </Button>
                 </div>
             </div>
         </Modal>
@@ -173,6 +173,7 @@
 </template>
 
 <script>
+import {toUrl} from "../../../../common/api/api"
 export default {
     data(){
         return{
@@ -204,6 +205,9 @@ export default {
         }
     },
     methods:{
+        go(){
+            location.href = toUrl.financeUrl + '/nameAuth'
+        },
         transferMode(){
             this.axios({
                 url : this.api.transferMode,

@@ -42,7 +42,7 @@
                             <i v-if="item.wxpay" class="iconfont icon-ai-weixin buy" />
                             <i v-if="item.alipay" class="iconfont icon-ZFBZD blue" />
                         </li>
-                        <li><Button size="large" type="primary" :loading="false" @click="operation(item.id)">{{`购买 ${item.symbol.toUpperCase()}`}}</Button></li>
+                        <li><Button size="large" type="primary" :loading="false" @click="operation(item.id)">{{`售出 ${item.symbol.toUpperCase()}`}}</Button></li>
                         <li v-if="checkMore == item.id" class="more">
                             <Row>
                                 <Col span="4">{{item.symbol.toUpperCase()}}</Col>
@@ -106,7 +106,7 @@
                             <i v-if="item.wxpay" class="iconfont icon-ai-weixin buy" />
                             <i v-if="item.alipay" class="iconfont icon-ZFBZD blue" />
                         </li>
-                        <li><Button size="large" type="primary" :loading="false" @click="operation(item.id)">{{`售出 ${item.symbol.toUpperCase()}`}}</Button></li>
+                        <li><Button size="large" type="primary" :loading="false" @click="operation(item.id)">{{`购买 ${item.symbol.toUpperCase()}`}}</Button></li>
                         <li v-if="checkMore == item.id" class="more">                            
                             <Row>
                                 <Col span="4">{{item.symbol.toUpperCase()}}</Col>
