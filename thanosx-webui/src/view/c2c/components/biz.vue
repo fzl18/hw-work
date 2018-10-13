@@ -42,7 +42,7 @@
                             <i v-if="item.wxpay" class="iconfont icon-ai-weixin buy" />
                             <i v-if="item.alipay" class="iconfont icon-ZFBZD blue" />
                         </li>
-                        <li><Button size="large" type="primary" :loading="false" @click="operation(item.id)">{{`售出 ${item.symbol.toUpperCase()}`}}</Button></li>
+                        <li><Button size="large" type="primary" :loading="false" @click="operation(item.id,item.maxvolume,item.minvolume)">{{`售出 ${item.symbol.toUpperCase()}`}}</Button></li>
                         <li v-if="checkMore == item.id" class="more">
                             <Row>
                                 <Col span="4">{{item.symbol.toUpperCase()}}</Col>
@@ -56,7 +56,7 @@
                                 </Col>
                                 <Col span="4" style="position: relative;top:20px;text-align:right">
                                     <template v-if="paypassword">
-                                        <Button size="large" type="primary" @click="createOrder(item.id)">下单</Button>
+                                        <Button size="large" type="primary" @click="createOrder(item.id,1)">下单</Button>
                                         <Button size="large" type="text" @click="cancel">取消</Button>
                                     </template>
                                     <template v-if="!paypassword">
@@ -66,7 +66,12 @@
                                 <br />
                                 <Col span="4">数量：{{item.amount}}</Col>
                                 <Col span="4">{{item.minvolume}}~{{item.maxvolume}}</Col>
-                                <Col span="12"></Col>
+                                <Col span="12">
+                                    <Row>
+                                        <Col span="8" style="margin-top:8px;"><Input v-model="emailVerify" size="large" placeholder="邮件验证码" clearable ><span slot="append" class="blue cursor" @click="sendCode">{{verifyCodeTimeText === -1 ? lang[local].getVerifCode + '...' : verifyCodeTimeText ? verifyCodeTimeText : lang[local].getVerifCode}}</span></Input></Col>
+                                        <Col span="8" offset="2"><Input v-model="payPassword" type="password" size="large" placeholder="交易密码" clearable /></Col>
+                                    </Row>
+                                </Col>
                             </Row>
                             <Row class="n2">
                                 <Col span="3" v-if="item.bankpay"><i class="iconfont icon-yinxingqia org" /> 银行卡</Col>
@@ -106,7 +111,7 @@
                             <i v-if="item.wxpay" class="iconfont icon-ai-weixin buy" />
                             <i v-if="item.alipay" class="iconfont icon-ZFBZD blue" />
                         </li>
-                        <li><Button size="large" type="primary" :loading="false" @click="operation(item.id)">{{`购买 ${item.symbol.toUpperCase()}`}}</Button></li>
+                        <li><Button size="large" type="primary" :loading="false" @click="operation(item.id,item.maxvolume,item.minvolume)">{{`购买 ${item.symbol.toUpperCase()}`}}</Button></li>
                         <li v-if="checkMore == item.id" class="more">                            
                             <Row>
                                 <Col span="4">{{item.symbol.toUpperCase()}}</Col>
@@ -130,12 +135,12 @@
                                 <br />
                                 <Col span="4">数量：{{item.amount}}</Col>
                                 <Col span="4">{{item.minvolume}}~{{item.maxvolume}}</Col>
-                                <Col span="12">
+                                <!-- <Col span="12">
                                     <Row>
                                         <Col span="8" style="margin-top:8px;"><Input size="large" placeholder="邮件验证码" clearable ><span slot="append" class="blue cursor">获取验证码</span></Input></Col>
                                         <Col span="8" offset="2"><Input size="large" placeholder="交易密码" clearable /></Col>
                                     </Row>
-                                </Col>
+                                </Col> -->
                             </Row>
                             <Row class="n2">
                                 <Col span="3" v-if="item.bankpay"><i class="iconfont icon-yinxingqia org" /> 银行卡</Col>
@@ -177,6 +182,13 @@
                 paypassword:false,
                 coinAmount:null,
                 currencyAmount:null,
+                money:null,
+                sendCodeStatus:false,
+                sendCodeCount:0,
+                emailVerify:'',
+                payPassword:'',
+                max:0,
+                min:0
             };
         },
         created (){
@@ -208,11 +220,17 @@
             getList(info,id){
 
             },
-            operation(index){
+            operation(index,max,min){
+                this.coinAmount=null
+                this.currencyAmount = null
                 this.checkMore = index
+                this.max = max
+                this.min = min
             },
             cancel(){
                 this.checkMore = null
+                this.coinAmount=null
+                this.currencyAmount = null
             },
             ok(){
                 this.addOrderModal = false
@@ -251,7 +269,7 @@
                     this.editBizName=false
                 })           
             },
-            detail(id){
+            detail(){
                 this.axios({
                     url : this.api.detail,
                     data : {
@@ -264,52 +282,90 @@
                 }) 
             },
 
-            cancelPend(id){
-                this.axios({
-                    url : this.api.cancelPend,
-                    data : {
-                        pend_id:id,
-                    }
-                }).then(res=>{
-                    this.personalPendList()
-                    this.$store.commit('msg/add', res.message)
-                }).catch( err=>{
-                    console.log(err);
-                })
-            },
 
-            createOrder(id){
+
+            createOrder(id,type){
+                if(!this.currencyAmount){
+                    this.$store.commit('msg/err', '金额不能为空')
+                    return
+                }
+                if(this.currencyAmount*1 > this.max*1){
+                    this.$store.commit('msg/err', '下单金额超过最大限额')
+                    return
+                }
+                if(this.currencyAmount*1 < this.min*1){
+                    this.$store.commit('msg/err', '下单金额小于最低限额')
+                    return
+                }
+                if(type){
+                    if(!this.emailVerify){
+                        this.$store.commit('msg/err', '请输入验证码')
+                        return
+                    }
+                    if(!this.payPassword){
+                        this.$store.commit('msg/err', '请输入交易密码')
+                        return
+                    }
+                }
                 this.axios({
                     url : this.api.createOrder,
                     data : {
                         pend_id:id,
-                        money:this.currencyAmount
+                        money:parseFloat((this.currencyAmount*1).toFixed(2)),
+                        email_verify:this.emailVerify,
+                        pay_password:this.payPassword
                     }
                 }).then(res=>{
-                    this.pendList()
+                    this.detail()
                     this.checkMore = null
                     this.coinAmount = null
                     this.currencyAmount = null
                     this.$store.commit('msg/add', res.message)
                 }).catch( err=>{
-                    this.checkMore = null
                     this.coinAmount = null
-                    this.currencyAmount = null
+                    this.currencyAmount = null                    
                     this.$store.commit('msg/err', err.message)
                 })
             },
             changeMoney(v,price){
-                console.log(v)
-                if(v == 'currencyAmount'){
-                    this.coinAmount = this.currencyAmount / price
-                }else{
-                    this.currencyAmount = this.coinAmount * price
+                if(v == 'currencyAmount'){                    
+                    this.coinAmount = parseFloat((this.currencyAmount / price).toFixed(8))
+                }else{                   
+                    this.currencyAmount = parseFloat((this.coinAmount * price).toFixed(2))
                 }
             },
             allpay(v,price){
                 this.coinAmount = v
                 this.currencyAmount = v * price
-            }
+            },
+            go(val){
+                if(val == 'set'){
+                    location.href = toUrl.financeUrl + '/setTradePassword' 
+                }else{
+                    location.href = toUrl.loginUrl
+                }
+            },
+            sendCode (){
+                if(this.verifyCodeTimeText){
+                    return false;
+                };
+                this.verifyCodeTimeText = -1;
+                this.axios({
+                    url : this.api.sendCaptcha,
+                    data : {
+                        type:9
+                    }
+                }).then((res) => {
+                    this.sendCodeStatus = true;
+                    this.sendCodeCount ++;
+                    this.verifyCodeDown();
+                }).catch((err) => {
+                    this.$store.commit('msg/err', err.message);
+                    this.verifyCodeTimeText = '';
+                    this.sendCodeStatus = false;
+                });
+                return true;
+            },
 
         }
     }

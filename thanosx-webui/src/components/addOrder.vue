@@ -61,11 +61,11 @@
                             </tr>
                             <tr>
                                 <td width="80">最小交易</td>
-                                <td><Input size="large" v-model="order.min"><span slot="append">{{order.currency && order.currency.toUpperCase()}}</span></Input></td>
+                                <td><Input size="large" v-model="order.min"><span slot="append">{{order.currency && order.currency.toUpperCase() || 'CNY'}}</span></Input></td>
                             </tr>
                             <tr>
                                 <td>最大交易</td>
-                                <td><Input size="large" v-model="order.max"><span slot="append">{{order.currency && order.currency.toUpperCase()}}</span></Input></td>
+                                <td><Input size="large" v-model="order.max"><span slot="append">{{order.currency && order.currency.toUpperCase() || 'CNY'}}</span></Input></td>
                             </tr>
                             <tr>
                                 <td>备注说明</td>
@@ -138,8 +138,33 @@ export default {
     methods:{
         ok(){
             const d = this.order
-            if(d.coin){
-
+            if(!d.coin){
+                this.$store.commit('msg/err', '请选择币种')
+                return
+            }
+            if(!d.count){
+                this.$store.commit('msg/err', '请填写数量')
+                return
+            }
+            if(!d.price){
+                this.$store.commit('msg/err', '请填写单价')
+                return
+            }
+            if(!d.min){
+                this.$store.commit('msg/err', '最小交易不能为空')
+                return
+            }
+            if(!d.max){
+                this.$store.commit('msg/err', '最大交易不能为空')
+                return
+            }
+            if(d.min > d.max ){
+                this.$store.commit('msg/err', '最小交易值不能大于最大交易值')
+                return
+            }
+            if(d.max > (d.count * d.price)){
+                this.$store.commit('msg/err', '最大交易值不能大于总价')
+                return
             }
             if(this.order.agree){
                 this.$emit('ok',{...this.order,type:this.curTransferType =='buy' ? 1:2})

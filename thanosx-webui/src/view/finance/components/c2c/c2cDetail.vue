@@ -56,7 +56,7 @@
                             </Row>
                         </div>                       
                     </div>
-                    <div class="payinfo" v-if="orderInfo.status==3">已付款，请在 <span class="sell">{{leftTime}}</span>  内确认收款并放币</div>
+                    <div class="payinfo" v-if="orderInfo.status==3 && orderInfo.type == 2">已付款，请在 <span class="sell">{{leftTime}}</span>  内确认收款并放币</div>
                     <div class="pay">付款代码： <span>{{orderInfo.code}}</span> （买家将在付款单中备注付款代码）</div>
                     <div class="btn" v-if="orderInfo.status==4"><h2>已完成</h2></div>
                     <div class="btn" v-if="orderInfo.status==2"><h2>已关闭</h2></div>
@@ -67,8 +67,9 @@
                     <div class="btn" v-if="orderInfo.status==3 && orderInfo.type== 1">
                         <Button type="primary" size="large" disabled>对方正在放币...</Button>
                     </div> 
-                    <div class="btn" v-if="orderInfo.status==1 && orderInfo.type==1"><Button type="primary" size="large" @click="payModal = true">去付款</Button><Button type="text" size="large" class="blue" @click="cancelOrder">取消订单</Button></div>                    
-                    <p style="margin-top:15px">本次交易请务必查看  <a href="#" target="_blank" class="org">服务协议</a></p>
+                    <p style="margin:15px 0" v-if="orderInfo.status==1 && orderInfo.type==1"><Checkbox v-model="agree" size="large"> 已阅读并同意 </Checkbox> <a href="#" target="_blank" class="org">服务协议</a></p>
+                    <div class="btn" v-if="orderInfo.status==1 && orderInfo.type==1"><Button type="primary" size="large" @click="goPay">去付款</Button><Button type="text" size="large" class="blue" @click="cancelOrder">取消订单</Button></div>                    
+                    <p style="margin-top:15px" v-if="orderInfo.status!=1 && orderInfo.type!=1">本次交易请务必查看  <a href="#" target="_blank" class="org">服务协议</a></p>
                 </div>
                 <div class="faq">
                     <div class="tit">常见问题 <i class="iconfont icon-wenhao"></i></div>
@@ -113,6 +114,18 @@
                 <tr>
                     <td style="padding-top:15px">下单时间：</td>
                     <td style="padding-top:15px">{{localDate(orderInfo.createtime)}}</td>
+                </tr>
+                <tr v-if="orderInfo.status==3 || orderInfo.status==4">
+                    <td style="padding-top:15px">付款时间：</td>
+                    <td style="padding-top:15px">{{localDate(orderInfo.paytime)}}</td>
+                </tr>
+                <tr v-if="orderInfo.status==2">
+                    <td style="padding-top:15px">取消时间：</td>
+                    <td style="padding-top:15px">{{localDate(orderInfo.canceltime)}}</td>
+                </tr>
+                <tr v-if="orderInfo.status==4">
+                    <td style="padding-top:15px">放币时间：</td>
+                    <td style="padding-top:15px">{{localDate(orderInfo.shiptime)}}</td>
                 </tr>
             </table>
         </div>
@@ -254,7 +267,8 @@ export default {
             sendCodeCount:0,
             emailVerify:'',
             payPassword:'',
-            leftTime:''
+            leftTime:'',
+            agree:false,
         }
     },
     mounted(){
@@ -283,10 +297,11 @@ export default {
                     setInterval(()=>{
                         let M = Math.floor(time/60%60)
                         let S = Math.floor(time%60)
-                        this.leftTime = `${M}:${S}`
+                        this.leftTime = `${M}:${S<10 ? '0' + S :S}`
                         time--
                         if(!M && !S){
                             clearInterval()
+                            this.payModal=false
                             this.orderDetail()
                         }
                     },1000) 
@@ -306,6 +321,13 @@ export default {
             }).catch( err=>{
                 this.$store.commit('msg/err', err.message);
             })
+        },
+        goPay(){
+            if(this.agree){
+                this.payModal = true
+            }else{
+                this.$store.commit('msg/err', '必须先同意服务协议');
+            }
         },
         confirmPay(){
             this.axios({

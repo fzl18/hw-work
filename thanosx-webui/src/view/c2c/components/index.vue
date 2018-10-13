@@ -129,7 +129,7 @@
                         <li>操作</li>
                     </ul>
                 </dt>
-                <dd v-for="(item,index) in pendListArray">
+                <dd v-for="(item,index) in pendListArray" v-if="loginInfo.uid != item.uid" >
                     <ul v-if="curType != 'myOrder'" >
                         <li><span @click="$router.push(`/biz?id=${item.uid}`)" class="tblue cursor">{{item.business_name}}</span> ({{item.month_orders}})</li>
                         <li>{{item.amount}} {{item.symbol.toUpperCase()}}</li>
@@ -140,16 +140,16 @@
                             <i v-if="item.wxpay" class="iconfont icon-ai-weixin buy" />
                             <i v-if="item.alipay" class="iconfont icon-ZFBZD blue" />
                         </li>
-                        <li><Button size="large" type="primary" :loading="false" @click="operation(index)">{{curType == 'buy' ? `购买 ${coinList[curCoin].toUpperCase()}` : `售出 ${coinList[curCoin].toUpperCase()}`}}</Button></li>
+                        <li><Button size="large" type="primary" :loading="false" @click="operation(index,item.maxvolume,item.minvolume)">{{curType == 'buy' ? `购买 ${coinList[curCoin].toUpperCase()}` : `售出 ${coinList[curCoin].toUpperCase()}`}}</Button></li>
                         <li v-if="checkMore == index" class="more">                            
                             <Row>
                                 <Col span="4">{{item.business_name}} ({{item.month_orders}})</Col>
                                 <Col span="4" class="tbuy">{{item.price}} {{item.currency_name}}</Col>
                                 <Col span="12">
                                     <Row>
-                                        <Col span="8"><Input size="large" v-model="currencyAmount" placeholder="请输入..." @input="changeMoney('currencyAmount',item.price)"><span slot="append">{{item.currency_name}}</span></Input></Col>
+                                        <Col span="8"><Input size="large" v-model="currencyAmount" placeholder="请输入..." @on-change="changeMoney('currencyAmount',item.price)"><span slot="append">{{item.currency_name}}</span></Input></Col>
                                         <Col span="2" style="line-height: 36px;text-align: center;"><i class="iconfont icon-jiaohuan" /></Col>
-                                        <Col span="8"><Input size="large" v-model="coinAmount " placeholder="请输入..." @input="changeMoney('coinAmount',item.price)"><span slot="append" class="blue cursor" @click="allpay(item.amount,item.price)">全部</span></Input></Col>
+                                        <Col span="8"><Input size="large" v-model="coinAmount " placeholder="请输入..." @on-change="changeMoney('coinAmount',item.price)"><span slot="append" class="blue cursor" @click="allpay(item.amount,item.price)">全部</span></Input></Col>
                                     </Row>
                                 </Col>
                                 <Col span="4" style="position: relative;top:20px;text-align:right">
@@ -167,11 +167,11 @@
                                 </Col>
                                 <br />
                                 <Col span="4">数量：{{item.amount}}</Col>
-                                <Col span="4">{{item.minvolume}}~{{item.maxvolume}}</Col>
+                                <Col span="4">{{item.minvolume}}~{{item.maxvolume}} {{item.currency_name}}</Col>
                                 <Col span="12">
                                     <Row v-if="curType =='sell'">
                                         <Col span="8" style="margin-top:8px;"><Input v-model="emailVerify" size="large" placeholder="邮件验证码" clearable ><span slot="append" class="blue cursor" @click="sendCode">{{verifyCodeTimeText === -1 ? lang[local].getVerifCode + '...' : verifyCodeTimeText ? verifyCodeTimeText : lang[local].getVerifCode}}</span></Input></Col>
-                                        <Col span="8" offset="2"><Input v-model="payPassword" size="large" placeholder="交易密码" clearable /></Col>
+                                        <Col span="8" offset="2"><Input v-model="payPassword" type="password" size="large" placeholder="交易密码" clearable /></Col>
                                     </Row>
                                 </Col>
                             </Row>
@@ -301,6 +301,8 @@
                 sendCodeCount:0,
                 emailVerify:'',
                 payPassword:'',
+                max:0,
+                min:0,
             };
         },
         created (){
@@ -322,7 +324,21 @@
             })
         },
         watch:{
-
+            // 'currencyAmount' (n,o){
+            //     let numlength = 2
+            //     let v = ''
+            //     for(let k=0;k<numlength;k++){
+            //         v += '\\d'
+            //     }
+            //     let re = new RegExp("^(\-)*(\\d+)\\.("+ v +").*$")
+            //     this.currencyAmount = n && (n + '').replace(/[^\-?\d.]/g,'').replace(re,'$1$2.$3')
+            //     console.log(this.currencyAmount);
+                
+            //     // this.coinAmount = this.currencyAmount / this.price
+            // },
+            // 'coinAmount' (n,o){
+            //     // this.currencyAmount = this.coinAmount * this.price
+            // },
             // delcur(n,o){
             //     this.list.normal_list.splice(n,1)
             //     this.list.finish_list.unshift(this.list.normal_list[n])
@@ -413,10 +429,12 @@
             getList(info,id){
 
             },
-            operation(index){
+            operation(index,max,min){
                 this.coinAmount=null
                 this.currencyAmount = null
                 this.checkMore = index
+                this.max = max
+                this.min = min
             },
             cancel(){
                 this.checkMore = null
@@ -466,7 +484,7 @@
                     this.addOrderModal = false
                     this.$store.commit('msg/add', res.message)
                 }).catch(err=>{
-                    console.log(err)
+                    this.$store.commit('msg/err', err.message)
                 })
             },
             close(){
@@ -511,11 +529,10 @@
 
                     }
                 }).then(res=>{
-                    console.log(res);
                     this.coinList = res.data.coin_list
                     this.currencyList = res.data.currency_list
                 }).catch( err=>{
-                    console.log(err);
+                    this.$store.commit('msg/err', err.message)
                 })
             },
             userInfo(){
@@ -525,10 +542,9 @@
 
                     }
                 }).then(res=>{
-                    console.log(res);
                     this.paypassword = res.data.paypassword
                 }).catch( err=>{
-                    console.log(err);
+                    this.$store.commit('msg/err', err.message)
                 })
             },
             personalDetail(){
@@ -537,15 +553,13 @@
                     data : {
                     }
                 }).then(res=>{
-                    console.log(res);
                     this.status = res.data.status
                     this.remark = res.data.remark
                     if(res.data.status == 4){
                         this.businessInfo = res.data.business_info
-                    }
-                    
+                    }                    
                 }).catch( err=>{
-                    console.log(err);
+                    this.$store.commit('msg/err', err.message)
                 })
             },
             personalPendList(searchInfo){
@@ -565,11 +579,10 @@
                         ...this.page
                     }
                 }).then(res=>{
-                    console.log(res);
                     this.pendListArray = res.data.list
                     this.page = res.data.page                    
                 }).catch( err=>{
-                    console.log(err);
+                    this.$store.commit('msg/err', err.message)
                 })
             },            
             pendList(searchInfo){
@@ -603,7 +616,7 @@
                     this.pendListArray = data.list
                     this.page = data.page
                 }).catch( err=>{
-                    console.log(err);
+                    this.$store.commit('msg/err', err.message)
                 })
             },
             cancelPend(id){
@@ -616,15 +629,39 @@
                     this.personalPendList()
                     this.$store.commit('msg/add', res.message)
                 }).catch( err=>{
-                    console.log(err);
+                    this.$store.commit('msg/err', err.message)
                 })
             },
             createOrder(id){
+                console.log(this.currencyAmount,this.max);
+
+                if(!this.currencyAmount){
+                    this.$store.commit('msg/err', '金额不能为空')
+                    return
+                }
+                if(this.currencyAmount*1 > this.max*1){
+                    this.$store.commit('msg/err', '下单金额超过最大限额')
+                    return
+                }
+                if(this.currencyAmount*1 < this.min*1){
+                    this.$store.commit('msg/err', '下单金额小于最低限额')
+                    return
+                }
+                if(this.curType == 'sell'){
+                    if(!this.emailVerify){
+                        this.$store.commit('msg/err', '请输入验证码')
+                        return
+                    }
+                    if(!this.payPassword){
+                        this.$store.commit('msg/err', '请输入交易密码')
+                        return
+                    }
+                }
                 this.axios({
                     url : this.api.createOrder,
                     data : {
                         pend_id:id,
-                        money:this.currencyAmount,
+                        money:parseFloat(this.currencyAmount.toFixed(2)),
                         email_verify:this.emailVerify,
                         pay_password:this.payPassword
                     }
@@ -635,17 +672,16 @@
                     this.currencyAmount = null
                     this.$store.commit('msg/add', res.message)
                 }).catch( err=>{
-                    this.checkMore = null
                     this.coinAmount = null
                     this.currencyAmount = null                    
                     this.$store.commit('msg/err', err.message)
                 })
             },
             changeMoney(v,price){
-                if(v == 'currencyAmount'){
-                    this.coinAmount = this.currencyAmount / price
-                }else{
-                    this.currencyAmount = this.coinAmount * price
+                if(v == 'currencyAmount'){                    
+                    this.coinAmount = parseFloat((this.currencyAmount / price).toFixed(8))
+                }else{                   
+                    this.currencyAmount = parseFloat((this.coinAmount * price).toFixed(2))
                 }
             },
             allpay(v,price){
@@ -661,7 +697,7 @@
                 }).then(res=>{
                     this.transferInfoOB= res.data
                 }).catch( err=>{
-                    console.log(err);
+                    this.$store.commit('msg/err', err.message)
                 })
             },
             go(val){
