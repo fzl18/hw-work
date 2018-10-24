@@ -999,7 +999,7 @@ $financeMinHeight : 820px;
         }
     }
     .userSet{
-        margin:50px 0;
+        margin:20px 0;
         
         dl{
             display:block;
@@ -1021,15 +1021,15 @@ $financeMinHeight : 820px;
                 &.btn{                    
                     float: right;
                     a{
-                        background:$mainColor;
+                        // background:$mainColor;
                         text-align: center;
-                        color:#fff;
+                        color:#3D8ACE;
                         display:block;
                         height:45px;
                         line-height:45px;
                         font-size:16px;
                         padding:0 20px;
-                        border:1px solid $mainColor;
+                        // border:1px solid $mainColor;
                         display:block;
                         &:hover{
                             background:none;

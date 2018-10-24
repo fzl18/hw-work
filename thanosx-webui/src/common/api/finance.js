@@ -29,8 +29,8 @@ export const apiFinance = {
     "takeCoinVerify" : '/api/Finance/verify',
     "myasset" : '/api/Finance/myasset',
     "upmyzc" : '/api/Finance/upmyzc',
-    "upmyzr" : '/api/Finance/upmyzr',
-    "myzrads" : '/api/Finance/myzrads',
+    "upmyzr" : '/api/Finance/topUpAddress',
+    "myzrads" : '/api/Finance/topUpAddress',
     "zcother" : '/api/Finance/zcother',
     "ZcListOfIn" : '/api/Finance/ZcListOfIn',
     "freal" : '/api/Finance/freal',
@@ -84,6 +84,13 @@ export const apiFinance = {
     "createPend":"/api/trade/createPend", //我的委托单: 创建委托单
     "setNickname":"/api/member/setNickname", //设置用户昵称
     "getNickname":"/api/member/getNickname", //获取用户昵称
+
+    "appealType" : '/api/appeal/type',// 申诉类型
+    "appealCreate" : '/api/appeal/create',// 申诉提交
+    "appealList":"/api/appeal/index", //列表
+    "cancel":"/api/appeal/cancel", //取消
+    "appealDetail":"/api/appeal/detail", //
+    "uploadEvidence":"/api/appeal/uploadEvidence", //
 
 };
 

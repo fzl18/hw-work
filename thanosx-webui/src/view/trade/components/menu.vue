@@ -39,11 +39,13 @@
             </span>
             <span>
                 <small>{{lang[local].topPrice}}</small>
-                <b>{{priceAccuracy(market_quote[3])}} {{rmb}}</b>
+                <!-- <b>{{priceAccuracy(market_quote[3])}}{{rmb}}</b> -->
+                <b>{{tobigNumber(market_quote[3])}} {{rmb}}</b>
             </span>
             <span>
                 <small>{{lang[local].minPrice}}</small>
-                <b>{{priceAccuracy(market_quote[4])}} {{rmb}}</b>
+                <!-- <b>{{priceAccuracy(market_quote[4])}} {{rmb}}</b> -->
+                <b>{{tobigNumber(market_quote[4])}} {{rmb}}</b>
             </span>
             <span>
                 <small>{{lang[local].tradeVolume}}</small>
@@ -55,6 +57,7 @@
 
 <script>
     import {mapState} from 'vuex'
+    import bigNum from "bignumber.js"
     export default {
         name: "trade-menu",
         data (){
@@ -96,6 +99,9 @@
             ...mapState(['market_quote']),
         },
         methods:{
+            tobigNumber(val){
+                return bigNum(val).toString(10)
+            },
             getMainCoins(){
                 this.axios({
                     url : this.api.getMainCoins,

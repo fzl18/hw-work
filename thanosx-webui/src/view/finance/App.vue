@@ -1,7 +1,7 @@
 <template>
     <section class="finance-box main-box">
         <header-component active="finance" />
-        <section class="finance-main container" v-if="$route.name !='c2cDetail' ">            
+        <section class="finance-main container" v-if="$route.name !='c2cDetail' && $route.name !='appealDetail' ">            
             <section class="finance-left">
                 <div class="finance-nav">
                     <router-link v-for="m in menu" :key="m.name" :class="m.name + ' ' + classActive(($route.meta.parent || $route.name) == m.name)" :to="'/' + m.name"><i class="iconfont" :class="m.icon"></i> {{lang[local][m.text]}}</router-link>
@@ -12,6 +12,11 @@
             </section>
         </section>
         <section class="container" v-if="$route.name =='c2cDetail' ">
+            <div style="min-height:90vh">
+                <router-view />
+            </div>            
+        </section>
+        <section class="container" v-if="$route.name =='appealDetail' ">
             <div style="min-height:90vh">
                 <router-view />
             </div>            
@@ -57,13 +62,19 @@
                     {
                         text : 'c2cOrder',
                         name : 'c2cOrder',
-                        icon: 'icon-jiaoyicopy'
+                        icon: 'icon-dingdan'
+                        
+                    },
+                    {
+                        text : 'appeal',
+                        name : 'appeal',
+                        icon: 'icon-kefuzhichi'
                         
                     },
                     {
                         text : 'transferMode',
                         name : 'transferMode',
-                        icon: 'icon-jiaoyicopy'
+                        icon: 'icon-tongmingwaihuizhuanzhang'
                         
                     },
                     {
@@ -90,7 +101,7 @@
             }
         },
         mounted (){
-            console.log(this.$route)
+            console.log(this.$route.name)
         },
     }
 </script>

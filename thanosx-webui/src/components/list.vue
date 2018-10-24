@@ -50,11 +50,17 @@
         },
         watch : {
             param (n, o){
+                console.log(JSON.stringify(n));
                 if(JSON.stringify(n) != JSON.stringify(o)){
-                    // console.log(JSON.stringify(n));
                     this.getList();
                 };
             },
+//             param: {
+//         　　　　handler(n, o) {
+// 　　　　　　　　　　console.log(newValue)
+//         　　　　},
+//         　　　　deep: true
+//         　　},
             seek (n, o){
                 var k = Object.keys(n)[0];
                 if(n[k]){
@@ -103,7 +109,7 @@
                 };
                 this.getState = this.getStateStart;
                 var data = Object.assign({}, page, this.param);
-                console.log(data)
+                // console.log(data)
                 this.axios({
                     url : this.url,
                     data : data

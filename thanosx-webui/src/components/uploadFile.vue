@@ -91,9 +91,9 @@
                         // origin : this.origin + res.data.url,
                         origin : res.data.url,
                         message : this.lang[this.local].uploadFile1,
-                        file : fileVal
+                        file : fileVal,                        
                     };
-                    this.$emit('input', this.fileData);
+                    this.$emit('input', this.fileData,);
                 }).catch(err => {
                     e.target.value = '';
                     this.fileData = {

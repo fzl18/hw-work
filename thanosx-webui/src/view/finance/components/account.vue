@@ -41,14 +41,14 @@
                     <p>{{lang[local].accIp}}：{{userBasicinfo.last_login_ip}}</p>
                 </Col>
                 <Col span="24" style="border-top:1px dotted #aaa;margin-top:20px;padding-top:20px;">
-                    <span>{{lang[local].accName}}：{{userBasicinfo.username}}</span> <span>{{lang[local].inviteRecord2}}：</span>
+                    <span>{{lang[local].accName}}：{{userBasicinfo.username}}</span>  <span style="margin-left:20px">{{lang[local].inviteRecord2}}：{{localDate(userBasicinfo.register_time)}}</span>
                 </Col>
             </Row>
         </section>
        
         <section class="userSet">
             <h4 class="finance-title">
-                <span>{{lang[local].loginLog}}</span>
+                <span>{{lang[local].safety1}}</span>
             </h4>
             <dl>
                 <dt><i class="iconfont icon-mima1"></i></dt>
@@ -109,15 +109,15 @@
             :closable = false
             :footer-hide = true
             class-name="vertical-center-modal">
-            <h1>修改商家名称</h1>
+            <h1>修改昵称</h1>
             <table class="editniName">
                 <tr>
-                    <td>名称</td>
+                    <td>昵称</td>
                     <td align="right"><Input size="large" v-model="business_name"/></td>
                 </tr>
                 <tr>
                     <td colspan="2">
-                        为了隐私安全，仅在OTC交易中显示商家信息，不显示注册信息。商家最长支持10个字符
+                        为了隐私安全，将在交易中显示昵称，不显示注册信息。昵称最长支持10个字符
                     </td>
                 </tr>
                 <tr>

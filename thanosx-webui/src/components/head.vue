@@ -57,7 +57,8 @@
         props : ['active'],
         data (){
             return {
-                menu : ['home', 'trade','assetsrelease','c2c', 'whitebook', 'app'], 
+                // menu : ['home', 'trade','assetsrelease','c2c', 'whitebook', 'app'], 
+                menu : ['home', 'trade','assetsrelease','c2c', 'app'], 
                 loginTo : ['safety', 'finance'],
                 isShow:false,
                 isMobile:false,

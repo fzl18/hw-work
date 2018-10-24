@@ -4,76 +4,76 @@
             <span>{{lang[local].transferMode}}</span>
         </financeHeader>
         <div style="margin:10px 0">
-            <span class="org">*</span> 转账方式主要为设置c2c交易时接收资金的收付款账户，请务必使用您本人实名账户信息。
+            <span class="org">*</span> {{lang[local].transferModeTip1}}
         </div>
         <section class="card">
-            <span class="flag">必填</span>
+            <span class="flag">{{lang[local].transferModeTip2}}</span>
             <Row class="row" :class="active == 'bank'?'cur':''">
-                <Col span="4" class="type"><i class="iconfont icon-yinxingqia org" /> 银行卡</Col>
-                <Col span="20" class="name"> {{ bank.bank ? `${bank.bank } (尾号：${bank.account.slice(-4)})` : '未绑定' }}  
+                <Col span="4" class="type"><i class="iconfont icon-yinxingqia org" /> {{lang[local].bankCard}}</Col>
+                <Col span="20" class="name"> {{ bank.bank ? `${bank.bank } (${lang[local].transferModeTip3}：${bank.account ? bank.account.slice(-4):''})` : lang[local].accunbind }}  
                     <span style="float:right;">
                         <template v-if="!bank.branch">
-                            <Button v-if="active != 'bank'" size="large" type="primary" @click="active = 'bank'">绑定</Button>
-                            <Button v-if="active == 'bank'" size="large" type="primary" @click="active = null">取消</Button>
+                            <Button v-if="active != 'bank'" size="large" type="primary" @click="active = 'bank'">{{lang[local].accbtnbind}}</Button>
+                            <Button v-if="active == 'bank'" size="large" type="primary" @click="active = null">{{lang[local].cancel}}</Button>
                         </template>
                         <template v-if="bank.branch">
-                            <Button v-if="active != 'bank'"  size="large" type="text" @click="active = 'bank'">修改</Button>
-                            <Button v-if="active == 'bank'"  size="large" type="text" @click="active = null">取消</Button>
+                            <Button v-if="active != 'bank'"  size="large" type="text" @click="active = 'bank'">{{lang[local].accbtn}}</Button>
+                            <Button v-if="active == 'bank'"  size="large" type="text" @click="active = null">{{lang[local].cancel}}</Button>
                         </template>
                     </span>
                 </Col>
                 <Col span="24" class="con" v-if=" active == 'bank' ">
                     <table>
                         <tr>
-                            <td>开户名</td>
+                            <td>{{lang[local].transferModeTip4}}</td>
                             <td>{{realname}}</td>
                         </tr>
                         <tr>
-                            <td>开户银行</td>
+                            <td>{{lang[local].transferModeTip5}}</td>
                             <td><Input v-model="bank.bank" size="large" /></td>
                         </tr>
                         <tr>
-                            <td>开户支行</td>
+                            <td>{{lang[local].transferModeTip6}}</td>
                             <td><Input v-model="bank.branch" size="large" /></td>
                         </tr>
                         <tr>
-                            <td>银行卡号</td>
-                            <td><Input v-model="bank.account" size="large" /></td>
+                            <td>{{lang[local].transferModeTip7}}</td>
+                            <td class="ka"><input v-model="bank.account" size="large" /></td>
                         </tr>
                         <tr>
-                            <td>确认卡号</td>
-                            <td><Input v-model="review" size="large" /></td>
+                            <td>{{lang[local].transferModeTip8}}</td>
+                            <td class="ka"><input v-model="review" size="large" /></td>
                         </tr>
                         <tr>
                             <td></td>
-                            <td align="center"><Button size="large" type="primary" @click="transferModeSet(1)"> 保存 </Button></td>
+                            <td align="center"><Button size="large" type="primary" @click="transferModeSet(1)"> {{lang[local].c2cSave}} </Button></td>
                         </tr>
                     </table>
                 </Col>
             </Row>
             <Row class="row" :class="active == 'alipay'?'cur':''">
-                <Col span="4" class="type"><i class="iconfont icon-ZFBZD blue" /> 支付宝</Col>
-                <Col span="20" class="name"> {{ alipay.branch || '未绑定' }} 
+                <Col span="4" class="type"><i class="iconfont icon-ZFBZD blue" /> {{lang[local].aliPay}}</Col>
+                <Col span="20" class="name"> {{ isBindAli ? alipay.branch : lang[local].accunbind }} 
                     <span style="float:right;">
-                        <template v-if="!alipay.branch">
-                            <Button v-if="active != 'alipay'" size="large" type="primary" @click="active = 'alipay'">绑定</Button>
-                            <Button v-if="active == 'alipay'" size="large" type="primary" @click="active = null">取消</Button>
+                        <template v-if="!isBindAli">
+                            <Button v-if="active != 'alipay'" size="large" type="primary" @click="active = 'alipay'">{{lang[local].accbtnbind}}</Button>
+                            <Button v-if="active == 'alipay'" size="large" type="primary" @click="active = null">{{lang[local].cancel}}</Button>
                         </template>
-                        <template v-if="alipay.branch">
-                            <Button v-if="active != 'alipay'" size="large" type="text" @click="active = 'alipay'">修改</Button>
-                            <Button v-if="active == 'alipay'" size="large" type="text" @click="active = null">取消</Button>
-                            <Button size="large" type="text" @click="unbindTransferMode(2)">解绑</Button>
+                        <template v-if="isBindAli">
+                            <Button v-if="active != 'alipay'" size="large" type="text" @click="active = 'alipay'">{{lang[local].accbtn}}</Button>
+                            <Button v-if="active == 'alipay'" size="large" type="text" @click="active = null">{{lang[local].cancel}}</Button>
+                            <Button size="large" type="text" @click="unbindTransferMode(2)">{{lang[local].accbtnunbind}}</Button>
                         </template>
                     </span>
                 </Col>
                 <Col span="24" class="con" v-if=" active == 'alipay' ">
                     <table>
                         <tr>
-                            <td>姓名</td>
+                            <td>{{lang[local].transferModeTip9}}</td>
                             <td>{{realname}}</td>
                         </tr>
                         <tr>
-                            <td>支付宝账号</td>
+                            <td>{{lang[local].transferModeTip10}}</td>
                             <td><Input v-model="alipay.branch" size="large" /></td>
                         </tr>
                         <tr>
@@ -91,40 +91,40 @@
                                             <!-- <div class="btn"><span>{{lang[local].uploadpicbtn}}</span></div> -->
                                         </uploadFile>
                                     </div>
-                                    <div>支付宝收款二维码显示区域</div>
+                                    <div style="font-size:14px">{{lang[local].transferModeTip14}}</div>
                                 </div>
                             </td>
                         </tr>
                         <tr>
                             <td></td>
-                            <td align="center"><Button size="large" type="primary" @click="transferModeSet(2)"> 保存 </Button></td>
+                            <td align="center"><Button size="large" type="primary" @click="transferModeSet(2)"> {{lang[local].c2cSave}} </Button></td>
                         </tr>
                     </table>
                 </Col>
             </Row>
             <Row class="row" :class="active == 'wxpay'?'cur':''">
-                <Col span="4" class="type"><i class="iconfont icon-ai-weixin green" /> 微信支付</Col>
-                <Col span="20" class="name"> {{ wxpay.branch || '未绑定' }} 
+                <Col span="4" class="type"><i class="iconfont icon-ai-weixin green" /> {{lang[local].weChat}}</Col>
+                <Col span="20" class="name"> {{ isBindWx ? wxpay.branch : lang[local].accunbind }} 
                     <span style="float:right;">
-                        <template v-if="!wxpay.branch">
-                            <Button v-if="active != 'wxpay'" size="large" type="primary" @click="active = 'wxpay'">绑定</Button>
-                            <Button v-if="active == 'wxpay'" size="large" type="primary" @click="active = null">取消</Button>
+                        <template v-if="!isBindWx">
+                            <Button v-if="active != 'wxpay'" size="large" type="primary" @click="active = 'wxpay'">{{lang[local].accbtnbind}}</Button>
+                            <Button v-if="active == 'wxpay'" size="large" type="primary" @click="active = null">{{lang[local].cancel}}</Button>
                         </template>
-                        <template v-if="wxpay.branch">
-                            <Button v-if="active != 'wxpay'" size="large" type="text" @click="active = 'wxpay'">修改</Button>
-                            <Button v-if="active == 'wxpay'" size="large" type="text" @click="active = null">取消</Button>
-                            <Button size="large" type="text" @click="unbindTransferMode(3)">解绑</Button>
+                        <template v-if="isBindWx">
+                            <Button v-if="active != 'wxpay'" size="large" type="text" @click="active = 'wxpay'">{{lang[local].accbtn}}</Button>
+                            <Button v-if="active == 'wxpay'" size="large" type="text" @click="active = null">{{lang[local].cancel}}</Button>
+                            <Button size="large" type="text" @click="unbindTransferMode(3)">{{lang[local].accbtnunbind}}</Button>
                         </template>
                     </span>
                 </Col>
                 <Col span="24" class="con" v-if=" active == 'wxpay' ">
                     <table>
                         <tr>
-                            <td>姓名</td>
+                            <td>{{lang[local].transferModeTip9}}</td>
                             <td><Input v-model="wxpay.real_name" size="large" /></td>
                         </tr>
                         <tr>
-                            <td>微信账号</td>
+                            <td>{{lang[local].transferModeTip11}}</td>
                             <td><Input v-model="wxpay.branch" size="large" /></td>
                         </tr>
                         <tr>
@@ -142,13 +142,13 @@
                                             <!-- <div><span>{{lang[local].uploadpicbtn}}</span> </div> -->
                                         </uploadFile>
                                     </div>
-                                    <div>微信收款二维码显示区域</div>
+                                    <div style="font-size:14px">{{lang[local].transferModeTip14}}</div>
                                 </div>
                             </td>
                         </tr>
                         <tr>
                             <td></td>
-                            <td align="center"><Button size="large" type="primary" @click="transferModeSet(3)"> 保存 </Button></td>
+                            <td align="center"><Button size="large" type="primary" @click="transferModeSet(3)"> {{lang[local].c2cSave}} </Button></td>
                         </tr>
                     </table>
                 </Col>
@@ -162,7 +162,7 @@
             class-name="vertical-center-modal">            
             <div>
                 <h2>
-                    必须先实名认证，去认证   
+                    {{lang[local].transferModeTip13}}   
                 </h2>
                 <div style="text-align:right;">
                  <Button type="primary" size="large" style="font-size:16px" @click="go()"> OK </Button>
@@ -193,12 +193,35 @@ export default {
             alipayQR:{},
             realname:'',
             authModle:false,
-            review:''
+            review:'',
+            isBindAli:false,
+            isBindWx:false,
         }
     },
-
+    watch:{
+        "bank.account" (n,o){
+            let numlength = 0
+            let v = ''
+            for(let k=0;k<numlength;k++){
+                v += '\\d'
+            }
+            let re = new RegExp("^(\-)*(\\d+)\\.("+ v +").*$")
+            this.bank.account = n && (n + '').replace(/[^\-?\d.]/g,'').replace(re,'$1$2.$3')
+        },
+        "review" (n,o){
+            let numlength = 0
+            let v = ''
+            for(let k=0;k<numlength;k++){
+                v += '\\d'
+            }
+            let re = new RegExp("^(\-)*(\\d+)\\.("+ v +").*$")
+            this.review = n && (n + '').replace(/[^\-?\d.]/g,'').replace(re,'$1$2.$3')
+        }
+    },
     mounted(){
         if(this.userBasicinfo.nameauthstatus == 1 && this.userBasicinfo.idcard){
+            this.transferMode()
+        }else if(this.userBasicinfo.nameauthstatus == 0){
             this.transferMode()
         }else{
             this.authModle = true
@@ -214,17 +237,19 @@ export default {
                 data : {
                 }
             }).then(res=>{
+                this.realname = res.data.realname
                 if(res.data.bank){
-                    this.bank = res.data.bank
-                    this.realname = res.data.realname
+                    this.bank = res.data.bank                    
                 }
                 if(res.data.alipay){
                     this.alipay = res.data.alipay
                     this.alipayQR.origin = res.data.alipay.account
+                    this.isBindAli = true
                 }
                 if(res.data.wechat){
                     this.wxpay = res.data.wechat
                     this.wxpayQR.origin = res.data.wechat.account
+                    this.isBindWx = true
                 }
             }).catch( err=>{
                 console.log(err)
@@ -233,31 +258,43 @@ export default {
         transferModeSet(type){
             if(type ==1){
                 if(!this.bank.bank.trim() || !this.bank.branch.trim() || !this.bank.account.trim()){
-                    this.$store.commit('msg/add', '填写项不能为空')
+                    this.$store.commit('msg/err', this.lang[this.local].transferModeErr1)
                     return
                 }
                 if(this.review.trim() != this.bank.account.trim()){
-                    this.$store.commit('msg/add', '卡号二次输入不一致')
+                    this.$store.commit('msg/err', this.lang[this.local].transferModeErr2)
                     return
                 }
                 this.save(type)
             }
             if(type ==2){
-                if(!this.alipay.branch.trim() || ! this.alipayQR.origin){
-                    this.$store.commit('msg/add', '填写项不能为空')
+                if(!this.alipay.branch.trim()){
+                    this.$store.commit('msg/err', this.lang[this.local].transferModeErr1)
                     return
-                } 
+                }
+                if(!this.alipayQR.origin){
+                    this.$store.commit('msg/err', this.lang[this.local].transferModeErr3)
+                    return
+                }
                 this.save(type)
             }
             if(type ==3){
-                if(!this.wxpay.real_name.trim() || !this.wxpay.branch.trim() || !this.wxpayQR.origin){
-                    this.$store.commit('msg/add', '填写项不能为空')
+                if(!this.wxpay.real_name.trim() || !this.wxpay.branch.trim()){
+                    this.$store.commit('msg/err', this.lang[this.local].transferModeErr1)
                     return
-                } 
+                }
+                if(!this.wxpayQR.origin){
+                    this.$store.commit('msg/err', this.lang[this.local].transferModeErr3)
+                    return
+                }
                 this.save(type)
             }                      
         },
         save(type){
+            if(!this.userBasicinfo.nameauthstatus){
+                this.$store.commit('msg/err', this.lang[this.local].transferModeErr4)
+                return
+            }
             let data = {}
             switch (type) {
                 case 1:
@@ -287,6 +324,7 @@ export default {
                 }
             }).then(res=>{
                 this.active = null
+                this.transferMode()
                 this.$store.commit('msg/add', res.message)
             }).catch( err=>{
                 console.log(err)
@@ -304,11 +342,14 @@ export default {
                 if(type==2){
                     this.alipay = {}
                     this.alipayQR = ''
+                    this.isBindAli = false
                 }
                 if(type==3){
                     this.wxpay = {}
                     this.wxpayQR = ''
+                    this.isBindWx = false
                 }
+                this.transferMode()
                 this.$store.commit('msg/add', res.message)
             }).catch( err=>{
                 console.log(err)
@@ -380,6 +421,27 @@ export default {
             }
         }
     }
-    
+    .ka{
+        input{
+            border-radius:4px;
+            border:1px solid #dddee1;
+            line-height:32px;
+            padding:0 10px;
+            transition:all .3s;
+            width:100%;
+            &:focus, &:hover{
+                border:1px solid #FF6600;
+            }
+        }
+        span{
+            border-radius:4px;
+            border:1px solid #dddee1;
+            border-left: none;
+            line-height:32px;
+            display: inline-block;
+            padding:0 10px;
+            background: #eee;
+        }
+    }
     .iconfont{font-size:26px;font-weight:normal;margin-right:10px;position: relative;top:3px;}
 </style>

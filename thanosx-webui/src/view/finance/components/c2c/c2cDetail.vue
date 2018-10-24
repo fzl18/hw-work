@@ -2,74 +2,120 @@
     <section class="detail">
         <div class="left">
             <financeHeader :hint="false">
-                <span>C2C订单 > <span style="color:#FF6500">订单详情</span></span>
+                <span>{{lang[local].c2cOrder}} > <span style="color:#FF6500">{{lang[local].c2cDetail}}</span></span>
             </financeHeader>
             <section>
                 <div class="info">
                     <div class="price">
-                        <span>{{ orderInfo.type == 1 ? '购买':'售出'}}：<span class="buy">{{orderInfo.amount}} {{orderInfo.symbol && orderInfo.symbol.toUpperCase()}}</span></span>
-                        <span style="margin-left:40px">总价：<span class="org">{{orderInfo.money}} {{orderInfo.currency}}</span></span>
-                        <span style="margin-left:20px">（单价：{{orderInfo.price}}{{orderInfo.currency}}）</span>
+                        <span>{{ orderInfo.type == 1 ? lang[local].c2cBuy:lang[local].c2cSell}}：<span class="buy">{{orderInfo.amount}} {{orderInfo.symbol && orderInfo.symbol.toUpperCase()}}</span></span>
+                        <span style="margin-left:40px">{{lang[local].addOrderTip3}}：<span class="org">{{orderInfo.money}} {{orderInfo.currency}}</span></span>
+                        <span style="margin-left:20px">（{{lang[local].unitPrice}}：{{orderInfo.price}}{{orderInfo.currency}}）</span>
                     </div>
                     <div class="user">
-                        <p>交易卖方：{{orderInfo.nickname}}（UID：{{orderInfo.user_id}}）</p>
-                        <p>真实姓名：{{orderInfo.realname}} ({{orderInfo.phone}})</p>
+                        <p>{{lang[local].turnover}}{{orderInfo.type == 1 ? lang[local].c2cDetailTxt2:lang[local].c2cDetailTxt3}}：{{orderInfo.nickname}}（UID：{{orderInfo.user_id}}）</p>
+                        <p>{{lang[local].apply19}}：{{orderInfo.realname}} ({{orderInfo.phone}})</p>
                     </div>
                 </div>
                 <div class="transferType">
                     <div class="tit">
-                        卖方付款方式：
+                        {{lang[local].c2cDetailTxt1}}：
                     </div>
                     <div class="card" v-if="orderInfo.status!=2">
-                        <div v-if="orderInfo.bank_card" @click="handlePayType('bank')" >
-                            <Row class="type" :class="payType =='bank' ? 'cur':''">
-                                <Col span="4" class="bg"><i class="iconfont icon-yinxingqia org"></i> 银行卡</Col>
-                                <Col span="4" style="padding-left:15px">{{orderInfo.realname}}</Col>
-                                <Col span="8">{{orderInfo.bank_card}}</Col>
-                                <Col span="4">{{orderInfo.bank_name}}</Col>
-                                <Col span="4">{{orderInfo.bank_branch}}</Col>
-                            </Row>
-                        </div>
-                        <div v-if="orderInfo.alipay_account" @click="handlePayType('alipay')">
-                            <Row class="type" :class="payType =='alipay' ? 'cur':''">
-                                <Col span="4" class="bg"><i class="iconfont iconfont icon-ZFBZD blue"></i>支付宝</Col>
-                                <Col span="4" style="padding-left:15px">{{orderInfo.wxpay_name}}</Col>
-                                <Col span="8">支付宝账号：{{orderInfo.alipay_account}}</Col>
-                                <Col span="4"><Button type="text" size="large" class="blue" @click="seeQR">查看二维码</Button></Col>
-                                <Col span="4"></Col>
-                            </Row>
-                        </div>
-                        <div v-if="orderInfo.wxpay_account" @click="handlePayType('wxpay')">
-                            <Row class="type" :class="payType =='wxpay' ? 'cur':''">
-                                <Col span="4" class="bg"><i class="iconfont icon-ai-weixin green"></i>微信支付</Col>
-                                <Col span="4" style="padding-left:15px">{{orderInfo.wxpay_name}}</Col>
-                                <Col span="8">微信付款账号：{{orderInfo.wxpay_account}}</Col>
-                                <Col span="4"><Button type="text" size="large" class="blue" @click="seeQR">查看二维码</Button></Col>
-                                <Col span="4"></Col>
-                            </Row>
-                        </div>                        
+                        <template v-if="orderInfo.pay_type == 0 ">
+                            <div v-if="orderInfo.bank_card" @click="handlePayType('bank')" >
+                                <Row class="type" :class="payType =='bank' ? 'cur':''">
+                                    <Col span="4" class="bg"><i class="iconfont icon-yinxingqia org"></i> {{lang[local].bankCard}}</Col>
+                                    <Col span="4" style="padding-left:15px">{{orderInfo.truename}}</Col>
+                                    <Col span="8">{{orderInfo.bank_card}}</Col>
+                                    <Col span="4">{{orderInfo.bank_name}}</Col>
+                                    <Col span="4">{{orderInfo.bank_branch}}</Col>
+                                </Row>
+                            </div>
+                            <div v-if="orderInfo.alipay_account" @click="handlePayType('alipay')">
+                                <Row class="type" :class="payType =='alipay' ? 'cur':''">
+                                    <Col span="4" class="bg"><i class="iconfont iconfont icon-ZFBZD blue"></i>{{lang[local].aliPay}}</Col>
+                                    <Col span="4" style="padding-left:15px">{{orderInfo.wxpay_name}}</Col>
+                                    <Col span="8">{{lang[local].transferModeTip10}}：{{orderInfo.alipay_account}}</Col>
+                                    <Col span="4"><Button type="text" size="large" class="blue" @click="seeQR">{{lang[local].c2cDetailTxt4}}</Button></Col>
+                                    <Col span="4"></Col>
+                                </Row>
+                            </div>
+                            <div v-if="orderInfo.wxpay_account" @click="handlePayType('wxpay')">
+                                <Row class="type" :class="payType =='wxpay' ? 'cur':''">
+                                    <Col span="4" class="bg"><i class="iconfont icon-ai-weixin green"></i>{{lang[local].weChat}}</Col>
+                                    <Col span="4" style="padding-left:15px">{{orderInfo.wxpay_name}}</Col>
+                                    <Col span="8">{{lang[local].c2cDetailTxt5}}：{{orderInfo.wxpay_account}}</Col>
+                                    <Col span="4"><Button type="text" size="large" class="blue" @click="seeQR">{{lang[local].c2cDetailTxt4}}</Button></Col>
+                                    <Col span="4"></Col>
+                                </Row>
+                            </div>
+                        </template>
+                        <template v-if="orderInfo.pay_type != 0 ">
+                            <div v-if="orderInfo.bank_card && orderInfo.pay_type ==1" @click="handlePayType('bank')" >
+                                <Row class="type nocur">
+                                    <Col span="4" class="bg"><i class="iconfont icon-yinxingqia org"></i> {{lang[local].bankCard}}</Col>
+                                    <Col span="4" style="padding-left:15px">{{orderInfo.truename}}</Col>
+                                    <Col span="8">{{orderInfo.bank_card}}</Col>
+                                    <Col span="4">{{orderInfo.bank_name}}</Col>
+                                    <Col span="4">{{orderInfo.bank_branch}}</Col>
+                                </Row>
+                            </div>
+                            <div v-if="orderInfo.alipay_account && orderInfo.pay_type ==2" @click="handlePayType('alipay')">
+                                <Row class="type nocur">
+                                    <Col span="4" class="bg"><i class="iconfont iconfont icon-ZFBZD blue"></i>{{lang[local].aliPay}}</Col>
+                                    <Col span="4" style="padding-left:15px">{{orderInfo.wxpay_name}}</Col>
+                                    <Col span="8">{{lang[local].transferModeTip10}}：{{orderInfo.alipay_account}}</Col>
+                                    <Col span="4"><Button type="text" size="large" class="blue" @click="seeQR">{{lang[local].c2cDetailTxt4}}</Button></Col>
+                                    <Col span="4"></Col>
+                                </Row>
+                            </div>
+                            <div v-if="orderInfo.wxpay_account && orderInfo.pay_type ==3" @click="handlePayType('wxpay')">
+                                <Row class="type nocur">
+                                    <Col span="4" class="bg"><i class="iconfont icon-ai-weixin green"></i>{{lang[local].weChat}}</Col>
+                                    <Col span="4" style="padding-left:15px">{{orderInfo.wxpay_name}}</Col>
+                                    <Col span="8">{{lang[local].c2cDetailTxt5}}：{{orderInfo.wxpay_account}}</Col>
+                                    <Col span="4"><Button type="text" size="large" class="blue" @click="seeQR">{{lang[local].c2cDetailTxt4}}</Button></Col>
+                                    <Col span="4"></Col>
+                                </Row>
+                            </div>
+                        </template>
                     </div>
                     <div class="card" v-if="orderInfo.status==2">
                         <div>
                             <Row class="type none">
-                                <Col span="24" class="bg">订单已关闭，无法查看卖方收款信息</Col>
+                                <Col span="24" class="bg">{{lang[local].c2cDetailTxt6}}</Col>
                             </Row>
                         </div>                       
                     </div>
-                    <div class="payinfo" v-if="orderInfo.status==3 && orderInfo.type == 2">已付款，请在 <span class="sell">{{leftTime}}</span>  内确认收款并放币</div>
-                    <div class="pay">付款代码： <span>{{orderInfo.code}}</span> （买家将在付款单中备注付款代码）</div>
-                    <div class="btn" v-if="orderInfo.status==4"><h2>已完成</h2></div>
+                    <div class="payinfo" v-if="orderInfo.status==3 && orderInfo.type == 2">{{lang[local].c2cDetailTxt7}} <span class="sell">{{leftTime}}</span>  {{lang[local].c2cDetailTxt8}}</div>
+                    <div class="payinfo" v-if="orderInfo.status==1 && orderInfo.type == 1">请在 <span class="sell">{{leftTime}}</span>  内向 {{orderInfo.nickname}} 支付 {{orderInfo.money}} {{orderInfo.currency}}</div>
+                    <div class="payinfo" v-if="orderInfo.status==3 && orderInfo.type == 1">等待 {{orderInfo.nickname}} 确认并放币，您将收到 <span class="tbuy"> {{orderInfo.amount}} {{orderInfo.symbol && orderInfo.symbol.toUpperCase()}}</span></div>
+                    <div class="payinfo" v-if="orderInfo.status==5">当前订单申诉中，请查看 <Button type="text" size="large" class="blue" style="padding:0px;font-size:20px;font-weight:bold;margin-top:-5px;" @click="gotoUrl('appeal',orderInfo.appeal_id)">申诉详情</Button></div>
+                    <div class="pay" v-if="orderInfo.type != 1">付款代码： <span>{{orderInfo.code}}</span> （买家将在付款单中备注付款代码）</div>
+                    <div class="pay" v-if="orderInfo.type == 1">付款代码： <span>{{orderInfo.code}}</span> (请在付款单中备注付款代码)</div>
+                    <div class="btn" v-if="orderInfo.status==4"><h2>已完成，查看 <Button type="text" size="large" class="blue" style="padding:0px;font-size:20px;font-weight:bold;margin-top:-5px;" @click="gotoUrl('c2c')">C2C账户资产</Button></h2></div>
                     <div class="btn" v-if="orderInfo.status==2"><h2>已关闭</h2></div>
-                    <div class="btn" v-if="orderInfo.status==3 && orderInfo.type == 2"><Button @click="payModal=true" type="primary" size="large">收款，放币</Button><Button type="text" size="large" class="blue">客服申诉</Button></div> 
+                    <div class="btn" v-if="orderInfo.status==3 && orderInfo.type == 2">
+                        <Button @click="payModal=true" type="primary" size="large">收款，放币</Button>
+                        <Button type="text" size="large" class="blue" @click="appealModal = true">客服申诉</Button>
+                    </div>
+                    <div class="btn" v-if="orderInfo.status==5 && orderInfo.type == 2">
+                        <Button @click="payModal=true" type="primary" size="large">收款，放币</Button>
+                    </div> 
                     <div class="btn" v-if="orderInfo.status==1 && orderInfo.type== 2">
-                        <Button type="primary" size="large" disabled>对方正在付款...</Button>
+                        <Button type="primary" size="large" disabled>对方正在付款...</Button>                        
                     </div>
                     <div class="btn" v-if="orderInfo.status==3 && orderInfo.type== 1">
-                        <Button type="primary" size="large" disabled>对方正在放币...</Button>
+                        <Button type="primary" size="large" disabled style="margin-bottom:15px;">对方正在放币...</Button>
+                        <Button type="text" size="large" class="org" @click="cancelModal = true">取消订单</Button>
+                        <Button type="text" size="large" class="blue" @click="appealModal = true">客服申诉</Button>
                     </div> 
-                    <p style="margin:15px 0" v-if="orderInfo.status==1 && orderInfo.type==1"><Checkbox v-model="agree" size="large"> 已阅读并同意 </Checkbox> <a href="#" target="_blank" class="org">服务协议</a></p>
-                    <div class="btn" v-if="orderInfo.status==1 && orderInfo.type==1"><Button type="primary" size="large" @click="goPay">去付款</Button><Button type="text" size="large" class="blue" @click="cancelOrder">取消订单</Button></div>                    
-                    <p style="margin-top:15px" v-if="orderInfo.status!=1 && orderInfo.type!=1">本次交易请务必查看  <a href="#" target="_blank" class="org">服务协议</a></p>
+                    <p style="margin:15px 0" v-if="orderInfo.status==1 && orderInfo.type==1"><Checkbox v-model="agree" size="large"> 已阅读并同意 </Checkbox> <a :href="tourl + '/list/c2c_legal_service_greement'" target="_blank" class="org">服务协议</a></p>
+                    <div class="btn" v-if="orderInfo.status==1 && orderInfo.type==1"><Button type="primary" size="large" @click="goPay">去付款</Button> <Button type="text" size="large" class="blue" @click="cancelModal = true">取消订单</Button> </div>                    
+                    <div class="btn" v-if="orderInfo.status==5 && orderInfo.type==1">
+                        <Button type="text" size="large" class="org" @click="cancelModal = true">取消订单</Button>
+                    </div> 
+                    <p style="margin-top:15px" v-if="orderInfo.status!=1 ">本次交易请务必查看  <a :href="tourl + '/list/c2c_legal_service_greement'" target="_blank" class="org">服务协议</a></p>
                 </div>
                 <div class="faq">
                     <div class="tit">常见问题 <i class="iconfont icon-wenhao"></i></div>
@@ -145,17 +191,17 @@
                 <Col span="24" style="margin:20px 0"><hr></Col>
                 <Col span="24" class="f15">交易买方</Col>
                 <Col span="6" offset="2" ><b>真实姓名</b> </Col>
-                <Col span="16"><b>{{orderInfo.realname}}</b> </Col>
+                <Col span="16"><b>{{orderInfo.truename}}</b> </Col>
                 <Col span="24" style="height:20px"></Col>
                 <Col span="24" class="f15">交易确认</Col>
                 <Col span="22" offset="2">
                     <Row class="input">
-                        <Col span="12">可用：</Col>
-                        <Col span="12">6.00098 ETH</Col>
-                        <Col span="12">交易密码</Col>
-                        <Col span="12"><Input v-model="payPassword" size="large"/></Col>
-                        <Col span="12">验证码</Col>
-                        <Col span="12" style="margin-top:8px;"><Input v-model="emailVerify" size="large" placeholder="邮件验证码" clearable ><span slot="append" class="blue cursor" @click="sendCode">{{verifyCodeTimeText === -1 ? lang[local].getVerifCode + '...' : verifyCodeTimeText ? verifyCodeTimeText : lang[local].getVerifCode}}</span></Input></Col>
+                        <!-- <Col span="12">可用：</Col>
+                        <Col span="12">6.00098 ETH</Col> -->
+                        <Col span="6">交易密码</Col>
+                        <Col span="18"><Input type="password" v-model="payPassword" size="large"/></Col>
+                        <Col span="6">验证码</Col>
+                        <Col span="18" style="margin-top:8px;"><Input v-model="emailVerify" size="large" placeholder="邮件验证码" clearable ><span slot="append" class="blue cursor" @click="sendCode">{{verifyCodeTimeText === -1 ? lang[local].getVerifCode + '...' : verifyCodeTimeText ? verifyCodeTimeText : lang[local].getVerifCode}}</span></Input></Col>
                     </Row>
                 </Col>
                 <Col span="24" style="margin:20px 0"><hr></Col>
@@ -166,7 +212,7 @@
                 <Col span="12"><Button type="primary" size="large" @click="confirmReceivable">确认</Button></Col>
             </Row>
             <Row class="payModal" v-if="payType == 'bank' && orderInfo.type==1">
-                <Col span="18"><h1>确认收款</h1></Col>
+                <Col span="18"><h1>确认付款</h1></Col>
                 <Col span="6" class="leftTime"><i class="iconfont icon-shijian"></i> {{leftTime}}</Col>
                 <Col span="24" style="height:20px"></Col>
                 <Col span="24" class="f15">支付金额</Col>
@@ -177,7 +223,7 @@
                             <Row >
                                 <Col span="24" class="f15">对方 银行卡 </Col>
                                 <Col span="24" class="tblue">{{orderInfo.bank_card}}</Col>
-                                <Col span="8">{{orderInfo.realname}}</Col>
+                                <Col span="8">{{orderInfo.truename}}</Col>
                                 <Col span="8">{{orderInfo.bank_name}} </Col>
                                 <Col span="8">{{orderInfo.bank_branch}}</Col>
                                 <Col span="24" class="f15"> 付款代码 <span style="font-size:12px">(请在付款单中备注付款代码)</span> </Col>
@@ -188,11 +234,12 @@
                 <Col span="24" style="margin:20px 0"><hr></Col>
                 <Col span="24" class="sell">请本人实名付款，否则存在交易风险！</Col>
                 <Col span="24" style="height:50px"></Col>
-                <Col span="12"><Button type="text" size="large" @click="payModal = false">未收款</Button></Col>
+                <Col span="12"><Button type="text" size="large" @click="payModal = false">未付款</Button></Col>
                 <Col span="12"><Button type="primary" size="large" @click="confirmPay">已付款</Button></Col>
             </Row>
+
             <Row class="payModal" v-if="payType != 'bank' && orderInfo.type==1 ">
-                <Col span="18"><h1>确认收款</h1></Col>
+                <Col span="18"><h1>确认付款</h1></Col>
                 <Col span="6" class="leftTime"><i class="iconfont icon-shijian"></i> {{leftTime}}</Col>
                 <Col span="24" style="height:20px"></Col>
                 <Col span="24" class="f15">支付金额</Col>
@@ -203,7 +250,7 @@
                             <Row v-if="payType == 'alipay'">
                                 <Col class="f15">对方 支付宝</Col>
                                 <Col class="tblue">{{orderInfo.alipay_account}}</Col>
-                                <Col><b>{{orderInfo.realname}}</b> </Col>
+                                <Col><b>{{orderInfo.truename}}</b> </Col>
                                 <Col class="f15"> 付款代码 <span style="font-size:12px">(请在付款单中备注付款代码)</span> </Col>
                                 <Col class="f15 torg">{{orderInfo.code}}</Col>
                             </Row>
@@ -215,13 +262,17 @@
                                 <Col class="f15 torg">{{orderInfo.code}}</Col>
                             </Row>
                         </Col>
-                        <Col v-if="payType == 'alipay'" span="6" offset="2"><img :src="orderInfo.alipay_image" alt="" style="width:120px;height:120px"></Col>
-                        <Col v-if="payType != 'alipay'" span="6" offset="2"><img :src="orderInfo.wechat_image" alt="" style="width:120px;height:120px"></Col>
+                        <Col v-if="payType == 'alipay'" span="6" offset="2">
+                            <img :src="orderInfo.alipay_image" alt="" style="width:120px;height:120px">
+                        </Col>
+                        <Col v-if="payType != 'alipay'" span="6" offset="2">
+                            <img :src="orderInfo.wxpay_image" alt="" style="width:120px;height:120px">
+                        </Col>
                     </Row>                
                 <Col span="24" style="margin:20px 0"><hr></Col>
                 <Col span="24" class="sell">请本人实名付款，否则存在交易风险！</Col>
                 <Col span="24" style="height:50px"></Col>
-                <Col span="12"><Button type="text" size="large" @click="payModal = false">未收款</Button></Col>
+                <Col span="12"><Button type="text" size="large" @click="payModal = false">未付款</Button></Col>
                 <Col span="12"><Button type="primary" size="large" @click="confirmPay">已付款</Button></Col>
             </Row>
         </Modal>
@@ -238,6 +289,52 @@
                 <Button type="primary" size="large" @click="qrModal = false">关闭</Button>
             </div>
         </Modal>
+        <Modal
+            v-model="appealModal"
+            :closable = false
+            :footer-hide = true
+            class-name="vertical-center-modal">
+            <h1>客服申诉</h1>
+            <p>提起申诉后资产将会冻结，客服人员将接入本次交易。直至申诉结束。恶意申诉者将被冻结账户。付款成功或取消申诉后才可以发起申诉。</p>
+            <table>
+                <tr>
+                    <td width="130">申诉类型</td>
+                    <td>
+                        <Select v-model="appealType" size="large" style="width:300px">
+                            <Option v-for="item in appealTypeList" :value="item.type_id" :key="item.type_id">{{ item.type_name }}</Option>
+                        </Select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>说明信息</td>
+                    <td>
+                        <textarea v-model="txt" type="textarea" :rows="4" placeholder="请输入申诉说明200字以内..." @input='validateTxt'/><span style="color:#bbb">还可输入 {{ 200 - txt.length}} 字符</span>
+                    </td>
+                </tr>
+            </table>
+            <div style="margin-top:50px;">
+                <Button type="primary" size="large" @click="appealCreate">确认</Button>
+                <Button type="text" size="large" @click="appealModal = false" style="float:right;">取消</Button>
+            </div>
+        </Modal>
+        <Modal
+            v-model="cancelModal"
+            :closable = false
+            :footer-hide = true
+            class-name="vertical-center-modal">
+            <h1>取消订单</h1>
+            <div class="txt">如果您已向卖家付款，请勿取消投诉！</div>
+            <div class="tip">
+                <p>取消订单规则：</p>
+                <p>买方当日累计取消3笔订单，将限制当天的购买。</p>
+            </div>
+            <div>
+                <Row>
+                    <Col span="4"><Button type="primary" size="large" @click="cancelOrder">确认取消</Button></Col>
+                    <Col span="4" :offset="16"><Button type="text" size="large" @click="cancelModal = false">再考虑下</Button></Col>
+                </Row>
+            </div>
+        </Modal>
     </section>
 </template>
 
@@ -249,6 +346,8 @@ export default {
             payType:'bank',
             payModal:false,
             qrModal:false,
+            appealModal:false,
+            cancelModal:false,
             bank:{
                 name:'',
                 card:'',
@@ -269,10 +368,17 @@ export default {
             payPassword:'',
             leftTime:'',
             agree:false,
+            tourl:'',
+            appealType:'',
+            appealTypeList:[],
+            txt:'',
+            loopask:0
         }
     },
     mounted(){
         this.orderDetail()
+        this.getAppealType()
+        this.tourl = process.env.NODE_ENV == 'development' ? '/article.html' : '/home/article'
     },
     methods:{
         handlePayType(val){
@@ -290,8 +396,20 @@ export default {
                 }
             }).then(res=>{
                 this.orderInfo = res.data.info
+                let loop
+                // clearInterval(loopask)
                 // this.transferMode = res.data.info.transfer_mode
-                console.log(res.data.info.time);
+                if((this.orderInfo.status==3 && this.orderInfo.type== 1) || (this.orderInfo.status==1 && this.orderInfo.type== 2)){
+                    if(!this.loopask){
+                        loop = setInterval(()=>{                        
+                            this.orderDetail()
+                        },30000)
+                    }
+                    this.loopask = 1
+                    return
+                }else{
+                    clearInterval(loop)
+                }
                 let time = res.data.info.time
                 if(time > 0){
                     setInterval(()=>{
@@ -299,15 +417,60 @@ export default {
                         let S = Math.floor(time%60)
                         this.leftTime = `${M}:${S<10 ? '0' + S :S}`
                         time--
-                        if(!M && !S){
+                        if(M < 0 && S < 0){
                             clearInterval()
                             this.payModal=false
                             this.orderDetail()
+                            // this.getAppealType()
                         }
                     },1000) 
                 }
             }).catch( err=>{
                 this.$store.commit('msg/err', err.message);
+                console.log(err);
+                
+                setTimeout(function () {
+                    if(this.loginGetStatus && this.loginStatus){
+                        location.href = process.env.NODE_ENV == 'development' ? '/finance.html/c2cOrder' : '/home/finance/c2cOrder'
+                    }else{
+                        location.href = process.env.NODE_ENV == 'development' ? '/login.html' : '/home/login'
+                    }
+                },2000)
+                
+            })
+        },
+        getAppealType(){
+            this.axios({
+                url : this.api.appealType,
+                data : {
+                }
+            }).then(res=>{
+                this.appealTypeList = res.data.list
+            }).catch( err=>{
+                this.$store.commit('msg/err', err.message);
+            })
+        },
+        appealCreate(){
+            if(!this.txt){
+                this.$store.commit('msg/err', '申诉说明不能为空')
+                return
+            }
+            if(!this.appealType){
+                this.$store.commit('msg/err', '请选择申诉类型')
+                return
+            }
+            this.axios({
+                url : this.api.appealCreate,
+                data : {
+                    id:this.orderInfo.id,
+                    type_id:this.appealType,
+                    reason:this.txt,
+                }
+            }).then(res=>{
+                location.href = process.env.NODE_ENV == 'development' ? '/finance.html/appealDetail?id=' + res.data.appeal_id : '/home/finance/appealDetail?id=' + res.data.appeal_id
+            }).catch( err=>{
+                this.$store.commit('msg/err', err.message);
+                this.orderDetail()
             })
         },
         cancelOrder(){
@@ -317,9 +480,11 @@ export default {
                     id:this.orderInfo.id
                 }
             }).then(res=>{
+                this.cancelModal = false
                 this.orderDetail()
             }).catch( err=>{
                 this.$store.commit('msg/err', err.message);
+                this.orderDetail()
             })
         },
         goPay(){
@@ -333,7 +498,8 @@ export default {
             this.axios({
                 url : this.api.confirmPay,
                 data : {
-                    id:this.orderInfo.id
+                    id:this.orderInfo.id,
+                    pay_type:this.payType =="bank" ? 1 : this.payType =="alipay" ? 2 : this.payType =="wxpay" ? 3 : 0
                 }
             }).then(res=>{
                 this.payModal = false
@@ -380,6 +546,23 @@ export default {
             });
             return true;
         },
+        validateTxt(){
+            if(this.txt.length > 200){
+                this.txt = this.txt.substring(0,200)
+            }        
+        },
+        gotoUrl(val,id){
+            switch (val) {
+                case 'c2c':
+                    this.$router.push('/index')
+                    break;
+                case 'appeal':
+                    this.$router.push(`/appealDetail?id=${id}`)
+                    break;            
+                default:
+                    break;
+            }
+        }
     }
 }
 </script>
@@ -419,7 +602,8 @@ export default {
                 .card{
                     white-space:nowrap;
                     text-overflow:hidden;
-                    overflow: hidden;                    
+                    overflow: hidden;
+                    margin-bottom:20px;
                     .type{
                         border-bottom:2px solid #E4E4E4;
                         background: #F7F7F7;
@@ -452,7 +636,7 @@ export default {
                     }
                 }
                 .payinfo{
-                    font-size:16px;
+                    font-size:20px;
                     font-weight: bold;
                     margin-top:20px;
                 }
@@ -540,5 +724,33 @@ export default {
     .cursor{
         cursor: pointer;
     }
+    .type.nocur{
+        &:hover{
+            border:none!important;
+            cursor: default!important;
+        }
+    }
     .iconfont{font-size:26px;font-weight:normal;margin-right:10px;position: relative;top:3px;}
+    .vertical-center-modal{
+        p{font-size:15px;line-height:26px;margin:50px 0;}
+        table{
+            width:100%;
+            font-size:15px;
+            td{padding:10px 0;}
+        }
+        textarea{
+            border:1px solid #E7E7E7;
+            border-radius: 4px;
+            width:100%;
+            outline: none;
+            padding:10px;
+            line-height:28px;
+            transition: all .3s;
+            &:hover, &:focus{
+                border-color: #FF6600
+            }
+        }
+        .txt{font-size:16px;color:red;margin:50px 0;}
+        .tip{margin-bottom:50px;font-size:15px;color:#333}
+    }
 </style>

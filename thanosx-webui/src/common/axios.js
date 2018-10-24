@@ -1,20 +1,17 @@
 import axios from 'axios'
+
+
 var instance = axios.create({
     baseURL: process.env.NODE_ENV == 'development' ? '' : '',
     withCredentials : process.env.NODE_ENV == 'development' ? true : false,
     method: 'post',
     responseType: 'json',
     timeout : 20000,
-    headers: {
-    }
-});
+})
 
 instance.defaults.headers.post['Content-Type'] = 'application/json; charset=UTF-8';
 
 instance.interceptors.request.use(function (config) {
-    if(config.headers['Content-Type'] == 'multipart/form-data'){
-        return config;
-    };
     let lang
     switch (localStorage.curLang) {
         case "zh":
@@ -23,10 +20,18 @@ instance.interceptors.request.use(function (config) {
         case "zhtw":
             lang = "zh-tw"
             break;
+        case "undefined":
+            lang = "en"
+            break;
         default:
             lang = localStorage.curLang
             break;
     }
+    config.headers['lang-id'] = lang == 'zh-cn'? 1 : lang == 'zh-tw' ? 2 : 3
+    if(config.headers['Content-Type'] == 'multipart/form-data'){
+        return config;
+    };
+    
     if(process.env.NODE_ENV == 'development'){
         
         config.data = {
@@ -61,9 +66,9 @@ instance.interceptors.response.use(function (res) {
     }else{
         //20003 重新登录
         if(res.data && res.data.code && res.data.code == 20003){
-            this.$store.commit('login/loginStatus', false);
-            this.$store.commit('login/loginGetStatus', false);
-            this.$router.push(loginUrl);
+            // this.$store.commit('login/loginStatus', false);
+            // this.$store.commit('login/loginGetStatus', false);
+            // this.$router.push(loginUrl);
         }        
         return Promise.reject({code : res.data.code, message : (res.data  && res.data.message) || (res.config.url.replace(res.config.baseURL, '') + '<br />PHP Response Error！(*^▽^*)')});
     };

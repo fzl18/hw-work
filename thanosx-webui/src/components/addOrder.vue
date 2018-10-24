@@ -1,19 +1,19 @@
 <template>
     <div class="box">
                 <div class="header">
-                    <h2>添加C2C委托单</h2>
+                    <h2>{{lang[local].addOrderTip1}}</h2>
                     <dl>
-                        <dt>交易类型：</dt>
-                        <dd :class="curTransferType=='buy'?'cur':''" @click="curTransferType = 'buy'">购买</dd>
-                        <dd :class="curTransferType=='sell'?'cur':''" @click="curTransferType = 'sell'">售出</dd>
+                        <dt>{{lang[local].transferType}}：</dt>
+                        <dd :class="curTransferType=='buy'?'cur':''" @click="curTransferType = 'buy'">{{lang[local].c2cBuy}}</dd>
+                        <dd :class="curTransferType=='sell'?'cur':''" @click="curTransferType = 'sell'">{{lang[local].c2cSell}}</dd>
                     </dl>
                 </div>
-                <Row class="body">
+                <Row class="body t">
                     <Col span="10">
                         <table>
                             <tbody>
                                 <tr>
-                                    <td width="100">币种</td>
+                                    <td width="100">{{lang[local].c2cCoin}}</td>
                                     <td>
                                         <Select v-model="order.coin" size="large" style="width:300px">
                                             <Option v-for="(item,index) in coinList" :value="item" :key="item">{{ item && item.toUpperCase() }}</Option>
@@ -21,63 +21,88 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td>数量</td>
-                                    <td>
-                                        <InputNumber v-model="order.count" size="large" style="width:100%" :min="0"/>
+                                    <td valign="top" style="padding-top:8px">{{lang[local].num}}</td>
+                                    <td style="padding-bottom:10px">
+                                        <div class="ka"><input v-model="order.count" size="large" style="width:100%" placeholder="" :max=" curTransferType=='sell'? asset:Infinity"/></div>
+                                        <span v-if="curTransferType !='buy'">可用： {{asset}} {{order.coin && order.coin.toUpperCase()}}</span> 
                                     </td>
-                                </tr>
+                                </tr>                                
+                                
                                 <tr>
-                                    <td>法币币种</td>
-                                    <td>
-                                        <Select v-model="order.currency" size="large" style="width:300px">
-                                            <Option v-for="item in currencyList" :value="item.label" :key="item.label">{{ item.label }}</Option>
-                                        </Select>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>单价</td>
-                                    <td>
-                                        <Input v-model="order.price" size="large"><span slot="append">{{order.currency || 'CNY'}}</span></Input>
-                                        <div>总价：<span class="torg"> {{(order.price * order.count) || '--'}} {{order.currency || 'CNY'}}</span></div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>收款方式</td>
+                                    <td>{{lang[local].addOrderTip2}}</td>
                                     <td>
                                         <CheckboxGroup size="large" v-model="order.payment">
-                                            <Checkbox size="large" label="1" value="1" disabled>银行卡</Checkbox>
-                                            <Checkbox v-if="params.wxpay" size="large" label="3" value="2">微信</Checkbox>
-                                            <Checkbox v-if="params.alipay" size="large" label="2" value="3">支付宝</Checkbox>
+                                            <Checkbox size="large" label="1" value="1" disabled>{{lang[local].bankCard}}</Checkbox>
+                                            <Checkbox v-if="params.wxpay" size="large" label="3" value="2">{{lang[local].weChat}}</Checkbox>
+                                            <Checkbox v-if="params.alipay" size="large" label="2" value="3">{{lang[local].aliPay}}</Checkbox>
                                         </CheckboxGroup>
                                     </td>
-                                </tr>
+                                </tr>                                
                             </tbody>
                         </table>
                     </Col>
-                    <Col span="10" offset="2">
+                    <Col span="2" align="center">
+                        <i class="iconfont icon-jiaohuan" style="font-size:24px;position: relative;top:7px"></i>
+                    </Col>
+                    <Col span="10" >
                         <table style="width:100%">
                             <tr>
-                                <td colspan="2"> <span class="torg">*</span> 单笔交易设置</td>
+                                <td width="100">{{lang[local].c2cCurrency}}</td>
+                                <td>
+                                    <Select v-model="order.currency" size="large" style="width:300px">
+                                        <Option v-for="item in currencyList" :value="item.name" :key="item.id">{{ item.name }}</Option>
+                                    </Select>
+                                </td>
                             </tr>
                             <tr>
-                                <td width="80">最小交易</td>
-                                <td><Input size="large" v-model="order.min"><span slot="append">{{order.currency && order.currency.toUpperCase() || 'CNY'}}</span></Input></td>
+                                <td valign="top" style="padding-top:8px">{{lang[local].unitPrice}}</td>
+                                <td>
+                                    <div class="ka"><input v-model="order.price" size="large"></input><span v-if="order.currency ">{{order.currency || 'CNY'}}</span></div>
+                                    <div>{{lang[local].addOrderTip3}}：<span class="torg"> {{(order.price * order.count).toFixed(2) || '--'}} {{order.currency || ''}}</span></div>
+                                </td>
+                            </tr>                                                        
+                        </table>
+                    </Col>                    
+                </Row>
+                <Row class="body">
+                    <Col span="10">
+                    <table>
+                        <tr>
+                            <td colspan="2" width='100'> <span class="torg">*</span> {{lang[local].addOrderTip4}}</td>
+                        </tr>
+                        <tr>
+                            <td width="80">{{lang[local].addOrderTip5}}</td>
+                            <td class="ka"><input size="large" v-model="order.min"></input><span v-if="order.currency ">{{order.currency && order.currency.toUpperCase() || 'CNY'}}</span></td>
+                        </tr>
+                    </table>
+                    </Col>
+                    <Col span="10" offset="2">
+                        <table>
+                            <tr >
+                                <td colspan="2" ></td>
                             </tr>
                             <tr>
-                                <td>最大交易</td>
-                                <td><Input size="large" v-model="order.max"><span slot="append">{{order.currency && order.currency.toUpperCase() || 'CNY'}}</span></Input></td>
+                                <td width='100'>{{lang[local].addOrderTip6}}</td>
+                                <td class="ka"><input size="large" v-model="order.max"></input><span v-if="order.currency">{{order.currency && order.currency.toUpperCase() || 'CNY'}}</span></td>
                             </tr>
+                        </table>
+                    </Col>
+                </Row>
+                <Row class="body b">
+                    <Col>
+                        <table width='100%'>
                             <tr>
-                                <td>备注说明</td>
-                                <td><Input size="large" type="textarea" :rows="4" v-model="order.note"/></td>
+                                <td width='80'>{{lang[local].addOrderTip7}}</td>
+                                <!-- <td><Input size="large" type="textarea" :rows="4" v-model="order.note"/></td> -->
+                                <td><textarea v-model="order.note" type="textarea" :rows="3" :placeholder="lang[local].addOrderTip8" @input='validateTxt'/><br/> <span style="color:#bbb">{{lang[local].addOrderTip9}} {{ 200 - (order.note && order.note.length || 0)}} {{lang[local].addOrderTip10}}</span></td>
                             </tr>
                         </table>
                     </Col>
                 </Row>
                 <Row class="footer">
-                    <Col span="6"><Checkbox v-model="order.agree" size="large">已阅读并同意 <a href="#" class="org" target="_blank">服务协议</a></Checkbox>  </Col>
-                    <Col span="4" offset="4"><Button size="large" type="primary" @click="ok" style="width:100%;fontSize:16px">确认</Button></Col>
-                    <Col span="4"><Button size="large" type="text" @click="close" style="width:100%;fontSize:16px" class="org">取消</Button></Col>
+                    <Col span="6"><Checkbox v-model="order.agree" size="large">{{lang[local].loginAgree}} <a :href="tourl + '/list/c2c_legal_service_greement'" class="org" target="_blank">{{lang[local].addOrderTip11}}</a></Checkbox>  </Col>
+                    <Col span="4" offset="4"><Button size="large" type="primary" @click="ok" style="width:100%;fontSize:16px">{{lang[local].apply36}}</Button></Col>
+                    <Col span="4"><Button size="large" type="text" @click="close" style="width:100%;fontSize:16px" class="org">{{lang[local].cancel}}</Button></Col>
                 </Row>
             </div>
 </template>
@@ -101,13 +126,16 @@ export default {
             },
             coinList:[],
             currencyList:[],
+            tourl:'',
         }
     },
     created(){
         this.basicInfo()
     },
     mounted(){
-        console.log(this.order)        
+        this.tourl = process.env.NODE_ENV == 'development' ? '/article.html' : '/home/article'
+        console.log(this.params);
+        
     },
     watch:{
         curTransferType(){
@@ -122,6 +150,56 @@ export default {
                 note:'',
                 agree:false,
             }
+        },
+        'order.price' (n,o){
+            let numlength = 2
+            let v = ''
+            for(let k=0;k<numlength;k++){
+                v += '\\d'
+            }
+            let re = new RegExp("^(\-)*(\\d+)\\.("+ v +").*$")
+            this.order.price = n && (n + '').replace(/[^\-?\d.]/g,'').replace(re,'$1$2.$3')
+        },
+        "order.min" (n,o){
+            let numlength = 2
+            let v = ''
+            for(let k=0;k<numlength;k++){
+                v += '\\d'
+            }
+            let re = new RegExp("^(\-)*(\\d+)\\.("+ v +").*$")
+            this.order.min = n && (n + '').replace(/[^\-?\d.]/g,'').replace(re,'$1$2.$3')
+            if(this.order.min < 0){
+                this.order.min = 0
+            }
+        },
+        "order.max" (n,o){
+            let numlength = 2
+            let v = ''
+            for(let k=0;k<numlength;k++){
+                v += '\\d'
+            }
+            let re = new RegExp("^(\-)*(\\d+)\\.("+ v +").*$")
+            this.order.max = n && (n + '').replace(/[^\-?\d.]/g,'').replace(re,'$1$2.$3')
+            if(this.order.max < 0){
+                this.order.max = 0
+            }
+        },
+        "order.count" (n,o){
+            let numlength = 8
+            let v = ''
+            for(let k=0;k<numlength;k++){
+                v += '\\d'
+            }
+            let re = new RegExp("^(\-)*(\\d+)\\.("+ v +").*$")
+            this.order.count = n && (n + '').replace(/[^\-?\d.]/g,'').replace(re,'$1$2.$3')
+            if(this.curTransferType=='sell'){
+                if(this.order.count >this.asset){
+                    this.order.count = this.asset
+                }
+                if(this.order.count < 0){
+                    this.order.count = 0
+                }
+            }
         }
     },
     computed:{
@@ -134,36 +212,48 @@ export default {
         //     }
         //     return data
         // }
+        asset(){
+            let val = 0
+            if(this.params && this.params.c2c_asset_list){
+                this.params.c2c_asset_list.map(d =>{
+                    if(d.coin == this.order.coin){
+                        val = d.available
+                    }
+                })
+            }
+            
+            return val
+        }
     },
     methods:{
         ok(){
             const d = this.order
             if(!d.coin){
-                this.$store.commit('msg/err', '请选择币种')
+                this.$store.commit('msg/err', this.lang[this.local].addOrderErr1)
                 return
             }
             if(!d.count){
-                this.$store.commit('msg/err', '请填写数量')
+                this.$store.commit('msg/err', this.lang[this.local].addOrderErr2)
                 return
             }
             if(!d.price){
-                this.$store.commit('msg/err', '请填写单价')
+                this.$store.commit('msg/err', this.lang[this.local].addOrderErr3)
                 return
             }
             if(!d.min){
-                this.$store.commit('msg/err', '最小交易不能为空')
+                this.$store.commit('msg/err', this.lang[this.local].addOrderErr4)
                 return
             }
             if(!d.max){
-                this.$store.commit('msg/err', '最大交易不能为空')
+                this.$store.commit('msg/err', this.lang[this.local].addOrderErr5)
                 return
             }
-            if(d.min > d.max ){
-                this.$store.commit('msg/err', '最小交易值不能大于最大交易值')
+            if(d.min*1 > d.max*1 ){
+                this.$store.commit('msg/err', this.lang[this.local].addOrderErr6)
                 return
             }
-            if(d.max > (d.count * d.price)){
-                this.$store.commit('msg/err', '最大交易值不能大于总价')
+            if(d.max*1 > (d.count * d.price)){
+                this.$store.commit('msg/err', this.lang[this.local].addOrderErr7)
                 return
             }
             if(this.order.agree){
@@ -180,7 +270,7 @@ export default {
                     agree:false,
                 }
             }else{
-                this.$store.commit('msg/err', '必须先同意服务协议')
+                this.$store.commit('msg/err', this.lang[this.local].addOrderErr8)
                 return
             }
             
@@ -213,6 +303,12 @@ export default {
                 console.log(err);
             })
         },
+
+        validateTxt(){
+            if(this.order.note.length > 200){
+                this.order.note = this.order.note.substring(0,200)
+            }        
+        }
     }
 }
 </script>
@@ -243,12 +339,20 @@ export default {
             // padding:0 50px;
         }
         .body{
-            margin:20px 0;
-            padding:20px 0px;
-            border-top:1px dashed #ddd;
-            border-bottom:1px dashed #ddd;
+            &.t{
+                border-top:1px dashed #ddd;
+                margin-top:20px;
+                padding-top:20px;
+            }
+            &.b{
+                border-bottom:1px dashed #ddd;
+                margin-bottom:20px;
+                padding-bottom:20px;
+            }
+            
             font-size: 15px;
             table{
+                width:100%;
                 td{
                     height:50px;
                 }
@@ -257,6 +361,46 @@ export default {
         .footer{
             // padding:0 50px;
             font-size: 16px;
+        }
+    }
+    .ka{
+        position: relative;
+        input{
+            border-radius:4px;
+            border:1px solid #dddee1;
+            line-height:32px;
+            padding:0 10px;
+            
+            width:100%;
+            transition:all .3s;
+            &:focus, &:hover{
+                &+span{border-left:1px solid #FF6600;}
+                border:1px solid #FF6600;
+            }
+        }
+        span{
+            border-radius:0 4px 4px 0;
+            border:1px solid #dddee1;
+            border-left: none;
+            line-height:32px;
+            display: inline-block;
+            padding:0 10px;
+            min-width:55px;
+            background: #eee;
+            position:absolute;
+            right:0;
+        }
+    }
+    textarea{
+        border:1px solid #E7E7E7;
+        border-radius: 4px;
+        width:91%;
+        outline: none;
+        padding:10px;
+        line-height:28px;
+        transition: all .3s;
+        &:hover, &:focus{
+            border-color: #FF6600
         }
     }
 </style>

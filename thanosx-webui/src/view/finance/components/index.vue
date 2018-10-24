@@ -102,19 +102,19 @@
                                 {{item.coin.toUpperCase()}}
                             </span>
                         </dd>
-                        <dd style="width:20%">
+                        <dd style="width:20%;overflow:hidden;text-overflow:ellipsis;" :title="parseFloat(tobigNumber(item.available))">
                             <span>
-                                {{item.available}}
+                                {{parseFloat(tobigNumber(item.available))}}
                             </span>
                         </dd>
-                        <dd style="width:20%">
+                        <dd style="width:20%;overflow:hidden;text-overflow:ellipsis;" :title="parseFloat(tobigNumber(item.frozen))">
                             <span>
-                                {{item.frozen}}
+                                {{parseFloat(tobigNumber(item.frozen))}}
                             </span>
                         </dd>
-                        <dd style="width:20%">
+                        <dd style="width:20%;overflow:hidden;text-overflow:ellipsis;" :title="parseFloat(tobigNumber(item.total))">
                             <span>
-                                {{item.total}}
+                                {{parseFloat(tobigNumber(item.total))}}
                             </span>
                         </dd>              
                         <dd style="width:20%">

@@ -3,6 +3,7 @@ import login from "../store/login"
 import msg from "../store/msg"
 import lang from "./lang/index"
 import {apiCommon, apiStatus, webSocketUrl, toUrl} from './api/api'
+
 const type = navigator.appName
 let local = 'zh'
 let langtype
@@ -11,7 +12,7 @@ if (type == "Netscape"){
 }else{
 　　langtype = navigator.userLanguage
 };
-if(!localStorage.curLang){
+if(!localStorage.curLang || localStorage.curLang ==="undefined"){
     if (langtype == "zh-CN" || langtype == "zh"){
         local="zh"
     }else if(langtype == "zh-TW"){

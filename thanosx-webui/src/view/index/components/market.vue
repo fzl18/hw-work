@@ -39,29 +39,29 @@
                 <transition-group @leave="leave" v-if="list.length > 0" class="market-list" name="flip-list" tag="section" >
                     <dl v-for="coin in list" :key="coin.xnb + '_' + coin.rmb" :class="marketChangeAnimate(coin)" >
                         <dd>                            
-                            <span>
-                                <b>{{upperCase(coin.xnb)}} / {{upperCase(coin.rmb)}}</b>
+                            <span style="font-size:14px">
+                                {{upperCase(coin.xnb)}} / {{upperCase(coin.rmb)}}
                                 <!-- <small>{{upperCase(coins[coin.xnb] && coins[coin.xnb].namech)}}</small> -->
                             </span>
                         </dd>
                         <dd>
                             <span v-if="coin.rmb == 'cnt'">
-                                {{toDecimals(getItemMarketData(coin, 1),  (coins[coin.rmb] && coins[coin.rmb].accuracy) || 4)}}
+                                <b style="font-size:14px">{{toDecimals(getItemMarketData(coin, 1),  (coins[coin.rmb] && coins[coin.rmb].accuracy) || 4)}}</b>
                             </span>
                             <span v-else class="rmb" :class="getMarketDataColor(coin)">
-                                <b>{{toDecimals(getItemMarketData(coin, 1),  (coins[coin.rmb] && coins[coin.rmb].accuracy) || 4)}}</b>
+                                <b style="font-size:14px">{{toDecimals(getItemMarketData(coin, 1),  (coins[coin.rmb] && coins[coin.rmb].accuracy) || 4)}}</b>
                                 <!-- <small>≈¥{{rmbDecimals(getItemMarketData(coin, 7))}}</small> -->
                             </span>
                         </dd>
                         <dd>
-                            <span :class="getMarketDataColor(coin)">
+                            <span :class="getMarketDataColor(coin)" style="font-size:14px">
                                 {{getItemMarketData(coin, 2) > 0 ? '+' : ''}}{{perCentDecimals(getItemMarketData(coin, 2))}}%
                             </span>
                         </dd>
-                        <dd><span>{{toDecimals(getItemMarketData(coin, 3), (coins[coin.rmb] && coins[coin.rmb].accuracy) || 4)}}</span></dd>
-                        <dd><span>{{toDecimals(getItemMarketData(coin, 4),  (coins[coin.rmb] && coins[coin.rmb].accuracy) || 4)}}</span></dd>
+                        <dd><span style="font-size:14px">{{toDecimals(getItemMarketData(coin, 3), (coins[coin.rmb] && coins[coin.rmb].accuracy) || 4)}}</span></dd>
+                        <dd><span style="font-size:14px">{{tobigNumber(getItemMarketData(coin, 4),  (coins[coin.rmb] && coins[coin.rmb].accuracy) || 4)}}</span></dd>
                         <!-- <dd><span>{{numDecimals(getItemMarketData(coin, 5),  (coins[coin.rmb] && coins[coin.rmb].accuracy) || 4)}}</span></dd> -->
-                        <dd><span>{{toDecimals(getItemMarketData(coin, 5),  (coins[coin.rmb] && coins[coin.rmb].accuracy) || 4)}}</span></dd>
+                        <dd><span style="font-size:14px">{{toDecimals(getItemMarketData(coin, 5),  (coins[coin.rmb] && coins[coin.rmb].accuracy) || 4)}}</span> <span style="font-size:14px">{{upperCase(coin.xnb)}}</span></dd>
                         <dd><i class="iconfont icon-cf-c41" style="color:#4DC61E;font-size:25px;cursor: pointer;" @click="toTrade(coin)"></i></dd>
                         
                     </dl>
@@ -72,7 +72,8 @@
 </template>
 
 <script>
-    import socket from '../../../common/webSocket';
+    import socket from '../../../common/webSocket'
+    import bigNum from "bignumber.js"
     export default {
         name: "market",
         data (){
@@ -141,6 +142,9 @@
             
         },
         methods : {
+            tobigNumber(val){
+                return bigNum(val).toString(10)
+            },
             getMainCoins(){
                 this.axios({
                     url : this.api.getMainCoins,

@@ -1,48 +1,47 @@
 <template>
     <div class="apply container">
-        <h3 class="tit">商家申请</h3>
+        <h3 class="tit">{{lang[local].c2cbizapply}}</h3>
         <div class="stepbar" v-if="step > 1">
             <ul>
-                <li><span class="org">1</span>认证流程</li>
-                <li :class="step==2 ?'cur':''"><span class="org">2</span>实名认证信息</li>
-                <li :class="step==3 ?'cur':''"><span class="org">3</span>联系方式</li>
-                <li :class="step==4 ?'cur':''"><span class="org">4</span>资产证明及风控</li>
+                <li><span class="org">1</span>{{lang[local].apply1}}</li>
+                <li :class="step==2 ?'cur':''"><span class="org">2</span>{{lang[local].apply2}}</li>
+                <li :class="step==3 ?'cur':''"><span class="org">3</span>{{lang[local].apply3}}</li>
+                <li :class="step==4 ?'cur':''"><span class="org">4</span>{{lang[local].apply4}}</li>
             </ul>
         </div>
         <section class="part1 " v-if="step==1">
             <div class="read">
-                <div class="title"><h3>协议必读</h3></div>
-                <div class="con">请确认，在认证商家前，已详细阅读了本协议所有内容，一旦开始认证流程，即表示您已充分理解并同意本下一的全部内容。
-为提高交易的安全性和平台注册用户身份的可信度，ThanosX（以下简称T网）向您提供认证服务。您申请认证，T网有权采取各种其认为必要手段对用户的身份进行识别。但，作为普通的网络服务提供商，T网所能采取的方法有限，且在网络上用户身份识别也存在一定的困难。因此，T网对完全认证的用户身份的准去性和绝对真实性不做任何保证。</div>
+                <div class="title"><h3>{{lang[local].apply5}}</h3></div>
+                <div class="con">{{lang[local].apply6}}</div>
             </div>
-            <h3>认证所需材料</h3>
+            <h3>{{lang[local].apply7}}</h3>
             <Row :gutter="16" class="auth">                
-                <Col span="4"><div><i class="iconfont icon-shouji1"></i>手机</div> </Col>
-                <Col span="4"><div><i class="iconfont icon-ai-weixin"></i>微信</div> </Col>
+                <Col span="4"><div><i class="iconfont icon-shouji1"></i>{{lang[local].apply8}}</div> </Col>
+                <Col span="4"><div><i class="iconfont icon-ai-weixin"></i>{{lang[local].apply9}}</div> </Col>
                 <Col span="4"><div><i class="iconfont icon-QQ"></i>QQ</div> </Col>
-                <Col span="4"><div><i class="iconfont icon-zichanguanli-fill"></i>个人资产</div> </Col>
-                <Col span="4"><div><i class="iconfont icon-shenfenzheng"></i>身份认证</div> </Col>
-                <Col span="4"><div><i class="iconfont icon-fengxianbaozhangjihua"></i>风控策略</div> </Col>
+                <Col span="4"><div><i class="iconfont icon-zichanguanli-fill"></i>{{lang[local].apply10}}</div> </Col>
+                <Col span="4"><div><i class="iconfont icon-shenfenzheng"></i>{{lang[local].apply11}}</div> </Col>
+                <Col span="4"><div><i class="iconfont icon-fengxianbaozhangjihua"></i>{{lang[local].apply12}}</div> </Col>
             </Row>
-            <div style="margin:40px 0 80px 0" class="blue">认证所需材料+资产保证金（商家需要缴纳保证金，保证金具体数额会在用户的个人信息中展示）</div>
+            <div style="margin:40px 0 80px 0" class="blue">{{lang[local].apply13}}</div>
             <div>
-                <h3>认证流程</h3>
-                <p>1) 提交商家申请后，T网工作人员将在3个工作日内审核处理；</p>
-                <p>2) 保证金将在申请后自动锁定在交易账户内。商家无法对该笔资金进行交易。若审核不通过，将释放保证金。</p>
+                <h3>{{lang[local].apply1}}</h3>
+                <p>1) {{lang[local].apply14}}</p>
+                <p>2) {{lang[local].apply15}}</p>
             </div>
             <div class="btn">
-                <div style="margin:30px 0"><Checkbox v-model="tAgree" size="large"> 已阅读并同意 </Checkbox><a href="" target="_blank">商家认证协议</a> </div>
-                <Button size="large" type="primary" @click="gonext">申请</Button>
+                <div style="margin:30px 0"><Checkbox v-model="tAgree" size="large"> {{lang[local].loginAgree}} </Checkbox><a :href="goUrl" target="_blank">{{lang[local].apply16}}</a> </div>
+                <Button size="large" type="primary" @click="gonext">{{lang[local].apply17}}</Button>
             </div>
         </section>
         <section class="part2" v-if="step==2">
             <div class="box">
-                <div class="title"><h3>2 实名认证信息</h3></div>
+                <div class="title"><h3>2 {{lang[local].apply18}}</h3></div>
                 <Row>
-                    <Col span="4">真实姓名：{{userDetail.truename}}</Col>
-                    <Col span="4">证件类型：{{userDetail.dctype}}</Col>
-                    <Col span="4">证件号码：{{userDetail.idcard}}</Col>
-                    <Col span="24">居住地址：{{userDetail.address}}</Col>
+                    <Col span="4">{{lang[local].apply19}}：{{userDetail.truename}}</Col>
+                    <Col span="4">{{lang[local].apply20}}：{{userDetail.dctype}}</Col>
+                    <Col span="4">{{lang[local].apply21}}：{{userDetail.idcard}}</Col>
+                    <Col span="24">{{lang[local].apply22}}：{{userDetail.address}}</Col>
                 </Row>
             </div>
             <Row :gutter="24">
@@ -65,37 +64,37 @@
         </section>
         <section class="part3" v-if="step==3">
             <div class="box">
-                <div class="title"><h3>3 联系方式</h3></div>
+                <div class="title"><h3>3 {{lang[local].apply23}}</h3></div>
                 <Row>
-                    <Col span="4">真实姓名：{{userDetail.truename}}</Col>
+                    <Col span="4">{{lang[local].apply19}}：{{userDetail.truename}}</Col>
                     <Col span="4"><i class="iconfont icon-shouji1"></i> {{userDetail.mobile}}</Col>
                     <Col span="4"><i class="iconfont icon-letter"></i> {{userDetail.email}} </Col>
                 </Row>                
             </div>
             <Row>
-                <Col span="8"><Input v-model="weixin" type="text" size="large" style="width:300px" placeholder=" 请输入微信号"><span slot="prepend">微信号</span></Input></Col>
-                <Col span="8"><Input v-model="QQ" type="text" size="large" style="width:300px" placeholder="请输入QQ号"><span slot="prepend">QQ</span></Input></Col>
-                <Col span="24" style="margin-top:40px">请输入微信号及QQ号码，至少填写一项，便于我们能与您联系，确认真人信息。</Col>
+                <Col span="8"><Input v-model="weixin" type="text" size="large" style="width:300px" :placeholder=" lang[local].apply24"><span slot="prepend">{{lang[local].apply25}}</span></Input></Col>
+                <Col span="8"><Input v-model="QQ" type="text" size="large" style="width:300px" :placeholder="lang[local].apply26"><span slot="prepend">QQ</span></Input></Col>
+                <Col span="24" style="margin-top:40px">{{lang[local].apply27}}</Col>
             </Row>
         </section>
         <section class="part4" v-if="step==4">
             <div class="box">
-                <div class="title"><h3>4 资产证明及风控</h3></div>
+                <div class="title"><h3>4 {{lang[local].apply28}}</h3></div>
                 <Row>
-                    <Col span="24">真实姓名：{{userDetail.truename}}</Col>
-                    <Col span="11">个人资产情况 <Input v-model="assets" size="large" type="textarea" :rows="5"/></Col>
-                    <Col span="11" offset="2">个人风控策略 <Input v-model="risk" size="large" type="textarea" :rows="5"/></Col>
+                    <Col span="24">{{lang[local].apply19}}：{{userDetail.truename}}</Col>
+                    <Col span="11">{{lang[local].apply29}} <Input v-model="assets" size="large" type="textarea" :rows="5"/></Col>
+                    <Col span="11" offset="2">{{lang[local].apply30}} <Input v-model="risk" size="large" type="textarea" :rows="5"/></Col>
                 </Row> 
             </div>
             <hr />
             <div>
-                <h3>资产证明</h3>
-                <p>请上传本人实名银行卡余额截图，或对应银行卡近1月的银行流水截图，图片最多上传5张，支持PNG、JPEG、JPG格式，最大5M</p>
+                <h3>{{lang[local].apply31}}</h3>
+                <p>{{lang[local].apply32}}</p>
                 <div class="uploadpic">
                     <ul>
                         <li v-for="(item,index) in pNum">
                             <i class="iconfont icon-shut" @click.stop="delpic(index)"></i>
-                            <uploadFile path="nameAuth" v-model="pNum[index]" :class="pNum[index].state == getStateStart ? 'focus' : ''">
+                            <uploadFile path="nameAuth" v-model="pNum[index]" :class="pNum[index].state == getStateStart ? 'focus' : ''" @input="uploadOk">
                                 <em :style="{backgroundImage : 'url(' + pNum[index].origin + ')'}"></em>
                                 <div class="progress" v-if="pNum[index].state == getStateStart">
                                     <b :style="{height : pNum[index].progress + '%'}"></b>
@@ -108,12 +107,12 @@
                     </ul>
                 </div>
             </div>
-            <div style="margin:50px 0"><Checkbox v-model="bAgree" size="large"> 同意冻结 <span class="org">1000000 THNX</span> 做为商家保证金</Checkbox></div>
+            <div style="margin:50px 0"><Checkbox v-model="bAgree" size="large" @on-change="applyCheckAsset"> {{lang[local].apply33}} <span class="org">1000000 THNX</span> {{lang[local].apply34}}</Checkbox></div>
         </section>
         <div class="footer" v-if="step != 1">
-            <Button size="large" type="text" @click="step--" style="border:1px solid #FF6600">上一步</Button>
-            <Button v-if="step != 4" size="large" type="primary" @click="gonext" style="border:1px solid #FF6600">确认</Button>
-            <Button v-if="step == 4" size="large" type="primary" @click="submit" style="border:1px solid #FF6600">提交</Button>
+            <Button size="large" type="text" @click="step--" style="border:1px solid #FF6600">{{lang[local].apply35}}</Button>
+            <Button v-if="step != 4" size="large" type="primary" @click="gonext" style="border:1px solid #FF6600">{{lang[local].apply36}}</Button>
+            <Button v-if="step == 4" size="large" type="primary" @click="submit" style="border:1px solid #FF6600">{{lang[local].apply37}}</Button>
         </div>
         <Modal
             v-model="errModel"
@@ -126,7 +125,7 @@
                     {{errInfo}}
                 </h2>
                 <div style="text-align:right;">
-                 <Button type="primary" size="large" style="font-size:16px" @click="$router.push('/')">返回 </Button>
+                 <Button type="primary" size="large" style="font-size:16px" @click="$router.push('/')">Back </Button>
                 </div>
             </div>
         </Modal>
@@ -148,7 +147,8 @@ export default {
             assets:'',
             risk:'',
             errModel:false,
-            errInfo:''
+            errInfo:'',
+            goUrl: toUrl.articleUrl + '/list/c2c_legal_service_greement'
         }
     },
     mounted(){
@@ -176,13 +176,13 @@ export default {
                 }
                 if(this.step == 3){
                     if(!this.QQ && !this.weixin){
-                        this.$store.commit('msg/err', '微信号及QQ号码，至少填写一项')
+                        this.$store.commit('msg/err', this.lang[this.local].apply38)
                     }else{
                         this.step++
                     }
                 }
             }else{
-                this.$store.commit('msg/err', '必须先阅读并同意协议')
+                this.$store.commit('msg/err', this.lang[this.local].apply39)
             }
         },
         applyConfirm(){
@@ -213,6 +213,27 @@ export default {
                 console.log(err)
             })
         },
+        applyCheckAsset(){
+            this.axios({
+                url : this.api.applyCheckAsset,
+                data : {
+                }
+            }).then(res=>{
+               if(!res.data.asset){
+                   this.$store.commit('msg/err', this.lang[this.local].apply40)
+                   this.bAgree = false
+               }
+            }).catch( err=>{
+                console.log(err)
+            })
+        },
+        uploadOk(v){
+            if(v.state){
+                if(this.pNum.length < 5){
+                    this.addpic()
+                }
+            }
+        },
         submit(){
             let assets_images=''
             this.pNum.map(d => {
@@ -221,11 +242,11 @@ export default {
                 }
             })
             if(!this.bAgree){
-                this.$store.commit('msg/err', '必须同意冻结保证金')
+                this.$store.commit('msg/err', this.lang[this.local].apply41)
                 return
             }
             if(this.pNum.length <1){
-                this.$store.commit('msg/err', '至少上传一张资产证明图')
+                this.$store.commit('msg/err', this.lang[this.local].apply42)
                 return
             }
             this.axios({
@@ -239,7 +260,7 @@ export default {
                 }
             }).then(res=>{
                 this.$store.commit('msg/add', res.message)
-                location.href = toUrl.c2cUrl
+                location.href = toUrl.c2cUrl + '? myorder=1'
             }).catch( err=>{
                 console.log(err)
             })

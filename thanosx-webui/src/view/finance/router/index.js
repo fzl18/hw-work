@@ -33,6 +33,9 @@ import c2cOrder from '../components/c2c/c2cOrder'
 import transferMode from '../components/c2c/transferMode'
 import c2cDetail from '../components/c2c/c2cDetail'
 
+import appeal from '../components/appeal/appealOrder'
+import appealDetail from '../components/appeal/appealDetail'
+
 const ga = () => import(/* webpackChunkName: "ga" */ '../components/ga')
 const gaRemove = () => import(/* webpackChunkName: "ga" */ '../components/gaRemove')
 const gaSet = () => import(/* webpackChunkName: "ga" */ '../components/gaSet')
@@ -269,6 +272,22 @@ const router = new Router({
             component: c2cOrder,
             meta : {
                 parent : 'c2cOrder'
+            }
+        },
+        {
+            path: '/appeal',
+            name: 'appeal',
+            component: appeal,
+            meta : {
+                parent : 'appeal'
+            }
+        },
+        {
+            path: '/appealDetail',
+            name: 'appealDetail',
+            component: appealDetail,
+            meta : {
+                parent : 'appealDetail'
             }
         },
         {

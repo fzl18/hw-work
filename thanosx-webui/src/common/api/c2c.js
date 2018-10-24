@@ -15,4 +15,7 @@ export const apiC2c = {
     "userInfo" : '/api/Security/basicinfo',//拿用户信息
     "transferInfo" : '/api/business/transferInfo',//拿用户账户信息
     "sendCaptcha" : '/api/email/sendCaptcha',//下单验证码
+    "applyCheckAsset" : '/api/business/applyCheckAsset',//
+    "applyRequirements" : '/api/business/applyRequirements',//
+    
 };

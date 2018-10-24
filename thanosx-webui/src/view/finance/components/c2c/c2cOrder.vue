@@ -4,119 +4,119 @@
             <span>{{lang[local].c2cOrder}}</span>
         </financeHeader>
         <section class="c2cindex">
-        <div class="coin">
-            <div class="search" @click.stop="showSearch" style="width:40%">
-                <div class="box">
-                    <template v-for="(item,index) in searchList">
-                        <span v-if="item">{{item=='buy'?'购买':item=='sell'?'售出':item=='1'?'待付款':item=='2'?'已关闭':item=='3'?'已付款':item=='4'?'已完成':item=='5'?'申诉中':item=='sell'?'':item}} <Icon type="close" size="12" class="close" @click="delSearchTxt(index)"/></span>
-                    </template>
-                </div>
-                <Poptip trigger="hover" placement="bottom-end" ref="searchBox" :width=460>
-                    <Icon type="ios-search" size="26" class="btn"/>
-                    <div class="api" slot="content">
-                        <table class="select" >
-                            <tbody>
-                                    <tr>
-                                        <td align="right">日期：</td>
-                                        <td>
-                                            <DatePicker v-model="searchTxt.date" size="large" type="daterange" placement="bottom-end" placeholder="Select date" style="width: 300px"></DatePicker>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td align="right">订单状态：</td>
-                                        <td>
-                                            <Select v-model="searchTxt.status" size="large" style="width:300px">
-                                                <Option v-for="item in status" :value="item.value" :key="item.value">{{ item.label }}</Option>
-                                            </Select>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td align="right">订单编号：</td>
-                                        <td>
-                                            <Input v-model="searchTxt.id" size="large" />
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td align="right">交易类型：</td>
-                                        <td>
-                                            <Select v-model="searchTxt.transferType" size="large" style="width:300px">
-                                                <Option v-for="item in type" :value="item.value" :key="item.value">{{ item.label }}</Option>
-                                            </Select>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td align="right">币种：</td>
-                                        <td>
-                                            <Select v-model="searchTxt.coin" size="large" style="width:300px">
-                                                <Option v-for="item in coinList" :value="item.toUpperCase()" :key="item">{{ item.toUpperCase() }}</Option>
-                                            </Select>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td align="right">法币币种：</td>
-                                        <td>
-                                            <Select v-model="searchTxt.fCoin" size="large" style="width:300px">
-                                                <Option v-for="item in currencyList" :value="item.label" :key="item.label">{{ item.label }}</Option>
-                                            </Select>
-                                        </td>
-                                    </tr>
-                                <tr>
-                                    <td align="center" style="padding:50px 0 20px 0">
-                                        <Button size="large" type="text" class="org" @click="allClear">清空筛选</Button>
-                                    </td>
-                                    <td align="right"  style="padding:50px 0 20px 0">
-                                        <Button size="large" type="primary" @click.stop="handleSearch">搜索</Button> <Button size="large" type="text" @click.stop="closeSearch">取消</Button>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
+            <div class="coin">
+                <div class="search" @click.stop="showSearch" style="width:40%">
+                    <div class="box">
+                        {{!searchList[0] && !searchList[1] && !searchList[2] && !searchList[3] && !searchList[4] && !searchList[5] ? lang[local].all :''}}
+                        <template v-for="(item,index) in searchList">
+                            <span v-if="item">{{item=='buy'? lang[local].c2cBuy :item=='sell'? lang[local].c2cSell  :item=='1'? lang[local].c2cType1 :item=='2'? lang[local].c2cType2:item=='3'? lang[local].c2cType3:item=='4'? lang[local].c2cType4:item=='5'? lang[local].c2cType5:item=='sell'?'':item}} <Icon type="close" size="12" class="close" @click="delSearchTxt(index)"/></span>
+                        </template>
                     </div>
-                </Poptip>
+                    <Poptip trigger="hover" placement="bottom-end" ref="searchBox" :width=360>
+                        <Icon type="ios-search" size="26" class="btn"/>
+                        <div class="api" slot="content">
+                            <table class="select" >
+                                <tbody>
+                                        <tr>
+                                            <td align="right">{{lang[local].c2cDate}}：</td>
+                                            <td>
+                                                <DatePicker v-model="searchTxt.date" size="large" type="daterange" placement="bottom-end" placeholder="Select date" style="width: 230px"></DatePicker>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td align="right">{{lang[local].c2cTit1}}：</td>
+                                            <td>
+                                                <Select v-model="searchTxt.status" size="large" style="width:230px" :placeholder="lang[local].all" clearable>
+                                                    <Option v-for="item in status" :value="item.value" :key="item.value">{{ item.label }}</Option>
+                                                </Select>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td align="right">{{lang[local].c2cOrderNO}}：</td>
+                                            <td>
+                                                <Input v-model="searchTxt.id" size="large" style="width:230px" :placeholder="lang[local].all" clearable/>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td align="right">{{lang[local].transferType}}：</td>
+                                            <td>
+                                                <Select v-model="searchTxt.transferType" size="large" style="width:230px" :placeholder="lang[local].all" clearable>
+                                                    <Option v-for="item in type" :value="item.value" :key="item.value">{{ item.label }}</Option>
+                                                </Select>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td align="right">{{lang[local].c2cCoin}}：</td>
+                                            <td>
+                                                <Select v-model="searchTxt.coin" size="large" style="width:230px" :placeholder="lang[local].all" clearable>
+                                                    <Option v-for="item in coinList" :value="item.toUpperCase()" :key="item">{{ item.toUpperCase() }}</Option>
+                                                </Select>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td align="right">{{lang[local].c2cCurrency}}：</td>
+                                            <td>
+                                                <Select v-model="searchTxt.fCoin" size="large" style="width:230px" :placeholder="lang[local].all" clearable>
+                                                    <Option v-for="item in currencyList" :value="item.name" :key="item.id">{{ item.name }}</Option>
+                                                </Select>
+                                            </td>
+                                        </tr>
+                                    <tr>
+                                        <td align="center" style="padding:50px 0 20px 0">
+                                            <Button size="large" type="text" class="org" @click="allClear">{{lang[local].c2cEmpty}}</Button>
+                                        </td>
+                                        <td align="right"  style="padding:50px 0 20px 0">
+                                            <Button size="large" type="primary" @click.stop="handleSearch">{{lang[local].seek}}</Button> <Button size="large" type="text" @click.stop="closeSearch">{{lang[local].cancel}}</Button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </Poptip>
+                </div>
             </div>
-        </div>
-        <div class="list">
-            <dl>
-                <dt>
-                    <ul>
-                        <li>订单编号</li>
-                        <li>类型</li>
-                        <li>数量</li>
-                        <li>总价</li>
-                        <li>单价</li>
-                        <li>手续费</li>
-                        <li>状态</li>
-                        <li>操作</li>
-                    </ul>
+            <div class="list">
+                <dl>
+                    <dt>
+                        <ul>
+                            <li>{{lang[local].c2cOrderNO}}</li>
+                            <li>{{lang[local].safety32}}</li>
+                            <li>{{lang[local].num}}</li>
+                            <li>{{lang[local].addOrderTip3}}</li>
+                            <li>{{lang[local].unitPrice}}</li>
+                            <li>{{lang[local].c2cTit2}}</li>
+                            <li>{{lang[local].appealStatus}}</li>
+                            <li>{{lang[local].operation}}</li>
+                        </ul>
 
-                </dt>
-                <dd v-for="item in orderListArrary">
-                    <ul>
-                        <li :title="item.orderid">{{item.orderid}}</li>
-                        <li :class="item.type == 1 ? 'tbuy' : 'tsell'">{{item.type == 1 ? '购买' : '售出'}}</li>
-                        <li>{{item.amount}} {{item.symbol.toUpperCase()}}</li>
-                        <li>{{item.money}} CNY</li>
-                        <li>{{item.price}} CNY</li>
-                        <li>{{item.fee}}</li>
-                        <li>{{item.status == 1 ? '待付款':item.status == 2 ? '已关闭':item.status == 3 ? '已付款':item.status == 4 ? '已完成':''}}</li>
-                        <li class="btn">
-                            <Button type="text" :loading="false" class="blue" @click="$router.push(`/c2cDetail?id=${item.id}`)">交易详情</Button><br/>
-                            <Button type="text" :loading="false" class="blue" v-if="item.status == 1 && item.type == 1" @click="$router.push(`/c2cDetail?id=${item.id}`)">支付</Button>
-                            <Button type="text" :loading="false" class="blue" v-if="item.status == 3 && item.type == 2" @click="$router.push(`/c2cDetail?id=${item.id}`)">确认转账</Button>
-                        </li>
-                        <li class="info">
-                            <time>时间：</time> <span style="margin:0 20px;color:#aaa;">|</span> <span class="blue">{{localDate(item.createtime)}}</span>  
-                        </li>
-                    </ul>
-                </dd>
-            </dl>
-        </div>
-        <div class="pageList">
-            <page :page="page && page" @pageChange="pageChange" v-if="page.totalPage > 0" />
-        </div>
-
-        <!-- <load v-if="loading" /> -->
-        
-    </section>
+                    </dt>
+                    <dd v-for="item in orderListArrary">
+                        <ul>
+                            <li :title="item.orderid">{{item.orderid}}</li>
+                            <li :class="item.type == 1 ? 'tbuy' : 'tsell'">{{item.type == 1 ? lang[local].c2cBuy: lang[local].c2cSell}}</li>
+                            <li>{{item.amount}} {{item.symbol.toUpperCase()}}</li>
+                            <li>{{item.money}} {{item.currency_tag}}</li>
+                            <li>{{item.price}} {{item.currency_tag}}</li>
+                            <li>{{item.fee}}</li>
+                            <li>{{item.status == 1 ? lang[local].c2cType1:item.status == 2 ? lang[local].c2cType2:item.status == 3 ? lang[local].c2cType3:item.status == 4 ? lang[local].c2cType4:item.status == 5 ? lang[local].c2cType5: ''}}</li>
+                            <li class="btn">
+                                <Button type="text" :loading="false" class="blue" @click="$router.push(`/c2cDetail?id=${item.id}`)">{{lang[local].c2cTit3}}</Button><br/>
+                                <!-- <Button type="text" :loading="false" class="blue" v-if="item.status == 5 " @click="">取消订单</Button> -->
+                                <Button type="text" :loading="false" class="blue" v-if="item.status == 1 && item.type == 1" @click="$router.push(`/c2cDetail?id=${item.id}`)">{{lang[local].c2cTit4}}</Button>
+                                <Button type="text" :loading="false" class="blue" v-if="item.status == 3 && item.type == 2" @click="$router.push(`/c2cDetail?id=${item.id}`)">{{lang[local].c2cTit5}}</Button>
+                            </li>
+                            <li class="info">
+                                <time>{{lang[local].time}}：{{localDate(item.createtime)}}</time> <span style="margin:0 20px;color:#aaa;">|</span> <span class="blue"> {{item.nickname}}</span>  
+                            </li>
+                        </ul>
+                    </dd>
+                </dl>
+            </div>
+            <div class="pageList">
+                <page :page="page && page" @pageChange="pageChange" v-if="page.totalPage > 0" />
+            </div>
+        <!-- <load v-if="loading" /> -->        
+        </section>
     </section>
     
 </template>
@@ -143,38 +143,8 @@
                     pageSize : 10,
                     totalCount : 10,
                 },
-                type: [
-                    {
-                        value: 'buy',
-                        label: '购买'
-                    },
-                    {
-                        value: 'sell',
-                        label: '售出'
-                    }
-                ],
-                status:[ 
-                    {
-                        value:1,
-                        label:'待付款'
-                    },
-                    {
-                        value:2,
-                        label:'已关闭'
-                    },
-                    {
-                        value:3,
-                        label:'已付款'
-                    },
-                    {
-                        value:4,
-                        label:'已完成'
-                    },
-                    {
-                        value:5,
-                        label:'申诉中'
-                    },
-                ],
+                type: [],
+                status:[],
                 coinList:[],
                 currencyList:[],
                 orderListArrary:[]
@@ -212,7 +182,38 @@
             this.orderList()
         },
         mounted(){
-
+            this.type = [
+                    {
+                        value: 'buy',
+                        label: this.lang[this.local].c2cBuy || '',
+                    },
+                    {
+                        value: 'sell',
+                        label: this.lang[this.local].c2cSell || ''
+                    }
+                ]
+            this.status = [ 
+                {
+                    value:1,
+                    label:this.lang[this.local].c2cType1 || ''
+                },
+                {
+                    value:2,
+                    label:this.lang[this.local].c2cType2 || ''
+                },
+                {
+                    value:3,
+                    label:this.lang[this.local].c2cType3 || ''
+                },
+                {
+                    value:4,
+                    label:this.lang[this.local].c2cType4 || ''
+                },
+                {
+                    value:5,
+                    label:this.lang[this.local].c2cType5 || ''
+                },
+            ]
         },
         methods : {
             handleSearch(){
@@ -380,7 +381,7 @@
                 position:absolute;right:0;top:0;
             }
             &.info{
-                clear:both;width:100%;text-align: left;border-top:1px dashed #A9A9A9;
+                clear:both;width:90%;text-align: left;border-top:1px dashed #A9A9A9;
                 time{color:#aaa}
             }
         }
