@@ -22,8 +22,8 @@
                 </i-switch>
                 {{lang[local].filter}}
             </div>
-            <div class="filter" v-if="cur">
-                <Button size="large" type="primary" @click="addOrder"> 添加委托单</Button>
+            <div class="filter" v-if="cur && businessAuthStatus ==4">
+                <Button size="large" type="primary" @click="addOrder"> {{lang[local].c2caddOrder}}</Button>
             </div>
         </section>
         <!-- <section class="tab_btn">
@@ -96,6 +96,7 @@
                 </dl> 
             </section>
             <section class="tbody">
+                <div v-if="!accountListArrary" style="text-algin:center">{{lang[local].emptyData}}</div>
                 <dl v-for="item in accountListArrary">
                         <dd style="width:20%">
                             <span>
@@ -134,32 +135,32 @@
             width="1000"
             class-name="vertical-center-modal">
             
-            <addOrder @ok="ok" @close="close" :url="api.basicCoin" :params="transferInfoOB"/>
+            <addOrder @ok="ok" @close="close" :url="api.basicCoin" :url2="api.pendCurrencyList" :params="transferInfoOB"/>
         </Modal>
         <Modal
             v-model="transfer"
             :closable = false
             :footer-hide = true
             class-name="vertical-center-modal">
-            <h1>{{transferType == 'in' ? '转入至C2C账户':'转出至交易账户'}}</h1>
+            <h1>{{transferType == 'in' ? lang[local].c2cindextxt1:lang[local].c2cindextxt2}}</h1>
             <table>
                 <tr>
-                    <td width="80">币种</td>
+                    <td width="80">{{lang[local].transferCoinType}}</td>
                     <td align="right">{{transferCoin}}</td>
                 </tr>
                 <tr>
-                    <td>数量</td>
-                    <td align="right"><InputNumber :min="0" :max="availableCoin" v-model="transferAmount" size="large" style="width:50%"/></td>
+                    <td>{{lang[local].num}}</td>
+                    <td align="right"><input :min="0" :max="availableCoin" v-model="transferAmount" size="large" style="width:50%;height:36px;padding:0 10px;"/></td>
                 </tr>
                 <tr>
-                    <td>{{transferType == 'in' ? '交易账户':'C2C账户'}}</td>
-                    <td align="right">可用：<span style="font-weight:bold">{{availableCoin}} {{transferCoin}}</span> </td>
+                    <td>{{transferType == 'in' ? lang[local].transferAccount : lang[local].c2cAccount}}</td>
+                    <td align="right">{{lang[local].icoUse}}：<span style="font-weight:bold">{{availableCoin}} {{transferCoin}}</span> </td>
                 </tr>
                 <tr>
                     <td colspan="2">
                         <Row>
-                            <Col span="12"><Button type="primary" size="large" @click="assetsTransfer">确认</Button></Col>                
-                            <Col span="6" offset="6"><Button type="text" size="large" @click="assetsTransferClose">取消</Button></Col>
+                            <Col span="12"><Button type="primary" size="large" @click="assetsTransfer">{{lang[local].apply36}}</Button></Col>                
+                            <Col span="6" offset="6"><Button type="text" size="large" @click="assetsTransferClose">{{lang[local].cancel}}</Button></Col>
                         </Row>
                     </td>
                 </tr>
@@ -181,7 +182,7 @@
                 totalAssets : 0,
                 coinSeekSatet : false,
                 totalAssetsState : false,
-                origin : process.env.NODE_ENV == 'development' ? 'http://47.99.115.225' : '',
+                origin : process.env.NODE_ENV == 'development' ? 'http://39.108.169.210' : '',
                 addOrderModal:false,
                 transfer:false,
                 transferType:'',
@@ -189,10 +190,26 @@
                 transferCoin:'',
                 availableCoin:0,
                 transferAmount:null,
-                transferInfoOB:{}
+                transferInfoOB:{},
+                businessAuthStatus:null,
             };
         },
         watch : {
+            transferAmount (n,o){
+                let numlength = 8
+                let v = ''
+                for(let k=0;k<numlength;k++){
+                    v += '\\d'
+                }
+                let re = new RegExp("^(\-)*(\\d+)\\.("+ v +").*$")
+                this.transferAmount = n && (n + '').replace(/[^\-?\d.]/g,'').replace(re,'$1$2.$3')                
+                if(this.transferAmount >this.availableCoin){
+                    this.transferAmount = this.availableCoin
+                }
+                if(this.transferAmount < 0){
+                    this.transferAmount = 0
+                }
+            }
         },
         computed : {
             seek (){
@@ -249,6 +266,7 @@
                 }).then(res => {
                     this.accountListArrary = res.data.list
                     this.totalAssets = res.data.usdt
+                    this.businessAuthStatus = res.data.businessAuthStatus
                 }).catch(err=>{
                     console.log(err)
                 })

@@ -2,6 +2,7 @@ export const apiC2c = {
     //商家申请
     "updateName":"/api/Business/updateName", //商家名称修改
     "basicInfo":"/api/trade/basicInfo",  //获取币种和法币基础信息
+    "pendCurrencyList":"/api/trade/pendCurrencyList",  //获取当前用户法币信息
     "applyConfirm":"/api/Business/applyConfirm", //商家申请: 点击申请验证是否具备申请条件
     "applyData":"/api/Business/applyData", //商家申请: 资料显示
     "applySubmit":"/api/Business/applySubmit", //商家申请: 提交申请

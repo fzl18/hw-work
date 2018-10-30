@@ -5,13 +5,14 @@
         </financeHeader>
         <section class="userinfo">
             <Row>
-                <Col span="4">
+                <Col span="2">
                     <p>{{lang[local].accUid}}</p>
                     <p class="con">{{userBasicinfo.userid}}</p>
                 </Col>
                 <Col span="6" class="name">
-                    <p>{{lang[local].niName}} : {{business_name}}<i class="iconfont icon-bianji org" style="font-size:22px;cursor: pointer;margin:0 20px" @click="editniName = true"/></p>
-                    <p class="con" :title="userBasicinfo.username">{{userBasicinfo.username}}</p>
+                    <p>{{lang[local].niName}}<i class="iconfont icon-bianji org" style="font-size:22px;cursor: pointer;margin:0 20px" @click="editniName = true"/></p>
+                    <!-- <p class="con" :title="userBasicinfo.username">{{userBasicinfo.username}}</p> -->
+                    <p class="con" :title="userBasicinfo.username">{{business_name2}}</p>
                 </Col>
                 <Col span="6" class="name">
                     <p>{{lang[local].accAuth}}</p>
@@ -36,12 +37,12 @@
                         </router-link>
                     </p>
                 </Col>
-                <Col span="8" class="txt">
+                <Col span="10" class="txt">
                     <p>{{lang[local].accLogintime}}：{{localDate(userBasicinfo.last_login_time)}}</p>
                     <p>{{lang[local].accIp}}：{{userBasicinfo.last_login_ip}}</p>
                 </Col>
-                <Col span="24" style="border-top:1px dotted #aaa;margin-top:20px;padding-top:20px;">
-                    <span>{{lang[local].accName}}：{{userBasicinfo.username}}</span>  <span style="margin-left:20px">{{lang[local].inviteRecord2}}：{{localDate(userBasicinfo.register_time)}}</span>
+                <Col span="24" style="border-top:1px dotted #aaa;margin-top:20px;padding-top:20px;color:#8F8F8F">
+                    <span>{{lang[local].c2cacc4}}：{{userBasicinfo.username}}</span>  <span style="margin-left:20px">{{lang[local].inviteRecord2}}：{{localDate(userBasicinfo.register_time)}}</span>
                 </Col>
             </Row>
         </section>
@@ -109,22 +110,22 @@
             :closable = false
             :footer-hide = true
             class-name="vertical-center-modal">
-            <h1>修改昵称</h1>
+            <h1>{{lang[local].c2cacc1}}</h1>
             <table class="editniName">
                 <tr>
-                    <td>昵称</td>
-                    <td align="right"><Input size="large" v-model="business_name"/></td>
+                    <td>{{lang[local].niName}}</td>
+                    <td align="right"><input size="large" v-model="business_name" style="width:100%;padding:3px 10px;"/></td>
                 </tr>
                 <tr>
                     <td colspan="2">
-                        为了隐私安全，将在交易中显示昵称，不显示注册信息。昵称最长支持10个字符
+                        {{lang[local].c2cacc2}}
                     </td>
                 </tr>
                 <tr>
                     <td colspan="2">
                         <Row style="margin-top:50px">
-                            <Col span="12"><Button type="primary" size="large" @click="saveName">保存</Button></Col>
-                            <Col span="6" offset="6"><Button type="text" size="large" @click="editniName=false">关闭</Button></Col>
+                            <Col span="12"><Button type="primary" size="large" @click="saveName">{{lang[local].c2cSave}}</Button></Col>
+                            <Col span="6" offset="6"><Button type="text" size="large" @click="editniName=false">{{lang[local].c2cClose}}</Button></Col>
                         </Row>
                     </td>
                 </tr>
@@ -144,7 +145,8 @@
                 count:0,
                 apiBind:false,
                 editniName:false,
-                business_name:'',                
+                business_name:'',
+                business_name2:''
             };
         },
         created (){
@@ -155,6 +157,12 @@
             this.rsaInfo()
         },
         watch:{
+            'business_name' (n,o){
+                if(n.length > 10){
+                    this.business_name = n.substring(0,10)
+                }
+            },
+
             local(){
                 this.count++
             }
@@ -189,6 +197,7 @@
                     }
                 }).then(res=>{
                     this.business_name = res.data.nickname
+                    this.business_name2 = res.data.nickname
                 })           
             },
             saveName(){
@@ -204,6 +213,7 @@
                 }).then(res=>{
                     this.$store.commit('msg/add', res.message)
                     this.editniName=false
+                    this.business_name2 = this.business_name
                 })           
             }
         },

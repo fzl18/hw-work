@@ -81,6 +81,7 @@ export const apiFinance = {
     "transferMode":"/api/C2C/transferMode", //转账方式
     "unbindTransferMode":"/api/C2C/unbindTransferMode", //转账方式解绑
     "basicCoin":"/api/trade/basicInfo",  //获取币种和法币基础信息
+    "pendCurrencyList":"/api/trade/pendCurrencyList",  //获取当前用户法币信息
     "createPend":"/api/trade/createPend", //我的委托单: 创建委托单
     "setNickname":"/api/member/setNickname", //设置用户昵称
     "getNickname":"/api/member/getNickname", //获取用户昵称

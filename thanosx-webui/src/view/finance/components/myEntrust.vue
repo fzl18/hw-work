@@ -2,6 +2,7 @@
     <section>
         <financeHeader :hint="false">
             <span>{{lang[local].myEntrust}}</span>
+            
             <section class="query">
                 <select-my v-model="order_type" class="query-select" :list="marketType" selected="" @change="" />               
                 <!-- &nbsp;&nbsp;
@@ -10,10 +11,12 @@
                 <select-my class="query-select coin" v-model="market2" :list="marketList" :selected="market[0]" @change="" :placeholder="lang[local].currency"/> -->
                 <!--<a href="javascript:;" class="seek">{{lang.seek}}</a>-->
             </section>
+            <Button size="large" @click="delGroup" type="primary" style="float:right;margin:10px 10px 0 0;padding:8px 25px;font-size:16px;">{{lang[local].c2cacc3}} </Button>
         </financeHeader>
-        <list class="myEntrust-table" :url="api.weituo" :param="listParam">
+        <list class="myEntrust-table" :url="api.weituo" :param="listParam" @getList="getpageList" :updata="upnum" ref="lt">
             <dl slot="head">
-                <dd style="width:25%">{{lang[local].entrustTime}}</dd>
+                <dd style="width:5%"><Checkbox :indeterminate="indeterminate" :value="checkAll" @click.prevent.native="handleCheckAll"></Checkbox></dd>
+                <dd style="width:20%">{{lang[local].entrustTime}}</dd>
                 <dd style="width:10%">{{lang[local].market}}</dd>
                 <dd style="width:10%">{{lang[local].tradeType}}</dd>
                 <dd style="width:10%">{{lang[local].unitPrice}}</dd>
@@ -23,20 +26,23 @@
                 <dd :title="lang[local].operation" style="width:15%">{{lang[local].operation}}</dd>
             </dl>
             <dl slot="body" slot-scope="{item}">
-                <dd style="width:25%">{{localDate(item.order_time)}}</dd>
-                <dd style="width:10%">{{upperCase(item.market)}}/{{upperCase(item.market2)}}</dd>
-                <dd style="width:10%">
-                    <span :class="item.order_type == 'Buy' ? 'buyColor' : 'sellColor'">
-                        {{item.order_type == 'Buy' ? lang[local].buy : lang[local].sell }}
-                    </span>
-                </dd>
-                <dd style="width:10%">{{tobigNumber(item.price)}}</dd>
-                <dd style="width:10%">{{tobigNumber(item.order_count)}}</dd>
-                <dd style="width:10%">{{tobigNumber(item.deal)}}</dd>
-                <dd style="width:10%">{{tobigNumber(item.count)}}</dd>
-                <dd style="width:15%">
-                    <a :title="lang[local].annul" href="javascript:;" @click="chexiao(item)">{{lang[local].annul}}{{item.chexiao ? '...' : ''}}</a>
-                </dd>
+                <CheckboxGroup v-model="checkGroup" @on-change="checkAllGroupChange">
+                    <dd style="width:5%"><Checkbox :label="item.order_id"><span></span></Checkbox></dd>
+                    <dd style="width:20%">{{localDate(item.order_time)}}</dd>
+                    <dd style="width:10%">{{upperCase(item.market)}}/{{upperCase(item.market2)}}</dd>
+                    <dd style="width:10%">
+                        <span :class="item.order_type == 'Buy' ? 'buyColor' : 'sellColor'">
+                            {{item.order_type == 'Buy' ? lang[local].buy : lang[local].sell }}
+                        </span>
+                    </dd>
+                    <dd style="width:10%">{{tobigNumber(item.price)}}</dd>
+                    <dd style="width:10%">{{tobigNumber(item.order_count)}}</dd>
+                    <dd style="width:10%">{{tobigNumber(item.deal)}}</dd>
+                    <dd style="width:10%">{{tobigNumber(item.count)}}</dd>
+                    <dd style="width:15%">
+                        <a :title="lang[local].annul" href="javascript:;" @click="chexiao(item)">{{lang[local].annul}}{{item.chexiao ? '...' : ''}}</a>
+                    </dd>
+                </CheckboxGroup>
             </dl>
         </list>
     </section>
@@ -53,6 +59,11 @@
                 market2 : '',
                 upData : 1,
                 marketList : [],
+                checkGroup:[],
+                checkAll:false,
+                indeterminate: false,
+                pageList:[],
+                upnum:0
             }
         },
         computed :{
@@ -70,6 +81,11 @@
         },
         created (){
             this.getMarketInfo();
+        },
+        watch:{
+            upnum (){
+                this.$refs.lt.getList()
+            }
         },
         methods : {
             tobigNumber(val){
@@ -98,6 +114,60 @@
                     console.log(err);
                 });
             },
+            delGroup(){
+                if(this.checkGroup.length == 0){
+                    return
+                }
+                this.axios({
+                    url : this.api.chexiao,
+                    data : {
+                        order_id : this.checkGroup.join()
+                    }
+                }).then((res) => {
+                    this.$store.commit('msg/add', res.message );
+                    // this.upnum++
+                    setTimeout(()=>{
+                        location.reload()
+                    },500)
+                }).catch((err) => {
+                    this.$store.commit('msg/err', err.message);
+                });
+            },
+            handleCheckAll () {
+                if (this.indeterminate) {
+                    this.checkAll = false;
+                } else {
+                    this.checkAll = !this.checkAll;
+                }
+                this.indeterminate = false;
+
+                if (this.checkAll) {
+                    if(this.pageList.length !=0){
+                        this.pageList.map(d =>{
+                            this.checkGroup.push(d.order_id)
+                        })
+                        console.log(this.checkGroup);
+                        
+                    }
+                } else {
+                    this.checkGroup = [];
+                }
+            },
+            checkAllGroupChange (data) {
+                if (data.length === 10) {
+                    this.indeterminate = false;
+                    this.checkAll = true;
+                } else if (data.length > 0) {
+                    this.indeterminate = true;
+                    this.checkAll = false;
+                } else {
+                    this.indeterminate = false;
+                    this.checkAll = false;
+                }
+            },
+            getpageList(val){
+                this.pageList = val
+            }
         },
     }
 </script>

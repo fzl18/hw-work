@@ -96,7 +96,7 @@
                 <dd style="width:30%"><span class="line-feed">{{item.txid}}</span></dd>
                 <dd style="width:30%"><span class="line-feed">{{item.to}}</span></dd>
                 <dd style="width:10%">{{item.num}}</dd>
-                <dd style="width:10%"><span class="mainColor">{{item.state}}</span></dd>
+                <dd style="width:10%"><span class="mainColor">{{item.state ==1 ?lang[local].takeCoinstatus1 : item.state ==2 ?lang[local].takeCoinstatus2 :item.state ==3 ?lang[local].takeCoinstatus3 :item.state ==4 ?lang[local].takeCoinstatus4 : ''}}</span></dd>
             </dl>
         </list>
     </section>

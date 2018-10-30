@@ -565,6 +565,7 @@ input:-webkit-autofill {
 .ivu-date-picker-cells-focused em, .ivu-checkbox-focus{box-shadow:none;}
 .ivu-date-picker-cells-cell-today em:after{background:#FF6600;}
 .ivu-date-picker-cells-cell-range:before{background:rgb(255, 225, 205);}
+.ivu-checkbox-indeterminate .ivu-checkbox-inner{background-color: #FF6600;border-color: #FF6600;}
 .org{color:#FF6600;}
 .green{color:#32A91A;}
 .blue{color:#008CC7;}

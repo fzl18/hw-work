@@ -8,7 +8,7 @@
         <section class="tbody" v-if="getState == getStateSuccess">
             <slot name="body" v-for="item in (listSeek || list)" :item="item" :getList="getList"></slot>
         </section>
-        <page :page="page" @pageChange="pageChange" v-if="pageStatus && getState == getStateSuccess" />
+        <page :page="page" @pageChange="pageChange" v-if="pageStatus && getState == getStateSuccess"/>
     </section>
 </template>
 
@@ -47,6 +47,9 @@
                     return {};
                 }
             },
+            updata:{
+
+            }
         },
         watch : {
             param (n, o){
@@ -54,6 +57,12 @@
                 if(JSON.stringify(n) != JSON.stringify(o)){
                     this.getList();
                 };
+            },
+            updata (n, o){
+                console.log(n);
+                if(n != o){
+                    this.getList();
+                }
             },
 //             param: {
 //         　　　　handler(n, o) {
@@ -117,6 +126,7 @@
                     this.list = res.data.list || [];
                     this.page = res.data.page || this.page;
                     this.getState = res.data.list.length ? this.getStateSuccess : this.getStateEmpty;
+                    this.$emit('getList',res.data.list)
                 }).catch((err) => {
                     this.list = [];
                     this.page = {};

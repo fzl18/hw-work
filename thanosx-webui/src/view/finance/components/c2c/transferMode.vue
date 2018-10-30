@@ -10,15 +10,15 @@
             <span class="flag">{{lang[local].transferModeTip2}}</span>
             <Row class="row" :class="active == 'bank'?'cur':''">
                 <Col span="4" class="type"><i class="iconfont icon-yinxingqia org" /> {{lang[local].bankCard}}</Col>
-                <Col span="20" class="name"> {{ bank.bank ? `${bank.bank } (${lang[local].transferModeTip3}：${bank.account ? bank.account.slice(-4):''})` : lang[local].accunbind }}  
+                <Col span="20" class="name"> {{ bank.bank ? `${bank.bank } (${lang[local].transferModeTip3}：${account2 ? account2.slice(-4):''})` : lang[local].accunbind }}  
                     <span style="float:right;">
                         <template v-if="!bank.branch">
                             <Button v-if="active != 'bank'" size="large" type="primary" @click="active = 'bank'">{{lang[local].accbtnbind}}</Button>
-                            <Button v-if="active == 'bank'" size="large" type="primary" @click="active = null">{{lang[local].cancel}}</Button>
+                            <Button v-if="active == 'bank'" size="large" type="primary" @click="handleCancel">{{lang[local].cancel}}</Button>
                         </template>
                         <template v-if="bank.branch">
                             <Button v-if="active != 'bank'"  size="large" type="text" @click="active = 'bank'">{{lang[local].accbtn}}</Button>
-                            <Button v-if="active == 'bank'"  size="large" type="text" @click="active = null">{{lang[local].cancel}}</Button>
+                            <Button v-if="active == 'bank'"  size="large" type="text" @click="handleCancel">{{lang[local].cancel}}</Button>
                         </template>
                     </span>
                 </Col>
@@ -57,12 +57,12 @@
                     <span style="float:right;">
                         <template v-if="!isBindAli">
                             <Button v-if="active != 'alipay'" size="large" type="primary" @click="active = 'alipay'">{{lang[local].accbtnbind}}</Button>
-                            <Button v-if="active == 'alipay'" size="large" type="primary" @click="active = null">{{lang[local].cancel}}</Button>
+                            <Button v-if="active == 'alipay'" size="large" type="primary" @click="handleCancel">{{lang[local].cancel}}</Button>
                         </template>
                         <template v-if="isBindAli">
                             <Button v-if="active != 'alipay'" size="large" type="text" @click="active = 'alipay'">{{lang[local].accbtn}}</Button>
-                            <Button v-if="active == 'alipay'" size="large" type="text" @click="active = null">{{lang[local].cancel}}</Button>
-                            <Button size="large" type="text" @click="unbindTransferMode(2)">{{lang[local].accbtnunbind}}</Button>
+                            <Button v-if="active == 'alipay'" size="large" type="text" @click="handleCancel">{{lang[local].cancel}}</Button>
+                            <Button v-if="active != 'alipay'" size="large" type="text" @click="unbindTransferMode(2)">{{lang[local].accbtnunbind}}</Button>
                         </template>
                     </span>
                 </Col>
@@ -91,7 +91,7 @@
                                             <!-- <div class="btn"><span>{{lang[local].uploadpicbtn}}</span></div> -->
                                         </uploadFile>
                                     </div>
-                                    <div style="font-size:14px">{{lang[local].transferModeTip14}}</div>
+                                    <div v-if="!alipayQR.origin" style="font-size:14px">{{lang[local].transferModeTip14}}</div>
                                 </div>
                             </td>
                         </tr>
@@ -108,12 +108,12 @@
                     <span style="float:right;">
                         <template v-if="!isBindWx">
                             <Button v-if="active != 'wxpay'" size="large" type="primary" @click="active = 'wxpay'">{{lang[local].accbtnbind}}</Button>
-                            <Button v-if="active == 'wxpay'" size="large" type="primary" @click="active = null">{{lang[local].cancel}}</Button>
+                            <Button v-if="active == 'wxpay'" size="large" type="primary" @click="handleCancel">{{lang[local].cancel}}</Button>
                         </template>
                         <template v-if="isBindWx">
                             <Button v-if="active != 'wxpay'" size="large" type="text" @click="active = 'wxpay'">{{lang[local].accbtn}}</Button>
-                            <Button v-if="active == 'wxpay'" size="large" type="text" @click="active = null">{{lang[local].cancel}}</Button>
-                            <Button size="large" type="text" @click="unbindTransferMode(3)">{{lang[local].accbtnunbind}}</Button>
+                            <Button v-if="active == 'wxpay'" size="large" type="text" @click="handleCancel">{{lang[local].cancel}}</Button>
+                            <Button v-if="active != 'wxpay'" size="large" type="text" @click="unbindTransferMode(3)">{{lang[local].accbtnunbind}}</Button>
                         </template>
                     </span>
                 </Col>
@@ -142,7 +142,7 @@
                                             <!-- <div><span>{{lang[local].uploadpicbtn}}</span> </div> -->
                                         </uploadFile>
                                     </div>
-                                    <div style="font-size:14px">{{lang[local].transferModeTip14}}</div>
+                                    <div v-if="!wxpayQR.origin" style="font-size:14px">{{lang[local].transferModeTip14}}</div>
                                 </div>
                             </td>
                         </tr>
@@ -179,7 +179,7 @@ export default {
         return{
             active:null,
             bank:{
-                branch:''
+                branch:'',
             },
             alipay:{
                 real_name:'',
@@ -196,6 +196,7 @@ export default {
             review:'',
             isBindAli:false,
             isBindWx:false,
+            account2:''
         }
     },
     watch:{
@@ -207,6 +208,11 @@ export default {
             }
             let re = new RegExp("^(\-)*(\\d+)\\.("+ v +").*$")
             this.bank.account = n && (n + '').replace(/[^\-?\d.]/g,'').replace(re,'$1$2.$3')
+            console.log(this.bank.account.length)
+            
+            if(this.bank.account.length>19){
+                this.bank.account = this.bank.account.substring(0,19)
+            }
         },
         "review" (n,o){
             let numlength = 0
@@ -222,7 +228,8 @@ export default {
         if(this.userBasicinfo.nameauthstatus == 1 && this.userBasicinfo.idcard){
             this.transferMode()
         }else if(this.userBasicinfo.nameauthstatus == 0){
-            this.transferMode()
+            // this.transferMode()
+            this.authModle = true
         }else{
             this.authModle = true
         }
@@ -239,7 +246,8 @@ export default {
             }).then(res=>{
                 this.realname = res.data.realname
                 if(res.data.bank){
-                    this.bank = res.data.bank                    
+                    this.bank = res.data.bank
+                    this.account2 = res.data.bank.account
                 }
                 if(res.data.alipay){
                     this.alipay = res.data.alipay
@@ -352,9 +360,19 @@ export default {
                 this.transferMode()
                 this.$store.commit('msg/add', res.message)
             }).catch( err=>{
-                console.log(err)
+                this.$store.commit('msg/err', err.message)
             })
         },
+        handleCancel(){
+            // this.bank.bank = ''
+            // this.bank.branch = ''
+            // this.bank.account = ''
+            this.active = null
+            // this.alipay = {}
+            // this.alipayQR = ''
+            // this.wxpay = {}
+            // this.wxpayQR = ''
+        }
     }
 }
 </script>

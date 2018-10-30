@@ -90,6 +90,7 @@
                         </ul>
 
                     </dt>
+                    <dd v-if="orderListArrary.length==0" style="text-align:center;width:100%">{{lang[local].emptyData}}</dd>
                     <dd v-for="item in orderListArrary">
                         <ul>
                             <li :title="item.orderid">{{item.orderid}}</li>
@@ -106,7 +107,7 @@
                                 <Button type="text" :loading="false" class="blue" v-if="item.status == 3 && item.type == 2" @click="$router.push(`/c2cDetail?id=${item.id}`)">{{lang[local].c2cTit5}}</Button>
                             </li>
                             <li class="info">
-                                <time>{{lang[local].time}}：{{localDate(item.createtime)}}</time> <span style="margin:0 20px;color:#aaa;">|</span> <span class="blue"> {{item.nickname}}</span>  
+                                <time style="font-size:10px">{{lang[local].time}}：{{localDate(item.createtime)}}</time> <span style="margin:0 20px;color:#aaa;">|</span> <span class="blue" style="font-size:12px"> {{item.nickname}}</span>  
                             </li>
                         </ul>
                     </dd>
@@ -372,10 +373,10 @@
             &:nth-child(1){width:18%}
             &:nth-child(2){width:7%}
             &:nth-child(3){width:15%}
-            &:nth-child(4){width:15%}
-            &:nth-child(5){width:15%}
+            &:nth-child(4){width:13%}
+            &:nth-child(5){width:13%}
             &:nth-child(6){width:12%}
-            &:nth-child(7){width:8%}
+            &:nth-child(7){width:12%}
             &:nth-child(8){width:10%;}
             &.btn{
                 position:absolute;right:0;top:0;

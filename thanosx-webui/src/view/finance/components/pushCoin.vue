@@ -10,7 +10,8 @@
             </section>
             <section class="pushCoin" v-if="balance.state == 1 && balance.zr_jz == 1 && walletData && walletData.address">
             <!--<section class="pushCoin">-->
-                <section class="pushCoin-ewm" v-if="!(walletData && walletData.title_key)">
+                <!-- <section class="pushCoin-ewm" v-if="!(walletData && walletData.title_key)"> -->
+                <section class="pushCoin-ewm" style="margin-right:20px;">
                     <div>
                         <ewm :value="(walletData && walletData.address) || ''" :size="180" />
                     </div>
@@ -28,7 +29,7 @@
                         <h4>{{walletData && walletData.title_key}}: </h4>
                         <div>
                             <span :title="walletData && walletData.title_value">{{walletData && walletData.title_value}}</span>
-                            <a href="javascript:;"><copy :val="(walletData && walletData.title_value) || ''">{{lang[local].copyUrl}}</copy></a>
+                            <a href="javascript:;"><copy :val="(walletData && walletData.title_value) || ''">{{lang[local].copyUrl2}}</copy></a>
                         </div>
                     </section>
                 </section>

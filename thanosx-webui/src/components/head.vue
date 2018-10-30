@@ -58,7 +58,7 @@
         data (){
             return {
                 // menu : ['home', 'trade','assetsrelease','c2c', 'whitebook', 'app'], 
-                menu : ['home', 'trade','assetsrelease','c2c', 'app'], 
+                menu : ['home','c2c', 'trade','assetsrelease', 'app'], 
                 loginTo : ['safety', 'finance'],
                 isShow:false,
                 isMobile:false,
@@ -111,7 +111,8 @@
         methods : {
             changeLang(lang){
                 this.$store.commit('changeLang', lang);
-                document.title = this.lang[this.local].htmlTitle || ''
+                document.title = this.lang[this.local].htmlTitle || '';
+                location.reload()
             },
             isphone() {
             let flag = navigator.userAgent.match(/(phone|pad|pod|iPhone|iPod|ios|iPad|Android|Mobile|BlackBerry|IEMobile|MQQBrowser|JUC|Fennec|wOSBrowser|BrowserNG|WebOS|Symbian|Windows Phone)/i)

@@ -1,6 +1,6 @@
 <template>
     <section class="detail">
-        <div class="bar">{{lang[local].appeal}} > <span style="color:#FF6500">{{lang[local].appealDetail2}}</span></div>
+        <div class="bar"> <span class="cursor" @click="$router.push('/appeal')">{{lang[local].appeal}}</span> > <span style="color:#FF6500">{{lang[local].appealDetail2}}</span></div>
         <div class="left">            
             <div style="font-size:18px;padding:0 15px;">
                 <financeHeader :hint="false">
@@ -9,9 +9,9 @@
             </div>                       
             <Row class="info">
                 <Col span="8">{{lang[local].appealNO}}: {{info.appeal_number}}</Col>
-                <Col span="8">{{lang[local].appealStatus2}}: {{info.appeal_status==1 ? lang[local].appealStatus1 : info.appeal_status==2 ? lang[local].appealStatus2 :info.appeal_status== 3? lang[local].appealStatus3 :info.appeal_status==4? lang[local].appealStatus4 :info.appeal_status==5 ? lang[local].appealStatus5 : lang[local].appealStatus6 }}</Col>
+                <Col span="8">{{lang[local].appealStatus99}}: {{info.appeal_status==1 ? lang[local].appealStatus1 : info.appeal_status==2 ? lang[local].appealStatus2 :info.appeal_status== 3? lang[local].appealStatus3 :info.appeal_status==4? lang[local].appealStatus4 :info.appeal_status==5 ? lang[local].appealStatus5 : lang[local].appealStatus6 }}</Col>
                 <Col span="8">{{lang[local].appealType}}: {{info.appeal_type}}</Col>
-                <Col span="8">{{info.user_type == 1 ? lang[local].appealPerson2 : lang[local].appealPerson1}}: {{info.nickname}}({{info.member_id}})</Col>
+                <Col span="8">{{info.user_type == 1 ? lang[local].appealPerson2 : lang[local].appealPerson1}}: {{info.nickname}}(UID:{{info.member_id}})</Col>
                 <Col span="16">{{lang[local].nameAuth5}}: {{info.real_name}} ({{info.phone}})</Col>
             </Row>
             <section class="history">
@@ -21,28 +21,28 @@
                             <div class="tip" v-if="item.type != 2">
                                 <div class="tit">
                                     <Row>
-                                        <Col span="3">{{item.type == 1 ? lang[local].appealType1 : item.type == 2 ? lang[local].appealType2 : item.type == 3 ? lang[local].appealType3 : item.type == 4 ? lang[local].appealType4 : item.type == 5 ? lang[local].appealType5 : item.type == 6 ? lang[local].appealType6 : ''}}</Col>
-                                        <Col span="20">{{localDate(item.time)}}</Col>
+                                        <Col :span="local =='en' ? 5 : 3" style="text-overflow:ellipsis;white-space:nowrap;overflow:hidden;">{{item.type == 1 ? lang[local].appealType1 : item.type == 2 ? lang[local].appealType2 : item.type == 3 ? lang[local].appealType3 : item.type == 4 ? lang[local].appealType4 : item.type == 5 ? lang[local].appealType5 : item.type == 6 ? lang[local].appealType6 : ''}}</Col>
+                                        <Col :span="local =='en' ? 18 : 20">{{localDate(item.time)}}</Col>
                                     </Row>                                            
                                 </div>
                                 <div class="content">
                                     <Row>
-                                        <Col span="3">{{item.type == 6 || item.type == 3 || (item.type == 2 && item.close_type == 4) ? lang[local].appealTxt1 : item.name}}</Col>
+                                        <Col span="3" style="text-overflow:ellipsis;white-space:nowrap;overflow:hidden;">{{item.type == 6 || item.type == 3 || (item.type == 2 && item.close_type == 4) ? lang[local].appealTxt1 : item.name}}</Col>
                                         <Col span="20" v-if="index == 0">{{lang[local].appealTxt2}}：{{item.appeal_type_name}}</Col>
-                                        <Col span="20" v-if="index ==1 && item.type == 3"> {{lang[local].appealTxt3}}</Col>
-                                        <Col span="20" v-if="item.type == 6">{{lang[local].appealTxt7}} {{lang[local].appealTxt9}}{{item.final_result == 1 ? lang[local].appealTxt11 : lang[local].appealTxt10}}</Col>
+                                        <Col span="20" v-if="index ==1 && item.type == 3">{{lang[local].appealTxt3}}</Col>
+                                        <Col span="20" v-if="item.type == 6">{{lang[local].appealTxt9}}{{item.final_result == 1 ? lang[local].appealTxt11 : lang[local].appealTxt10}}</Col>
                                         <Col span="20" v-if="index != 0 && (item.type == 4 || item.type == 5)" style="white-space:pre-wrap">
-                                            <span v-if="item.has_evidence == 1"> {{lang[local].appealTxt4}}：{{item.remark}}</span>
-                                            <span v-if="item.has_evidence == 0"> {{lang[local].appealTxt5}}</span>
+                                            <span v-if="item.has_evidence == 1">{{lang[local].appealTxt4}}：{{item.remark}}</span>
+                                            <span v-if="item.has_evidence == 0">{{lang[local].appealTxt5}}</span>
                                         </Col>
                                     </Row> 
                                     <Row>
-                                        <Col span="3">{{index == 0 ? lang[local].appealTxt6 : item.type == 3 ? lang[local].appealTxt7 : item.has_evidence == 1 ? lang[local].appealTxt8: ''}}</Col>
+                                        <Col span="3" style="text-overflow:ellipsis;white-space:nowrap;overflow:hidden;">{{index == 0 ? lang[local].appealTxt6 : item.type == 3 || item.type == 6 ? lang[local].appealTxt7 : item.has_evidence == 1 ? lang[local].appealTxt8: ''}}</Col>
                                         <Col span="20" v-if="(item.type != 4 && item.type != 5)" style="white-space:pre-wrap">{{item.remark}}</Col>
                                         <Col span="20" v-if="index >= 2 && (item.type == 5 || item.type == 4) && item.has_evidence == 1" class="pic">
                                             <template v-for="img in item.images">
                                                 <img :src="img" @click="openpic(img)" class="cursor" />
-                                            </template>                                        
+                                            </template>
                                         </Col>
                                     </Row>       
                                 </div>
@@ -51,20 +51,20 @@
                             <div class="tip" v-if="item.type == 2">
                                 <div class="tit">
                                     <Row>
-                                        <Col span="3">{{item.type == 1 ? lang[local].appealType1 : item.type == 2 ? lang[local].appealType2 : item.type == 3 ? lang[local].appealType3 : item.type == 4 ? lang[local].appealType4 : item.type == 5 ? lang[local].appealType5 : item.type == 6 ? lang[local].appealType6 : ''}}</Col>
+                                        <Col span="3" style="text-overflow:ellipsis;white-space:nowrap;overflow:hidden;">{{item.type == 1 ? lang[local].appealType1 : item.type == 2 ? lang[local].appealType2 : item.type == 3 ? lang[local].appealType3 : item.type == 4 ? lang[local].appealType4 : item.type == 5 ? lang[local].appealType5 : item.type == 6 ? lang[local].appealType6 : ''}}</Col>
                                         <Col span="20">{{localDate(item.time)}}</Col>
                                     </Row>                                            
                                 </div>
                                 <div class="content">
                                     <Row>
-                                        <Col span="3">{{item.close_type == 4 ? lang[local].appealTxt1 : item.name}}</Col>
+                                        <Col span="3" style="text-overflow:ellipsis;white-space:nowrap;overflow:hidden;">{{item.close_type == 4 ? lang[local].appealTxt1 : item.name}}</Col>
                                         <Col span="20" v-if="item.close_type == 1 ">{{lang[local].appealTip1}}</Col>
                                         <Col span="20" v-if="item.close_type == 2 ">{{lang[local].appealTip2}}</Col>
                                         <Col span="20" v-if="item.close_type == 3 ">{{lang[local].appealTip3}}</Col>
                                         <Col span="20" v-if="item.close_type == 4 ">{{lang[local].appealTip4}}</Col>
                                     </Row> 
                                     <Row v-if="item.close_type == 4">
-                                        <Col span="3">{{lang[local].appealTxt7}}</Col>
+                                        <Col span="3" style="text-overflow:ellipsis;white-space:nowrap;overflow:hidden;">{{lang[local].appealTxt7}}</Col>
                                         <Col span="20">{{item.remark}}</Col>
                                     </Row>       
                                 </div>
@@ -78,28 +78,29 @@
             </section>
             <section style="padding:30px;">
                 <div class="f15" v-if="info.appeal_status!=2 || info.appeal_status!=5">{{info.appeal_status==1 ? lang[local].appealTip5 : info.appeal_status==3 && info.has_evidence == 0 ? lang[local].appealTip6 : info.appeal_status==3 && info.has_evidence == 1 ? lang[local].appealTip6 : info.appeal_status==4 ? lang[local].appealTip7 :''}}</div>
-                <div v-if="info.appeal_status== 3 && info.has_evidence !=1" style="font-size:18px;font-weight:bold;line-height:50px;margin-top:50px;">{{lang[local].appealTip8}} <span class="sell">{{leftTime}}</span> {{lang[local].appealTip9}}</div>
-                <Button v-if="info.appeal_status== 3 && !isShow && info.has_evidence !=1" type="primary" size="large" style="padding:10px 50px;margin-top:50px;" @click="isShow = true">{{lang[local].appealS3}}</Button>
-                <Button v-if=" info.appeal_status == 1 && info.user_type == 1 " type="text" size="large" style="padding:10px 50px;margin-top:50px;" @click="cancelModal = true">{{lang[local].appealCancel}}</Button>
+                <div v-if="info.appeal_status== 3 && info.has_evidence !=1" style="font-size:18px;font-weight:bold;line-height:30px;margin-top:20px;">{{lang[local].appealTip8}} <span class="sell">{{leftTime}}</span> {{lang[local].appealTip9}}</div>
+                <Button v-if="info.appeal_status== 3 && !isShow && info.has_evidence !=1" type="primary" size="large" style="padding:10px 50px;margin-top:30px;" @click="isShow = true">{{lang[local].appealS3}}</Button>
+                <Button v-if=" info.appeal_status == 1 && info.user_type == 1 " type="text" size="large" style="padding:10px 0px;margin-top:50px;" @click="cancelModal = true">{{lang[local].appealCancel}}</Button>
                 <div class="form" v-if="isShow">
-                    <p>{{lang[local].appealTip10}}</p>
+                    <p style="line-height:26px;">{{lang[local].appealTip10}}</p>
                     <p><textarea v-model="txt" type="textarea" :rows="6" :placeholder="lang[local].appealTip11" @input='validateTxt'/><span style="color:#bbb">{{lang[local].addOrderTip9}} {{ 200 - txt.length}} {{lang[local].addOrderTip10}}</span></p>
                     <p>{{lang[local].appealTxt8}}</p>
                     <p>
                         <div class="uploadpic">
                             <ul>
-                                <li v-for="(item,index) in pNum">
-                                    <i class="iconfont icon-shut" @click.stop="delpic(index)"></i>
+                                <li v-for="(item,index) in pNum" :class=" item.origin ? '' :'no' ">
+                                    <i v-if="pNum.length >1 && item.origin " class="iconfont icon-shut" @click.stop="delpic(index)"></i>
                                     <uploadFile path="nameAuth" v-model="pNum[index]" :class="pNum[index].state == getStateStart ? 'focus' : ''" @input="uploadOk">
                                         <em :style="{backgroundImage : 'url(' + pNum[index].origin + ')'}"></em>
                                         <div class="progress" v-if="pNum[index].state == getStateStart">
                                             <b :style="{height : pNum[index].progress + '%'}"></b>
                                             <div>{{pNum[index].progress + '%'}}</div>
                                         </div>
-                                        <div class="txt">{{lang[local].uploadpicbtn}}</div>
+                                        <!-- <div class="txt">{{lang[local].uploadpicbtn}}</div> -->
+                                        <div class="txt"><i class="iconfont icon-jia" style="font-size:30px"/></div>
                                     </uploadFile>
                                 </li>
-                                <li v-if="pNum.length < 5" class="add" @click="addpic"><i class="iconfont icon-jia" style="font-size:30px"/></li>
+                                <!-- <li v-if="pNum.length < 5" class="add" @click="addpic"><i class="iconfont icon-jia" style="font-size:30px"/></li> -->
                             </ul>
                         </div>
                     </p>
@@ -329,7 +330,7 @@ export default {
                     overflow: hidden;
                 }
                 li{
-                    margin:30px 0;
+                    margin:5px 0;
                     margin-left:20px;
                     position: relative;
                     line-height:36px;
@@ -444,8 +445,9 @@ export default {
             &::after{
                 content:'';width: 0;height: 0;border-width: 0 40px 40px 0;border-style: solid;border-color: transparent #aaa transparent transparent ;position:absolute;top:0;right:0;z-index:89;
             }
+            &.no::after{border: none;}
             label{
-                width:180px;height:180px;display: block;
+                width:180px;height:180px;display: block;cursor: pointer;
                 em{display: block;height:100%;width: 100%;background-size: cover;position: relative;z-index:88;}
             }
             .icon-shut{
@@ -485,7 +487,7 @@ export default {
         }
     }
     .vertical-center-modal{
-        .txt{font-size:16px;color:red;margin:50px 0;}
+        .txt{font-size:16px;color:red;margin:20px 0;}
         .tip{margin-bottom:50px;font-size:15px;color:#333}
     }
 </style>

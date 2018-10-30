@@ -10,7 +10,7 @@ export const apiCommon = {
     "navListArticle" : '/api/Article/navList',
     'articleInfo' : '/api/Article/info',
     'getDistrictCode' : '/api/index/getDistrictCode',
-    'origin' : process.env.NODE_ENV == 'development' ? 'http://47.99.115.225' : '',
+    'origin' : process.env.NODE_ENV == 'development' ? 'http://39.108.169.210' : '',
     'noticeId' : 36,
     'newsId' : 58,
     'appDownload' : 'https://www.rdb.one/home/mobile/appDownload',

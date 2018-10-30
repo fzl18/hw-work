@@ -15,7 +15,7 @@
                                 <tr>
                                     <td width="100">{{lang[local].c2cCoin}}</td>
                                     <td>
-                                        <Select v-model="order.coin" size="large" style="width:300px">
+                                        <Select v-model="order.coin" size="large" style="width:300px" :placeholder="lang[local].gu_finance100">
                                             <Option v-for="(item,index) in coinList" :value="item" :key="item">{{ item && item.toUpperCase() }}</Option>
                                         </Select>
                                     </td>
@@ -24,7 +24,7 @@
                                     <td valign="top" style="padding-top:8px">{{lang[local].num}}</td>
                                     <td style="padding-bottom:10px">
                                         <div class="ka"><input v-model="order.count" size="large" style="width:100%" placeholder="" :max=" curTransferType=='sell'? asset:Infinity"/></div>
-                                        <span v-if="curTransferType !='buy'">可用： {{asset}} {{order.coin && order.coin.toUpperCase()}}</span> 
+                                        <span v-if="curTransferType !='buy'">{{lang[local].icoUse}}： {{asset}} {{order.coin && order.coin.toUpperCase()}}</span> 
                                     </td>
                                 </tr>                                
                                 
@@ -49,8 +49,8 @@
                             <tr>
                                 <td width="100">{{lang[local].c2cCurrency}}</td>
                                 <td>
-                                    <Select v-model="order.currency" size="large" style="width:300px">
-                                        <Option v-for="item in currencyList" :value="item.name" :key="item.id">{{ item.name }}</Option>
+                                    <Select v-model="order.currency" size="large" style="width:300px" :placeholder="lang[local].gu_finance100">
+                                        <Option v-for="item in currencyList" :value="item" :key="item.id">{{ item}}</Option>
                                     </Select>
                                 </td>
                             </tr>
@@ -100,8 +100,8 @@
                     </Col>
                 </Row>
                 <Row class="footer">
-                    <Col span="6"><Checkbox v-model="order.agree" size="large">{{lang[local].loginAgree}} <a :href="tourl + '/list/c2c_legal_service_greement'" class="org" target="_blank">{{lang[local].addOrderTip11}}</a></Checkbox>  </Col>
-                    <Col span="4" offset="4"><Button size="large" type="primary" @click="ok" style="width:100%;fontSize:16px">{{lang[local].apply36}}</Button></Col>
+                    <Col span="10"><Checkbox v-model="order.agree" size="large">{{lang[local].loginAgree}} <a :href="tourl + '/list/c2c_legal_service_greement'" class="org" target="_blank">{{lang[local].addOrderTip11}}</a></Checkbox>  </Col>
+                    <Col span="4" offset="2"><Button size="large" type="primary" @click="ok" style="width:100%;fontSize:16px">{{lang[local].apply36}}</Button></Col>
                     <Col span="4"><Button size="large" type="text" @click="close" style="width:100%;fontSize:16px" class="org">{{lang[local].cancel}}</Button></Col>
                 </Row>
             </div>
@@ -109,7 +109,7 @@
 
 <script>
 export default {
-    props:['url','params'],
+    props:['url','params','url2'],
     data(){
         return{                     
             curTransferType:'buy',   
@@ -131,6 +131,7 @@ export default {
     },
     created(){
         this.basicInfo()
+        this.pendCurrencyList()
     },
     mounted(){
         this.tourl = process.env.NODE_ENV == 'development' ? '/article.html' : '/home/article'
@@ -296,8 +297,19 @@ export default {
 
                 }
             }).then(res=>{
-                console.log(res);
                 this.coinList = res.data.coin_list
+            }).catch( err=>{
+                console.log(err);
+            })
+        },
+
+        pendCurrencyList(){
+            this.axios({
+                url : this.url2,
+                data : {
+
+                }
+            }).then(res=>{
                 this.currencyList = res.data.currency_list
             }).catch( err=>{
                 console.log(err);

@@ -31,6 +31,7 @@
                         <li>{{lang[local].operation}}</li>
                     </ul>
                 </dt>
+                <dd v-if="buyList.length == 0" style="text-algin:center;width:100%">{{lang[local].emptyData}}</dd>
                 <dd v-for="(item,index) in buyList">
                     <ul>
                         <li> {{item.symbol.toUpperCase()}}</li>
@@ -107,6 +108,7 @@
                         <li>{{lang[local].operation}}</li>
                     </ul>
                 </dt>
+                <dd v-if="sellList.length == 0" style="text-algin:center;width:100%">{{lang[local].emptyData}}</dd>
                 <dd v-for="(item,index) in sellList">
                     <ul>
                         <li> {{item.symbol.toUpperCase()}}</li>
@@ -118,7 +120,7 @@
                             <i v-if="item.wxpay" class="iconfont icon-ai-weixin buy" />
                             <i v-if="item.alipay" class="iconfont icon-ZFBZD blue" />
                         </li>
-                        <li><Button size="large" type="primary" :loading="false" @click="operation(item.id,item.maxvolume,item.minvolume)">{{`${lang[local].c2cBuy} ${item.symbol.toUpperCase()}`}}</Button></li>
+                        <li><Button size="large" type="primary" :loading="false" @click="operation(item.id,item.maxvolume,item.minvolume,item.currency_name)">{{`${lang[local].c2cBuy} ${item.symbol.toUpperCase()}`}}</Button></li>
                         <li v-if="checkMore == item.id" class="more">                            
                             <Row>
                                 <Col span="6">{{item.symbol.toUpperCase()}}</Col>
@@ -243,6 +245,8 @@
                 },
                 applyBizInfo:{},
                 canbuy:false,
+                currencyUse:[],
+                canbuycoin:false,
             };
         },
         created (){
@@ -294,7 +298,16 @@
             getList(info,id){
 
             },
-            operation(index,max,min){
+            operation(index,max,min,currency){
+                if(this.currencyUse.length > 0){
+                    let same = this.currencyUse.indexOf(currency)
+                    if(same < 0){
+                        this.$store.commit('msg/err',this.lang[this.local].diffCurrency)
+                        return
+                    }else{
+                        this.canbuycoin = true
+                    }
+                }
                 if(this.canbuy){
                     this.coinAmount=null
                     this.currencyAmount = null
@@ -313,11 +326,16 @@
                     b =  res.data.is_bind_mobile
                     c =  res.data.is_set_pay_password
                     d =  res.data.is_set_transfer
+                    this.currencyUse =  res.data.currency_list
                     this.applyBizInfo = {
                        a,b,c,d
                    }
                    if(a!=1 || b!=1 || c!=1 || d!=1){                       
                         this.canOrderModal = true
+                        return
+                    }else if(this.currencyUse.indexOf(currency)<0){
+                        console.log(this.currencyUse)                        
+                        this.$store.commit('msg/err',this.lang[this.local].diffCurrency)
                         return
                     }else{
                         this.coinAmount=null

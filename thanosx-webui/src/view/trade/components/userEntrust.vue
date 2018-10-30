@@ -19,7 +19,8 @@
                     <dl v-for="item in userOrder" :key="item[0]">
                         <dd>{{localDate(item[1])}}</dd>
                         <dd :class="item[2] + 'Color'">{{lang[local][item[2]]}}</dd>
-                        <dd>{{priceAccuracy(item[3])}}</dd>
+                        <!-- <dd>{{priceAccuracy(item[3])}}</dd> -->
+                        <dd>{{tobigNumber(item[3])}}</dd>
 
                         <!-- <dd>{{numAccuracy(item[5])}}</dd> -->
                         <dd>{{tobigNumber(item[5])}}</dd>
@@ -65,6 +66,10 @@
     }
 </script>
 
-<style scoped>
-
+<style lang="scss" scoped>
+    .con{
+        dd{white-space: nowrap;text-overflow: ellipsis;overflow: hidden;}
+    }
 </style>
+
+    

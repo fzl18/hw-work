@@ -13,26 +13,29 @@
                 <dl>
                     <dd style="width:17%" align="center">{{lang[local].appealNO}}</dd>
                     <dd style="width:17%" align="center">{{lang[local].appealOrderNO}}</dd>
-                    <dd style="width:10%" align="center">{{!cur?lang[local].appealPerson2: lang[local].appealPerson}}</dd>
-                    <dd style="width:10%" align="center">{{lang[local].appealType}}</dd>
-                    <dd style="width:15%" align="center">{{lang[local].appealStatus}}</dd>
-                    <dd style="width:16%" align="center">{{lang[local].appealTime}}</dd>
-                    <dd style="width:15%;text-align:center">{{lang[local].operation}}</dd>
+                    <dd style="width:10%" align="center">{{!cur?lang[local].appealPerson2: lang[local].appealPerson1}}</dd>
+                    <dd style="width:17%" align="center">{{lang[local].appealType}}</dd>
+                    <dd style="width:10%" align="center">{{lang[local].appealStatus}}</dd>
+                    <dd style="width:14%" align="center">{{lang[local].appealTime}}</dd>
+                    <dd style="width:15%;text-align:right">{{lang[local].operation}}</dd>
                 </dl> 
             </section>
             <section class="tbody">
+                <dl v-if="list.length == 0" >
+                    <dd style="text-align:center;width:100%">{{lang[local].emptyData}}</dd>
+                </dl>
                 <dl v-for="item in list">
-                        <dd style="width:17%" align="center">{{item.appeal_number}}</dd>
-                        <dd style="width:17%" align="center">{{item.order_number}}</dd>
-                        <dd style="width:10%" align="center">{{item.nickname}}</dd>
-                        <dd style="width:10%" align="center">{{item.type_name}}</dd>              
-                        <dd style="width:15%" align="center">{{item.status==1 ? lang[local].appealStatus1 : item.status==2 ? lang[local].appealStatus2 :item.status== 3? lang[local].appealStatus3 :item.status==4? lang[local].appealStatus4:item.status==5? lang[local].appealStatus5:lang[local].appealStatus6}}</dd>              
-                        <dd style="width:16%" align="center">{{localDate(item.create_time)}}</dd>              
-                        <dd style="width:15%">
-                            <Button type="text" v-if="item.status ==1 && !cur" @click="cancelBox(item.appeal_id)">{{lang[local].cancel}}</Button>
-                            <Button type="text" v-if="item.status ==3" @click="$router.push(`/appealDetail?id=${item.appeal_id}`)">{{lang[local].appealS3}}</Button>
-                            <Button type="text" @click="$router.push(`/appealDetail?id=${item.appeal_id}`)">{{lang[local].appealDetail}}</Button>
-                        </dd>
+                    <dd style="width:17%" align="center">{{item.appeal_number}}</dd>
+                    <dd style="width:17%" align="center">{{item.order_number}}</dd>
+                    <dd style="width:10%" align="center">{{item.nickname }}</dd>
+                    <dd style="width:17%" align="center">{{item.type_name}}</dd>              
+                    <dd style="width:10%" align="center">{{item.status==1 ? lang[local].appealStatus1 : item.status==2 ? lang[local].appealStatus2 :item.status== 3? lang[local].appealStatus3 :item.status==4? lang[local].appealStatus4:item.status==5? lang[local].appealStatus5:lang[local].appealStatus6}}</dd>              
+                    <dd style="width:14%" align="center">{{localDate(item.create_time)}}</dd>              
+                    <dd style="width:15%">
+                        <Button type="text" v-if="item.status ==1 && cur==0" @click="cancelBox(item.appeal_id)" style="padding:8px 10px;">{{lang[local].cancel}}</Button>
+                        <Button type="text" v-if="item.status ==3" @click="$router.push(`/appealDetail?id=${item.appeal_id}`)" style="padding:8px 10px;">{{lang[local].appealS3}}</Button>
+                        <Button type="text" @click="$router.push(`/appealDetail?id=${item.appeal_id}`)" style="padding:8px 10px;">{{lang[local].appealDetail}}</Button>
+                    </dd>
                 </dl>
             </section>
             <page :page="page" @pageChange="pageChange" v-if="page.totalCount > 10"/>

@@ -29,7 +29,7 @@
             <div class="tit" v-if="curType == 'myOrder'">
                 <Button v-if="status==4" @click="addOrder" size="large" type="primary" ><i class="iconfont icon-tianjia" style="fontSize:20px;margin-right:10px;"/> {{lang[local].c2caddOrder}}</Button>
                 <Button v-if="status && status <= 3 || status == 5" size="large" type="primary" :disabled="status == 2 || status == 5 ? true : false" :style="status == 2 || status == 5 ? 'background:#777;color:#fff;':''" @click="applyBiz"> <i class="iconfont icon-tianjia" style="fontSize:20px;margin-right:10px;"/>  {{lang[local].c2cbizapply}} </Button>
-                <div class="tip" v-if="status == 2 || status == 3 || status == 5"> <span class="torg"> {{status == 2 ? lang[local].c2cBeAudited : lang[local].c2cAuditFailed }}</span> <span v-if="status == 3">{{lang[local].c2cReason}}：{{remark}}</span> </div>
+                <div class="tip" v-if="status == 2 || status == 3 || status == 5"> <span class="torg"> {{status == 2 ? lang[local].c2cBeAudited : status == 3 ? lang[local].c2cAuditFailed : lang[local].c2cAuditFailed2}}</span> <span v-if="status == 3">{{lang[local].c2cReason}}：{{remark}}</span> </div>
             </div>
             <!-- <div class="search" @click="showSearch" v-if="curType != 'myOrder' || status==4"> -->
             <div class="search" @click="showSearch" v-if="curType != 'myOrder' ">
@@ -136,6 +136,7 @@
                         <li>{{lang[local].operation}}</li>
                     </ul>
                 </dt>
+                <dd v-if="pendListArray.length == 0" style="text-algin:center;width:100%">{{lang[local].emptyData}}</dd>
                 <dd v-for="(item,index) in pendListArray" v-if=" curType != 'myOrder'">
                     <ul  >
                         <li><span @click=" loginInfo.uid != item.uid ? $router.push(`/biz?id=${item.uid}`) : ''" class="tblue cursor">{{item.business_name}}</span> ({{item.month_orders}})</li>
@@ -147,7 +148,7 @@
                             <i v-if="item.wxpay" class="iconfont icon-ai-weixin buy" />
                             <i v-if="item.alipay" class="iconfont icon-ZFBZD blue" />
                         </li>
-                        <li><Button :disabled="loginInfo.uid == item.uid ? true : false " size="large" type="primary" :loading="false" @click="operation(index,item.maxvolume,item.minvolume)">{{curType == 'buy' ? `${lang[local].c2cBuy} ${coinList[curCoin].toUpperCase()}` : `${lang[local].c2cSell} ${coinList[curCoin].toUpperCase()}`}}</Button></li>
+                        <li><Button :disabled="loginInfo.uid == item.uid ? true : false " size="large" type="primary" :loading="false" @click="operation(index,item.maxvolume,item.minvolume,item.currency_name)">{{curType == 'buy' ? `${lang[local].c2cBuy} ${coinList[curCoin].toUpperCase()}` : `${lang[local].c2cSell} ${coinList[curCoin].toUpperCase()}`}}</Button></li>
                         <li v-if="checkMore == index" class="more">
                             <Row>
                                 <Col span="6">{{item.business_name}} ({{item.month_orders}})</Col>
@@ -220,6 +221,10 @@
         <div class="pageList">
             <page :page="page && page" @pageChange="pageChange" v-if="page.totalPage > 0" />
         </div>
+
+        <div v-if="curType == 'myOrder' && status == 4" style="margin-top:40vh">{{lang[local].c2cDetailTxt78}}<a href="mailto:service@thanosx.com">service@thanosx.com</a>）{{lang[local].c2cDetailTxt79}}</div>
+        <div v-if="curType == 'myOrder' && status == 5" style="margin-top:40vh">{{lang[local].c2cDetailTxt80}}<a href="mailto:service@thanosx.com">service@thanosx.com</a></div>
+
         <Modal
             v-model="addOrderModal"
             :closable = false
@@ -227,7 +232,7 @@
             width="1000"
             class-name="vertical-center-modal">
             
-            <addOrder @ok="ok" @close="close" :url="this.api.basicInfo" :params="transferInfoOB"/>
+            <addOrder v-if="status==4" @ok="ok" @close="close" :url="api.basicInfo" :url2="api.pendCurrencyList" :params="transferInfoOB"/>
         </Modal>
         <!-- <load v-if="loading" /> -->
         <Modal
@@ -239,7 +244,7 @@
             <table class="editBizName">
                 <tr>
                     <td>{{lang[local].c2cName}}</td>
-                    <td align="right"><Input size="large" v-model="business_name" :placeholder="businessInfo.name" /></td>
+                    <td align="right"><input size="large" v-model="businessInfo.name" :placeholder="businessInfo.name" style="width:100%;padding:3px 10px;"/></td>
                 </tr>
                 <tr>
                     <td colspan="2">
@@ -375,6 +380,7 @@
                 editBizName:false,
                 canOrderModal:false,
                 business_name:'',
+                business_name2:'',
                 status:0,
                 remark:'',
                 buyList:[],
@@ -402,6 +408,8 @@
                 },
                 applyBizInfo:{},
                 canbuy:false,
+                currencyUse:[],
+                canbuycoin:false,
             };
         },
         created (){
@@ -409,9 +417,7 @@
             this.userInfo()
         },
         mounted(){
-            console.log(this.loginInfo.uid);
-            if(this.$route.query.myorder){
-                console.log(this.$route.query.myorder,this.status)                
+            if(this.$route.query.myorder){          
                 this.curType = 'myOrder'
                 this.personalDetail()
                 this.personalPendList()
@@ -456,7 +462,12 @@
             //     this.list.finish_list.unshift(this.list.normal_list[n])
             //     this.getList()
             //     location.reload()
-            // }            
+            // }
+            'businessInfo.name' (n,o){
+                if(n.length > 10){
+                    this.businessInfo.name = n.substring(0,10)
+                }
+            },
         },
         computed : {
             // ...mapState(['activeObject'])
@@ -489,9 +500,11 @@
                 }else{
                     this.personalPendList()
                 }
+                this.errInfo.show = false
             },
             handleClass(val){
                 this.curType = val
+                this.errInfo.show = false
                 if(val == "myOrder"){
                     this.personalPendList()
                     this.personalDetail()
@@ -514,8 +527,9 @@
             },
             changeCoin(index){
                 this.curCoin = index
-                this.pendList(this.page)
+                this.pendList()
                 this.checkMore = null
+                this.errInfo.show = false
             },
             delSearchTxt(index){
                 if(this.curType == 'myOrder'){
@@ -542,8 +556,17 @@
             getList(info,id){
 
             },
-            operation(index,max,min){
-                if(this.canbuy){
+            operation(index,max,min,currency){                
+                if(this.currencyUse.length > 0){
+                    let same = this.currencyUse.indexOf(currency)
+                    if(same < 0){
+                        this.$store.commit('msg/err',this.lang[this.local].diffCurrency)
+                        return
+                    }else{
+                        this.canbuycoin = true
+                    }
+                }
+                if(this.canbuy && this.canbuycoin){
                     this.coinAmount=null
                     this.currencyAmount = null
                     this.checkMore = index
@@ -561,6 +584,7 @@
                     b =  res.data.is_bind_mobile
                     c =  res.data.is_set_pay_password
                     d =  res.data.is_set_transfer
+                    this.currencyUse =  res.data.currency_list
                     this.applyBizInfo = {
                        a,b,c,d,
                        
@@ -568,7 +592,11 @@
                    if(a!=1 || b!=1 || c!=1 || d!=1){                       
                         this.canOrderModal = true
                         return
-                    }else{
+                    }else if(this.currencyUse.indexOf(currency)<0){
+                        console.log(this.currencyUse)                        
+                        this.$store.commit('msg/err',this.lang[this.local].diffCurrency)
+                        return
+                    }else{                        
                         this.coinAmount=null
                         this.currencyAmount = null
                         this.checkMore = index
@@ -652,14 +680,14 @@
                 
             },
             saveName(){
-                if(!this.business_name.trim()){
+                if(!this.businessInfo.name.trim()){
                     this.$store.commit('msg/err', this.lang[this.local].c2cErr1)
                     return
                 } 
                 this.axios({
                     url : this.api.updateName,
                     data : {
-                        business_name:this.business_name.trim()
+                        business_name:this.businessInfo.name.trim()
                     }
                 }).then(res=>{
                     this.personalDetail()
@@ -732,7 +760,10 @@
                     this.$store.commit('msg/err', err.message)
                 })
             },            
-            pendList(searchInfo){
+            pendList(searchInfo = {
+                        currency:this.searchTxt1.fCoin,
+                        pay_type:this.searchTxt1.payType,
+                    }){
                 let type
                 switch (this.curType) {
                     case 'buy':
@@ -744,12 +775,12 @@
                     default:
                         break;
                 }
-                if(!searchInfo){
-                    searchInfo = {
-                        currency:this.searchTxt1.fCoin,
-                        pay_type:this.searchTxt1.payType,
-                    }
-                }
+                // if(!searchInfo){
+                    // searchInfo = {
+                    //     currency:this.searchTxt1.fCoin,
+                    //     pay_type:this.searchTxt1.payType,
+                    // }
+                // }
                 this.axios({
                     url : this.api.pendList,
                     data : {
@@ -830,7 +861,6 @@
                     if(this.currencyAmount && this.currencyAmount*1 > val.max*1){
                         this.errInfo.msg = `${this.lang[this.local].c2cErr7}${val.max}`
                         this.errInfo.show = true
-                        console.log(val.min,val.max,);
                         
                     }else if(this.currencyAmount && this.currencyAmount*1 < val.min*1){
                         this.errInfo.msg = `${this.lang[this.local].c2cErr8}${val.min}`
@@ -934,7 +964,7 @@
                         location.href = process.env.NODE_ENV == 'development' ? '/finance.html/transferMode' : '/home/finance/transferMode'
                         break;
                     case 'e':
-                        location.href = process.env.NODE_ENV == 'development' ? '/finance.html/index' : '/home/finance/index'
+                        location.href = process.env.NODE_ENV == 'development' ? '/trade.html/TNSX/USDT' : '/home/trade/TNSX/USDT'
                         break;
                 
                     default:

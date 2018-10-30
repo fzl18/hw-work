@@ -252,14 +252,22 @@ export default new Vuex.Store({
             state.dealTeam = [];
         },
         deal (state, data){
+                      
             data.forEach(function (item){
                 if(item[4]){
                     item[4] = item[4] + '' + Math.ceil((Math.random() * 10000000));
                 }else{
                     item[4] = Math.ceil((Math.random() * 100000000000))
-                };
-            });
-            state.deal = data.concat(state.deal);
+                }
+            })
+
+            if(state.deal.length > 500){     //如果数据太大，删除多余数据  
+                console.log('over')
+                data.forEach(d=>{
+                    state.deal.pop()
+                })
+            }            
+            state.deal = data.concat(state.deal)
             this.commit('nowPrice', state.deal[0])
         },
         dealState (state, data){

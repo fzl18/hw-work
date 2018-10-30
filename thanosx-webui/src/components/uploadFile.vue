@@ -12,7 +12,7 @@
         name: "upload-file",
         props : {
             size : {
-                default : 4
+                default : 5
             },
             path : {
                 default : ''
@@ -26,17 +26,18 @@
                 fileData : {
                     state : -1,
                 },
-                origin : process.env.NODE_ENV == 'development' ? 'http://47.99.115.225/' : '',
+                origin : process.env.NODE_ENV == 'development' ? 'http://39.108.169.210/' : '',
             };
         },
         computed:{
             tit(){
-                return this.txt ? this.txt : this.lang[this.local.upFiles]
+                return this.txt ? this.txt : this.lang[this.local].upFiles
             }
         },
         methods :{
             submit (e){
                 if(this.fileData.state == this.getStateStart){
+                    // this.$store.commit('msg/err', this.lang[this.local].imgFormatSize);
                     return false;
                 };
                 var file = e.target.files[0];
@@ -53,7 +54,7 @@
                         state : this.getStateError,
                         message : this.lang[this.local].imgFormatSize.replace('{size}', this.size + 'M'),
                     };
-                    this.$emit('input', this.fileData);
+                    // this.$emit('input', this.fileData);
                     return;
                 };
                 let formData = new FormData();

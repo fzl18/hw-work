@@ -40,7 +40,7 @@
                 <Row>
                     <Col span="4">{{lang[local].apply19}}：{{userDetail.truename}}</Col>
                     <Col span="4">{{lang[local].apply20}}：{{userDetail.dctype}}</Col>
-                    <Col span="4">{{lang[local].apply21}}：{{userDetail.idcard}}</Col>
+                    <Col span="16">{{lang[local].apply21}}：{{userDetail.idcard}}</Col>
                     <Col span="24">{{lang[local].apply22}}：{{userDetail.address}}</Col>
                 </Row>
             </div>
@@ -82,8 +82,8 @@
                 <div class="title"><h3>4 {{lang[local].apply28}}</h3></div>
                 <Row>
                     <Col span="24">{{lang[local].apply19}}：{{userDetail.truename}}</Col>
-                    <Col span="11">{{lang[local].apply29}} <Input v-model="assets" size="large" type="textarea" :rows="5"/></Col>
-                    <Col span="11" offset="2">{{lang[local].apply30}} <Input v-model="risk" size="large" type="textarea" :rows="5"/></Col>
+                    <Col span="11">{{lang[local].apply29}} <Input v-model="assets" size="large" :maxlength="1000" type="textarea" :rows="5" :placeholder="lang[local].apply43"/></Col>
+                    <Col span="11" offset="2">{{lang[local].apply30}} <Input v-model="risk" size="large" :maxlength="200" type="textarea" :rows="5" :placeholder="lang[local].apply44"/></Col>
                 </Row> 
             </div>
             <hr />
@@ -92,22 +92,23 @@
                 <p>{{lang[local].apply32}}</p>
                 <div class="uploadpic">
                     <ul>
-                        <li v-for="(item,index) in pNum">
-                            <i class="iconfont icon-shut" @click.stop="delpic(index)"></i>
+                        <li v-for="(item,index) in pNum" :class=" item.origin ? '' :'no' ">
+                            <i v-if="pNum.length >1 && item.origin " class="iconfont icon-shut" @click.stop="delpic(index)"></i>
                             <uploadFile path="nameAuth" v-model="pNum[index]" :class="pNum[index].state == getStateStart ? 'focus' : ''" @input="uploadOk">
                                 <em :style="{backgroundImage : 'url(' + pNum[index].origin + ')'}"></em>
                                 <div class="progress" v-if="pNum[index].state == getStateStart">
                                     <b :style="{height : pNum[index].progress + '%'}"></b>
                                     <div>{{pNum[index].progress + '%'}}</div>
                                 </div>
-                                <div class="txt">{{lang[local].uploadpicbtn}}</div>
+                                <div class="txt"> <i class="iconfont icon-jia" style="font-size:30px"/> </div>
+                                <!-- <div class="txt"> {{lang[local].uploadpicbtn}}</div> -->
                             </uploadFile>
                         </li>
-                        <li v-if="pNum.length < 5" class="add" @click="addpic"><i class="iconfont icon-jia" style="font-size:30px"/></li>
+                        <!-- <li v-if="pNum.length < 5" class="add" @click="addpic"><i class="iconfont icon-jia" style="font-size:30px"/></li> -->
                     </ul>
                 </div>
             </div>
-            <div style="margin:50px 0"><Checkbox v-model="bAgree" size="large" @on-change="applyCheckAsset"> {{lang[local].apply33}} <span class="org">1000000 THNX</span> {{lang[local].apply34}}</Checkbox></div>
+            <div style="margin:50px 0"><Checkbox v-model="bAgree" size="large" @on-change="applyCheckAsset"> {{lang[local].apply33}} <span class="org">{{userDetail.c2c_deposit_amount}} {{userDetail.c2c_deposit_coin}}</span> {{lang[local].apply34}}</Checkbox></div>
         </section>
         <div class="footer" v-if="step != 1">
             <Button size="large" type="text" @click="step--" style="border:1px solid #FF6600">{{lang[local].apply35}}</Button>
@@ -119,7 +120,7 @@
             :closable = false
             :footer-hide = true
             :mask-closable = false
-            class-name="vertical-center-modal">            
+            class-name="vertical-center-modal">
             <div>
                 <h2>
                     {{errInfo}}
@@ -194,7 +195,7 @@ export default {
 
             }).catch( err=>{
                 console.log(err);
-                this.errModel = true 
+                // this.errModel = true 
                 this.errInfo = err.message
             })
         },
@@ -365,8 +366,9 @@ export default {
                 &::after{
                     content:'';width: 0;height: 0;border-width: 0 40px 40px 0;border-style: solid;border-color: transparent #aaa transparent transparent ;position:absolute;top:0;right:0;z-index:89;
                 }
+                &.no::after{border: none;}
                 label{
-                    width:180px;height:180px;display: block;
+                    width:180px;height:180px;display: block;cursor: pointer;
                     em{display: block;height:100%;width: 100%;background-size: cover;position: relative;z-index:88;}
                 }
                 .icon-shut{
