@@ -31,7 +31,7 @@
         <section class="trade-menu-market">
             <span>
                 <small>{{lang[local].currentRate}}</small>
-                <b>{{priceAccuracy(market_quote[1])}} {{rmb}}</b>
+                <b>{{priceAccuracy(market_quote[1]) || '--'}} {{rmb}}</b>
             </span>
             <span>
                 <small>{{lang[local].dayUpDown}}</small>
@@ -40,16 +40,16 @@
             <span>
                 <small>{{lang[local].topPrice}}</small>
                 <!-- <b>{{priceAccuracy(market_quote[3])}}{{rmb}}</b> -->
-                <b>{{tobigNumber(market_quote[3])}} {{rmb}}</b>
+                <b>{{market_quote[3] ? tobigNumber(market_quote[3]) : '--'}} {{rmb}}</b>
             </span>
             <span>
                 <small>{{lang[local].minPrice}}</small>
                 <!-- <b>{{priceAccuracy(market_quote[4])}} {{rmb}}</b> -->
-                <b>{{tobigNumber(market_quote[4])}} {{rmb}}</b>
+                <b>{{market_quote[4] ? tobigNumber(market_quote[4]) : '--'}} {{rmb}}</b>
             </span>
             <span>
                 <small>{{lang[local].tradeVolume}}</small>
-                <b>{{numAccuracy(market_quote[5])}}</b>
+                <b>{{numAccuracy(market_quote[5]) || '--'}}</b>
             </span>
         </section>
     </section>

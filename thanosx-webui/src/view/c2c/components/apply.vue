@@ -83,7 +83,7 @@
                 <Row>
                     <Col span="24">{{lang[local].apply19}}：{{userDetail.truename}}</Col>
                     <Col span="11">{{lang[local].apply29}} <Input v-model="assets" size="large" :maxlength="1000" type="textarea" :rows="5" :placeholder="lang[local].apply43"/></Col>
-                    <Col span="11" offset="2">{{lang[local].apply30}} <Input v-model="risk" size="large" :maxlength="200" type="textarea" :rows="5" :placeholder="lang[local].apply44"/></Col>
+                    <Col span="11" offset="2">{{lang[local].apply30}} <Input v-model="risk" size="large" :maxlength="1000" type="textarea" :rows="5" :placeholder="lang[local].apply44"/></Col>
                 </Row> 
             </div>
             <hr />

@@ -46,7 +46,7 @@
         },
         data () {
             return {
-                pageSizeList : [10, 15, 20, 30]
+                pageSizeList : [10, 30, 50]
             };
         },
         created (){

@@ -165,7 +165,7 @@
                     {{lang[local].transferModeTip13}}   
                 </h2>
                 <div style="text-align:right;">
-                 <Button type="primary" size="large" style="font-size:16px" @click="go()"> OK </Button>
+                 <Button type="primary" size="large" style="font-size:16px" @click="go()"> Back </Button>
                 </div>
             </div>
         </Modal>
@@ -236,7 +236,8 @@ export default {
     },
     methods:{
         go(){
-            location.href = toUrl.financeUrl + '/nameAuth'
+            // location.href = toUrl.financeUrl + '/nameAuth'
+            window.history.back()
         },
         transferMode(){
             this.axios({
@@ -335,7 +336,7 @@ export default {
                 this.transferMode()
                 this.$store.commit('msg/add', res.message)
             }).catch( err=>{
-                console.log(err)
+                this.$store.commit('msg/err', err.message)
             })  
         },
 

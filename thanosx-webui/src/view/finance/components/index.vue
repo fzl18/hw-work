@@ -346,7 +346,7 @@
                     this.$store.commit('msg/add', res.message)
                     this.assetsTransferClose()
                 }).catch(err=>{
-                    console.log(err)
+                    this.$store.commit('msg/err', err.message)
                 })
             },
             transferInfo(){
@@ -358,7 +358,7 @@
                 }).then(res=>{
                     this.transferInfoOB = res.data
                 }).catch( err=>{
-                    console.log(err);
+                    this.$store.commit('msg/err', err.message)
                 })
             }
         },
