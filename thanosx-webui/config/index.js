@@ -24,14 +24,14 @@ module.exports = {
         assetsPublicPath: '/',
         proxyTable: {
             '/api': {
-                target: 'http://39.108.169.210/',
+                target: 'http://10.0.11.24/',
                 secure: false,
                 changeOrigin: true,
                 pathRewrite: {
                 }
             },
             '/home/': {
-                target: 'http://39.108.169.210/',    //39.108.169.210
+                target: 'http://10.0.11.24/',    //10.0.11.24
                 secure: false,
                 changeOrigin: true,
                 pathRewrite: {
@@ -40,7 +40,7 @@ module.exports = {
         },
 
         // Various Dev Server settings
-        host: 'localhost', // can be overwritten by process.env.HOST
+        host: '0.0.0.0', // can be overwritten by process.env.HOST
         // host: '192.168.1.46', // can be overwritten by process.env.HOST
         port: 8080, // can be overwritten by process.env.PORT, if port is in use, a free one will be determined
         autoOpenBrowser: false,

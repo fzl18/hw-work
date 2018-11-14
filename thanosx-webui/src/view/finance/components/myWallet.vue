@@ -78,7 +78,7 @@
                         </section>
                         <section class="form-group">
                             <div class="input-box">
-                              <i class="iconfont icon-dizhi1"></i>   <input type="text" v-model="addr" :placeholder="lang[local].walletUrl" style="width:calc(100% - 80px)"/>
+                              <i class="iconfont icon-dizhi1"></i>   <input type="text" v-model="addr" :placeholder="lang[local].walletUrl" style="width:calc(100% - 30px)"/>
                             </div>                       
                         </section>
                         <section class="form-group" v-if="qb_title">

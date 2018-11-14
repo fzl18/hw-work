@@ -37,7 +37,7 @@
                 {{lang[local].icoempty}}
             </dd>
         </dl>
-        <dl>
+        <dl v-if="!close">
             <dt>{{lang[local].timeover}}</dt>
             <dd v-if="list.finish_list && list.finish_list.length" @click="!moreLoading && gotoInfo(item.coin_type,item.id)" v-for="item in list.finish_list">
                 <div class="box">
@@ -72,6 +72,7 @@
                 comepage:1,
                 endpage:1,
                 delcur:null,
+                close:true
             };
         },
         created (){

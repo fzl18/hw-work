@@ -26,7 +26,7 @@
                 fileData : {
                     state : -1,
                 },
-                origin : process.env.NODE_ENV == 'development' ? 'http://39.108.169.210/' : '',
+                origin : process.env.NODE_ENV == 'development' ? 'http://10.0.11.24/' : '',
             };
         },
         computed:{

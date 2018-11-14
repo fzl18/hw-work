@@ -1,6 +1,6 @@
 
 @import "var";
-@import url("//at.alicdn.com/t/font_733915_p0vmia8tkig.css");
+@import url("//at.alicdn.com/t/font_733915_otr2iv1274c.css");
 body,html{
     display: block;
     background: $bg;
@@ -566,6 +566,7 @@ input:-webkit-autofill {
 .ivu-date-picker-cells-cell-today em:after{background:#FF6600;}
 .ivu-date-picker-cells-cell-range:before{background:rgb(255, 225, 205);}
 .ivu-checkbox-indeterminate .ivu-checkbox-inner{background-color: #FF6600;border-color: #FF6600;}
+.ivu-switch-checked{background-color:#10AA00;border-color:#32A91A;}
 .org{color:#FF6600;}
 .green{color:#32A91A;}
 .blue{color:#008CC7;}

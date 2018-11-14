@@ -21,8 +21,65 @@
                         {{lang[local].c2cDetailTxt1}}：
                     </div>
                     <div class="card" v-if="orderInfo.status!=2">
-                        <template v-if="orderInfo.pay_type == 0 ">
-                            <div v-if="orderInfo.bank_card" @click="handlePayType('bank')" >
+                        <template v-if="orderInfo.pay_type == 0">
+                            <div v-for="item in orderInfo.pays" @click="handlePayType(item)">
+                                <Row v-if="item.type =='1'" class="type" :class="curPay && curPay.id == item.id ? 'cur':''">
+                                    <Col span="4" class="bg"><i class="iconfont icon-yinxingqia org"></i> {{lang[local].bankCard}}</Col>
+                                    <Col span="4" style="padding-left:15px">{{item.name}}</Col>
+                                    <Col span="8">{{item.account}}</Col>
+                                    <Col span="4">{{item.bank}}</Col>
+                                    <Col span="4">{{item.branch}}</Col>
+                                </Row>
+
+                                <Row v-if="item.type =='2'" class="type" :class="curPay && curPay.id == item.id  ? 'cur':''">
+                                    <Col span="4" class="bg"><i class="iconfont iconfont icon-ZFBZD blue"></i>{{lang[local].aliPay}}</Col>
+                                    <Col span="4" style="padding-left:15px">{{item.name}}</Col>
+                                    <Col span="8">{{lang[local].transferModeTip10}}：{{item.branch}}</Col>
+                                    <Col span="4"><Button type="text" size="large" class="blue" @click="seeQR">{{lang[local].c2cDetailTxt4}}</Button></Col>
+                                    <Col span="4"></Col>
+                                </Row>
+
+                                <Row v-if="item.type =='3'" class="type" :class="curPay && curPay.id == item.id  ? 'cur':''">
+                                    <Col span="4" class="bg"><i class="iconfont icon-ai-weixin green"></i>{{lang[local].weChat}}</Col>
+                                    <Col span="4" style="padding-left:15px">{{item.name}}</Col>
+                                    <Col span="8">{{lang[local].c2cDetailTxt5}}：{{item.branch}}</Col>
+                                    <Col span="4"><Button type="text" size="large" class="blue" @click="seeQR">{{lang[local].c2cDetailTxt4}}</Button></Col>
+                                    <Col span="4"></Col>
+                                </Row>
+                                <Row v-if="item.type =='4'" class="type" :class="curPay && curPay.id == item.id  ? 'cur':''">
+                                    <Col span="4" class="bg"><i class="iconfont icon-paynow org"></i>PayNow</Col>
+                                    <Col span="4" style="padding-left:15px">{{item.name}}</Col>
+                                    <Col span="12">PayNow {{local == 'en' ? '' : lang[local].safety22}}：{{item.branch}}</Col>
+                                    <!-- <Col span="4"><Button type="text" size="large" class="blue" @click="seeQR">{{lang[local].c2cDetailTxt4}}</Button></Col> -->
+                                    <Col span="4"></Col>
+                                </Row>
+
+                                <Row v-if="item.type =='5'" class="type" :class="curPay && curPay.id == item.id  ? 'cur':''">
+                                    <Col span="4" class="bg"><i class="iconfont icon-race org"></i>Interace</Col>
+                                    <Col span="4" style="padding-left:15px">{{item.name}}</Col>
+                                    <Col span="12">Interace-transfer {{local == 'en' ? '' : lang[local].safety22}}：{{item.branch}}</Col>
+                                    <!-- <Col span="4"><Button type="text" size="large" class="blue" @click="seeQR">{{lang[local].c2cDetailTxt4}}</Button></Col> -->
+                                    <Col span="4"></Col>
+                                </Row>
+
+                                <Row v-if="item.type =='6'" class="type" :class="curPay && curPay.id == item.id  ? 'cur':''">
+                                    <Col span="4" class="bg"><i class="iconfont icon-paypal blue"></i>Paypal</Col>
+                                    <Col span="4" style="padding-left:15px">{{item.name}}</Col>
+                                    <Col span="12">Paypal {{local == 'en' ? '' : lang[local].safety22}}：{{item.branch}}</Col>
+                                    <!-- <Col span="4"><Button type="text" size="large" class="blue" @click="seeQR">{{lang[local].c2cDetailTxt4}}</Button></Col> -->
+                                    <Col span="4"></Col>
+                                </Row>
+
+                                <Row v-if="item.type =='7'" class="type" :class="curPay && curPay.id == item.id  ? 'cur':''">
+                                    <Col span="4" class="bg"><i class="iconfont icon-uip org"></i>UPI</Col>
+                                    <Col span="4" style="padding-left:15px">{{item.name}}</Col>
+                                    <Col span="8">UPI {{local == 'en' ? '' : lang[local].safety22}}：{{item.branch}}</Col>
+                                    <Col span="4"><Button type="text" size="large" class="blue" @click="seeQR">{{lang[local].c2cDetailTxt4}}</Button></Col>
+                                    <Col span="4"></Col>
+                                </Row>
+                            </div>
+
+                            <!-- <div v-if="orderInfo.bank_card" @click="handlePayType('bank')" >
                                 <Row class="type" :class="payType =='bank' ? 'cur':''">
                                     <Col span="4" class="bg"><i class="iconfont icon-yinxingqia org"></i> {{lang[local].bankCard}}</Col>
                                     <Col span="4" style="padding-left:15px">{{orderInfo.truename}}</Col>
@@ -48,10 +105,68 @@
                                     <Col span="4"><Button type="text" size="large" class="blue" @click="seeQR">{{lang[local].c2cDetailTxt4}}</Button></Col>
                                     <Col span="4"></Col>
                                 </Row>
-                            </div>
+                            </div> -->
                         </template>
+
                         <template v-if="orderInfo.pay_type != 0 ">
-                            <div v-if="orderInfo.bank_card && orderInfo.pay_type ==1" @click="handlePayType('bank')" >
+                            <div v-for="item in orderInfo.pays"  @click="handlePayType(item)">
+                                <Row v-if="item.type =='1' && orderInfo.pay_type == item.id*1" class="type nocur">
+                                    <Col span="4" class="bg"><i class="iconfont icon-yinxingqia org"></i> {{lang[local].bankCard}}</Col>
+                                    <Col span="4" style="padding-left:15px">{{item.name}}</Col>
+                                    <Col span="8">{{item.account}}</Col>
+                                    <Col span="4">{{item.bank}}</Col>
+                                    <Col span="4">{{item.branch}}</Col>
+                                </Row>
+
+                                <Row v-if="item.type =='2' && orderInfo.pay_type == item.id*1" class="type nocur">
+                                    <Col span="4" class="bg"><i class="iconfont iconfont icon-ZFBZD blue"></i>{{lang[local].aliPay}}</Col>
+                                    <Col span="4" style="padding-left:15px">{{item.name}}</Col>
+                                    <Col span="8">{{lang[local].transferModeTip10}}：{{item.branch}}</Col>
+                                    <Col span="4"><Button type="text" size="large" class="blue" @click="seeQR">{{lang[local].c2cDetailTxt4}}</Button></Col>
+                                    <Col span="4"></Col>
+                                </Row>
+
+                                <Row v-if="item.type =='3' && orderInfo.pay_type == item.id*1" class="type nocur">
+                                    <Col span="4" class="bg"><i class="iconfont icon-ai-weixin green"></i>{{lang[local].weChat}}</Col>
+                                    <Col span="4" style="padding-left:15px">{{item.name}}</Col>
+                                    <Col span="8">{{lang[local].c2cDetailTxt5}}：{{item.branch}}</Col>
+                                    <Col span="4"><Button type="text" size="large" class="blue" @click="seeQR">{{lang[local].c2cDetailTxt4}}</Button></Col>
+                                    <Col span="4"></Col>
+                                </Row>
+                                <Row v-if="item.type =='4' && orderInfo.pay_type == item.id*1" class="type nocur">
+                                    <Col span="4" class="bg"><i class="iconfont icon-paynow org"></i>PayNow</Col>
+                                    <Col span="4" style="padding-left:15px">{{item.name}}</Col>
+                                    <Col span="8">PayNow {{local == 'en' ? '' : lang[local].safety22}}：{{item.branch}}</Col>
+                                    <!-- <Col span="4"><Button type="text" size="large" class="blue" @click="seeQR">{{lang[local].c2cDetailTxt4}}</Button></Col> -->
+                                    <Col span="4"></Col>
+                                </Row>
+
+                                <Row v-if="item.type =='5' && orderInfo.pay_type == item.id*1" class="type nocur">
+                                    <Col span="4" class="bg"><i class="iconfont icon-race org"></i>Interace</Col>
+                                    <Col span="4" style="padding-left:15px">{{item.name}}</Col>
+                                    <Col span="8">Interace-transfer {{local == 'en' ? '' : lang[local].safety22}}：{{item.branch}}</Col>
+                                    <!-- <Col span="4"><Button type="text" size="large" class="blue" @click="seeQR">{{lang[local].c2cDetailTxt4}}</Button></Col> -->
+                                    <Col span="4"></Col>
+                                </Row>
+
+                                <Row v-if="item.type =='6' && orderInfo.pay_type == item.id*1" class="type nocur">
+                                    <Col span="4" class="bg"><i class="iconfont icon-paypal blue"></i>Paypal</Col>
+                                    <Col span="4" style="padding-left:15px">{{item.name}}</Col>
+                                    <Col span="8">Paypal {{local == 'en' ? '' : lang[local].safety22}}：{{item.branch}}</Col>
+                                    <!-- <Col span="4"><Button type="text" size="large" class="blue" @click="seeQR">{{lang[local].c2cDetailTxt4}}</Button></Col> -->
+                                    <Col span="4"></Col>
+                                </Row>
+
+                                <Row v-if="item.type =='7' && orderInfo.pay_type == item.id*1" class="type nocur">
+                                    <Col span="4" class="bg"><i class="iconfont icon-uip org"></i>UPI</Col>
+                                    <Col span="4" style="padding-left:15px">{{item.name}}</Col>
+                                    <Col span="8">UPI {{local == 'en' ? '' : lang[local].safety22}}：{{item.branch}}</Col>
+                                    <Col span="4"><Button type="text" size="large" class="blue" @click="seeQR">{{lang[local].c2cDetailTxt4}}</Button></Col>
+                                    <Col span="4"></Col>
+                                </Row>
+                            </div>
+
+                            <!-- <div v-if="orderInfo.bank_card && orderInfo.pay_type ==1" @click="handlePayType('bank')" >
                                 <Row class="type nocur">
                                     <Col span="4" class="bg"><i class="iconfont icon-yinxingqia org"></i> {{lang[local].bankCard}}</Col>
                                     <Col span="4" style="padding-left:15px">{{orderInfo.truename}}</Col>
@@ -77,7 +192,7 @@
                                     <Col span="4"><Button type="text" size="large" class="blue" @click="seeQR">{{lang[local].c2cDetailTxt4}}</Button></Col>
                                     <Col span="4"></Col>
                                 </Row>
-                            </div>
+                            </div> -->
                         </template>
                     </div>
                     <div class="card" v-if="orderInfo.status==2">
@@ -92,7 +207,7 @@
                     <div class="payinfo" v-if="orderInfo.status==1 && orderInfo.type == 1 && local !='en'">{{lang[local].c2cDetailTxt9}} <span class="sell">{{leftTime}}</span>  {{lang[local].c2cDetailTxt10}} {{orderInfo.nickname}} {{lang[local].c2cDetailTxt11}} {{moneyFormat}} {{orderInfo.currency}}</div>
                     <div class="payinfo" v-if="orderInfo.status==1 && orderInfo.type == 1 && local =='en'">{{lang[local].c2cDetailTxt9}} pay {{moneyFormat}} {{orderInfo.currency}} to {{orderInfo.nickname}}  within <span class="sell">{{leftTime}}</span> </div>
                     <div class="payinfo" v-if="orderInfo.status==3 && orderInfo.type == 1">{{lang[local].c2cDetailTxt12}} {{orderInfo.nickname}} {{lang[local].c2cDetailTxt13}} <span class="tbuy"> {{orderInfo.amount}} {{orderInfo.symbol && orderInfo.symbol.toUpperCase()}}</span></div>
-                    <div class="payinfo" v-if="orderInfo.status==5">{{lang[local].c2cDetailTxt14}} <Button type="text" size="large" class="blue" style="padding:0px;font-size:20px;font-weight:bold;margin-top:-5px;" @click="gotoUrl('appeal',orderInfo.appeal_id)">{{lang[local].c2cDetailTxt15}}</Button></div>
+                    <div class="payinfo" v-if="orderInfo.status==5 && orderInfo.appeal_display" >{{lang[local].c2cDetailTxt14}} <Button type="text" size="large" class="blue" style="padding:0px;font-size:20px;font-weight:bold;margin-top:-5px;" @click="gotoUrl('appeal',orderInfo.appeal_id)">{{lang[local].c2cDetailTxt15}}</Button></div>
                     <div class="pay" v-if="orderInfo.type != 1">{{lang[local].c2cDetailTxt16}} <span>{{orderInfo.code}}</span> {{lang[local].c2cDetailTxt17}}</div>
                     <div class="pay" v-if="orderInfo.type == 1">{{lang[local].c2cDetailTxt16}} <span>{{orderInfo.code}}</span> {{lang[local].c2cDetailTxt19}}</div>
                     <div class="btn" v-if="orderInfo.status==4"><h2> <span v-if="orderInfo.type == 2"> {{lang[local].c2cType4}}</span><span v-if="orderInfo.type == 1">{{lang[local].c2cDetailTxt20}} <Button type="text" size="large" class="blue" style="padding:0px;font-size:20px;font-weight:bold;margin-top:-5px;" @click="gotoUrl('c2c')">{{lang[local].c2cDetailTxt21}}</Button></span></h2></div>
@@ -196,7 +311,7 @@
             :closable = false
             :footer-hide = true
             class-name="vertical-center-modal">            
-            <Row class="payModal" v-if="orderInfo.type==2">
+            <Row class="payModal" v-if="orderInfo.type==2">     <!-- 放币 -->
                 <Col span="18"><h1 style="color:#666;font-size:24px">{{lang[local].c2cDetailTxt49}}</h1></Col>
                 <Col span="6" class="leftTime" style="text-align:right"><i class="iconfont icon-shijian"></i> {{leftTime}}</Col>
                 <Col span="24" style="height:20px"></Col>
@@ -227,7 +342,8 @@
                 <Col span="12" style="text-align:center"><Button type="text" size="large" @click="payModal = false">{{lang[local].c2cDetailTxt57}}</Button></Col>
                 <Col span="12" style="text-align:center"><Button type="primary" size="large" @click="confirmReceivable">{{lang[local].apply36}}</Button></Col>
             </Row>
-            <Row class="payModal" v-if="payType == 'bank' && orderInfo.type==1">
+            <!-- 打款 -->
+            <Row class="payModal" v-if="payType == '1' && orderInfo.type==1">
                 <Col span="18"><h1 style="color:#666;font-size:24px">{{lang[local].c2cDetailTxt58}}</h1></Col>
                 <Col span="6" class="leftTime"><i class="iconfont icon-shijian"></i> {{leftTime}}</Col>
                 <Col span="24" style="height:20px"></Col>
@@ -238,10 +354,10 @@
                         <Col span="24">
                             <Row >
                                 <Col span="24" style="color:#999;font-size:14px">{{lang[local].c2cDetailTxt60}} </Col>
-                                <Col span="24" >{{orderInfo.bank_card}}</Col>
-                                <Col span="8">{{orderInfo.truename}}</Col>
-                                <Col span="8">{{orderInfo.bank_name}} </Col>
-                                <Col span="8">{{orderInfo.bank_branch}}</Col>
+                                <Col span="24" >{{curPay.account}}</Col>
+                                <Col span="8">{{curPay.name}}</Col>
+                                <Col span="8">{{curPay.bank}} </Col>
+                                <Col span="8">{{curPay.branch}}</Col>
                                 <Col span="24" style="color:#999;font-size:14px;margin-top:15px"> {{lang[local].c2cDetailTxt16}} <span style="font-size:12px">{{lang[local].c2cDetailTxt19}}</span> </Col>
                                 <Col span="8" class="f15">{{orderInfo.code}}</Col>
                             </Row>
@@ -254,7 +370,7 @@
                 <Col span="12" style="text-align:center;"><Button type="primary" size="large" @click="confirmPay">{{lang[local].c2cDetailTxt63}}</Button></Col>
             </Row>
 
-            <Row class="payModal" v-if="payType != 'bank' && orderInfo.type==1 ">
+            <Row class="payModal" v-if="payType == '2' && orderInfo.type==1 ">
                 <Col span="18"><h1 style="color:#666;font-size:24px">{{lang[local].c2cDetailTxt58}}</h1></Col>
                 <Col span="6" class="leftTime"><i class="iconfont icon-shijian"></i> {{leftTime}}</Col>
                 <Col span="24" style="height:20px"></Col>
@@ -265,24 +381,14 @@
                         <Col span="16">
                             <Row v-if="payType == 'alipay'">
                                 <Col style="color:#999;font-size:14px">{{lang[local].c2cDetailTxt64}}</Col>
-                                <Col >{{orderInfo.alipay_account}}</Col>
-                                <Col>{{orderInfo.truename}}</Col>
-                                <Col style="color:#999;font-size:14px;margin-top:15px"> {{lang[local].c2cDetailTxt16}} <span style="font-size:12px">{{lang[local].c2cDetailTxt19}}</span> </Col>
-                                <Col class="f15">{{orderInfo.code}}</Col>
-                            </Row>
-                            <Row v-if="payType != 'alipay'">
-                                <Col style="color:#999;font-size:14px">{{lang[local].c2cDetailTxt65}} </Col>
-                                <Col >{{orderInfo.wxpay_account}}</Col>
-                                <Col>{{orderInfo.wxpay_name}}</Col>
+                                <Col >{{curPay.branch}}</Col>
+                                <Col>{{curPay.name}}</Col>
                                 <Col style="color:#999;font-size:14px;margin-top:15px"> {{lang[local].c2cDetailTxt16}} <span style="font-size:12px">{{lang[local].c2cDetailTxt19}}</span> </Col>
                                 <Col class="f15">{{orderInfo.code}}</Col>
                             </Row>
                         </Col>
-                        <Col v-if="payType == 'alipay'" span="6" offset="2">
-                            <img :src="orderInfo.alipay_image" alt="" style="width:120px;height:120px">
-                        </Col>
-                        <Col v-if="payType != 'alipay'" span="6" offset="2">
-                            <img :src="orderInfo.wxpay_image" alt="" style="width:120px;height:120px">
+                        <Col span="6" offset="2">
+                            <img :src="curPay.account" alt="" style="width:120px;height:120px">
                         </Col>
                     </Row>                
                 <Col span="24" style="margin:10px 0"><hr style="border:none;border-top:1px dotted #ccc"></Col>
@@ -291,6 +397,147 @@
                 <Col span="12" style="text-align:center;"><Button type="text" size="large" @click="payModal = false">{{lang[local].c2cDetailTxt62}}</Button></Col>
                 <Col span="12" style="text-align:center;"><Button type="primary" size="large" @click="confirmPay" >{{lang[local].c2cDetailTxt63}}</Button></Col>
             </Row>
+
+            <Row class="payModal" v-if="payType == '3' && orderInfo.type==1 ">
+                <Col span="18"><h1 style="color:#666;font-size:24px">{{lang[local].c2cDetailTxt58}}</h1></Col>
+                <Col span="6" class="leftTime"><i class="iconfont icon-shijian"></i> {{leftTime}}</Col>
+                <Col span="24" style="height:20px"></Col>
+                <Col span="24" style="color:#999;font-size:14px">{{lang[local].c2cDetailTxt59}}</Col>
+                <Col span="24" class="tbuy">{{moneyFormat}} {{orderInfo.currency && orderInfo.currency.toUpperCase()}}</Col>
+                <Col span="24" style="margin:10px 0"><hr style="border:none;border-top:1px dotted #ccc"></Col>                
+                    <Row>
+                        <Col span="16">
+                            <Row>
+                                <Col style="color:#999;font-size:14px">{{lang[local].c2cDetailTxt65}} </Col>
+                                <Col >{{curPay.branch}}</Col>
+                                <Col>{{curPay.name}}</Col>
+                                <Col style="color:#999;font-size:14px;margin-top:15px"> {{lang[local].c2cDetailTxt16}} <span style="font-size:12px">{{lang[local].c2cDetailTxt19}}</span> </Col>
+                                <Col class="f15">{{orderInfo.code}}</Col>
+                            </Row>
+                        </Col>
+                        <Col span="6" offset="2">
+                            <img :src="curPay.account" alt="" style="width:120px;height:120px">
+                        </Col>
+                    </Row>                
+                <Col span="24" style="margin:10px 0"><hr style="border:none;border-top:1px dotted #ccc"></Col>
+                <Col span="24" class="sell" style="font-size:14px">{{lang[local].c2cDetailTxt61}}</Col>
+                <Col span="24" style="height:50px"></Col>
+                <Col span="12" style="text-align:center;"><Button type="text" size="large" @click="payModal = false">{{lang[local].c2cDetailTxt62}}</Button></Col>
+                <Col span="12" style="text-align:center;"><Button type="primary" size="large" @click="confirmPay" >{{lang[local].c2cDetailTxt63}}</Button></Col>
+            </Row>
+
+            <Row class="payModal" v-if="payType == '4' && orderInfo.type==1 ">
+                <Col span="18"><h1 style="color:#666;font-size:24px">{{lang[local].c2cDetailTxt58}}</h1></Col>
+                <Col span="6" class="leftTime"><i class="iconfont icon-shijian"></i> {{leftTime}}</Col>
+                <Col span="24" style="height:20px"></Col>
+                <Col span="24" style="color:#999;font-size:14px">{{lang[local].c2cDetailTxt59}}</Col>
+                <Col span="24" class="tbuy">{{moneyFormat}} {{orderInfo.currency && orderInfo.currency.toUpperCase()}}</Col>
+                <Col span="24" style="margin:10px 0"><hr style="border:none;border-top:1px dotted #ccc"></Col>                
+                    <Row>
+                        <Col span="16">
+                            <Row>
+                                <Col style="color:#999;font-size:14px">{{lang[local].other}} PayNow {{lang[local].safety22}}</Col>
+                                <Col >{{curPay.branch}}</Col>
+                                <Col>{{curPay.name}}</Col>
+                                <Col style="color:#999;font-size:14px;margin-top:15px"> {{lang[local].c2cDetailTxt16}} <span style="font-size:12px">{{lang[local].c2cDetailTxt19}}</span> </Col>
+                                <Col class="f15">{{orderInfo.code}}</Col>
+                            </Row>
+                        </Col>
+                        <!-- <Col span="6" offset="2">
+                            <img :src="curPay.account" alt="" style="width:120px;height:120px">
+                        </Col> -->
+                    </Row>                
+                <Col span="24" style="margin:10px 0"><hr style="border:none;border-top:1px dotted #ccc"></Col>
+                <Col span="24" class="sell" style="font-size:14px">{{lang[local].c2cDetailTxt61}}</Col>
+                <Col span="24" style="height:50px"></Col>
+                <Col span="12" style="text-align:center;"><Button type="text" size="large" @click="payModal = false">{{lang[local].c2cDetailTxt62}}</Button></Col>
+                <Col span="12" style="text-align:center;"><Button type="primary" size="large" @click="confirmPay" >{{lang[local].c2cDetailTxt63}}</Button></Col>
+            </Row>
+
+            <Row class="payModal" v-if="payType == '5' && orderInfo.type==1 ">
+                <Col span="18"><h1 style="color:#666;font-size:24px">{{lang[local].c2cDetailTxt58}}</h1></Col>
+                <Col span="6" class="leftTime"><i class="iconfont icon-shijian"></i> {{leftTime}}</Col>
+                <Col span="24" style="height:20px"></Col>
+                <Col span="24" style="color:#999;font-size:14px">{{lang[local].c2cDetailTxt59}}</Col>
+                <Col span="24" class="tbuy">{{moneyFormat}} {{orderInfo.currency && orderInfo.currency.toUpperCase()}}</Col>
+                <Col span="24" style="margin:10px 0"><hr style="border:none;border-top:1px dotted #ccc"></Col>                
+                    <Row>
+                        <Col span="16">
+                            <Row>
+                                <Col style="color:#999;font-size:14px">{{lang[local].other}} Interace-transfer {{lang[local].safety22}}</Col>
+                                <Col >{{curPay.branch}}</Col>
+                                <Col>{{curPay.name}}</Col>
+                                <Col style="color:#999;font-size:14px;margin-top:15px"> {{lang[local].c2cDetailTxt16}} <span style="font-size:12px">{{lang[local].c2cDetailTxt19}}</span> </Col>
+                                <Col class="f15">{{orderInfo.code}}</Col>
+                            </Row>
+                        </Col>
+                        <!-- <Col span="6" offset="2">
+                            <img :src="curPay.account" alt="" style="width:120px;height:120px">
+                        </Col> -->
+                    </Row>                
+                <Col span="24" style="margin:10px 0"><hr style="border:none;border-top:1px dotted #ccc"></Col>
+                <Col span="24" class="sell" style="font-size:14px">{{lang[local].c2cDetailTxt61}}</Col>
+                <Col span="24" style="height:50px"></Col>
+                <Col span="12" style="text-align:center;"><Button type="text" size="large" @click="payModal = false">{{lang[local].c2cDetailTxt62}}</Button></Col>
+                <Col span="12" style="text-align:center;"><Button type="primary" size="large" @click="confirmPay" >{{lang[local].c2cDetailTxt63}}</Button></Col>
+            </Row>
+
+            <Row class="payModal" v-if="payType == '6' && orderInfo.type==1 ">
+                <Col span="18"><h1 style="color:#666;font-size:24px">{{lang[local].c2cDetailTxt58}}</h1></Col>
+                <Col span="6" class="leftTime"><i class="iconfont icon-shijian"></i> {{leftTime}}</Col>
+                <Col span="24" style="height:20px"></Col>
+                <Col span="24" style="color:#999;font-size:14px">{{lang[local].c2cDetailTxt59}}</Col>
+                <Col span="24" class="tbuy">{{moneyFormat}} {{orderInfo.currency && orderInfo.currency.toUpperCase()}}</Col>
+                <Col span="24" style="margin:10px 0"><hr style="border:none;border-top:1px dotted #ccc"></Col>                
+                    <Row>
+                        <Col span="16">
+                            <Row>
+                                <Col style="color:#999;font-size:14px">{{lang[local].other}} Paypal {{lang[local].safety22}}</Col>
+                                <Col >{{curPay.branch}}</Col>
+                                <Col>{{curPay.name}}</Col>
+                                <Col style="color:#999;font-size:14px;margin-top:15px"> {{lang[local].c2cDetailTxt16}} <span style="font-size:12px">{{lang[local].c2cDetailTxt19}}</span> </Col>
+                                <Col class="f15">{{orderInfo.code}}</Col>
+                            </Row>
+                        </Col>
+                        <!-- <Col span="6" offset="2">
+                            <img :src="curPay.account" alt="" style="width:120px;height:120px">
+                        </Col> -->
+                    </Row>                
+                <Col span="24" style="margin:10px 0"><hr style="border:none;border-top:1px dotted #ccc"></Col>
+                <Col span="24" class="sell" style="font-size:14px">{{lang[local].c2cDetailTxt61}}</Col>
+                <Col span="24" style="height:50px"></Col>
+                <Col span="12" style="text-align:center;"><Button type="text" size="large" @click="payModal = false">{{lang[local].c2cDetailTxt62}}</Button></Col>
+                <Col span="12" style="text-align:center;"><Button type="primary" size="large" @click="confirmPay" >{{lang[local].c2cDetailTxt63}}</Button></Col>
+            </Row>
+
+            <Row class="payModal" v-if="payType == '7' && orderInfo.type==1 ">
+                <Col span="18"><h1 style="color:#666;font-size:24px">{{lang[local].c2cDetailTxt58}}</h1></Col>
+                <Col span="6" class="leftTime"><i class="iconfont icon-shijian"></i> {{leftTime}}</Col>
+                <Col span="24" style="height:20px"></Col>
+                <Col span="24" style="color:#999;font-size:14px">{{lang[local].c2cDetailTxt59}}</Col>
+                <Col span="24" class="tbuy">{{moneyFormat}} {{orderInfo.currency && orderInfo.currency.toUpperCase()}}</Col>
+                <Col span="24" style="margin:10px 0"><hr style="border:none;border-top:1px dotted #ccc"></Col>                
+                    <Row>
+                        <Col span="16">
+                            <Row>
+                                <Col style="color:#999;font-size:14px">{{lang[local].other}} UPI {{lang[local].safety22}} </Col>
+                                <Col >{{curPay.branch}}</Col>
+                                <Col>{{curPay.name}}</Col>
+                                <Col style="color:#999;font-size:14px;margin-top:15px"> {{lang[local].c2cDetailTxt16}} <span style="font-size:12px">{{lang[local].c2cDetailTxt19}}</span> </Col>
+                                <Col class="f15">{{orderInfo.code}}</Col>
+                            </Row>
+                        </Col>
+                        <Col span="6" offset="2">
+                            <img :src="curPay.account" alt="" style="width:120px;height:120px">
+                        </Col>
+                    </Row>                
+                <Col span="24" style="margin:10px 0"><hr style="border:none;border-top:1px dotted #ccc"></Col>
+                <Col span="24" class="sell" style="font-size:14px">{{lang[local].c2cDetailTxt61}}</Col>
+                <Col span="24" style="height:50px"></Col>
+                <Col span="12" style="text-align:center;"><Button type="text" size="large" @click="payModal = false">{{lang[local].c2cDetailTxt62}}</Button></Col>
+                <Col span="12" style="text-align:center;"><Button type="primary" size="large" @click="confirmPay" >{{lang[local].c2cDetailTxt63}}</Button></Col>
+            </Row>
+
         </Modal>
         <Modal
             v-model="qrModal"
@@ -299,8 +546,7 @@
             class-name="vertical-center-modal">
             <h1>{{lang[local].c2cDetailTxt66}}</h1>
             <hr style="margin-top:20px">
-            <img v-if="payType == 'alipay'" :src="orderInfo.alipay_image" alt="" style="width:250px;height:250px;margin:40px auto;display:block;">
-            <img v-if="payType != 'alipay'" :src="orderInfo.wxpay_image" alt="" style="width:250px;height:250px;margin:40px auto;display:block;">
+            <img :src="curPay.account" alt="" style="width:250px;height:250px;margin:40px auto;display:block;">
             <div style="text-align:center">
                 <Button type="primary" size="large" @click="qrModal = false">{{lang[local].c2cClose}}</Button>
             </div>
@@ -364,6 +610,7 @@ export default {
             qrModal:false,
             appealModal:false,
             cancelModal:false,
+            curPay:{},
             bank:{
                 name:'',
                 card:'',
@@ -438,9 +685,9 @@ export default {
                 return str;
             }
         },
-        handlePayType(val){
-            this.payType = val
-            
+        handlePayType(ojb){
+            this.curPay = ojb
+            this.payType = ojb.type            
         },
         seeQR(){
             this.qrModal = true;
@@ -453,6 +700,10 @@ export default {
                 }
             }).then(res=>{
                 this.orderInfo = res.data.info
+                this.curPay = res.data.info.pays[0] || {}
+                this.payType = res.data.info.pays[0].type || ''
+                console.log(this.curPay);
+                
                 let loop
                 // clearInterval(loopask)
                 // this.transferMode = res.data.info.transfer_mode
@@ -556,7 +807,7 @@ export default {
                 url : this.api.confirmPay,
                 data : {
                     id:this.orderInfo.id,
-                    pay_type:this.payType =="bank" ? 1 : this.payType =="alipay" ? 2 : this.payType =="wxpay" ? 3 : 0
+                    pay_type:this.curPay.id
                 }
             }).then(res=>{
                 this.payModal = false
@@ -674,8 +925,14 @@ export default {
                         cursor: pointer;
                         .bg{
                             background: #EFEFEF;
-                            text-align: center;
+                            text-align: left;
+                            padding-left:10px;
                             height: 58px;
+                            i{
+                                display: inline-block;
+                                width:40px;
+                                text-align: center;
+                            }
                         }
                         &:hover, &.cur{
                             border:1px solid #FF6600;

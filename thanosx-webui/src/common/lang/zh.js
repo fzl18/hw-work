@@ -1052,7 +1052,7 @@ const zh = {
     "apply24":"请输入微信号",
     "apply25":"微信号",
     "apply26":"请输入QQ号",
-    "apply27":"请输入微信号及QQ号码，至少填写一项，便于我们能与您联系，确认真人信息。",
+    "apply27":"请至少填写一项，便于我们能与您联系，确认真人信息。",
     "apply28":"资产证明及风控",
     "apply29":"个人资产情况",
     "apply30":"个人风控策略",
@@ -1063,7 +1063,7 @@ const zh = {
     "apply35":"上一步",
     "apply36":"确认",
     "apply37":"提交",
-    "apply38":"微信号及QQ号码，至少填写一项",
+    "apply38":"微信号、QQ号码、Skype、Line，至少填写一项",
     "apply39":"必须先阅读并同意协议",
     "apply40":"保证金不足",
     "apply41":"必须同意冻结保证金",
@@ -1071,9 +1071,16 @@ const zh = {
 
     "apply43":"包含数字资产投资及资产情况介绍，1000字以内",
     "apply44":"个人风控策略，1000字以内",
+    "apply45":"认证解除",
+    "apply46":"请输入Skype账号",
+    "apply47":"请输入Line账号",
+    "apply48":"返回",
+    "apply49":"添加转账方式",
+    "apply50":"请选择一种转账方式",
+    
 
     //transferMode
-    "transferModeTip1":"转账方式主要为设置法币交易时接收资金的收付款账户，请务必使用您本人实名账户信息。",
+    "transferModeTip1":"转账方式主要为设置法币交易时接收资金的收付款账户，请务必使用您本人实名账户信息。最多可启用3种收款方式。",
     "transferModeTip2":"必填",
     "transferModeTip3":"尾号",
     "transferModeTip4":"开户名",
@@ -1112,6 +1119,7 @@ const zh = {
     "addOrderErr6":"最小交易值不能大于最大交易值",
     "addOrderErr7":"最大交易值不能大于总价",
     "addOrderErr8":"必须先同意服务协议",
+    "addOrderErr9":"请选择收款方式",
 
 
     //appeal
@@ -1191,6 +1199,12 @@ const zh = {
     "takeCoinstatus4":"正在处理",
 
     "diffCurrency":"仅支持您所认证地区的法币交易",
+
+
+    "other":"对方",
+
+
+
 
     "newslist1":[
         {title:'服务交易',type_alias:''},

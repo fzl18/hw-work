@@ -29,6 +29,10 @@
                 <p>1) {{lang[local].apply14}}</p>
                 <p>2) {{lang[local].apply15}}</p>
             </div>
+            <div>
+                <h3>{{lang[local].apply45}}</h3>
+                <p>{{lang[local].c2cDetailTxt78}} <a href="mailto:service@thanosx.com">service@thanosx.com</a> ) {{lang[local].c2cDetailTxt79}}</p>
+            </div>
             <div class="btn">
                 <div style="margin:30px 0"><Checkbox v-model="tAgree" size="large"> {{lang[local].loginAgree}} </Checkbox><a :href="goUrl" target="_blank">{{lang[local].apply16}}</a> </div>
                 <Button size="large" type="primary" @click="gonext">{{lang[local].apply17}}</Button>
@@ -72,8 +76,10 @@
                 </Row>                
             </div>
             <Row>
-                <Col span="8"><Input v-model="weixin" type="text" size="large" style="width:300px" :placeholder=" lang[local].apply24"><span slot="prepend">{{lang[local].apply25}}</span></Input></Col>
-                <Col span="8"><Input v-model="QQ" type="text" size="large" style="width:300px" :placeholder="lang[local].apply26"><span slot="prepend">QQ</span></Input></Col>
+                <Col span="6"><Input v-model="weixin" :maxlength="50" type="text" size="large" style="width:300px" :placeholder=" lang[local].apply24"><span slot="prepend">{{lang[local].apply25}}</span></Input></Col>
+                <Col span="6"><Input v-model="QQ" :maxlength="50" type="text" size="large" style="width:300px" :placeholder="lang[local].apply26"><span slot="prepend">QQ</span></Input></Col>
+                <Col span="6"><Input v-model="Skype" :maxlength="50" type="text" size="large" style="width:300px" :placeholder="lang[local].apply46"><span slot="prepend">Skype</span></Input></Col>
+                <Col span="6"><Input v-model="Line" :maxlength="50" type="text" size="large" style="width:300px" :placeholder="lang[local].apply47"><span slot="prepend">Line</span></Input></Col>
                 <Col span="24" style="margin-top:40px">{{lang[local].apply27}}</Col>
             </Row>
         </section>
@@ -126,7 +132,7 @@
                     {{errInfo}}
                 </h2>
                 <div style="text-align:right;">
-                 <Button type="primary" size="large" style="font-size:16px" @click="$router.push('/')">Back </Button>
+                 <Button type="primary" size="large" style="font-size:16px" @click="$router.push('/')"> {{lang[local].apply48}}</Button>
                 </div>
             </div>
         </Modal>
@@ -143,6 +149,8 @@ export default {
             bAgree:false,
             weixin:'',
             QQ:'',
+            Skype:'',
+            Line:'',
             pNum:[''],
             userDetail:{},
             assets:'',
@@ -176,7 +184,7 @@ export default {
                     return
                 }
                 if(this.step == 3){
-                    if(!this.QQ && !this.weixin){
+                    if(!this.QQ && !this.weixin && !this.Skype && !this.Line){
                         this.$store.commit('msg/err', this.lang[this.local].apply38)
                     }else{
                         this.step++
@@ -209,6 +217,8 @@ export default {
                 this.userDetail = res.data
                 this.QQ = res.data.qq
                 this.weixin = res.data.wechat
+                this.Skype = res.data.Skype
+                this.Line = res.data.Line
                 
             }).catch( err=>{
                 console.log(err)
@@ -257,7 +267,9 @@ export default {
                     wechat:this.weixin,
                     assets_info:this.assets,
                     risk_info:this.risk,
-                    assets_images
+                    assets_images,
+                    skype:this.Skype,
+                    line:this.Line
                 }
             }).then(res=>{
                 this.$store.commit('msg/add', res.message)

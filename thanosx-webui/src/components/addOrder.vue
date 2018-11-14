@@ -32,9 +32,9 @@
                                     <td>{{lang[local].addOrderTip2}}</td>
                                     <td>
                                         <CheckboxGroup size="large" v-model="order.payment">
-                                            <Checkbox size="large" label="1" value="1" disabled>{{lang[local].bankCard}}</Checkbox>
-                                            <Checkbox v-if="params.wxpay" size="large" label="3" value="2">{{lang[local].weChat}}</Checkbox>
-                                            <Checkbox v-if="params.alipay" size="large" label="2" value="3">{{lang[local].aliPay}}</Checkbox>
+                                            <template v-for="item in transferList">
+                                                <Checkbox size="large" :label="item.id" >{{item.name}}</Checkbox>
+                                            </template>
                                         </CheckboxGroup>
                                     </td>
                                 </tr>                                
@@ -117,7 +117,7 @@ export default {
                 coin:'',
                 count:null,
                 currency:'',
-                payment:['1'],
+                payment:[],
                 price:null,
                 min:null,
                 max:null,
@@ -127,6 +127,7 @@ export default {
             coinList:[],
             currencyList:[],
             tourl:'',
+            transferList:[],
         }
     },
     created(){
@@ -144,7 +145,7 @@ export default {
                 coin:'',
                 count:null,
                 currency:'',
-                payment:['1'],
+                payment:[],
                 price:null,
                 min:null,
                 max:null,
@@ -160,6 +161,9 @@ export default {
             }
             let re = new RegExp("^(\-)*(\\d+)\\.("+ v +").*$")
             this.order.price = n && (n + '').replace(/[^\-?\d.]/g,'').replace(re,'$1$2.$3')
+            if(this.order.price && this.order.count){
+                this.order.max = (this.order.price * this.order.count).toFixed(2)
+            }
         },
         "order.min" (n,o){
             let numlength = 2
@@ -183,7 +187,7 @@ export default {
             this.order.max = n && (n + '').replace(/[^\-?\d.]/g,'').replace(re,'$1$2.$3')
             if(this.order.max < 0){
                 this.order.max = 0
-            }
+            }            
         },
         "order.count" (n,o){
             let numlength = 8
@@ -200,6 +204,9 @@ export default {
                 if(this.order.count < 0){
                     this.order.count = 0
                 }
+            }
+            if(this.order.price && this.order.count){
+                this.order.max = (this.order.price * this.order.count).toFixed(2)
             }
         }
     },
@@ -241,6 +248,10 @@ export default {
                 this.$store.commit('msg/err', this.lang[this.local].addOrderErr3)
                 return
             }
+            if(d.payment.length == 0){
+                this.$store.commit('msg/err', this.lang[this.local].addOrderErr9)
+                return
+            }            
             if(!d.min){
                 this.$store.commit('msg/err', this.lang[this.local].addOrderErr4)
                 return
@@ -263,7 +274,7 @@ export default {
                     coin:'',
                     count:null,
                     currency:'',
-                    payment:['1'],
+                    payment:[],
                     price:null,
                     min:null,
                     max:null,
@@ -282,7 +293,7 @@ export default {
                 coin:'',
                 count:null,
                 currency:'',
-                payment:['1'],
+                payment:[],
                 price:null,
                 min:null,
                 max:null,
@@ -311,6 +322,7 @@ export default {
                 }
             }).then(res=>{
                 this.currencyList = res.data.currency_list
+                this.transferList = res.data.transfer_list
             }).catch( err=>{
                 console.log(err);
             })

@@ -21,9 +21,12 @@
                 </dl> 
             </section>
             <section class="tbody">
-                <dl v-if="list.length == 0" >
-                    <dd style="text-align:center;width:100%">{{lang[local].emptyData}}</dd>
+                <dl v-if="loading" >
+                    <dd style="text-align:center;width:100%;height:100px"><load/></dd>
                 </dl>
+                <dl v-if="!loading && list.length == 0" >
+                    <dd style="text-align:center;width:100%">{{lang[local].emptyData}}</dd>
+                </dl>                
                 <dl v-for="item in list">
                     <dd style="width:17%" align="center">{{item.appeal_number}}</dd>
                     <dd style="width:17%" align="center">{{item.order_number}}</dd>
@@ -77,6 +80,7 @@
                 },
                 cancelModal:false,
                 cancelId:null,
+                loading:true,
             };
         },
         watch : {
@@ -99,6 +103,7 @@
                 this.getList()
             },
             getList(){
+                this.loading = true
                 this.axios({
                     url : this.api.appealList,
                     data : {
@@ -106,6 +111,7 @@
                         ...this.page
                     }
                 }).then(res=>{
+                    this.loading = false
                     this.list = res.data.list
                     this.page = res.data.page
                 }).catch( err=>{

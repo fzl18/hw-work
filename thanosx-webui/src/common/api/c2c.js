@@ -14,9 +14,10 @@ export const apiC2c = {
     "pendList":"/api/trade/pendList", //委托列表
     "createOrder":"/api/trade/createOrder", //下单
     "userInfo" : '/api/Security/basicinfo',//拿用户信息
-    "transferInfo" : '/api/business/transferInfo',//拿用户账户信息
+    "transferInfo" : '/api/business/assetInfo',//拿用户账户信息
     "sendCaptcha" : '/api/email/sendCaptcha',//下单验证码
     "applyCheckAsset" : '/api/business/applyCheckAsset',//
     "applyRequirements" : '/api/business/applyRequirements',//
+    "transferModeList":"/api/C2C/transferModeList",
     
 };

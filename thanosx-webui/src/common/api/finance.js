@@ -68,7 +68,7 @@ export const apiFinance = {
     "rsaInfo":"/api/security/rsaInfo",
 
     // C2C
-    "transferInfo" : '/api/business/transferInfo',//拿用户账户信息
+    "transferInfo" : '/api/business/assetInfo',//拿用户账户信息
     "accountList":"/api/C2C/accountList",  //我的资产--c2c账户列表
     "assetsTransfer":"/api/C2C/assetsTransfer", //c2c资产转移
     "orderList":"/api/C2C/orderList", //c2c订单列表
@@ -78,8 +78,10 @@ export const apiFinance = {
     "confirmReceivable":"/api/C2C/confirmReceivable", //确认收款
     "sendCaptcha":"/api/email/sendCaptcha", //发送确认收款验证码
     "transferModeSet":"/api/C2C/transferModeSet", //转账方式设置
+    "enabled":"/api/C2C/enabled", //转账方式开关
     "transferMode":"/api/C2C/transferMode", //转账方式
     "unbindTransferMode":"/api/C2C/unbindTransferMode", //转账方式解绑
+    "transferModeList":"/api/C2C/transferModeList", //转账方式下拉列表
     "basicCoin":"/api/trade/basicInfo",  //获取币种和法币基础信息
     "pendCurrencyList":"/api/trade/pendCurrencyList",  //获取当前用户法币信息
     "createPend":"/api/trade/createPend", //我的委托单: 创建委托单

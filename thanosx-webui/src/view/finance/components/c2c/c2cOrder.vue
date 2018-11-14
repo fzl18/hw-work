@@ -90,7 +90,8 @@
                         </ul>
 
                     </dt>
-                    <dd v-if="orderListArrary.length==0" style="text-align:center;width:100%">{{lang[local].emptyData}}</dd>
+                    <dd v-if="loading" style="height:100px"><load/></dd>
+                    <dd v-if="!loading && orderListArrary.length==0" style="text-align:center;width:100%">{{lang[local].emptyData}}</dd>
                     <dd v-for="item in orderListArrary">
                         <ul>
                             <li :title="item.orderid">{{item.orderid}}</li>
@@ -148,7 +149,8 @@
                 status:[],
                 coinList:[],
                 currencyList:[],
-                orderListArrary:[]
+                orderListArrary:[],
+                loading:true,
             };
         },
         watch : {
@@ -174,7 +176,7 @@
                 url : this.api.basicCoin,
                 data : {
                 }
-            }).then(res=>{
+            }).then(res=>{                
                 this.coinList = res.data.coin_list
                 this.currencyList = res.data.currency_list
             }).catch( err=>{
@@ -239,6 +241,7 @@
                 this.searchTxt.date = null              
             },
             orderList(){
+                this.loading = true
                 let params ={
                     order_id:this.searchTxt.id,//订单编号
                     symbol:this.searchTxt.coin && this.searchTxt.coin.toLowerCase(),//币种
@@ -255,6 +258,7 @@
                         ...params
                     }
                 }).then(res=>{
+                    this.loading = false
                     this.orderListArrary = res.data.list
                     this.page = res.data.page
                 }).catch( err=>{

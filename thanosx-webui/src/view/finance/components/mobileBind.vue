@@ -13,10 +13,10 @@
                             <option v-for="v,k in districtCode" :value="v">{{k}}</option>
                         </select>
                         <span :class="classActive(stateCode)" @click="stateCode = !stateCode">
-                            {{param.country && param.country + '  '}} {{param.districtcode ? param.districtcode :lang[local].selectCountry}}
+                            {{param.country && param.country + '  '}} {{param.districtcode ? param.districtcode=="+001" ? "+1" : param.districtcode:lang[local].selectCountry}}
                         </span>
                         <ul class="login-state-select" v-if="stateCode">
-                            <li v-for="v,k in districtCode" @click="stateCode = false;param.districtcode=v ; param.country = k"><span>{{v}}</span> <i>{{k}}</i></li>
+                            <li v-for="v,k in districtCode" @click="stateCode = false;param.districtcode=v ; param.country = k"><span>{{v=='+001'?'+1':v}}</span> <i>{{k}}</i></li>
                         </ul>
                     </div>
                 </section>
@@ -105,7 +105,7 @@
                     this.$store.commit('msg/err', this.lang[this.local].enterVerifCode);
                     return false;
                 };
-
+                
                 this.getStart();
 
                 this.axios({

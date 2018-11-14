@@ -5,8 +5,8 @@
   "author": "",
   "private": true,
   "scripts": {
-    "dev": "webpack-dev-server --inline --progress --config build/webpack.dev.conf.js",
-    "start": "npm run dev",
+    "dev": "webpack-dev-server --inline --progress --config build/webpack.dev.conf.js --host 0.0.0.0",
+    "start": "npm run dev ",
     "build": "node build/build.js",
     "buildPHP": "node build/buildPHP.js"
   },

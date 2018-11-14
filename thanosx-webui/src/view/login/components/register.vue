@@ -2,7 +2,7 @@
     <section class="register">
         <h2 class="login-title"><span>{{lang[local].freeRegister}}</span> {{lang[local].webName}}</h2>
         <section class="login-form">
-            <section class="login-form-group" style="z-index: 99999;">
+            <section class="login-form-group" style="z-index: 99;">
                 <!-- <div class="login-state">
                     <select v-model="param.districtcode">
                         <option v-for="v,k in districtCode" :value="v">{{k}}</option>
@@ -21,7 +21,7 @@
                     </div>
                 </div>
             </section>
-            <section class="login-form-group">                
+            <section class="login-form-group">
                 <div class="input-box" style="position: relative;">
                     <i class="iconfont icon-yanzhengma" style="font-size:18px"></i> <input type="text" @keyup.enter="submit"  v-model="param.pic_verify" name="register-mobile" :placeholder="lang[local].picVerifCode" style="width:calc(100% - 150px);padding-right:0"/>
                     <span @click="captcha" style="cursor: pointer; display:block; position: absolute;right:0;top:-10px;background:#333;width:100px;height:40px;"> <img :src="vpic" alt="" style="width:100px;height:40px;"> </span>

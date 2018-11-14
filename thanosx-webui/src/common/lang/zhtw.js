@@ -1038,7 +1038,7 @@ const zhtw = {
     "apply24":"請輸入微信號",
     "apply25":"微信號",
     "apply26":"請輸入QQ號",
-    "apply27":"請輸入微信號及QQ號碼，至少填寫一項，便於我們能與您聯系，確認真人資訊。",
+    "apply27":"請至少填寫一項，便於我們能與您聯系，確認真人資訊。",
     "apply28":"資產證明及風控",
     "apply29":"個人資產情況",
     "apply30":"個人風控策略",
@@ -1049,7 +1049,7 @@ const zhtw = {
     "apply35":"上一步",
     "apply36":"確認",
     "apply37":"提交",
-    "apply38":"微信號及QQ號碼，至少填寫一項",
+    "apply38":"微信號、QQ號碼、Skype、Line，至少填寫一項",
     "apply39":"必須先閱讀並同意協定",
     "apply40":"保證金不足",
     "apply41":"必須同意凍結保證金",
@@ -1057,9 +1057,14 @@ const zhtw = {
 
     "apply43":"包含数字资产投资及资产情况介绍，1000字以内",
     "apply44":"个人风控策略，1000字以内",
-
+    "apply45":"認證解除",
+    "apply46":"請輸入Skype帳號",
+    "apply47":"請輸入Line帳號",
+    "apply48":"返回",
+    "apply49":"添加轉帳管道",
+    "apply50":"請選擇一種轉帳管道",
     //transferMode
-    "transferModeTip1":"轉帳管道主要為設定法幣交易時接收資金的收付款帳戶，請務必使用您本人實名帳戶資訊。",
+    "transferModeTip1":"轉帳管道主要為設定法幣交易時接收資金的收付款帳戶，請務必使用您本人實名帳戶資訊。最多可啟用3種收款管道。",
     "transferModeTip2":"必填",
     "transferModeTip3":"尾號",
     "transferModeTip4":"開戶名",
@@ -1103,6 +1108,7 @@ const zhtw = {
     "addOrderErr6":"最小交易值不能大於最大交易值",
     "addOrderErr7":"最大交易值不能大於總價",
     "addOrderErr8":"必須先同意服務協定",
+    "addOrderErr9":"請選擇收款管道",
 
 
     //appeal
@@ -1184,7 +1190,7 @@ const zhtw = {
     "takeCoinstatus4":"正在處理",
     "diffCurrency":"僅支持您所認證地區的法幣交易",
 
-
+    "other":"對方",
 
     "newslist1":[
         {title:'服務交易',type_alias:''},

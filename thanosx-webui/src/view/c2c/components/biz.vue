@@ -31,7 +31,8 @@
                         <li>{{lang[local].operation}}</li>
                     </ul>
                 </dt>
-                <dd v-if="buyList.length == 0" style="text-algin:center;width:100%">{{lang[local].emptyData}}</dd>
+                <dd v-if="loading" style="height:100px"><load/></dd>
+                <dd v-if="!loading && buyList.length == 0" style="text-algin:center;width:100%">{{lang[local].emptyData}}</dd>
                 <dd v-for="(item,index) in buyList">
                     <ul>
                         <li> {{item.symbol.toUpperCase()}}</li>
@@ -39,11 +40,17 @@
                         <li>{{item.minvolume}}~{{item.maxvolume}} {{item.currency_name}}</li>
                         <li class="tbuy">{{item.price}} {{item.currency_name}}</li>
                         <li>
-                            <i v-if="item.bankpay" class="iconfont icon-yinxingqia org" />
-                            <i v-if="item.wxpay" class="iconfont icon-ai-weixin buy" />
-                            <i v-if="item.alipay" class="iconfont icon-ZFBZD blue" />
+                            <template v-for="val in item.pays">
+                                <i v-if="val.type =='1'" class="iconfont icon-yinxingqia org" />
+                                <i v-if="val.type =='3'"  class="iconfont icon-ai-weixin buy" />
+                                <i v-if="val.type =='2'"  class="iconfont icon-ZFBZD blue" />
+                                <i v-if="val.type =='4'"  class="iconfont icon-paynow org" />
+                                <i v-if="val.type =='5'"  class="iconfont icon-race org" />
+                                <i v-if="val.type =='6'"  class="iconfont icon-paypal blue" />
+                                <i v-if="val.type =='7'"  class="iconfont icon-uip org" />
+                            </template>
                         </li>
-                        <li><Button size="large" type="primary" :loading="false" @click="operation(item.id,item.maxvolume,item.minvolume)">{{`${lang[local].c2cSell} ${item.symbol.toUpperCase()}`}}</Button></li>
+                        <li><Button size="large" type="primary" :loading="false" @click="operation(item.id,item.maxvolume,item.minvolume,item.currency_name)">{{`${lang[local].c2cSell} ${item.symbol.toUpperCase()}`}}</Button></li>
                         <li v-if="checkMore == item.id" class="more">
                             <Row>
                                 <Col span="6">{{item.symbol.toUpperCase()}}</Col>
@@ -81,10 +88,16 @@
                                 </Col>
                             </Row>
                             <Row class="n2">
-                                <Col span="3" v-if="item.bankpay"><i class="iconfont icon-yinxingqia org" /> {{lang[local].bankCard}}</Col>
-                                <Col span="3" v-if="item.wxpay"><i class="iconfont icon-ai-weixin buy" /> {{lang[local].weChat}}</Col>
-                                <Col span="3" v-if="item.alipay"><i class="iconfont icon-ZFBZD blue" /> {{lang[local].aliPay}}</Col>
-                                <Col span="6" style="textAlign:right;float:right" >{{lang[local].c2cPayTime}}<span class="torg">30</span>{{lang[local].minute}}</Col>
+                                <template v-for="val in item.pays">
+                                    <Col span="3" v-if="val.type =='1'"><i class="iconfont icon-yinxingqia org" /> {{lang[local].bankCard}}</Col>
+                                    <Col span="3" v-if="val.type =='3'"><i class="iconfont icon-ai-weixin buy" /> {{lang[local].weChat}}</Col>
+                                    <Col span="3" v-if="val.type =='2'"><i class="iconfont icon-ZFBZD blue" /> {{lang[local].aliPay}}</Col>
+                                    <Col span="3" v-if="val.type =='4'"><i class="iconfont icon-paynow  org" /> PayNow</Col>
+                                    <Col span="3" v-if="val.type =='5'"><i class="iconfont icon-race org" /> Interace</Col>
+                                    <Col span="3" v-if="val.type =='6'"><i class="iconfont icon-paypal blue" /> Paypal</Col>
+                                    <Col span="3" v-if="val.type =='7'"><i class="iconfont icon-uip org" /> UIP</Col>
+                                </template>
+                                <Col span="6" style="textAlign:right;float:right" >{{lang[local].c2cPayTime}} <span class="torg">30</span> {{lang[local].minute}}</Col>
                                 <Col span="24"></Col>
                                 <Col span="24" v-if="item.remark" style="white-space:pre-wrap;line-height:20px"><span style="color:red">*</span>{{item.remark}}</Col>
                                 
@@ -108,7 +121,8 @@
                         <li>{{lang[local].operation}}</li>
                     </ul>
                 </dt>
-                <dd v-if="sellList.length == 0" style="text-algin:center;width:100%">{{lang[local].emptyData}}</dd>
+                <dd v-if="loading" style="height:100px"><load/></dd>
+                <dd v-if="!loading && sellList.length == 0" style="text-algin:center;width:100%">{{lang[local].emptyData}}</dd>
                 <dd v-for="(item,index) in sellList">
                     <ul>
                         <li> {{item.symbol.toUpperCase()}}</li>
@@ -116,9 +130,15 @@
                         <li>{{item.minvolume}}~{{item.maxvolume}} {{item.currency_name}}</li>
                         <li class="tbuy">{{item.price}} {{item.currency_name}}</li>
                         <li>
-                            <i v-if="item.bankpay" class="iconfont icon-yinxingqia org" />
-                            <i v-if="item.wxpay" class="iconfont icon-ai-weixin buy" />
-                            <i v-if="item.alipay" class="iconfont icon-ZFBZD blue" />
+                            <template v-for="val in item.pays">
+                                <i v-if="val.type =='1'" class="iconfont icon-yinxingqia org" />
+                                <i v-if="val.type =='3'"  class="iconfont icon-ai-weixin buy" />
+                                <i v-if="val.type =='2'"  class="iconfont icon-ZFBZD blue" />
+                                <i v-if="val.type =='4'"  class="iconfont icon-paynow org" />
+                                <i v-if="val.type =='5'"  class="iconfont icon-race org" />
+                                <i v-if="val.type =='6'"  class="iconfont icon-paypal blue" />
+                                <i v-if="val.type =='7'"  class="iconfont icon-uip org" />
+                            </template>
                         </li>
                         <li><Button size="large" type="primary" :loading="false" @click="operation(item.id,item.maxvolume,item.minvolume,item.currency_name)">{{`${lang[local].c2cBuy} ${item.symbol.toUpperCase()}`}}</Button></li>
                         <li v-if="checkMore == item.id" class="more">                            
@@ -158,10 +178,16 @@
                                 </Col> -->
                             </Row>
                             <Row class="n2">
-                                <Col span="3" v-if="item.bankpay"><i class="iconfont icon-yinxingqia org" /> {{lang[local].bankCard}}</Col>
-                                <Col span="3" v-if="item.wxpay"><i class="iconfont icon-ai-weixin buy" /> {{lang[local].weChat}}</Col>
-                                <Col span="3" v-if="item.alipay"><i class="iconfont icon-ZFBZD blue" /> {{lang[local].aliPay}}</Col>
-                                <Col span="6" style="textAlign:right;float:right">{{lang[local].c2cPayTime}}<span class="torg">30</span>{{lang[local].minute}}</Col>
+                                <template v-for="val in item.pays">
+                                    <Col span="3" v-if="val.type =='1'"><i class="iconfont icon-yinxingqia org" /> {{lang[local].bankCard}}</Col>
+                                    <Col span="3" v-if="val.type =='3'"><i class="iconfont icon-ai-weixin buy" /> {{lang[local].weChat}}</Col>
+                                    <Col span="3" v-if="val.type =='2'"><i class="iconfont icon-ZFBZD blue" /> {{lang[local].aliPay}}</Col>
+                                    <Col span="3" v-if="val.type =='4'"><i class="iconfont icon-paynow  org" /> PayNow</Col>
+                                    <Col span="3" v-if="val.type =='5'"><i class="iconfont icon-race org" /> Interace</Col>
+                                    <Col span="3" v-if="val.type =='6'"><i class="iconfont icon-paypal blue" /> Paypal</Col>
+                                    <Col span="3" v-if="val.type =='7'"><i class="iconfont icon-uip org" /> UIP</Col>
+                                </template>
+                                <Col span="6" style="textAlign:right;float:right">{{lang[local].c2cPayTime}} <span class="torg">30</span> {{lang[local].minute}}</Col>
                                 <Col span="24"></Col>
                                 <Col span="24" v-if="item.remark" style="white-space:pre-wrap;line-height:20px"> <span style="color:red">*</span> {{item.remark}}</Col>
                                 
@@ -247,6 +273,7 @@
                 canbuy:false,
                 currencyUse:[],
                 canbuycoin:false,
+                loading:true,
             };
         },
         created (){
@@ -392,12 +419,14 @@
                 })           
             },
             detail(){
+                this.loading = true
                 this.axios({
                     url : this.api.detail,
                     data : {
                         user_id:this.$route.query.id
                     }
                 }).then(res=>{
+                    this.loading = false
                     this.bizInfo = res.data.business_info
                     this.buyList = res.data.buy_list
                     this.sellList = res.data.sell_list

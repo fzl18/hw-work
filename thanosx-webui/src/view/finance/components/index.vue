@@ -48,24 +48,25 @@
                     </span>
                 </dd>
                 <dd>
-                    <span>
+                    <span :title="tobigNumber(item.available)">
                         <!-- <b>{{numDecimals(item.available)}}</b> -->
-                        <b>{{tobigNumber(item.available)}}</b>
+                        <b>{{tobigNumber(Math.floor(item.available*100000000)/100000000) }}</b>
                     </span>
                 </dd>
                 <dd>
-                    <span>
-                        <b>{{tobigNumber(item.availabled)}}</b>
+                    <span :title="tobigNumber(item.availabled)">
+                        <b>{{tobigNumber(Math.floor(item.availabled*100000000)/100000000)}}</b>
                     </span>
                 </dd>
                 <dd>
-                    <span>
-                        <b>{{tobigNumber(item.availablelock)}}</b>
+                    <span :title="tobigNumber(item.availablelock)">
+                        <b>{{tobigNumber(Math.floor(item.availablelock*100000000)/100000000)}}</b>
                     </span>
                 </dd>
                 <dd>
-                    <span>
-                        <b>{{tobigNumber(item.total)}}</b>
+                    <span :title="tobigNumber(item.available*1 + item.availabled*1 + item.availablelock*1)">
+                        <!-- <b>{{tobigNumber(item.available*1 + item.availabled*1 + item.availablelock*1 )}}</b>   item.total -->
+                        <b>{{total(item.available,item.availabled,item.availablelock)}}</b>
                         <!-- <small>≈¥{{rmbDecimals(item.total_cny)}}</small> -->
                     </span>
                 </dd>
@@ -145,7 +146,7 @@
             <h1>{{transferType == 'in' ? lang[local].c2cindextxt1:lang[local].c2cindextxt2}}</h1>
             <table>
                 <tr>
-                    <td width="80">{{lang[local].transferCoinType}}</td>
+                    <td width="120">{{lang[local].transferCoinType}}</td>
                     <td align="right">{{transferCoin}}</td>
                 </tr>
                 <tr>
@@ -182,7 +183,7 @@
                 totalAssets : 0,
                 coinSeekSatet : false,
                 totalAssetsState : false,
-                origin : process.env.NODE_ENV == 'development' ? 'http://39.108.169.210' : '',
+                origin : process.env.NODE_ENV == 'development' ? 'http://10.0.11.24' : '',
                 addOrderModal:false,
                 transfer:false,
                 transferType:'',
@@ -217,7 +218,7 @@
             },
             // ismain (){
             //     return  this.mainChain.indexOf(this.item.market2) == -1
-            // }
+            // }           
             
         },
         created (){
@@ -230,6 +231,13 @@
         methods : {
             tobigNumber(val){
                 return bigNum(val).toString(10)
+            },
+            total(v1,v2,v3){
+                let a = this.tobigNumber(Math.floor(v1*100000000)/100000000)
+                let b = this.tobigNumber(Math.floor(v2*100000000)/100000000)
+                let c = this.tobigNumber(Math.floor(v3*100000000)/100000000)
+                let d = a*1 + b*1  + c*1
+                return d
             },
             myasset (){
                 this.axios({

@@ -202,7 +202,7 @@ const en = {
     "safety19" : "Binding",
     "safety20" : "TODO-双重认证",
     "safety21" : "TODO-用于提币、找回密码、修改安全设置、管理API时进行安全验证。",
-    "safety22" : "TODO-账号",
+    "safety22" : "account",
     "safety23" : "TODO-安全问题",
     "safety24" : "Login password",
     "safety25" : "High",
@@ -415,7 +415,7 @@ const en = {
     "depositCard" : "TODO-储蓄卡",
     "cardName" : "TODO-持卡人姓名",
     "default" : "default",
-    "del" : "delete",
+    "del" : "Delete",
 
     "bankcardError" : "TODO-银行卡号不能为空",
     "bankNameError" : "TODO-开户名不能为空",
@@ -707,7 +707,7 @@ const en = {
     "defeated"  : 'fail',
     "tradePriceEmpty"  : 'The price of the transaction can not be empty',
     "tradeNumEmpty"  : 'The number of transactions can not be empty',
-    "balanceEmpty"  : 'the usdt balance is empty',
+    "balanceEmpty"  : ' balance is empty',
 
     "orderId"  : 'orderId',
     "object"  : '对象',
@@ -936,7 +936,7 @@ const en = {
     "c2cDetailTxt2":"Seller",
     "c2cDetailTxt3":"Buyer",
     "c2cDetailTxt4":"View QR code",
-    "c2cDetailTxt5":"View the QR code",
+    "c2cDetailTxt5":"Wechat ID",
     "c2cDetailTxt6":"Orders closed and can not see the seller payment information",
     "c2cDetailTxt7":"Paid, please ",
     "c2cDetailTxt8":"confirm the payment and deposit the currency within ",
@@ -1047,7 +1047,7 @@ const en = {
     "apply24":"Please enter Wechat ID",
     "apply25":"Wechat ID",
     "apply26":"Please enter the QQ number",
-    "apply27":"Please enter WeChat and QQ, at least one. So that we can contact you to confirm the real person information",
+    "apply27":"Please enter at least one. So that we can contact you to confirm the real person information",
     "apply28":"Asset certification and risk control",
     "apply29":"Personal assets",
     "apply30":"Personal risk control strategy",
@@ -1058,7 +1058,7 @@ const en = {
     "apply35":"Previous",
     "apply36":"Confirme",
     "apply37":"Submit",
-    "apply38":"WeChat and QQ, at least one.",
+    "apply38":"Please enter IM at least one.",
     "apply39":"Must read and agree to the agreement first",
     "apply40":"Insufficient margin",
     "apply41":"Must agree to freeze the deposit",
@@ -1066,22 +1066,27 @@ const en = {
 
     "apply43":"Includes digital asset investment and asset introduction, within 1000 words",
     "apply44":"Personal risk control strategy, within 1000 words",
-
+    "apply45":"certification is lifted",
+    "apply46":"Please enter Skype account number.",
+    "apply47":"Please enter Line account number.",
+    "apply48":"Back",
+    "apply49":"Add transfer method",
+    "apply50":"Please choose a way of transfer.",
     //transferMode
-    "transferModeTip1":"The main way of receiving funds transfer payments received Fiat account is set up, make sure to use your real name my account information.",
+    "transferModeTip1":"The main way of receiving funds transfer payments received Fiat account is set up, make sure to use your real name my account information. 3 modes of payment can be set up at most.",
     "transferModeTip2":"Required",
     "transferModeTip3":"Tail No.",
     "transferModeTip4":"Name",
     "transferModeTip5":"Bank",
     "transferModeTip6":"Account",
     "transferModeTip7":"Card number",
-    "transferModeTip8":"Confirm card number",
+    "transferModeTip8":"Confirm number",
     "transferModeTip9":"Name",
     "transferModeTip10":"Alipay ID",
     "transferModeTip11":"WeChat ID",
     // "transferModeTip12":"二维码显示区",
     "transferModeTip13":"Must be certified by real name to authenticate",
-    "transferModeTip14":"上传收款码，支持格式PNG、JPEG、JPG",
+    "transferModeTip14":"Upload payment code, support format PNG, JPEG, JPG",
     "transferModeErr1":"Fill in cannot be empty",
     "transferModeErr2":"Card number secondary input is inconsistent",
     "transferModeErr3":"QR code is not uploaded",
@@ -1107,6 +1112,7 @@ const en = {
     "addOrderErr6":"The min transaction value cannot be greater than the max transaction value",
     "addOrderErr7":"The max transaction value cannot be greater than the total price",
     "addOrderErr8":"You must agree to the Service Agreement",
+    "addOrderErr9":"Please choose the way of collection",
 
 
     //appeal
@@ -1194,6 +1200,7 @@ const en = {
     "takeCoinstatus4":"Processing",
     "diffCurrency":"Only currency transactions in the regions you are certified are supported",
 
+    "other":"The other",
 
     "newslist1":[
         {title:'SERVICE',type_alias:''},

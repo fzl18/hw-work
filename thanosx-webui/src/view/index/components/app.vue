@@ -8,12 +8,18 @@
                     <p class="txt">{{lang[local].apptxt}}</p>
                     <!-- <p class="download"><a href="">ios {{lang[local].appDownload}}</a><a href="">Android {{lang[local].appDownload}}</a></p> -->
                     <p class="download" style="font-size:24px;font-weight:bold;color:#FF7100">
-                        
-                        <a href="javascritp:;" style="background:#ccc;border-color:#ccc"><i class="iconfont icon-ios"></i> iOS</a>
+
+                        <Poptip trigger="hover" content="content" placement="bottom" width="200">
+                            <a :href="iosUrl" target="_blank"><i class="iconfont icon-ios"></i> iOS</a>
+                            <div class="api" slot="content" style="text-align:center">
+                                <ewm :value="iosUrl"></ewm>
+                            </div>
+                        </Poptip>                        
+                        <!-- <a href="javascritp:;" style="background:#ccc;border-color:#ccc"><i class="iconfont icon-ios"></i> iOS</a> -->
                         <!-- <a href="javascritp:;" style="background:#ccc;border-color:#ccc"><i class="iconfont icon-anzhuo"></i> Android</a> -->
                         
                         <Poptip trigger="hover" content="content" placement="bottom" width="200">
-                            <a href="javascritp:;"><i class="iconfont icon-anzhuo"></i> Android</a>
+                            <a :href="androidUrl" target="_blank"><i class="iconfont icon-anzhuo"></i> Android</a>
                             <div class="api" slot="content" style="text-align:center">
                                 <ewm :value="androidUrl"></ewm>
                             </div>

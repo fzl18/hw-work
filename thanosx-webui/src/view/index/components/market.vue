@@ -23,11 +23,11 @@
                 <h4 class="market-title">{{index == 0 ? lang[local].mainCoin : lang[local].newCoin}}</h4>
                 <ul class="market-thead">
                     <li><span>{{lang[local].tradePair}}</span></li>
-                    <li><span>{{lang[local].currentRate}}</span></li>
-                    <li><span>{{lang[local].dayUpDown}}</span></li>
-                    <li><span>{{lang[local].topPrice}}</span></li>
-                    <li><span>{{lang[local].minPrice}}</span></li>
-                    <li><span>{{lang[local].tradeVolume}}</span></li>
+                    <li style="text-align:right;"><span>{{lang[local].currentRate}}</span></li>
+                    <li style="text-align:right;"><span>{{lang[local].dayUpDown}}</span></li>
+                    <li style="text-align:right;"><span>{{lang[local].topPrice}}</span></li>
+                    <li style="text-align:right;"><span>{{lang[local].minPrice}}</span></li>
+                    <li style="text-align:right;"><span>{{lang[local].tradeVolume}}</span></li>
                     <li><span>{{lang[local].turnover}}</span></li>
                 </ul>
 
@@ -44,26 +44,25 @@
                                 <!-- <small>{{upperCase(coins[coin.xnb] && coins[coin.xnb].namech)}}</small> -->
                             </span>
                         </dd>
-                        <dd>
-                            <span v-if="coin.rmb == 'cnt'">
-                                <b style="font-size:14px">{{toDecimals(getItemMarketData(coin, 1),  (coins[coin.rmb] && coins[coin.rmb].accuracy) || 4)}}</b>
+                        <dd style="text-align:right;">
+                            <span v-if="coin.rmb == 'cnt'" >
+                                <b style="font-size:14px;">{{toDecimals(getItemMarketData(coin, 1),  (coins[coin.rmb] && coins[coin.rmb].accuracy) || 4)}}</b>
                             </span>
                             <span v-else class="rmb" :class="getMarketDataColor(coin)">
-                                <b style="font-size:14px">{{toDecimals(getItemMarketData(coin, 1),  (coins[coin.rmb] && coins[coin.rmb].accuracy) || 4)}}</b>
+                                <b style="font-size:14px;">{{toDecimals(getItemMarketData(coin, 1),  (coins[coin.rmb] && coins[coin.rmb].accuracy) || 4)}}</b>
                                 <!-- <small>≈¥{{rmbDecimals(getItemMarketData(coin, 7))}}</small> -->
                             </span>
                         </dd>
-                        <dd>
-                            <span :class="getMarketDataColor(coin)" style="font-size:14px">
+                        <dd style="text-align:right;">
+                            <span :class="getMarketDataColor(coin)" style="font-size:14px;">
                                 {{getItemMarketData(coin, 2) > 0 ? '+' : ''}}{{perCentDecimals(getItemMarketData(coin, 2))}}%
                             </span>
                         </dd>
-                        <dd><span style="font-size:14px">{{toDecimals(getItemMarketData(coin, 3), (coins[coin.rmb] && coins[coin.rmb].accuracy) || 4)}}</span></dd>
-                        <dd><span style="font-size:14px">{{tobigNumber(getItemMarketData(coin, 4),  (coins[coin.rmb] && coins[coin.rmb].accuracy) || 4)}}</span></dd>
+                        <dd style="text-align:right;"><span style="font-size:14px;">{{toDecimals(getItemMarketData(coin, 3), (coins[coin.rmb] && coins[coin.rmb].accuracy) || 4)}}</span></dd>
+                        <dd style="text-align:right;"><span style="font-size:14px;">{{tobigNumber(getItemMarketData(coin, 4),  (coins[coin.rmb] && coins[coin.rmb].accuracy) || 4)}}</span></dd>
                         <!-- <dd><span>{{numDecimals(getItemMarketData(coin, 5),  (coins[coin.rmb] && coins[coin.rmb].accuracy) || 4)}}</span></dd> -->
-                        <dd><span style="font-size:14px">{{toDecimals(getItemMarketData(coin, 5),  (coins[coin.rmb] && coins[coin.rmb].accuracy) || 4)}}</span> <span style="font-size:14px">{{upperCase(coin.xnb)}}</span></dd>
-                        <dd><i class="iconfont icon-cf-c41" style="color:#4DC61E;font-size:25px;cursor: pointer;" @click="toTrade(coin)"></i></dd>
-                        
+                        <dd style="text-align:right;"><span style="font-size:14px;">{{toDecimals(getItemMarketData(coin, 5),  (coins[coin.rmb] && coins[coin.rmb].accuracy) || 4)}}</span></dd>
+                        <dd><i class="iconfont icon-cf-c41" style="color:#4DC61E;font-size:25px;cursor: pointer;" @click="toTrade(coin)"></i></dd>                        
                     </dl>
                 </transition-group>
             </section>

@@ -10,7 +10,7 @@ export const apiCommon = {
     "navListArticle" : '/api/Article/navList',
     'articleInfo' : '/api/Article/info',
     'getDistrictCode' : '/api/index/getDistrictCode',
-    'origin' : process.env.NODE_ENV == 'development' ? 'http://39.108.169.210' : '',
+    'origin' : process.env.NODE_ENV == 'development' ? 'http://10.0.11.24' : '',
     'noticeId' : 36,
     'newsId' : 58,
     'appDownload' : 'https://www.rdb.one/home/mobile/appDownload',
@@ -47,6 +47,6 @@ export const toUrl = {
 };
 
 // export const webSocketUrl = process.env.NODE_ENV == 'development' ? 'ws://23.91.100.214:8686/sub' : 'wss://market-api.rdb.one/sub';
-export const webSocketUrl = process.env.NODE_ENV == 'development' ? 'ws://39.108.105.248:8686/sub' : window.webSocketUrl ? window.webSocketUrl : 'wss://market.thanosx.com/sub';
+export const webSocketUrl = process.env.NODE_ENV == 'development' ? 'ws://223.112.171.214:8772/sub' : window.webSocketUrl ? window.webSocketUrl : 'wss://market.thanosx.com/sub';
 
 

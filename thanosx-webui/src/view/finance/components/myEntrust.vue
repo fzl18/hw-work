@@ -100,7 +100,10 @@
                     }
                 }).then((res) => {
                     this.$store.commit('msg/add', this.lang[this.local].annulS);
-                    this.upData = this.upData + 1;
+                    setTimeout(()=>{
+                        location.reload()
+                        // this.upData = this.upData + 1;
+                    },500)
                 }).catch((err) => {
                     this.$store.commit('msg/err', err.message || this.lang[this.local].annulE);
                 });

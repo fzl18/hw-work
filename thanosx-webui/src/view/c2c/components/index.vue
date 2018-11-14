@@ -62,7 +62,7 @@
                                         <td>{{lang[local].c2cpayType}}：</td>
                                         <td>
                                             <Select v-model="searchTxt1.payType" size="large" style="width:150px" :placeholder="lang[local].all" clearable>
-                                                <Option v-for="item in payList" :value="item" :key="item">{{ item=='bankpay'? lang[local].bankCard : item=='alipay' ? lang[local].aliPay : lang[local].weChat }}</Option>
+                                                <Option v-for="item in payList" :value="item.type" :key="item.type">{{ item.name}}</Option>
                                             </Select>
                                         </td>
                                     </tr>
@@ -136,7 +136,8 @@
                         <li>{{lang[local].operation}}</li>
                     </ul>
                 </dt>
-                <dd v-if="pendListArray.length == 0" style="text-algin:center;width:100%">{{lang[local].emptyData}}</dd>
+                <dd v-if="loading" style="height:100px"><load/></dd>
+                <dd v-if="!loading && pendListArray.length == 0" style="text-algin:center;width:100%">{{lang[local].emptyData}}</dd>
                 <dd v-for="(item,index) in pendListArray" v-if=" curType != 'myOrder'">
                     <ul  >
                         <li><span @click=" loginInfo.uid != item.uid ? $router.push(`/biz?id=${item.uid}`) : ''" class="tblue cursor">{{item.business_name}}</span> ({{item.month_orders}})</li>
@@ -144,9 +145,15 @@
                         <li>{{item.minvolume}}~{{item.maxvolume}} {{item.currency_name}}</li>
                         <li class="tbuy">{{item.price}} {{item.currency_name}}</li>
                         <li>
-                            <i v-if="item.bankpay" class="iconfont icon-yinxingqia org" />
-                            <i v-if="item.wxpay" class="iconfont icon-ai-weixin buy" />
-                            <i v-if="item.alipay" class="iconfont icon-ZFBZD blue" />
+                            <template v-for="val in item.pays">
+                                <i v-if="val.type =='1'" class="iconfont icon-yinxingqia org" />
+                                <i v-if="val.type =='3'"  class="iconfont icon-ai-weixin buy" />
+                                <i v-if="val.type =='2'"  class="iconfont icon-ZFBZD blue" />
+                                <i v-if="val.type =='4'"  class="iconfont icon-paynow org" />
+                                <i v-if="val.type =='5'"  class="iconfont icon-race org" />
+                                <i v-if="val.type =='6'"  class="iconfont icon-paypal blue" />
+                                <i v-if="val.type =='7'"  class="iconfont icon-uip org" />
+                            </template>
                         </li>
                         <li><Button :disabled="loginInfo.uid == item.uid ? true : false " size="large" type="primary" :loading="false" @click="operation(index,item.maxvolume,item.minvolume,item.currency_name)">{{curType == 'buy' ? `${lang[local].c2cBuy} ${coinList[curCoin].toUpperCase()}` : `${lang[local].c2cSell} ${coinList[curCoin].toUpperCase()}`}}</Button></li>
                         <li v-if="checkMore == index" class="more">
@@ -187,10 +194,17 @@
                                 </Col>
                             </Row>
                             <Row class="n2">
-                                <Col span="3" v-if="item.bankpay"><i class="iconfont icon-yinxingqia org" /> {{lang[local].bankCard}}</Col>
-                                <Col span="3" v-if="item.wxpay"><i class="iconfont icon-ai-weixin buy" /> {{lang[local].weChat}}</Col>
-                                <Col span="3" v-if="item.alipay"><i class="iconfont icon-ZFBZD blue" /> {{lang[local].aliPay}}</Col>
-                                <Col span="6" style="textAlign:right;float:right">{{lang[local].c2cPayTime}}<span class="torg">30</span>{{lang[local].c2cminute}}</Col>
+                                <template v-for="val in item.pays">
+                                    <Col span="3" v-if="val.type =='1'"><i class="iconfont icon-yinxingqia org" /> {{lang[local].bankCard}}</Col>
+                                    <Col span="3" v-if="val.type =='3'"><i class="iconfont icon-ai-weixin buy" /> {{lang[local].weChat}}</Col>
+                                    <Col span="3" v-if="val.type =='2'"><i class="iconfont icon-ZFBZD blue" /> {{lang[local].aliPay}}</Col>
+                                    <Col span="3" v-if="val.type =='4'"><i class="iconfont icon-paynow  org" /> PayNow</Col>
+                                    <Col span="3" v-if="val.type =='5'"><i class="iconfont icon-race org" /> Interace</Col>
+                                    <Col span="3" v-if="val.type =='6'"><i class="iconfont icon-paypal blue" /> Paypal</Col>
+                                    <Col span="3" v-if="val.type =='7'"><i class="iconfont icon-uip org" /> UIP</Col>
+                                </template>
+                                
+                                <Col span="6" style="textAlign:right;float:right">{{lang[local].c2cPayTime}} <span class="torg">30</span> {{lang[local].c2cminute}}</Col>
                                 <Col span="24"></Col>
                                 <Col span="24" v-if="item.remark" style="white-space:pre-wrap;line-height:20px"> <span style="color:red">*</span> {{item.remark}}</Col>
                                 
@@ -207,9 +221,15 @@
                         <li>{{item.minvolume}}~{{item.maxvolume}} {{item.currency_name}}</li>
                         <li>{{item.price}} {{item.currency_name}}</li>
                         <li>
-                            <i v-if="item.bankpay" class="iconfont icon-yinxingqia org" />
-                            <i v-if="item.wxpay" class="iconfont icon-ai-weixin buy" />
-                            <i v-if="item.alipay" class="iconfont icon-ZFBZD blue" />
+                            <template v-for="val in item.pays">
+                                <i v-if="val.type =='1'" class="iconfont icon-yinxingqia org" />
+                                <i v-if="val.type =='3'"  class="iconfont icon-ai-weixin buy" />
+                                <i v-if="val.type =='2'"  class="iconfont icon-ZFBZD blue" />
+                                <i v-if="val.type =='4'"  class="iconfont icon-paynow org" />
+                                <i v-if="val.type =='5'"  class="iconfont icon-race org" />
+                                <i v-if="val.type =='6'"  class="iconfont icon-paypal blue" />
+                                <i v-if="val.type =='7'"  class="iconfont icon-uip org" />
+                            </template>
                         </li>
                         <li>{{localDate(item.time)}}</li>
                         <li><Button size="large" type="text" :loading="false" @click="cancelPend(item.id)">{{lang[local].c2cCancel}}</Button></li>
@@ -372,7 +392,7 @@
                     coin:null,
                     fCoin:null,
                 },
-                payList:['bankpay','alipay','wxpay'],
+                payList:[],
                 transferType:['buy','sell'],
                 model4:'',
                 addOrderModal:false,
@@ -410,11 +430,13 @@
                 canbuy:false,
                 currencyUse:[],
                 canbuycoin:false,
+                loading:true,
             };
         },
         created (){
             // this.basicInfo()
             this.userInfo()
+            this.getPaylist()
         },
         mounted(){
             if(this.$route.query.myorder){          
@@ -486,13 +508,27 @@
                 }else{
                     date = null
                 }
-                let val2 = [date, this.searchTxt2.transferType , this.searchTxt2.coin , this.searchTxt2.fCoin],
-                    val = [ this.searchTxt1.fCoin , this.searchTxt1.payType]
+                let val2 = [date, this.searchTxt2.transferType , this.searchTxt2.coin , this.searchTxt2.fCoin], val=[]
+
+                if(this.payList.length > 0 && this.searchTxt1.payType){
+                    val = [ this.searchTxt1.fCoin , this.payList[this.searchTxt1.payType -1].name]
+                }
                 return  this.curType == 'myOrder' ? val2 : val
             },
             ...mapState('login',['loginInfo','loginStatus','loginGetStatus'])
         },
         methods : {
+            getPaylist(){
+                this.axios({
+                    url : this.api.transferModeList,
+                    data : {
+                    }
+                }).then(res => {
+                    this.payList = res.data.list
+                }).catch(err=>{
+                    console.log(err.message)
+                })
+            },
             pageChange (page){
                 this.page = page
                 if(this.curType=='buy' || this.curType=='sell'){                    
@@ -618,31 +654,29 @@
                 let bank_pay = 0, wx_pay = 0, ali_pay = 0
                 console.log(val);
                 
-                val.payment.map(d=>{
-                    switch (d) {
-                        case '1':
-                            bank_pay = 1
-                            break;
-                        case '2':
-                            ali_pay = 1
-                            break;
-                        case '3':
-                            wx_pay = 1
-                            break;
+                // val.payment.map(d=>{
+                //     switch (d) {
+                //         case '1':
+                //             bank_pay = 1
+                //             break;
+                //         case '2':
+                //             ali_pay = 1
+                //             break;
+                //         case '3':
+                //             wx_pay = 1
+                //             break;
                     
-                        default:
-                            break;
-                    }
-                })
+                //         default:
+                //             break;
+                //     }
+                // })
                 let playload = {
                     coin: val.coin,
                     amount: val.count,
                     price: val.price,
                     type: val.type,
                     currency: val.currency,
-                    bank_pay,
-                    wx_pay,
-                    ali_pay,
+                    pay_type:val.payment.join(),
                     min: val.min,
                     max: val.max,
                     remark: val.note,
@@ -739,7 +773,7 @@
                 })
             },
             personalPendList(searchInfo){
-                console.log(this.searchTxt2);                
+                this.loading = true                
                 searchInfo = {
                     type:this.searchTxt2.transferType =='buy' ? 1 : this.searchTxt2.transferType =='sell' ? 2 : 0,
                     coin:this.searchTxt2.coin,
@@ -754,6 +788,7 @@
                         ...this.page
                     }
                 }).then(res=>{
+                    this.loading = false
                     this.pendListArray = res.data.list
                     this.page = res.data.page                    
                 }).catch( err=>{
@@ -781,6 +816,7 @@
                     //     pay_type:this.searchTxt1.payType,
                     // }
                 // }
+                this.loading = true
                 this.axios({
                     url : this.api.pendList,
                     data : {
@@ -790,6 +826,7 @@
                         ...this.page
                     }
                 }).then(res=>{
+                    this.loading = false
                     let data = res.data
                     this.pendListArray = data.list
                     this.page = data.page
