@@ -1,10 +1,10 @@
 requirejs.config({
-    // baseUrl: 'lib',
+    baseUrl: './lib',
     paths:{
-		jquery: 'https://cdn.bootcss.com/jquery/1.10.2/jquery.min',
-		vue:'https://cdn.bootcss.com/vue/2.5.17/vue.min',
-		ELEMENT:'https://unpkg.com/element-ui/lib/index',
-		axios:'https://cdn.bootcss.com/axios/0.18.0/axios.min',
+		jquery: 'jquery.min',
+		vue:'vue.min',
+		ELEMENT:'elementui',
+		axios:'axios.min',
 		header:'../components/demo'
 
 	},
