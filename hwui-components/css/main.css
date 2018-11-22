@@ -1,14 +1,19 @@
 html,body{
 	margin:0;
 	padding:0;
+  background: #F5F7F9;
 }
+a{text-decoration: none;}
 .el-header{
-    background-color: #B3C0D1;
     color: #333;
     text-align: center;
     line-height: 60px;
+    padding:0;
+    background: #515A6E;
   }
-  
+.el-header .logo{color:#fff;}
+.el-menu{width:80%;margin:0 auto;}
+
   .el-aside {
     background-color: #D3DCE6;
     color: #333;
@@ -17,14 +22,17 @@ html,body{
   }
   
   .el-main {    
-    color: #333;    
+    color: #333;
+    padding:20px 0;
+
   }
   .el-main.no-aside{
   	width: 80%;
   	margin:0 auto;
   }
   .el-main .el-breadcrumb{padding-bottom:20px;}
-  .el-main .body{background-color: #E9EEF3;min-height: 80vh;padding:20px;}
+  .el-main .body{background-color: #fff;min-height: 80vh;padding:20px;margin:2px;border-radius: 4px;box-shadow:0 0 2px rgba(0,0,0,.2);transition:all .3s}
+  .el-main .body:hover{box-shadow:0 0 5px rgba(0,0,0,.3)}
   .el-footer {
 	text-align: center;line-height: 60px;
   }
