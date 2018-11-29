@@ -276,11 +276,15 @@ export const methods = {
             this.$store.commit('login/nameauthStatus', res.data.nameauthstatus);
             // this.$store.commit('login/restLogin', false);
             
-        }).catch((err) => {
+        }).catch((err) => {       
             this.$store.commit('login/loginInfo', {});
             this.$store.commit('login/loginGetStatus', true);
             this.$store.commit('login/loginStatus', false);
             this.$store.commit('login/nameauthStatus', 0);
+            if(err.code='20003'){
+                if(this.$route.name=='currency')
+                this.toLogin()
+            }
         });
     },
 };

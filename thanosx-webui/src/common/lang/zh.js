@@ -612,7 +612,14 @@ const zh = {
     "webSocketError11"  : '无效的市场代号',
     "webSocketError12"  : '无效的买卖类型',
     "webSocketError13"  : '无效验证的用户',
-    "webSocketError14"  : '该市场暂停交易',
+    "webSocketError14"  : '交易区暂未开放',
+    "webSocketError15"  : '验证失败',
+    "webSocketError16"  : '禁用的市场',
+    "webSocketError17"  : '需要实名认证',
+    "webSocketError18"  : '无效的k线类型',
+    "webSocketError19"  : '不合法的请求',
+    "webSocketError20"  : '订单下太多了',
+    "webSocketError21"  : '下单太频繁',
     "webSocketError"  : 'websocket 连接错误',
 
     "emptyData"  : '暂无数据',
@@ -1203,8 +1210,24 @@ const zh = {
 
     "other":"对方",
 
-
-
+    "c2cCurrencytrade":"法币通道",
+    "c2cCurrencyBox1":"登录SWAGGERhub交易所账户",
+    "c2cCurrencyT1":"交易对冲",
+    "c2cCurrencyT2":"历史记录",
+    "c2cCurrencyT3":"账户管理",
+    "c2cCurrencyT4":"对冲",
+    "c2cCurrencyT5":"已对冲",
+    "c2cCurrencyT6":"获取时价",
+    "c2cCurrencyT7":"确认对冲",
+    "c2cCurrencyT8":"交易对",
+    "c2cCurrencyT9":"对冲总数",
+    "c2cCurrencyT10":"对冲总额",
+    "c2cCurrencyT11":"交易对价格实时变化，最新价仅为参考。以最终成交的价格为准。",
+    "c2cCurrencyT12":"资产余额",
+    "c2cCurrencyT13":"取消关联",
+    "c2cCurrencyT14":"总数",
+    "c2cCurrencyT15":"隐藏资产为0",
+    "c2cCurrencyT16":"批量对冲必须为同一币种",
 
     "newslist1":[
         {title:'服务交易',type_alias:''},

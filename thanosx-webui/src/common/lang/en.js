@@ -607,11 +607,18 @@ const en = {
     "webSocketError7"  : 'Invalid user ID',
     "webSocketError8"  : 'Invalid price',
     "webSocketError9"  : 'Invalid number',
-    "webSocketError10"  : 'TODO-不知道如何提示，大概意思是这边服务器压力很大',
+    "webSocketError10"  : 'The server is under a lot of pressure.',
     "webSocketError11"  : 'Invalid market code',
     "webSocketError12"  : 'Invalid type of sale',
     "webSocketError13"  : 'Invalid authenticated user',
-    "webSocketError14"  : 'The market suspends trading',
+    "webSocketError14"  : 'The trading area is not open yet',
+    "webSocketError15"  : 'Validation failed',
+    "webSocketError16"  : 'Banned markets',
+    "webSocketError17"  : 'Need real name authentication',
+    "webSocketError18"  : 'Invalid K-line type',
+    "webSocketError19"  : 'Illegal request',
+    "webSocketError20"  : 'There are too many orders.',
+    "webSocketError21"  : 'Orders are too frequent.',
     "webSocketError"  : 'Websocket connection error',
 
     "emptyData"  : 'No information',
@@ -1202,6 +1209,27 @@ const en = {
 
     "other":"The other",
 
+
+    "c2cCurrencytrade":"Trade channel",
+    "c2cCurrencyBox1":"Login SWAGGERhub Exchange Account",
+    "c2cCurrencyT1":"Hedge",
+    "c2cCurrencyT2":"History",
+    "c2cCurrencyT3":"Account",
+    "c2cCurrencyT4":"Hedge",
+    "c2cCurrencyT5":"Hedged",
+    "c2cCurrencyT6":"Get new price",
+    "c2cCurrencyT7":"Confirm hedge",
+    "c2cCurrencyT8":"Pair",
+    "c2cCurrencyT9":"Total",
+    "c2cCurrencyT10":"Total",
+    "c2cCurrencyT11":"The transaction changes the price in real time, and the latest price is only a reference. Subject to the final sale price.",
+    "c2cCurrencyT12":"Balance",
+    "c2cCurrencyT13":"Unlink",
+    "c2cCurrencyT14":"Total",
+    "c2cCurrencyT15":"Hidden assets of 0",
+    "c2cCurrencyT16":"Batch hedge currency must be the same",
+
+    
     "newslist1":[
         {title:'SERVICE',type_alias:''},
         {title:'Exchange',type_alias:'trade_center'},

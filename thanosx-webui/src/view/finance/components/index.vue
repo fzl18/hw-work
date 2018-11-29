@@ -136,7 +136,7 @@
             width="1000"
             class-name="vertical-center-modal">
             
-            <addOrder @ok="ok" @close="close" :url="api.basicCoin" :url2="api.pendCurrencyList" :params="transferInfoOB"/>
+            <addOrder @ok="ok" @close="close" :url="api.basicCoin" :url2="api.pendCurrencyList" :url3="api.quotesQuery" :params="transferInfoOB"/>
         </Modal>
         <Modal
             v-model="transfer"
@@ -183,7 +183,7 @@
                 totalAssets : 0,
                 coinSeekSatet : false,
                 totalAssetsState : false,
-                origin : process.env.NODE_ENV == 'development' ? 'http://10.0.11.24' : '',
+                origin : process.env.NODE_ENV == 'development' ? 'http://10.0.11.34' : '',
                 addOrderModal:false,
                 transfer:false,
                 transferType:'',

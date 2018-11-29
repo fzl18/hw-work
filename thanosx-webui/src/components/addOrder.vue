@@ -57,7 +57,7 @@
                             <tr>
                                 <td valign="top" style="padding-top:8px">{{lang[local].unitPrice}}</td>
                                 <td>
-                                    <div class="ka"><input v-model="order.price" size="large"></input><span v-if="order.currency ">{{order.currency || 'CNY'}}</span></div>
+                                    <div class="ka"><input v-model="order.price" size="large"></input><span v-if="order.currency ">{{order.currency || 'CNY'}}</span> <Button type="text" :loading = "btnloading" class="tprice blue" v-if=" curTransferType=='sell' &&  currency_channel_list.indexOf(order.currency) != -1 " @click="getPrice">{{lang[local].c2cCurrencyT6}}</Button></div>
                                     <div>{{lang[local].addOrderTip3}}：<span class="torg"> {{(order.price * order.count).toFixed(2) || '--'}} {{order.currency || ''}}</span></div>
                                 </td>
                             </tr>                                                        
@@ -109,7 +109,7 @@
 
 <script>
 export default {
-    props:['url','params','url2'],
+    props:['url','params','url2','url3'],
     data(){
         return{                     
             curTransferType:'buy',   
@@ -127,7 +127,8 @@ export default {
             coinList:[],
             currencyList:[],
             tourl:'',
-            transferList:[],
+            transferList:[],            
+            btnloading:false,
         }
     },
     created(){
@@ -299,6 +300,7 @@ export default {
                 max:null,
                 note:'',
                 agree:false,
+                currency_channel_list:[],
             }
         },
         basicInfo(){
@@ -323,6 +325,7 @@ export default {
             }).then(res=>{
                 this.currencyList = res.data.currency_list
                 this.transferList = res.data.transfer_list
+                this.currency_channel_list = res.data.currency_channel_list
             }).catch( err=>{
                 console.log(err);
             })
@@ -332,6 +335,26 @@ export default {
             if(this.order.note.length > 200){
                 this.order.note = this.order.note.substring(0,200)
             }        
+        },
+        getPrice(){
+            if(this.order.coin){
+                this.btnloading = true
+                this.axios({
+                    url : this.url3,
+                    data : {
+                        coin:this.order.coin,
+                        currency:this.order.currency
+                    }
+                }).then(res=>{
+                    this.btnloading = false 
+                    this.order.price = res.data.price
+                }).catch( err=>{
+                    this.btnloading = false 
+                    this.$store.commit('msg/err', err.message)
+                })                
+            }else{
+                this.$store.commit('msg/err', this.lang[this.local].addOrderErr1)
+            }
         }
     }
 }
@@ -413,6 +436,12 @@ export default {
             background: #eee;
             position:absolute;
             right:0;
+        }
+        .tprice{
+            position:absolute;
+            right:60px;
+            top:6px;
+            padding:0;
         }
     }
     textarea{

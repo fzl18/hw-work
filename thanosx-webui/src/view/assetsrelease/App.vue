@@ -1,7 +1,7 @@
 <template>
     <section class="home-box main-box ico">
         <template v-if="isOpen && !loading">
-            <header-component active="ico" />
+            <header-component active="assetsrelease" />
             <div class="container">
                 <div style="padding:20vh 0;overflow:hidden">
                     <div style="float:left;padding-top:100px;padding-left:20%;width:50%">
@@ -15,7 +15,7 @@
         </template>
 
         <template v-if="!isOpen && !loading">
-        <header-component active="ico" />
+        <header-component active="assetsrelease" />
             <div style="min-height:90vh;">
                 <router-view />
             </div>

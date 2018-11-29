@@ -19,5 +19,14 @@ export const apiC2c = {
     "applyCheckAsset" : '/api/business/applyCheckAsset',//
     "applyRequirements" : '/api/business/applyRequirements',//
     "transferModeList":"/api/C2C/transferModeList",
+
+    "transactionHedging":"/api/Business/transactionHedging", // 交易对冲列表
+    "loginCoinSquare":"/api/Business/loginCoinSquare", // 账户登陆
+    "cancelCoinSquare":"/api/Business/cancelCoinSquare", // 取消关联
+    "quotesQuery":"/api/Business/quotesQuery", // 报价查询
+    "hedgingHistory":"/api/Business/hedgingHistory", // 历史记录
+    "coinSquareAccount":"/api/Business/coinSquareAccount", // 账户管理-资产余额
+    "hedgingHistory":"/api/Business/hedgingHistory", // 历史记录
+    "hedging":"/api/Business/hedging", // 对冲接口 type=query || submit
     
 };

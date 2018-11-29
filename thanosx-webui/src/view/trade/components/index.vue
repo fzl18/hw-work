@@ -297,13 +297,15 @@
                             this.socket.send('pull_user_order');
                             this.socket.send('pull_user_deal');
                         };
-                    }else{
+                    }else if(res && res.data && res.data[0] == 1){
                         this.$store.commit('msg/err', this.lang[this.local].tradeLogin4);
                         this.logout()
                         setTimeout(() => {
                             this.toLogin();
                         }, 2000);
-                    };
+                    }else{
+                        this.$store.commit('msg/err', this.lang[this.local]['webSocketError'+ res.data[0]] ||this.lang[this.local].webSocketError );
+                    }
                 });
             },
 

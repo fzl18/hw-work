@@ -318,7 +318,7 @@
                 <Col span="12" class="f15" style="color:#999;font-size:14px">{{lang[local].c2cDetailTxt50}}</Col>
                 <Col span="12" class="f15" style="color:#999;font-size:14px">{{lang[local].c2cDetailTxt51}}</Col>
                 <Col span="12" class="torg">{{orderInfo.amount}} {{orderInfo.symbol && orderInfo.symbol.toUpperCase()}}</Col>
-                <Col span="12" class="torg">{{moneyFormat}} {{orderInfo.currency}}</Col>
+                <Col span="12" class="tbuy">{{moneyFormat}} {{orderInfo.currency}}</Col>
                 <Col span="24" style="margin:10px 0"><hr style="border:none;border-top:1px dotted #ccc"></Col>
                 <Col span="24" class="f15" style="color:#999;font-size:14px">{{lang[local].c2cDetailTxt52}}</Col>
                 <Col span="6" offset="2" >{{lang[local].apply19}} </Col>
@@ -379,7 +379,7 @@
                 <Col span="24" style="margin:10px 0"><hr style="border:none;border-top:1px dotted #ccc"></Col>                
                     <Row>
                         <Col span="16">
-                            <Row v-if="payType == 'alipay'">
+                            <Row>
                                 <Col style="color:#999;font-size:14px">{{lang[local].c2cDetailTxt64}}</Col>
                                 <Col >{{curPay.branch}}</Col>
                                 <Col>{{curPay.name}}</Col>

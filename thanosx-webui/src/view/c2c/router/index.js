@@ -3,6 +3,7 @@ import Router from 'vue-router'
 import index from '../components/index'
 import apply from '../components/apply'
 import biz from '../components/biz'
+import currency from '../components/currency'
 import commonRouter from '../../../common/router'
 import {toUrl} from "../../../common/api/api";
 
@@ -25,6 +26,11 @@ const router = new Router({
             path: '/biz',
             name: 'biz',
             component: biz
+        },
+        {
+            path: '/currency',
+            name: 'currency',
+            component: currency
         },
         ...commonRouter,
     ],

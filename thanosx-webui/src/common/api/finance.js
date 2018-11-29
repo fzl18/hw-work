@@ -94,6 +94,7 @@ export const apiFinance = {
     "cancel":"/api/appeal/cancel", //取消
     "appealDetail":"/api/appeal/detail", //
     "uploadEvidence":"/api/appeal/uploadEvidence", //
+    "quotesQuery":"/api/Business/quotesQuery", // 报价查询
 
 };
 

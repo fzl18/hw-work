@@ -22,12 +22,13 @@
                 </Col>
             </Row>
         </div>
-        <div class="coin" :style="status!=4 && curType == 'myOrder'? 'background:none;border:none':''">
+        <div class="coin" :style="status!=40 && curType == 'myOrder'? 'background:none;border:none':''">
             <div class="tit" v-if="curType != 'myOrder'">
                 <a v-for="(item,index) in coinList" href="javascript:;" @click="changeCoin(index)" :class="curCoin == index ?'cur':''">{{item.toUpperCase()}}</a>
             </div>
-            <div class="tit" v-if="curType == 'myOrder'">
+            <div class="tit" v-if="curType == 'myOrder'" :style=" 'width:100% '">
                 <Button v-if="status==4" @click="addOrder" size="large" type="primary" ><i class="iconfont icon-tianjia" style="fontSize:20px;margin-right:10px;"/> {{lang[local].c2caddOrder}}</Button>
+                <Button v-if="status==4 && currency_channel == '1'" @click="gotoUrl('currency')" size="large" class="blue" type="text" style="float:right;line-height:50px;">{{lang[local].c2cCurrencytrade}}</Button>
                 <Button v-if="status && status <= 3 || status == 5" size="large" type="primary" :disabled="status == 2 || status == 5 ? true : false" :style="status == 2 || status == 5 ? 'background:#777;color:#fff;':''" @click="applyBiz"> <i class="iconfont icon-tianjia" style="fontSize:20px;margin-right:10px;"/>  {{lang[local].c2cbizapply}} </Button>
                 <div class="tip" v-if="status == 2 || status == 3 || status == 5"> <span class="torg"> {{status == 2 ? lang[local].c2cBeAudited : status == 3 ? lang[local].c2cAuditFailed : lang[local].c2cAuditFailed2}}</span> <span v-if="status == 3">{{lang[local].c2cReason}}：{{remark}}</span> </div>
             </div>
@@ -252,7 +253,7 @@
             width="1000"
             class-name="vertical-center-modal">
             
-            <addOrder v-if="status==4" @ok="ok" @close="close" :url="api.basicInfo" :url2="api.pendCurrencyList" :params="transferInfoOB"/>
+            <addOrder v-if="status==4" @ok="ok" @close="close" :url="api.basicInfo" :url2="api.pendCurrencyList" :url3="api.quotesQuery" :params="transferInfoOB"/>
         </Modal>
         <!-- <load v-if="loading" /> -->
         <Modal
@@ -358,6 +359,7 @@
                 </tr>
             </table>
         </Modal>
+        
     </section>
 </div>
 </template>
@@ -431,6 +433,7 @@
                 currencyUse:[],
                 canbuycoin:false,
                 loading:true,
+                currency_channel:''
             };
         },
         created (){
@@ -496,7 +499,7 @@
             // coinAmount(){
             //     return 
             // },
-
+            ...mapState('login',['loginInfo','loginStatus','loginGetStatus']),
             searchList(){
                 let date
                 if(this.searchTxt2.date){
@@ -541,6 +544,7 @@
             handleClass(val){
                 this.curType = val
                 this.errInfo.show = false
+                this.pendListArray=[]                
                 if(val == "myOrder"){
                     this.personalPendList()
                     this.personalDetail()
@@ -680,7 +684,7 @@
                     min: val.min,
                     max: val.max,
                     remark: val.note,
-                }         
+                }
                 this.axios({
                     url : this.api.createPend,
                     data : {
@@ -765,6 +769,7 @@
                 }).then(res=>{
                     this.status = res.data.status
                     this.remark = res.data.remark
+                    this.currency_channel = res.data.currency_channel
                     if(res.data.status == 4){
                         this.businessInfo = res.data.business_info
                     }                    
@@ -1003,12 +1008,12 @@
                     case 'e':
                         location.href = process.env.NODE_ENV == 'development' ? '/trade.html/TNSX/USDT' : '/home/trade/TNSX/USDT'
                         break;
-                
+                    case 'currency':
+                        this.$router.push('/currency')
                     default:
                         break;
                 }
-            }
-
+            },
         }
     }
 </script>
@@ -1139,4 +1144,5 @@
         }
         .iconfont{font-size:22px;line-height: 26px;}
     }
+    
 </style>
