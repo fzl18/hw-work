@@ -70,7 +70,7 @@
                         <!-- <small>≈¥{{rmbDecimals(item.total_cny)}}</small> -->
                     </span>
                 </dd>
-                <dd>
+                <dd v-if="item.type == 'qbb'">
                     <router-link :class="item.zr_jz != 1 ? 'disabled' : ''" :to="item.zr_jz != 1 ? '' : './pushCoin?coin=' + item.market2">
                         {{lang[local].pushCoin}}
                     </router-link>
@@ -80,6 +80,16 @@
                     <!-- <router-link :class="upperCase(item.zcother_jz) != 1 ? 'disabled' : ''" :to="upperCase(item.zcother_jz) != 1 ? '' : './transferCoin?coin=' + item.market2">
                         {{lang[local].transferCoin}}
                     </router-link> -->
+                </dd>
+                <dd v-if="item.type == 'fb'">
+                    <!-- <router-link :to="'./pushCurrency?coin=' + item.market2"> -->
+                    <router-link :class="item.zr_jz != 1 ? 'disabled' : ''" :to="item.zr_jz != 1 ? '' : './pushCurrency?coin=' + item.market2">
+                        {{lang[local].recharge}}
+                    </router-link>
+                    <!-- <router-link :to="'./takeCurrency?coin=' + item.market2"> -->
+                    <router-link :class="item.zc_jz != 1 ? 'disabled' : ''" :to="item.zc_jz != 1 ? '' : './takeCurrency?coin=' + item.market2">
+                        {{lang[local].withdrawCash}}
+                    </router-link>
                 </dd>
                 </template>
             </dl>

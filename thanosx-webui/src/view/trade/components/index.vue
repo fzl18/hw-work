@@ -315,7 +315,7 @@
                     var data = res.data || [];
                     // console.log('push_kline_graph', JSON.stringify(data));
                     if(Array.isArray(data)){
-                        // console.log('push_kline_graph', data.length);
+                        // console.log('push_kline_graph', data);
                         var bar = [];
                         data.forEach((item) => {
                             bar.push({

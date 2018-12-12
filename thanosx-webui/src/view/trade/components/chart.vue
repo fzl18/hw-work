@@ -49,7 +49,7 @@
                 // console.log('subscribeBarsData', JSON.stringify(n));
                 // console.log(this.onRealtimeCallback);
                 if(this.onRealtimeCallback && n){
-                    console.log('onRealtimeCallback');
+                    // console.log('onRealtimeCallback');
                     this.onRealtimeCallback(n);
                 };
             },
@@ -92,7 +92,7 @@
                 }
             },
             onSymbolResolvedCallbackParam (){
-                var l = (this.coins[this.rmb] && this.coins[this.rmb].accuracy) || 4;
+                var l = (this.coins[this.rmb] && this.coins[this.rmb].accuracy) || 8;
                 return {
                     name : this.xnb,
                     ticker : this.xnb + '_' + this.rmb,

@@ -35,11 +35,11 @@ Vue.mixin({
             return num;
         },
         rmbSplit (num){
-            console.log('rmb:',this.rmbLen)
+            // console.log('rmb:',this.rmbLen)
             return this.numSplit(num, this.rmbLen);
         },
         xnbSplit (num){
-            console.log('xnb:',this.xnbLen)
+            // console.log('xnb:',this.xnbLen)
             return this.numSplit(num, this.xnbLen);
         },
         priceAccuracy (val){

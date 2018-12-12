@@ -96,5 +96,21 @@ export const apiFinance = {
     "uploadEvidence":"/api/appeal/uploadEvidence", //
     "quotesQuery":"/api/Business/quotesQuery", // 报价查询
 
+    
+    "rechargeInfo":"/api/CoinCurrency/rechargeInfo", //获取充值币种信息、账户配置信息
+    "rechargeCode":"/api/CoinCurrency/rechargeCode", //获取充值码
+    "rechargeSubmit":"/api/CoinCurrency/rechargeSubmit", //提交充值
+    "rechargeList":"/api/CoinCurrency/rechargeList", //充值列表
+
+    "withdrawInfo":"/api/CoinCurrency/withdrawInfo", //获取提现币种信息、银行列表信息
+    "withdrawSubmit":"/api/CoinCurrency/withdrawSubmit", //法币通道 提现
+    "withdrawList":"/api/CoinCurrency/withdrawList", //提现列表
+    "withdrawConfirm":"/api/CoinCurrency/withdrawConfirm", //法币通道 提现确认
+    "withdrawPreview":"/api/CoinCurrency/withdrawPreview", //法币通道 提现待确认页
+    "rechargeConfirm":"/api/CoinCurrency/rechargeConfirm", //法币通道 确认转账
+
+
+
+
 };
 

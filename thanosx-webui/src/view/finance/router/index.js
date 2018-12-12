@@ -15,7 +15,9 @@ import addWallet from '../components/addWallet'
 import addBankCard from '../components/addBankCard'
 
 import takeCoin from '../components/takeCoin'
+import takeCurrency from '../components/takeCurrency'
 import pushCoin from '../components/pushCoin'
+import pushCurrency from '../components/pushCurrency'
 import transferCoin from '../components/transferCoin'
 import coinRecord from '../components/coinRecord'
 // import inviteFriends from '../components/inviteFriends'
@@ -91,6 +93,22 @@ const router = new Router({
             path: '/pushCoin',
             name: 'pushCoin',
             component: pushCoin,
+            meta : {
+                parent : 'index'
+            }
+        },
+        {
+            path: '/pushCurrency',
+            name: 'pushCurrency',
+            component: pushCurrency,
+            meta : {
+                parent : 'index'
+            }
+        },
+        {
+            path: '/takeCurrency',
+            name: 'takeCurrency',
+            component: takeCurrency,
             meta : {
                 parent : 'index'
             }

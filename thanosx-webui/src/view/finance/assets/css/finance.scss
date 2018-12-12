@@ -355,7 +355,7 @@ $financeMinHeight : 820px;
                         display: inline-block;
                         margin-left: 15px;
                         &.disabled{
-                            color: $bg3;
+                            color: #999;
                             cursor: default;
                         }
                     }
@@ -493,8 +493,8 @@ $financeMinHeight : 820px;
     }
     p{
         font-size: 14px;
-        color: $viceFontColor;
-        line-height: 1.8;
+        color:#777;
+        line-height: 36px;
         margin-bottom: 5px;
     }
 }
@@ -1334,3 +1334,8 @@ $financeMinHeight : 820px;
     }
 }
 
+.poptip{
+    text-align: left;
+    .ivu-btn-text, .ivu-btn-primary{padding:2px 10px!important;}
+    .ivu-poptip-body-message{font-size:15px;color:#000}
+}
