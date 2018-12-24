@@ -56,7 +56,7 @@
                 <dd style="width:23%">{{lang[local].pushCoinState}}</dd>
             </dl>
             <dl slot="body" slot-scope="{item}">
-                <dd style="width:22%">{{localDate(item.create_at)}}</dd>
+                <dd style="width:22%">{{localDate(item.created_at)}}</dd>
                 <dd style="width:10%"><span class="line-feed">{{item.coin.toUpperCase()}}</span></dd>
                 <dd style="width:10%"><span class="line-feed">{{item.amount}}</span></dd>
                 <dd style="width:15%" class="org">{{item.code}}</dd>

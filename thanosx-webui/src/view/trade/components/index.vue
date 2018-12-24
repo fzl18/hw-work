@@ -92,9 +92,9 @@
             this.clearStore();
             next();
             this.checkParam();
-            this.sendWebSockInit();
             this.$store.commit('chartBarState', false);
             this.$store.commit('websocketState', this.websocketState + 1);
+            this.sendWebSockInit();
         },
         created (){
             this.$store.commit('rmb', (this.$route.params && this.$route.params.rmb || '').toLowerCase());
@@ -187,9 +187,10 @@
             },
             sendK (){
                 var n = this.resolution;
+                console.log(n)
                 this.socket.send('pull_kline_graph', {
                     market : this.xnb + "_" + this.rmb,
-                    k_line_type : n == 'W' ||n == 'M' ? '10080' : n == 'D' ? (24 * 60) + '' : n,
+                    k_line_type : n == 'W' || n == 'M' ? '10080' : n == 'D' ? (24 * 60) + '' : n,
                     k_line_count : '200',
                 });
             },
@@ -211,7 +212,7 @@
                 this.$store.commit('clearDeal');
 
                 this.$store.commit('clearDepth', false);
-
+                this.$store.commit('chartBar', []); //  20181221 新增  清空最高最低
                 this.$store.commit('chartBarState', false);
 
                 this.$store.commit('userOrderState', false);
@@ -294,7 +295,7 @@
                         this.sendK();
                         if(this.loginInfo.uid){
                             this.socket.send('pull_user_assets');
-                            this.socket.send('pull_user_order');
+                            this.socket.send('pull_user_order',{max_count:-1});
                             this.socket.send('pull_user_deal');
                         };
                     }else if(res && res.data && res.data[0] == 1){

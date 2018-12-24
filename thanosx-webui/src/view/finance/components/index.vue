@@ -50,7 +50,7 @@
                 <dd>
                     <span :title="tobigNumber(item.available)">
                         <!-- <b>{{numDecimals(item.available)}}</b> -->
-                        <b>{{tobigNumber(Math.floor(item.available*100000000)/100000000) }}</b>
+                        <b>{{tobigNumber(item.available)}}</b>
                     </span>
                 </dd>
                 <dd>

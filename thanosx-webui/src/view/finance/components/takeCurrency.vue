@@ -78,7 +78,7 @@
                 <dd style="width:10%">{{lang[local].takeCoinState}}</dd>
             </dl>
             <dl slot="body" slot-scope="{item}" :key="item.id">
-                <dd style="width:25%">{{localDate(item.create_at)}}</dd>
+                <dd style="width:25%">{{localDate(item.created_at)}}</dd>
                 <dd style="width:25%"><span>{{item.sn}}</span></dd>
                 <dd style="width:15%"><span>{{item.amount}}</span></dd>
                 <dd style="width:10%">{{item.fee}}</dd>

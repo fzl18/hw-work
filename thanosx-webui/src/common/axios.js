@@ -1,6 +1,5 @@
 import axios from 'axios'
 
-
 var instance = axios.create({
     baseURL: process.env.NODE_ENV == 'development' ? '' : '',
     withCredentials : process.env.NODE_ENV == 'development' ? true : false,
@@ -81,46 +80,3 @@ instance.interceptors.response.use(function (res) {
 
 
 export default instance;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

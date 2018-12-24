@@ -16,7 +16,7 @@
                     resize
                 >
                 <div class="con">
-                    <dl v-for="item in userOrder" :key="item[0]">
+                    <dl v-for="item in userOrder" :key="item[0]" v-if="item[6] == 'ing'">
                         <dd>{{localDate(item[1])}}</dd>
                         <dd :class="item[2] + 'Color'">{{lang[local][item[2]]}}</dd>
                         <!-- <dd>{{priceAccuracy(item[3])}}</dd> -->
@@ -61,6 +61,7 @@
                 this.$store.commit('withdrawal', {
                     order_id : item[0] + ''
                 });
+                console.log(item[0])
             },
         }
     }

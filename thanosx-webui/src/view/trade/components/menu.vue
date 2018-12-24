@@ -30,25 +30,25 @@
         </div>
         <section class="trade-menu-market">
             <span>
-                <small>{{lang[local].currentRate}}</small>
-                <b>{{priceAccuracy(market_quote[1]) || '--'}} {{rmb}}</b>
+                <small>{{lang[local].currentRate}}({{rmb}})</small>
+                <b>{{priceAccuracy(market_quote[1]) || '--'}}</b>
             </span>
             <span>
                 <small>{{lang[local].dayUpDown}}</small>
                 <b :class="market_quote[2] * 1 > 0 ? 'riseColor' : market_quote[2] * 1 < 0 ? 'fallColor' : ''">{{market_quote[2] * 1 > 0 ? '+' : ''}}{{perCentDecimals(market_quote[2]) || 0}} %</b>
             </span>
             <span>
-                <small>{{lang[local].topPrice}}</small>
+                <small>{{lang[local].topPrice}}({{rmb}})</small>
                 <!-- <b>{{priceAccuracy(market_quote[3])}}{{rmb}}</b> -->
-                <b>{{market_quote[3] ? tobigNumber(market_quote[3]) : '--'}} {{rmb}}</b>
+                <b>{{market_quote[3] ? priceAccuracy(tobigNumber(market_quote[3])) : '--'}}</b>
             </span>
             <span>
-                <small>{{lang[local].minPrice}}</small>
+                <small>{{lang[local].minPrice}}({{rmb}})</small>
                 <!-- <b>{{priceAccuracy(market_quote[4])}} {{rmb}}</b> -->
-                <b>{{market_quote[4] ? tobigNumber(market_quote[4]) : '--'}} {{rmb}}</b>
+                <b>{{market_quote[4] ? priceAccuracy(tobigNumber(market_quote[4])) : '--'}}</b>
             </span>
             <span>
-                <small>{{lang[local].tradeVolume}}</small>
+                <small>{{lang[local].tradeVolume}}({{xnb}})</small>
                 <b>{{numAccuracy(market_quote[5]) || '--'}}</b>
             </span>
         </section>

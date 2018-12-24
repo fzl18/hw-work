@@ -19,7 +19,7 @@
                         <!-- <dd :title="numAccuracy(item[1])">{{numAccuracy(item[1])}}</dd> -->
                         <dd :title="tobigNumber(item[1])">{{tobigNumber(item[1])}}</dd>
                         <!-- <dd :title="priceAccuracy(item[0] * item[1])">{{priceAccuracy(item[0] * item[1])}}</dd> -->
-                        <dd :title="tobigNumber(item[0] * item[1])">{{tobigNumber(item[0] * item[1])}}</dd>
+                        <dd :title="mul(item[0],item[1])">{{tobigNumber(mul(tobigNumber(item[0]),tobigNumber(item[1])))}}</dd>
                     </dl>
                 </div>
                 </happy-scroll>
@@ -49,7 +49,7 @@
                     <!-- <dd :title="numAccuracy(item[1])">{{numAccuracy(item[1])}}</dd> -->
                     <dd :title="tobigNumber(item[1])">{{tobigNumber(item[1])}}</dd>
                     <!-- <dd :title="priceAccuracy(item[0] * item[1])">{{priceAccuracy(item[0] * item[1])}}</dd> -->
-                    <dd :title="tobigNumber(item[0] * item[1])">{{tobigNumber(item[0] * item[1])}}</dd>
+                    <dd :title="mul(item[0],item[1])">{{tobigNumber(mul(item[0],item[1]))}}</dd>
                 </dl>
                 </div>
                 </happy-scroll>
@@ -83,6 +83,18 @@
             clickItem (type, item){
                 this.$store.commit('clickData', [type].concat(item));
             },
+            mul(a, b) {
+                var c = 0,
+                    d = a.toString(),
+                    e = b.toString();
+                try {
+                    c += d.split(".")[1].length;
+                } catch (f) {}
+                try {
+                    c += e.split(".")[1].length;
+                } catch (f) {}
+                return Number(d.replace(".", "")) * Number(e.replace(".", "")) / Math.pow(10, c);
+            }
         }
     }
 </script>

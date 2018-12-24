@@ -6,7 +6,6 @@
     </section>
 </template>
 <script>
-
     import {mapState} from 'vuex'
     export default {
         name: "chart",
@@ -17,7 +16,7 @@
                 borderColor : '#404040',
                 up : '#0cba71',
                 down : '#ff400c',
-                supported_resolutions : ['1', '15', '60', "D", "W", "3W", 'M', '6M', '12M'],
+                supported_resolutions : ['1','5','10','15','30', '60', '360','720',"D", "W", ],
                 onHistoryCallback : null,
                 onRealtimeCallback : null,
                 onReadyCallback : null,
@@ -29,12 +28,14 @@
         },
         watch :{
             chartBarState (n, o){
+                // console.log('chartBarState')
                 if(this.onReadyCallback && this.onReadyCallbackState && n){
                     this.onReadyCallbackState = false;
                     this.onReadyCallback(this.onReadyCallbackParam());
                 };
             },
             chartBar (n, o){
+                // console.log('chartBar')
                 // console.log('chartBar', n.length);
                 // console.log('onHistoryCallback', typeof this.onHistoryCallback);
                 if(this.onHistoryCallback){
@@ -52,13 +53,22 @@
                     // console.log('onRealtimeCallback');
                     this.onRealtimeCallback(n);
                 };
+                // console.log('subscribeBarsData')
             },
             websocketState (n, o){
+                let t = new Date()
                 if(this.widget && !this.onReadyCallbackState){
                     this.$store.commit('chartInitState', true);
-                    this.widget.setSymbol(this.xnb, this.resolution, function () {
-                        // console.log('setSymbol');
-                    });
+                    if(this.$route.params.xnb == this.xnb){         // 新增解决同币种切换不刷新问题
+                        this.widget.setSymbol((this.xnb + '' + t), this.resolution, function () {
+                            // console.log('setSymbol')
+                        });
+                    }else{
+                        this.widget.setSymbol(this.xnb, this.resolution, function () {
+                            // console.log('setSymbol')
+                        });
+                    }
+                    
                 };
             },
             local (){
@@ -105,7 +115,7 @@
                     has_daily  : true,
                     // has_no_volume  : true,
                     has_weekly_and_monthly  : true,
-                    intraday_multipliers : ['1', '15', '60'],
+                    intraday_multipliers : ['1','5','10', '15', '30','60','360','720'],
                     minmov : 1,
                     pricescale : Math.pow(10, l),
                     volume_precision : l,
@@ -139,6 +149,7 @@
                 // this.firstDataRequest = firstDataRequest;
                 // console.log('getBars chartInitState', this.chartInitState);
                 if(firstDataRequest){
+                    // console.log(firstDataRequest)
                     if(this.chartInitState){
                         if(this.chartBarState){
                             if(this.chartBar.length){
@@ -152,6 +163,7 @@
                         this.$store.commit('resolution', resolution);
                     };
                 }else{
+                    // console.log(firstDataRequest)
                     onHistoryCallback([], { noData : true });
                 };
             },

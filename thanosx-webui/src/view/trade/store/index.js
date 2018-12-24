@@ -1,6 +1,6 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
-
+import bigNum from "bignumber.js"
 import commonState from '../../../common/store'
 
 Vue.use(Vuex);
@@ -10,7 +10,8 @@ function depth (data, depthSellKey, type){
         data.forEach(item => {
             var itemK = item[0];
             if(depthSellKey[itemK]){
-                var n = (parseFloat(depthSellKey[itemK]) + parseFloat(item[1])).toFixed(8);
+                // var n = (parseFloat(depthSellKey[itemK]) + parseFloat(item[1])).toFixed(8);
+                var n = (bigNum(depthSellKey[itemK]).plus(item[1])).toFixed(8);
                 // console.log(itemK, n);
                 if(n == 0){
                     delete depthSellKey[itemK];
@@ -32,11 +33,13 @@ function depth (data, depthSellKey, type){
     var key = Object.keys(depthSellKey);
     if(type == 'buy'){
         key.sort((a, b) => {
-            return (parseFloat(b) - parseFloat(a)).toFixed(8);
+            // return (parseFloat(b) - parseFloat(a)).toFixed(8);
+            return (bigNum(b).minus(a)).toFixed(8);
         });
     }else{
         key.sort((a, b) => {
-            return (parseFloat(a) - parseFloat(b)).toFixed(8);
+            // return (parseFloat(a) - parseFloat(b)).toFixed(8);
+            return (bigNum(a).minus(b)).toFixed(8);
         });
     };
     var depthSell = [];
@@ -181,6 +184,7 @@ export default new Vuex.Store({
         upUserOrder (state, data){
             var newData = [];
             var userOrder = JSON.parse(JSON.stringify(state.userOrder));
+            // console.log(data)
             if(state.userOrderId.length){
                 data.forEach(function (d, dIndex){
                     var i = state.userOrderId.indexOf(d[0]);

@@ -142,7 +142,7 @@ Socket.prototype.message = function (event){
     if(typeof event.data == 'string'){
         var parseData = null;
         try {
-            parseData = JSON.parse(event.data);
+            parseData = JSON.parse(event.data);            
             if(this.debug){
                 console.log((new Date()).toLocaleString(), parseData.method, '接收成功！', parseData.data);
             };
@@ -166,7 +166,7 @@ Socket.prototype.message = function (event){
                     var s = fileReader.result.replace(/\,([0-9]{19,20})\]/g, ',"$1"]');
                     parseData = JSON.parse(s);
                 };
-
+                
                 if(self.debug){
                     console.log((new Date()).toLocaleString(), parseData.method, '接收成功！', parseData.data);
                 };
