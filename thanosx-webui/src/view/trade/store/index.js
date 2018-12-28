@@ -19,7 +19,7 @@ function depth (data, depthSellKey, type){
                     depthSellKey[itemK] = n;
                 };
                 if(n < 0){
-                    // console.log(JSON.stringify(item));
+                    console.log(JSON.stringify(item));
                 };
             }else{
                 if(item[1] < 0){

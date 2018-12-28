@@ -187,7 +187,7 @@
             },
             sendK (){
                 var n = this.resolution;
-                console.log(n)
+                // console.log(n)
                 this.socket.send('pull_kline_graph', {
                     market : this.xnb + "_" + this.rmb,
                     k_line_type : n == 'W' || n == 'M' ? '10080' : n == 'D' ? (24 * 60) + '' : n,

@@ -82,7 +82,7 @@
                     if(this.mainblock.indexOf(d.xnb) == -1){
                         num ++
                     }
-                    console.log(d.xnb)
+                    // console.log(d.xnb)
                 })
                 
                 return num ? true : false
