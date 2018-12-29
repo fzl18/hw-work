@@ -295,7 +295,7 @@
                         this.sendK();
                         if(this.loginInfo.uid){
                             this.socket.send('pull_user_assets');
-                            this.socket.send('pull_user_order',{max_count:-1});
+                            this.socket.send('pull_user_order',{max_count:'-1'});
                             this.socket.send('pull_user_deal');
                         };
                     }else if(res && res.data && res.data[0] == 1){

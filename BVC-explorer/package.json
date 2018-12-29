@@ -1,29 +1,29 @@
 {
-  "name": "BVC-explorer",
-  "version": "0.1.0",
-  "private": true,
+  "name": "sdchain-holographic",
+  "version": "1.0.0",
+  "description": "sdchain-holographic",
+  "main": "index.js",
   "scripts": {
-    "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
   },
+  "keywords": [
+    "sdchain"
+  ],
+  "author": "am",
+  "license": "Apache-2.0",
   "dependencies": {
-    "axios": "^0.18.0",
-    "dayjs": "^1.7.8",
-    "echarts": "^4.2.0-rc.2",
-    "iview": "^3.2.0-rc.2",
-    "vue": "^2.5.17",
-    "vue-clipboard2": "^0.2.1",
-    "vue-i18n": "^8.4.0",
-    "vue-qr": "^1.5.2",
-    "vue-router": "^3.0.1",
-    "vuex": "^3.0.1"
-  },
-  "devDependencies": {
-    "@vue/cli-plugin-babel": "^3.1.1",
-    "@vue/cli-service": "^3.1.1",
-    "babel-plugin-import": "^1.11.0",
-    "less": "^3.0.4",
-    "less-loader": "^4.1.0",
-    "vue-template-compiler": "^2.5.17"
+    "bignumber.js": "^8.0.1",
+    "connect-history-api-fallback": "^1.5.0",
+    "koa": "^2.5.2",
+    "koa-bodyparser": "^4.2.1",
+    "koa-json": "^2.0.2",
+    "koa-router": "^7.4.0",
+    "koa-static": "^5.0.0",
+    "koa2-cors": "^2.0.6",
+    "node-cache": "^4.2.0",
+    "request": "^2.87.0",
+    "request-promise": "^4.2.2",
+    "winston": "^2.3.1"
   }
 }

@@ -21,7 +21,7 @@
             <section class="tbody">
                 <dl v-for="item in listData">
                     <dd style="width:10%">{{upperCase(item.coinname)}}</dd>
-                    <dd style="width:65%" :title="item.addr + '.' + item.addr_child">{{item.addr + (item.addr_child && ('.' + item.addr_child))}}</dd>
+                    <dd style="width:65%" :title="item.addr + '.' + item.addr_child">{{item.addr + (item.addr_child ? ('.' + item.addr_child):'')}}</dd>
                     <dd style="width:15%" :title="item.name">{{item.name}}</dd>
                     <dd style="width:10%">
                         <!-- <a href="javascript:;"><copy :val="item.addr">{{lang[local].copy}}</copy></a> <br /> -->
