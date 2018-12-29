@@ -2,7 +2,7 @@
   <div id="app">
     <Head />
     <div class="layout">
-      <router-view/>
+      <router-view v-if="isAlive"/>
     </div>
     <Foot />
     <BackTop :height="100" :bottom="100"><div class="up"><i class="iconfont icon-shang"></i> <br> TOP</div></BackTop>
@@ -17,12 +17,30 @@ export default {
   components:{
     Head,Foot,BackTop
   },
+  provide(){
+    return {
+      reload: this.reload
+    }
+  },
+  data(){
+    return{
+      isAlive:true
+    }
+  },
+  methods:{
+    reload(){
+      this.isAlive = false
+      this.$nextTick(()=>{
+        this.isAlive = true
+      })
+    }
+  }
 }
 </script>
 
 <style lang="less">
   .layout{  
-      min-height:calc(100vh - 177px);
+      min-height:calc(100vh - 170px);
   }
   .up{
     box-shadow:0 0 8px rgba(0, 0, 0,.2);

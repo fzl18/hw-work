@@ -29,7 +29,7 @@ export default {
                 {
                     title: this.$t('block.head')[0],
                     key: 'height',
-                    width:120,
+                    width:140,
                     render:(h,param) => {
                     return h('router-link',{
                         style:'color:#e4526d',

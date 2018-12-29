@@ -201,17 +201,26 @@ export default {
         overflow: hidden;   
         padding:5px 20px;
         table{
-            width:48%;
+            width:35%;
             float: left;
             &:nth-child(2){
                 float: right;
-                display:block;
+                // display:block;
+                width:63%;
                 td{
-                    span:nth-child(2){
-                        width: 60%;
+                    span:first-child{
+                        width: 21%;
                         display:block;
+                        text-overflow: ellipsis;
+                        white-space: nowrap;
+                        overflow: hidden;
+                    }
+                    span:nth-child(2){
+                        width: 79%;
+                        display:block;
+                        text-align: right;
                         position: relative;
-                        right:5%;
+                        right:0;
                         text-overflow: ellipsis;
                         white-space: nowrap;
                         overflow: hidden;

@@ -167,28 +167,25 @@ export default {
     this.transactions()
   },
   mounted(){
+    this.loop(10000)
   },
   methods:{
     transactionsTotal(){
       this.$axios({
-        url:api.transactionsTotal,
-        data:{
-
-        }
+        url:api.transactionsTotal
       }).then( res => {
-        this.total = res.data.count
-        this.nowtime = dayjs(res.data.time).format(formatday)
+        this.total = res.data.count        
       }).catch(err => {
-        console.log(err)
+        // console.log(err)
       })
     },
-    transactions(){
+    transactions(reload){
       this.$axios({
-        url:api.transactions,
-        data:{
-
-        }
+        url:api.transactions
       }).then( res => {
+        if(reload){
+          this.data2 = []
+        }
         res.data.transactons.map(data => {
           this.data2.push({
             hash:data.hash,
@@ -197,17 +194,20 @@ export default {
             time:dayjs(data.time).format(formatday) ,
           })
         })
-        this.tradeVal = res.data.transactons[0].amount
+        
       }).catch(err => {
-        console.log(err)
+        // console.log(err)
       })
     },
-    ledgers(){
+    ledgers(reload){
       this.$axios({
         url:api.ledgers,
         data:{
         }
       }).then( res => {
+        if(reload){
+          this.data1 = []
+        }
         res.data.ledgers.map(data => {
           this.data1.push({
             height:data.ledger_index,
@@ -217,9 +217,21 @@ export default {
           })
         })        
         this.heightVal = res.data.ledgers[0].ledger_index
+        this.tradeVal = res.data.ledgers[0].transactions_count
+        this.nowtime = dayjs(res.data.ledgers[0].close_time*1000).format(formatday)
       }).catch(err => {
         // console.log(err) 
       })
+    },
+    loop(s){      
+      const g = setInterval(()=>{
+        if(this.$route.name == 'home'){
+          this.transactions(true)
+          this.ledgers(true)
+        }else{
+          clearInterval(g)
+        }
+      },s)    
     }
   }
 }

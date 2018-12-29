@@ -34,6 +34,7 @@ import {Dropdown,DropdownMenu,DropdownItem,Icon} from 'iview'
 import Search from './Search'
 import { list } from '../lang'
 export default {
+  inject:['reload'],
   name: 'Head',
   components:{
     Logo,Dropdown,DropdownMenu,DropdownItem,Icon,Search
@@ -64,7 +65,9 @@ export default {
       this.$router.push(url)
     },
     handleLang(val){
+      localStorage.Lang = val
       this.$i18n.locale = val
+      this.reload()
     }
   }
 }
@@ -101,12 +104,15 @@ export default {
         padding:0 15px;
         margin:0 10px;
         color:@txtColor1;
+        display:block;
+        height:60px;
+        line-height: 60px;
         &.cur{
           position: relative;
           &::after{
             content:'';
             position:absolute;
-            bottom:-19px;
+            bottom:-1px;
             width:100%;
             height:2px;
             left:0;

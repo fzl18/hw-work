@@ -40,11 +40,7 @@ export default {
                     this.key = ''
                 }
             }else{
-                this.$Notice.warning({
-                    title: `${this.$t('note')}：`,
-                    desc:`${this.$t('searcherr')}`
-                });
-                
+                this.$Message.warning(this.$t('searcherr'))                
             }
             
             

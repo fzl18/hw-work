@@ -1,7 +1,7 @@
 <template>
   <div class="foot">
     <div class="main">
-      <Logo class="flogo"/><span class="txt">Copyright ©2016-2018 blockchain.link</span>
+      <Logo class="flogo"/><span class="txt"> {{$t('copyright')}}</span>
     </div>
   </div>
 </template>

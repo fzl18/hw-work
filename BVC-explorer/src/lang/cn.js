@@ -75,6 +75,7 @@ const cn = {
     success:'成功',
     error:'失败',
     note:'提示',
+    copyright:'Copyright © 2018 BVC Explorer All Right Reserved'
 }
 
 export default cn

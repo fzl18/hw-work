@@ -22,7 +22,7 @@ Vue.prototype.$Notice = Notice
 Vue.prototype.$axios = axios
 
 const i18n = new VueI18n({
-  locale:'cn',
+  locale: localStorage.Lang ||'cn',
   messages:{
     ...Lang
   }

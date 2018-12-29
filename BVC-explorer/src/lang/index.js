@@ -14,7 +14,7 @@ export const list = [
         val:'cn'
     },
     {
-        tit:'FR',
+        tit:'Français',
         val:'fr'
     },
 ]

@@ -130,13 +130,7 @@ export default {
         })
       })      
       .catch(e=>console.log(e))
-      // if(this.$route.name == 'home'){
-      //   setTimeout(()=>{
-      //     this.getHeight()
-      //   },2000)
-      // }else{
-      //   clearTimeout()
-      // }
+      
     }
   }
 }

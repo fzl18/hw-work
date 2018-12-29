@@ -1,6 +1,6 @@
 <template>
   <span class="logo">
-      <img src="../assets/images/logo.png" alt=""><span class="BVC">BVC</span><span>Explorer</span>
+      <router-link to="/"><img src="../assets/images/logo.png" alt=""><span class="BVC">BVC</span><span>Explorer</span></router-link>
   </span>
 </template>
 

@@ -65,7 +65,8 @@ export default {
                 {
                     title: this.$t('home.head2')[1],
                     key: 'type',
-                    width:150
+                    width:150,
+                    align:'center'
                 },
                 {
                     title: this.$t('home.head2')[2],
@@ -111,7 +112,7 @@ export default {
             })
         },
         tokenDetail(){
-            this.$axios(`${api.tokenDetail}`).then(
+            this.$axios(`${api.tokenDetail}?lang=${this.$i18n.locale}`).then(
                 res=>{
                     this.info = res.data
                 }
