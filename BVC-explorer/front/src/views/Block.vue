@@ -24,6 +24,7 @@ export default {
             loading:false,
             limit:15,
             curpage:1,
+            marker:'',
             ismore:false,
             thead: [
                 {
@@ -67,7 +68,7 @@ export default {
     methods:{
         ledgers(){
             this.loading = true
-            this.$axios(`${api.ledgers}?page=${this.curpage}&limit=${this.limit}`).then( res => {
+            this.$axios(`${api.ledgers}?limit=${this.limit}&marker=${this.marker}`).then( res => {
                 const list = res.data.ledgers
                 list.map(data => {
                     this.data.push({
@@ -77,11 +78,13 @@ export default {
                         time:dayjs(data.close_time*1000).format('YYYY-MM-DD HH:mm:ss') ,
                     })
                 })
-                if(res.data.total > (this.limit * this.curpage) ){
-                    this.ismore = true
-                }else{
-                    this.ismore = false
-                }                
+                // if(res.data.total > (this.limit * this.curpage) ){
+                //     this.ismore = true
+                // }else{
+                //     this.ismore = false
+                // }
+                this.ismore = res.data.marker ? true : false
+                this.marker = res.data.marker                
                 this.loading = false
             }).catch(err => {
                 console.log(err)

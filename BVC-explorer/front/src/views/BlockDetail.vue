@@ -30,20 +30,20 @@
                 <table>
                     <tr>
                         <td>
-                            <span>{{$t('block.info')[3]}}</span>
-                            <span>{{info.ledger_hash}}</span>
+                            <span :title="$t('block.info')[3]">{{$t('block.info')[3]}}</span>
+                            <span :title="info.ledger_hash">{{info.ledger_hash}}</span>
                         </td>
                     </tr>
                     <tr>
                         <td>
-                            <span>{{$t('block.info')[4]}}</span>
-                            <span>{{info.transaction_hash}}</span>
+                            <span :title="$t('block.info')[4]">{{$t('block.info')[4]}}</span>
+                            <span :title="info.transaction_hash">{{info.transaction_hash}}</span>
                         </td>
                     </tr>
                     <tr>
                         <td>
-                            <span>{{$t('block.info')[5]}}</span>
-                            <span @click="parentLedger" class="err">{{info.parent_ledger_hash}}</span>
+                            <span :title="$t('block.info')[5]">{{$t('block.info')[5]}}</span>
+                            <span :title="info.parent_ledger_hash" @click="parentLedger" class="err">{{info.parent_ledger_hash}}</span>
                         </td>
                     </tr>
                 </table>
@@ -70,7 +70,7 @@ export default {
     data(){
         return {
                 loading:false,
-                limit:15,
+                limit:50,
                 curpage:1,
                 ismore:false,
                 info:{},
@@ -209,14 +209,14 @@ export default {
                 width:63%;
                 td{
                     span:first-child{
-                        width: 21%;
+                        width: 20%;
                         display:block;
                         text-overflow: ellipsis;
                         white-space: nowrap;
                         overflow: hidden;
                     }
                     span:nth-child(2){
-                        width: 79%;
+                        width: 80%;
                         display:block;
                         text-align: right;
                         position: relative;

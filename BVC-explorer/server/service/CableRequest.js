@@ -12,8 +12,12 @@ module.exports = {
     balances: function (ctx, next) {
         let params = ctx.params;
         let account = ctx.params.account;
+        let url = SERVER_ROOT + '/accounts/balances/'+account
+        if(account==gConfig.tokenDetail.issuer){
+            url+="?currency="+gConfig.base.currency
+        }
         return request({
-            uri: SERVER_ROOT + '/accounts/balances/'+account,
+            uri: url,
             qs: params,
             json: true
         }).then(ctx.responseData, ctx.responseError);
@@ -49,7 +53,7 @@ module.exports = {
                 currency:tokenDetail.currency,
                 issuer:tokenDetail.issuer,
                 image:tokenDetail.image,
-                total:res.obligations[tokenDetail.currency],
+                total:Number(res.obligations[tokenDetail.currency]).toFixed(0).toString(),
                 lang: lang,
                 dec:tokenDetail.desc[lang]
             }

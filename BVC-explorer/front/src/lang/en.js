@@ -54,10 +54,11 @@ const en = {
     nodata:'No Data',
     more:'Load More',
     nomore:'No More',
-    erraccount:'The transaction Hash/Block/Address cannot be searched.',
-    errblock:'The transaction Hash/Block/Address cannot be searched.',
-    errhash:'The transaction Hash/Block/Address cannot be searched.',
+    erraccount:'The transaction Hash / Block/ Address cannot be searched.',
+    errblock:'The transaction Hash / Block/ Address cannot be searched.',
+    errhash:'The transaction Hash / Block / Address cannot be searched.',
     searcherr:'Please enter the search content',
+    search:'Hash / Block / Address',
     e404:'404',
     backhome:'Home',
     copy:'Copy Address',
@@ -75,7 +76,8 @@ const en = {
     success:'success',
     error:'error',
     note:'Note',
-    copyright:'Copyright © 2018 BVC Explorer All Right Reserved'
+    nothing:'Nothing',
+    copyright:'Copyright © 2018 Blockchain Venture Capital | All Rights Reserved'
 }
 
 export default en

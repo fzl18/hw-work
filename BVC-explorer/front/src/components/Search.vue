@@ -1,10 +1,10 @@
 <template>
     <div class="search">
         <div v-if="type == 'head'">
-            <Input v-model="key" search size="default" @on-search="handleSearch" @on-focus="isfocus = true" @on-blur="isfocus = false" :placeholder="$t('enter')" class="hinput" :style="isfocus? 'width:250px': ''"/>
+            <Input v-model="key" search size="default" @on-search="handleSearch" @on-focus="isfocus = true" @on-blur="isfocus = false" :placeholder="$t('search')" class="hinput" :style="isfocus? 'width:250px': ''"/>
         </div>
         <div v-else>
-            <Input v-model="key" size="large" @on-search="handleSearch" search enter-button :placeholder="$t('enter')" />
+            <Input v-model="key" size="large" @on-search="handleSearch" search enter-button :placeholder="$t('search')" />
         </div>
     </div>
     
@@ -53,7 +53,7 @@ export default {
 .search{
     display: inline-block;
     .hinput{
-        width:120px;
+        width:170px;
         transition: all 500ms;
     }
 }

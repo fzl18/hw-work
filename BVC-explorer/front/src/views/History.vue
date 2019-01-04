@@ -5,7 +5,7 @@
             <Table :columns="thead" :data="data" size="default" :no-data-text="$t('nodata')" :loading="loading"></Table>            
         </div>
         <div class="more" v-if="ismore">
-            <Button type="primary" @click="loadMore" ghost>{{$t('more')}}</Button>
+            <Button type="primary" @click="loadMore" :loading="loading" ghost>{{$t('more')}}</Button>
         </div>
     </div>
 </template>
@@ -24,6 +24,7 @@ export default {
             loading:false,
             limit:15,
             curpage:1,
+            marker:'',
             ismore:false,
             thead: [
         {
@@ -68,7 +69,7 @@ export default {
     methods:{
         transactions(){
             this.loading = true
-            this.$axios(`${api.transactions}?page=${this.curpage}&limit=${this.limit}`).then( res => {
+            this.$axios(`${api.transactions}?limit=${this.limit}&marker=${this.marker}`).then( res => {
                 const list = res.data.transactons
                 list.map(data => {
                     this.data.push({
@@ -78,11 +79,13 @@ export default {
                         time:dayjs(data.time).format('YYYY-MM-DD HH:mm:ss') ,
                     })
                 })
-                if(res.data.total > (this.limit * this.curpage) ){
-                    this.ismore = true
-                }else{
-                    this.ismore = false
-                }                
+                // if(res.data.total > (this.limit * this.curpage) ){
+                //     this.ismore = true
+                // }else{
+                //     this.ismore = false
+                // }                
+                this.ismore = res.data.marker ? true : false
+                this.marker = res.data.marker 
                 this.loading = false
             }).catch(err => {
                 console.log(err)

@@ -3,7 +3,7 @@
         <financeHeader :hint="false">
             <span>{{lang[local].coinRecord}}</span>
         </financeHeader>
-        <list class="coinRecord" :url="api.transLog" >
+        <list class="coinRecord" :url="api.transLog">
             <dl slot="head">
                 <!-- <dd>{{lang[local].coinRecordId}} </dd> -->
                 <dd style="width:30%">{{lang[local].coinRecordDate}}</dd>
@@ -29,6 +29,10 @@
     import bigNum from "bignumber.js"
     export default {
         name: "coinRecord",
+        data(){
+            return {
+            }
+        },
         methods : {
             tobigNumber(val){
                 return bigNum(val).toString(10)

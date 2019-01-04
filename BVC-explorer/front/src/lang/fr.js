@@ -52,12 +52,14 @@ const fr = {
         head:['TxHash','Type','Nombre De','Le Temps'],
     },
     nodata:'Aucune Donnée',
+    nothing:'Non.',
     more:'Pour plus',
     nomore:'Pas Plus',
     erraccount:'La transaction Hash / Block / Address ne peut pas être recherchée.',
     errblock:'La transaction Hash / Block / Address ne peut pas être recherchée.',
     errhash:'La transaction Hash / Block / Address ne peut pas être recherchée.',
     searcherr:'Veuillez saisir le contenu de la recherche',
+    search:'Hash / Block / Address',
     e404:'404',
     backhome:'MAISON',
     copy:'Copier l `adresse du portefeuille',
@@ -75,7 +77,7 @@ const fr = {
     success:'Succès',
     error:'échec',
     note:'Indice',
-    copyright:'Copyright © 2018 BVC Explorer Tous droits réservés'
+    copyright:'Copyright © 2018 Blockchain Venture Capital | Tous droits réservés '
 }
 
 export default fr

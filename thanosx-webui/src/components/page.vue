@@ -1,30 +1,57 @@
 <template>
     <section class="page" v-if="page.currPage > 0">
-        <section class="page-left" v-if="headerActive != 'otc'">
-            {{lang[local].page1}}
-            <span>{{((page.currPage - 1) * page.pageSize) + 1}}</span>
-            {{lang[local].page2}}
-            <span>{{page.currPage * page.pageSize > page.totalCount ? page.totalCount : page.currPage * page.pageSize}}</span>
-            {{lang[local].page3}}
-            <span>{{page.totalCount}}</span>
-            {{lang[local].page4}}&nbsp;&nbsp;
-            <select-my @change="pageSizeChange" :list="pageSizeList" :selected="page.pageSize" />
-            &nbsp;{{lang[local].page5}}
+        <section v-if="pagetype !='small'">
+            <section class="page-left" v-if="headerActive != 'otc'">
+                {{lang[local].page1}}
+                <span>{{((page.currPage - 1) * page.pageSize) + 1}}</span>
+                {{lang[local].page2}}
+                <span>{{page.currPage * page.pageSize > page.totalCount ? page.totalCount : page.currPage * page.pageSize}}</span>
+                {{lang[local].page3}}
+                <span>{{page.totalCount}}</span>
+                {{lang[local].page4}}&nbsp;&nbsp;
+                <select-my @change="pageSizeChange" :list="pageSizeList" :selected="page.pageSize" />
+                &nbsp;{{lang[local].page5}}
+            </section>
+            <section class="page-right">
+
+                <a href="javascript:;" v-if="page.currPage > 3 && page.totalPage > 3" @click="pageClick(1)">{{lang[local].page6}}</a>
+                <a href="javascript:;" v-if="page.currPage > 1 && page.totalPage > 1" @click="pageClick(page.currPage*1 -1)">{{lang[local].page7}}</a>
+
+                <a href="javascript:;" v-for="up in upCount" @click="pageClick(page.currPage - upCount + up - 1)">{{page.currPage - upCount + up  - 1}}</a>
+
+                <a href="javascript:;" class="active">{{page.currPage}}</a>
+                <a href="javascript:;" v-for="i in (page.totalPage * 1 - page.currPage * 1 > 2 ? 2 : page.totalPage * 1 - page.currPage * 1) "  @click="pageClick(i + page.currPage * 1)">{{i + page.currPage * 1}}</a>
+
+                <a href="javascript:;" v-if="page.currPage < page.totalPage" @click="pageClick(page.currPage * 1 + 1)">{{lang[local].page8}}</a>
+                <a href="javascript:;" v-if="page.currPage < page.totalPage && page.totalPage > 5" @click="pageClick(page.totalPage)">{{lang[local].page9}}</a>
+            </section>
         </section>
-        <section class="page-right">
+        <section v-if="pagetype =='small'">
+            <section class="page-left">                
+                {{lang[local].page1}}
+                <span>{{((page.currPage - 1) * page.pageSize) + 1}}</span>
+                {{lang[local].page2}}
+                <span>{{page.currPage * page.pageSize > page.totalCount ? page.totalCount : page.currPage * page.pageSize}}</span>
+                <!-- {{lang[local].page3}}
+                <span>{{page.totalCount}}</span> -->
+                {{lang[local].page4}}&nbsp;&nbsp;
+                <select-my @change="pageSizeChange" :list="pageSizeList" :selected="page.pageSize" />
+                &nbsp;{{lang[local].page5}}
+            </section>
+            <section class="page-right">
+                <a href="javascript:;" :class=" page.currPage == 1 ? '':'org'"  @click="page.currPage == 1 ? '':pageClick(1)">{{lang[local].page6}}</a>
+                <a href="javascript:;" :class=" page.currPage == 1 ? '':'org'"  @click="page.currPage == 1 ? '':pageClick(page.currPage*1 -1)">{{lang[local].page7}}</a>
 
-            <a href="javascript:;" v-if="page.currPage > 3 && page.totalPage > 3" @click="pageClick(1)">{{lang[local].page6}}</a>
-            <a href="javascript:;" v-if="page.currPage > 1 && page.totalPage > 1" @click="pageClick(page.currPage*1 -1)">{{lang[local].page7}}</a>
+                <!-- <a href="javascript:;" v-for="up in upCount" @click="pageClick(page.currPage - upCount + up - 1)">{{page.currPage - upCount + up  - 1}}</a>
 
-            <a href="javascript:;" v-for="up in upCount" @click="pageClick(page.currPage - upCount + up - 1)">{{page.currPage - upCount + up  - 1}}</a>
+                <a href="javascript:;" class="active">{{page.currPage}}</a>
+                <a href="javascript:;" v-for="i in (page.totalPage * 1 - page.currPage * 1 > 2 ? 2 : page.totalPage * 1 - page.currPage * 1) "  @click="pageClick(i + page.currPage * 1)">{{i + page.currPage * 1}}</a> -->
 
-            <a href="javascript:;" class="active">{{page.currPage}}</a>
-            <a href="javascript:;" v-for="i in (page.totalPage * 1 - page.currPage * 1 > 2 ? 2 : page.totalPage * 1 - page.currPage * 1) "  @click="pageClick(i + page.currPage * 1)">{{i + page.currPage * 1}}</a>
-
-            <a href="javascript:;" v-if="page.currPage < page.totalPage" @click="pageClick(page.currPage * 1 + 1)">{{lang[local].page8}}</a>
-            <a href="javascript:;" v-if="page.currPage < page.totalPage && page.totalPage > 5" @click="pageClick(page.totalPage)">{{lang[local].page9}}</a>
-
+                <a href="javascript:;"  :class=" page.hasMore ? 'org':''"  @click=" !page.hasMore ? '':pageClick(page.currPage * 1 + 1)">{{lang[local].page8}}</a>
+                <!-- <a href="javascript:;" v-if="page.currPage < page.totalPage && page.totalPage > 5" @click="pageClick(page.totalPage)">{{lang[local].page9}}</a> -->
+            </section>
         </section>
+        
     </section>
 </template>
 
@@ -42,6 +69,9 @@
                         totalCount : 10,
                     }
                 }
+            },  
+            pagetype:{
+                type:String
             }
         },
         data () {
@@ -53,6 +83,8 @@
             // console.log(this.$route);
         },
         watch : {
+        },
+        mounted(){
         },
         computed : {
             upCount (){
@@ -105,6 +137,9 @@
                     background: $mainColor;
                     color: #ffffff;
                     margin: 0;
+                }
+                &.org{
+                    color: $mainColor;
                 }
                 &.page-num{
                     border: solid 1px #cccccc;

@@ -40,7 +40,7 @@
                                 <template v-for=" item in info.simple_memos">
                                     {{item.memo_data }} 
                                 </template>
-                                {{info.simple_memos || '--'}}
+                                {{!info.simple_memos ? '--' : ''}}
                             </span>
                         </td>
                     </tr>
@@ -54,14 +54,14 @@
                     </tr>
                     <tr>
                         <td>
-                            <span>{{info.type == 'AccountSet' ? $t('hash.text')[0] : info.type == 'TrustSet' ? $t('hash.text')[1] : $t('hash.list')[5]   }}   </span>
+                            <span>{{info.type == 'AccountSet' ? $t('hash.text')[0] : info.type == 'TrustSet' ? $t('hash.text')[1] : $t('hash.list')[5]}}   </span>
                             <span>{{info.amount}}</span>
                         </td>
                     </tr>
                     <tr>
                         <td>
                             <span>{{$t('hash.list')[6]}}</span>
-                            <span>{{info.fee}}</span>
+                            <span>{{info.fee}} BVC</span>
                         </td>
                     </tr>
                     <tr>
@@ -77,9 +77,14 @@
             <div class="h3" style="font-size:14px">{{$t('hash.tit2')}}</div>
         </div>
         <div class="result">
-            <p v-for="item in info.txResults" >
-                {{item}}
-            </p>
+            <template v-if="info.txResults && info.txResults.length">
+                <p v-for="(item,index) in info.txResults" :key="index">
+                    {{item}}
+                </p>
+            </template>
+            <span v-if="info.txResults && !info.txResults.length">
+                {{$t('nothing')}}
+            </span>
         </div>
     </div>
 </template>
@@ -106,6 +111,11 @@ export default {
     },
     computed:{
         
+    },
+    watch:{
+        '$route.query.hash' (){
+            this.transactions()
+        }
     },
     methods:{
         transactions(){

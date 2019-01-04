@@ -14,11 +14,23 @@
                 ></i></Tooltip>
             </div> 
             <div>
-                <table>
-                    <tr>
-                        <td width='200' v-for="item in balancesList" :key="item.currency">{{item.currency}}{{$t('account.balance')}}：<span class="err" style="font-weight:bold;">{{item.value}}</span></td>
-                    </tr>                    
-                </table>
+                <ul class='balance'>
+                    <li v-for="(item,index) in balancesList" :key="index">
+                        {{item.currency}} {{$t('account.balance')}}：<span class="err" style="font-weight:bold;">{{item.value}}</span> 
+                        <span class="err" style="margin-left:10px">{{item.counterparty ? `(${item.counterparty})`:''}}</span>
+                    </li>
+                </ul>
+                <!-- <table width="100%">
+                    <template  >
+                        <template v-if=" (index % 2) == 0 ">
+                            <tr :key="index">
+                                <td width='50%'>                            
+                                    
+                                </td>
+                        </template>
+
+                    </template>                                     
+                </table> -->
 
             </div>
         </div>
@@ -33,7 +45,7 @@
             footer-hide
             v-model="qr"
             class-name="vertical-center-modal">
-            <div style="text-align:center">
+            <div style="text-align:center;margin-left:30px;">
                 <vue-qr :text="addr" :logoSrc="logoSrc" colorDark="#e4526d" :size="300"></vue-qr>
             </div>
         </Modal>
@@ -55,6 +67,7 @@ export default {
             loading:false,
             limit:15,
             curpage:1,
+            marker:'',
             ismore:false,
             qr:false,
             addr:this.$route.query.address,
@@ -100,6 +113,12 @@ export default {
         this.accounts()
         this.balances()
     },
+    watch:{
+        '$route.query.address' (){
+            this.accounts()
+            this.balances()
+        }
+    },
     methods:{
         copysuc(e){
             this.$Message.success(this.$t('copysuc'))
@@ -116,7 +135,7 @@ export default {
         },
         accounts(){
             this.loading = true
-            this.$axios(`${api.accounts}/${this.$route.query.address}/transactions?page=${this.curpage}&limit=${this.limit}`).then( res => {
+            this.$axios(`${api.accounts}/${this.$route.query.address}/transactions?marker=${this.marker}&limit=${this.limit}`).then( res => {
                 const list = res.data.transactons
                 if(list.length > 0){
                     list.map(data => {
@@ -128,11 +147,13 @@ export default {
                         })
                     })
                 }
-                if(res.data.total > (this.limit * this.curpage) ){
-                    this.ismore = true
-                }else{
-                    this.ismore = false
-                }                
+                // if(res.data.total > (this.limit * this.curpage) ){
+                //     this.ismore = true
+                // }else{
+                //     this.ismore = false
+                // }                
+                this.ismore = res.data.marker ? true : false
+                this.marker = res.data.marker 
                 this.loading = false
             }).catch(err => {
                 // console.log('err')
@@ -154,6 +175,7 @@ export default {
     .box();
     padding:10px 20px;
     margin-bottom:20px;
+    overflow: hidden;
     .iconfont{
         font-size:20px;
         cursor: pointer;
@@ -162,6 +184,14 @@ export default {
         &:hover{
             background:@mainbg;
             border-radius:50%;
+        }
+    }
+    .balance{
+        li{
+            float: left;
+            width:50%;
+            list-style:none;
+            line-height:30px;
         }
     }
     .address{

@@ -90,6 +90,7 @@ export default {
       nowtime:null,
       total:0,
       heightVal:0,
+      timer:null,
       tradeVal:0,
       thead1: [
         {
@@ -164,17 +165,22 @@ export default {
   created(){
     this.transactionsTotal()
     this.ledgers()
-    this.transactions()
+    this.transactions()    
   },
   mounted(){
-    this.loop(10000)
+    this.loop(10)
+  },
+  beforeDestroy() {
+    if(this.timer) {
+      clearInterval(this.timer);
+    }
   },
   methods:{
     transactionsTotal(){
       this.$axios({
         url:api.transactionsTotal
       }).then( res => {
-        this.total = res.data.count        
+        this.total = res.data.count > 1000000 ? (res.data.count / 1000000).toFixed(2) + 'M' : res.data.count
       }).catch(err => {
         // console.log(err)
       })
@@ -224,14 +230,14 @@ export default {
       })
     },
     loop(s){      
-      const g = setInterval(()=>{
+      this.timer = setInterval(()=>{
         if(this.$route.name == 'home'){
           this.transactions(true)
           this.ledgers(true)
         }else{
-          clearInterval(g)
+          clearInterval(this.timer)
         }
-      },s)    
+      },s*1000)    
     }
   }
 }
@@ -270,7 +276,8 @@ export default {
           color:@txtColor1;
           span{color:@txtColor2}
         }
-        background:linear-gradient(180deg, #E15270 0%, #F6555A 100%);
+        background:linear-gradient(180deg, #df5173 0%, #f85757 100%);
+        // background:#e73c5c;
         td{
           text-align: center;
           &:first-child{
@@ -287,9 +294,12 @@ export default {
           i{
             font-size:42px;
             color:#fff;
-            background: #E15270;
+            background:#ed556c; // #E15270; 
             padding:10px;
             border-radius:20px;
+            &:first-child{
+              background:#EF6475;
+            }
           }
         }
       }      

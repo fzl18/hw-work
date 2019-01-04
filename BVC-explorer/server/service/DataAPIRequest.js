@@ -96,6 +96,7 @@ module.exports = {
       const _res = {
         count:res.count,
         total:res.total,
+        marker:res.marker,
         transactons:_transactions
       }
       ctx.responseData(_res)
@@ -134,6 +135,7 @@ module.exports = {
       const _res = {
         count:res.count,
         total:res.total,
+        marker:res.marker,
         transactons:_transactions
       }
       ctx.responseData(_res)

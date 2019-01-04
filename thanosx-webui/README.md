@@ -3,60 +3,16 @@
 > 安装 node.js
 >> npm install
 >>> npm start
-
-<br/>
-# radar web
-
-> 镭达数字资产交易平台 前端重构项目
-
 <br/>
 
-## [重构进度](http://23.91.100.214:3000/RadarTech/radar-frontend/wiki/%E5%89%8D%E7%AB%AF%E9%87%8D%E6%9E%84%E8%BF%9B%E5%BA%A6)
-<table>
-    <thead>
-        <tr>
-            <th width="200">模块</th>
-            <th width="200">重构进度</th>
-            <th width="240">API <a href="http://23.91.100.214:3000/RadarTech/radar-frontend/wiki/API+%E8%BF%94%E5%9B%9E%E6%A0%BC%E5%BC%8F%E8%AF%B4%E6%98%8E"><small>(API返回格式说明)</small></a></th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td>首页</td>
-            <td>完成</td>
-            <td>
-                <a href="http://23.91.100.214:3000/RadarTech/radar-frontend/wiki/%E9%A6%96%E9%A1%B5%E9%9C%80%E6%B1%82API" target="_blank" >首页API</a>
-            </td>
-        </tr>
-        <tr>
-            <td>交易中心</td>
-            <td>完成</td>
-            <td></td>
-        </tr>
-        <tr>
-            <td>OTC交易</td>
-            <td>完成</td>
-            <td>100%</td>
-        </tr>
-        <tr>
-            <td>财务中心</td>
-            <td>完成</td>
-            <td></td>
-        </tr>
-        <tr>
-            <td>安全中心</td>
-            <td>完成</td>
-            <td></td>
-        </tr>
-        <tr>
-            <td>登录注册</td>
-            <td>完成</td>
-            <td></td>
-        </tr>
-    </tbody>
-</table>
+# 打包输出步骤
+> 安装 node.js
+>> 进入项目根目录下 运行命令行 输入:
+>>> npm run buildPHP
+>>> 完成后输出目录为 'D:\phpStudy\PHPTutorial\'
 
 <br/>
+
 
 ## 引用库
 > [vue](https://cn.vuejs.org/v2/api/) <br>

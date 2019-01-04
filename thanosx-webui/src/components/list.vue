@@ -8,7 +8,7 @@
         <section class="tbody" v-if="getState == getStateSuccess">
             <slot name="body" v-for="item in (listSeek || list)" :item="item" :getList="getList"></slot>
         </section>
-        <page :page="page" @pageChange="pageChange" v-if="pageStatus && getState == getStateSuccess"/>
+        <page :page="page" @pageChange="pageChange" :pagetype="pagetype" v-if="pageStatus && getState == getStateSuccess"/>
     </section>
 </template>
 
@@ -22,7 +22,8 @@
                 page : {
                     currPage : 1,
                     pageSize : 10,
-                }
+                },
+                pagetype:''
             }
         },
         props : {
@@ -126,6 +127,7 @@
                     this.list = res.data.list || [];
                     this.page = res.data.page || this.page;
                     this.getState = res.data.list.length ? this.getStateSuccess : this.getStateEmpty;
+                    this.pagetype = res.data.pageType == 2 ? 'small':''
                     this.$emit('getList',res.data.list)
                 }).catch((err) => {
                     this.list = [];

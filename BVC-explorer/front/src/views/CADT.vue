@@ -1,9 +1,9 @@
 <template>
     <div class="main">
-        <Breadcrumb class="breadcrumb" separator=">">
+        <!-- <Breadcrumb class="breadcrumb" separator=">">
             <BreadcrumbItem to="/">{{$t('menu.home')}}</BreadcrumbItem>
             <BreadcrumbItem to="/hash">{{$t('CADT.tit')}}</BreadcrumbItem>            
-        </Breadcrumb>
+        </Breadcrumb> -->
         <div class="info">
             <table>
             <tr>
@@ -45,6 +45,7 @@ export default {
             loading:false,
             limit:15,
             curpage:1,
+            marker:'',
             ismore:false,
             info:{},
             thead: [
@@ -91,7 +92,7 @@ export default {
     methods:{        
         transactions(){
             this.loading = true
-            this.$axios(`${api.transactions}?page=${this.curpage}&limit=${this.limit}&currency=CADT`).then( res => {
+            this.$axios(`${api.transactions}?page=${this.curpage}&limit=${this.limit}&currency=CADT&marker=${this.marker}`).then( res => {
                 const list = res.data.transactons
                 list.map(data => {
                     this.data.push({
@@ -101,11 +102,13 @@ export default {
                         time:dayjs(data.time).format('YYYY-MM-DD HH:mm:ss') ,
                     })
                 })
-                if(res.data.total > (this.limit * this.curpage) ){
-                    this.ismore = true
-                }else{
-                    this.ismore = false
-                }                
+                // if(res.data.total > (this.limit * this.curpage) ){
+                //     this.ismore = true
+                // }else{
+                //     this.ismore = false
+                // }
+                this.ismore = res.data.marker ? true : false
+                this.marker = res.data.marker
                 this.loading = false
             }).catch(err => {
                 console.log(err)
@@ -130,7 +133,7 @@ export default {
 <style lang="less" scoped>
 @import '../assets/css/var.less';
 .info{
-    
+    margin-top:20px;
     overflow: hidden;
     .desc{
         .box();
