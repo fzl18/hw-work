@@ -1,0 +1,1782 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta id="i18n_pagename" content="index-common">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+<meta name="description" content="">
+<meta name="keywords" content="">
+<meta class="" name="author" content="">
+<title class="" name="">SD-Cable</title>
+<link rel="icon" href="images/favicon.ico" type="image/x-icon">
+<link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
+<link rel="stylesheet" href="css/reset.css">
+<link rel="stylesheet" href="css/stylesheet.css">
+<link rel="stylesheet" href="css/media.css">
+<style>
+    #language{
+       padding:0 10px;outline:0;border:none;
+        height:30px;line-height:30px;
+        width:100px;background: #fff;
+        appearance:none;-moz-appearance:none;-webkit-appearance:none;
+    }
+    .selectDiv{width:100px;overflow:hidden;border-radius:8px;position:relative;}
+    .selectDiv:after{content:'';height:0;width:0;border-width: 5px;border-style: solid;border-color: #333 transparent transparent transparent;position:absolute;top:45%;right:10px;}
+</style>
+</head>
+
+<body id="api">
+    <div class="container">
+                <header class="API_layer clearfix">
+            <div class="wrap_API">
+                <div class="pull-left">
+                    <img src="images/logo.png" alt="" class="i18n" name="logoImg" width="200px">
+                </div>
+                <div class="API_header_info pull-left"></div>
+            </div>
+            <section class="API_en">
+                <div class="selectDiv">
+                    <select id="language">
+                        <option value="zh-CN">中文简体</option>
+                        <option value="zh-TW">中文繁體</option>
+                        <option value="en">English</option>                            
+                    </select>
+                </div>
+            </section>
+        </header>
+        <section class="API_layer_container">
+            <div class="wrap_API">
+                <div class="API_layer_title clearfix">
+                    <img class="pull-left" src="images/nav.png" alt="">
+                    <span>
+                        SD-Cable
+                        <sub>V1.2.2</sub>
+                    </span>
+                </div>
+                <div class="API_layer_info">
+                    <div class="API_layer_info_title">
+                        <h4 class="i18n" name="accountIn">1 账户接口</h4>
+                    </div>
+                    <div class="API_layer_info_subtitle">
+                        <h4 class="i18n" name="generateNewWallet">1.1 获取新钱包</h4>
+                        <p><label class="i18n" name="interface">接口：</label>GET /v1/wallet/new</p>
+                    </div>
+                    <div class="example">
+                        <label class="i18n" name="example">例子:</label>
+                        <p>
+                            <a href="javascript:;" class="apiGet" target="_blank"> https://cable.sdchain.io/v1/wallet/new </a>
+                        </p>
+                    </div>
+                    <div class="result">
+                        <span class="i18n" name="results"> 结果： </span>
+                        <div class="result_details">
+                            <pre></pre>
+                        </div>
+                    </div>
+                    <div class="return_info">
+                        <label class="i18n" name="resultReturnParameter">结果返回参数</label>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th class="i18n" name="parameters">参数</th>
+                                    <th class="i18n" name="type">类型</th>
+                                    <th class="i18n" name="description">说明</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>wallet</td>
+                                    <td>Object</td>
+                                    <td class="i18n" name="wallet">钱包</td>
+                                </tr>
+                                <tr>
+                                    <td>address</td>
+                                    <td>String</td>
+                                    <td class="i18n" name="walletAddress">六域链钱包地址(公钥)</td>
+                                </tr>
+                                <tr>
+                                    <td>secret</td>
+                                    <td>String</td>
+                                    <td class="i18n" name="walletSecret">私钥</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <p class="notes i18n" name="walletNotice">注：新获取的钱包为未激活。激活方式：使用支付接口从已激活账户中向新账户转账0.6个SDA进行。</p>
+                    </div>
+                </div>
+                <div class="API_layer_info">
+                    <div class="API_layer_info_subtitle">
+                        <h4 class="i18n" name="getAccountBalance">1.2 获得账户余额</h4>
+                        <p><label class="i18n" name="interface">接口：</label>GET /v1/accounts/balances/{:address}</p>
+                    </div>
+                    <div class="return_info">
+                        <label class="i18n" name="interfaceParameters">接口参数：</label>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th class="i18n" name="parameters">参数</th>
+                                    <th class="i18n" name="type">类型</th>
+                                    <th class="i18n" name="description">说明</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>address</td>
+                                    <td>String</td>
+                                    <td class="i18n" name="address">六域链地址</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="example">
+                        <label class="m-t-2 i18n" name="example">例子:</label>
+                        <p>
+                            <a href="javascript:;" class="apiGet" target="_blank"> https://cable.sdchain.io/v1/accounts/balances/6faLUhmp9gNgS9jXS3rAWbg8hFfi9PbWH5 </a>
+                        </p>
+                    </div>
+                    <div class="result">
+                        <span class="i18n" name="results"> 结果： </span>
+                        <div class="result_details"><pre></pre></div>
+                    </div>
+                    <div class="return_info">
+                        <label class="i18n" name="returnedResultInformation">返回的结果信息:</label>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th class="i18n" name="parameters">参数</th>
+                                    <th class="i18n" name="type">类型</th>
+                                    <th class="i18n" name="description">说明</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>success</td>
+                                    <td>Boolean</td>
+                                    <td class="i18n" name="requestResults">请求结果</td>
+                                </tr>
+                                <tr>
+                                    <td>ledger</td>
+                                    <td>String</td>
+                                    <td class="i18n" name="ledger">区块高度</td>
+                                </tr>
+                                <tr>
+                                    <td>balances</td>
+                                    <td>Array</td>
+                                    <td class="i18n" name="balances">余额，对象数组</td>
+                                </tr>
+                                <tr>
+                                    <td>value</td>
+                                    <td>String</td>
+                                    <td class="i18n" name="balancesValue">数量</td>
+                                </tr>
+                                <tr>
+                                    <td>currency</td>
+                                    <td>String</td>
+                                    <td class="i18n" name="balancesCurrency">通证符号</td>
+                                </tr>
+                                <tr>
+                                    <td>counterparty</td>
+                                    <td>String</td>
+                                    <td class="i18n" name="balancesCounterparty">发行方，当通证为SDA时为空</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+                <div class="API_layer_info">
+                    <div class="API_layer_info_title">
+                        <h4 class="i18n" name="paymentInterfaces">2 支付接口</h4>
+                    </div>
+                    <div class="API_layer_info_subtitle">
+                        <h4 class="i18n" name="paymentRequest">2.1 支付请求</h4>
+                        <p><label class="i18n" name="interface">接口：</label>POST /v1/accounts/payments/{:source_address}?submit=true</p>
+                    </div>
+                    <div class="return_info">
+                        <label class="i18n" name="interfaceParameters">接口参数：</label>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th class="i18n" name="parameters">参数</th>
+                                    <th class="i18n" name="type">类型</th>
+                                    <th class="i18n" name="description">说明</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>source_address</td>
+                                    <td>String</td>
+                                    <td class="i18n" name="paymentSourceAddress">支付方的六域链地址</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="return_info">
+                        <label class="i18n" name="submitParameter">提交参数：</label>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th class="i18n" name="parameters">参数</th>
+                                    <th class="i18n" name="type">类型</th>
+                                    <th class="i18n" name="description">说明</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>secret</td>
+                                    <td>String</td>
+                                    <td class="i18n" name="paymentSecret">支付方的钱包私钥</td>
+                                </tr>
+                                <tr>
+                                    <td>payment</td>
+                                    <td>Object</td>
+                                    <td class="i18n" name="payment">支付对象</td>
+                                </tr>
+                                <tr>
+                                    <td>source_account</td>
+                                    <td>String</td>
+                                    <td class="i18n" name="paymentSourceAddress">支付方的六域链地址</td>
+                                </tr>
+                                <tr>
+                                    <td>destination_account</td>
+                                    <td>String</td>
+                                    <td class="i18n" name="destinationAccount">收款方的六域链地址</td>
+                                </tr>
+                                <tr>
+                                    <td>amount</td>
+                                    <td>String</td>
+                                    <td class="i18n" name="amount">数量</td>
+                                </tr>
+                                <tr>
+                                    <td>memos</td>
+                                    <td>Array</td>
+                                    <td class="i18n" name="memos">支付的备注，对象数组，可选</td>
+                                </tr>
+                                <tr>
+                                    <td>memo_type</td>
+                                    <td>String</td>
+                                    <td class="i18n" name="memoType">备注类型，英文加数字</td>
+                                </tr>
+                                <tr>
+                                    <td>memo_data</td>
+                                    <td>String</td>
+                                    <td class="i18n" name="memoData">备注内容</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="example">
+                        <label class="i18n" name="example">例子:</label>
+                        <p>
+                            <a href="javascript:;"> https://cable.sdchain.io/v1/accounts/payments/6faLUhmp9gNgS9jXS3rAWbg8hFfi9PbWH5?submit=true </a>
+                        </p>
+                    </div>
+                    <div class="result">
+                        <span class="i18n" name="submitData">请求数据： </span>
+                        <div class="result_details">
+                            <pre id="paymentArg"></pre>
+                        </div>
+                    </div>
+                    <div class="result">
+                        <span class="i18n" name="results">结果： </span>
+                        <div class="result_details">
+                            <pre id="paymentResult"></pre>
+                        </div>
+                    </div>
+                    <div class="return_info">
+                        <label class="i18n" name="resultReturnParameter">结果返回参数</label>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th class="i18n" name="parameters">参数</th>
+                                    <th class="i18n" name="type">类型</th>
+                                    <th class="i18n" name="description">说明</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>success</td>
+                                    <td>Boolean</td>
+                                    <td class="i18n" name="requestResults">请求结果</td>
+                                </tr>
+                                <tr>
+                                    <td>hash</td>
+                                    <td>String</td>
+                                    <td class="i18n" name="hash">交易hash</td>
+                                </tr>
+                                <tr>
+                                    <td>status_url</td>
+                                    <td>String</td>
+                                    <td class="i18n" name="statusUrl">查看交易状态的地址</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="API_layer_info">
+                    <div class="API_layer_info_subtitle">
+                        <h4 class="i18n" name="getPaymentInformation">2.2 获得支付信息</h4>
+                        <p><label class="i18n" name="interface">接口：</label>GET /v1/accounts/payments/{:address}/{:hash}</p>
+                    </div>
+                    <div class="return_info">
+                        <label class="i18n" name="interfaceParameters">接口参数：</label>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th class="i18n" name="parameters">参数</th>
+                                    <th class="i18n" name="type">类型</th>
+                                    <th class="i18n" name="description">说明</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>address</td>
+                                    <td>String</td>
+                                    <td class="i18n" name="address">六域链地址</td>
+                                </tr>
+                                <tr>
+                                    <td>hash</td>
+                                    <td>String</td>
+                                    <td class="i18n" name="hash">交易hash</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="example">
+                        <label class="m-t-2 i18n" name="example">例子:</label>
+                        <p>
+                            <a href="javascript:;" class="apiGet" target="_blank">https://cable.sdchain.io/v1/accounts/payments/6faLUhmp9gNgS9jXS3rAWbg8hFfi9PbWH5/12C323E8DEAF789B790E4837438E5E59E95CA888979B4BE1311CA4BEDAF7C05E
+                            </a>
+                        </p>
+                    </div>
+                    <div class="result">
+                        <span class="i18n" name="results"> 结果： </span>
+                        <div class="result_details"><pre></pre></div>
+                    </div>
+                    <div class="return_info">
+                        <label class="i18n" name="returnedResultInformation">返回的结果信息：</label>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th class="i18n" name="parameters">参数</th>
+                                    <th class="i18n" name="type">类型</th>
+                                    <th class="i18n" name="description">说明</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>success</td>
+                                    <td>Boolean</td>
+                                    <td class="i18n" name="requestResults">请求结果</td>
+                                </tr>
+                                <tr>
+                                    <td>hash</td>
+                                    <td>String</td>
+                                    <td class="i18n" name="hash">交易hash</td>
+                                </tr>
+                                <tr>
+                                    <td>ledger</td>
+                                    <td>String</td>
+                                    <td class="i18n" name="ledger">区块高度</td>
+                                </tr>
+                                <tr>
+                                    <td>state</td>
+                                    <td>String</td>
+                                    <td class="i18n" name="state">状态（validated ：已完成；pending：交易中）</td>
+                                </tr>
+                                <tr>
+                                    <td>source_account</td>
+                                    <td>String</td>
+                                    <td class="i18n" name="paymentSourceAddress">支付方的六域链地址</td>
+                                </tr>
+                                <tr>
+                                    <td>destination_account</td>
+                                    <td>String</td>
+                                    <td class="i18n" name="destinationAccount">收款方的六域链地址</td>
+                                </tr>
+                                <tr>
+                                    <td>direction</td>
+                                    <td>String</td>
+                                    <td class="i18n" name="direction">交易类型</td>
+                                </tr>
+                                <tr>
+                                    <td>amount</td>
+                                    <td>String</td>
+                                    <td class="i18n" name="amount">数量</td>
+                                </tr>
+                                <tr>
+                                    <td>timestamp</td>
+                                    <td>String</td>
+                                    <td class="i18n" name="timestamp">交易时间</td>
+                                </tr>
+                                <tr>
+                                    <td>fee</td>
+                                    <td>String</td>
+                                    <td class="i18n" name="fee">费率</td>
+                                </tr>
+                                <tr>
+                                    <td>memos</td>
+                                    <td>Array</td>
+                                    <td class="i18n" name="rmemos">支付的备注，对象数组</td>
+                                </tr>
+                                <tr>
+                                    <td>memo_type</td>
+                                    <td>String</td>
+                                    <td class="i18n" name="rmemoType">备注类型</td>
+                                </tr>
+                                <tr>
+                                    <td>memo_data</td>
+                                    <td>String</td>
+                                    <td class="i18n" name="rmemoData">备注内容</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                
+
+                <div class="API_layer_info">
+                    <div class="API_layer_info_subtitle">
+                        <h4 class="i18n" name="getPaymentHistory">2.3 获得支付历史</h4>
+                        <p><label class="i18n" name="interface">接口：</label>GET /v1/accounts/payments/{:address}</p>
+                    </div>
+                    <div class="return_info">
+                        <label class="i18n" name="interfaceParameters">接口参数：</label>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th class="i18n" name="parameters">参数</th>
+                                    <th class="i18n" name="type">类型</th>
+                                    <th class="i18n" name="description">说明</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>address</td>
+                                    <td>String</td>
+                                    <td class="i18n" name="address">六域链地址</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="return_info">
+                        <label class="i18n" name="submitParameter">提交参数：</label>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th class="i18n" name="parameters">参数</th>
+                                    <th class="i18n" name="type">类型</th>
+                                    <th class="i18n" name="description">说明</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>source_account</td>
+                                    <td>String</td>
+                                    <td class="i18n" name="sourceAccount"></td>
+                                </tr>
+                                <tr>
+                                    <td>destination_account</td>
+                                    <td>String</td>
+                                    <td class="i18n" name="destinationAccount">收款方的六域链地址，可选</td>
+                                </tr>
+                                <tr>
+                                    <td>direction</td>
+                                    <td>String</td>
+                                    <td class="i18n" name="gdirection">交易类型,可选值incoming:收款，outgoing:支付，可选</td>
+                                </tr>
+                                <tr>
+                                    <td>start_ledger</td>
+                                    <td>Integer</td>
+                                    <td class="i18n" name="startLedger">起始区块高度，可选</td>
+                                </tr>
+                                <tr>
+                                    <td>end_ledger</td>
+                                    <td>Integer</td>
+                                    <td class="i18n" name="endLedger">结束区块高度，可选</td>
+                                </tr>
+                                <tr>
+                                    <td>per_page</td>
+                                    <td>Integer</td>
+                                    <td class="i18n" name="perPage">每页数量，可选</td>
+                                </tr>
+                                <tr>
+                                    <td>page</td>
+                                    <td>Integer</td>
+                                    <td class="i18n" name="page">页码，可选</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="example">
+                        <label class="m-t-2 i18n"  name="example">例子:</label>
+                        <p>
+                            <a href="javascript:;" class="apiGet" target="_blank">https://cable.sdchain.io/v1/accounts/payments/6faLUhmp9gNgS9jXS3rAWbg8hFfi9PbWH5?page=1&per_page=2 </a>
+                        </p>
+                    </div>
+                    <div class="result">
+                        <span class="i18n" name="results"> 结果： </span>
+                        <div class="result_details"><pre></pre></div>
+                    </div>
+                    <div class="return_info">
+                        <label class="i18n" name="returnedResultInformation">返回的结果信息:</label>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th class="i18n" name="parameters">参数</th>
+                                    <th class="i18n" name="type">类型</th>
+                                    <th class="i18n" name="description">说明</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>success</td>
+                                    <td>Boolean</td>
+                                    <td class="i18n" name="requestResults">请求结果</td>
+                                </tr>
+                                <tr>
+                                    <td>payments</td>
+                                    <td>Object</td>
+                                    <td class="i18n" name="payments">支付历史，同交易记录中的信息</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                
+                <div class="API_layer_info">
+                    <div class="API_layer_info_title">
+                        <h4 class="i18n" name="serverInformationInterface">3 服务器基本信息接口</h4>
+                    </div>
+                    <div class="API_layer_info_subtitle">
+                        <h4 class="i18n" name="getDefaultTransactionFee">3.1 获取默认费率</h4>
+                        <p><label class="i18n" name="interface">接口：</label>GET /v1/transaction-fee</p>
+                    </div>
+                    <div class="example">
+                        <label class="i18n" name="example">例子:</label>
+                        <p>
+                            <a href="javascript:;" class="apiGet" target="_blank">https://cable.sdchain.io/v1/transaction-fee</a>
+                        </p>
+                    </div>
+                    <div class="result">
+                        <span class="i18n" name="results"> 结果： </span>
+                        <div class="result_details">
+                            <pre ></pre>
+                        </div>
+                    </div>
+                    <div class="return_info">
+                        <label class="i18n" name="resultReturnParameter">结果返回参数</label>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th class="i18n" name="parameters">参数</th>
+                                    <th class="i18n" name="type">类型</th>
+                                    <th class="i18n" name="description">说明</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>success</td>
+                                    <td>Boolean</td>
+                                    <td class="i18n" name="requestResults">请求结果</td>
+                                </tr>
+                                <tr>
+                                    <td>fee</td>
+                                    <td>String</td>
+                                    <td class="i18n" name="feeD">当前默认费率</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="API_layer_info">
+                    <div class="API_layer_info_subtitle">
+                        <h4 class="i18n" name="getServeInformation">3.2 获取服务器信息</h4>
+                        <p><label class="i18n" name="interface">接口：</label>GET /v1/server</p>
+                    </div>
+                    <div class="example">
+                        <label class="i18n" name="example">例子:</label>
+                        <p>
+                            <a href="javascript:;" class="apiGet" target="_blank">https://cable.sdchain.io/v1/server</a>
+                        </p>
+                    </div>
+                    <div class="result">
+                        <span class="i18n" name="results"> 结果： </span>
+                        <div class="result_details">
+                            <pre ></pre>
+                        </div>
+                    </div>
+                    <div class="return_info">
+                        <label class="i18n" name="resultReturnParameter">结果返回参数</label>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th class="i18n" name="parameters">参数</th>
+                                    <th class="i18n" name="type">类型</th>
+                                    <th class="i18n" name="description">说明</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>success</td>
+                                    <td>Boolean</td>
+                                    <td class="i18n" name="requestResults">请求结果</td>
+                                </tr>
+                                <tr>
+                                    <td>sdchaind_server_status</td>
+                                    <td>Object</td>
+                                    <td class="i18n" name="sdchaindServeStatus">六域链服务器状况</td>
+                                </tr>
+                                <tr>
+                                    <td>complete_ledgers</td>
+                                    <td>String</td>
+                                    <td class="i18n" name="completeLedgers">完成的区块</td>
+                                </tr>
+                                <tr>
+                                    <td>server_state</td>
+                                    <td>String</td>
+                                    <td class="i18n" name="serverState">服务器状况</td>
+                                </tr>
+                                 <tr>
+                                    <td>reserve_base_sda</td>
+                                    <td>String</td>
+                                    <td class="i18n" name="reserveBaseSda">激活至少需要的SDA数量</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="API_layer_info">
+                    <div class="API_layer_info_subtitle">
+                        <h4 class="i18n" name="checkConnectionWithServer">3.3 查看服务器连接</h4>
+                        <p><label class="i18n" name="interface">接口：</label>GET /v1/server/connected</p>
+                    </div>
+                    <div class="example">
+                        <label class="i18n" name="example">例子:</label>
+                        <p>
+                            <a href="javascript:;" class="apiGet" target="_blank">https://cable.sdchain.io/v1/server/connected</a>
+                        </p>
+                    </div>
+                    <div class="result">
+                        <span class="i18n" name="results"> 结果： </span>
+                        <div class="result_details">
+                            <pre ></pre>
+                        </div>
+                    </div>
+                    <div class="return_info">
+                        <label class="i18n" name="resultReturnParameter">结果返回参数</label>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th class="i18n" name="parameters">参数</th>
+                                    <th class="i18n" name="type">类型</th>
+                                    <th class="i18n" name="description">说明</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>success</td>
+                                    <td>Boolean</td>
+                                    <td class="i18n" name="requestResults">请求结果</td>
+                                </tr>
+                                <tr>
+                                    <td>connected</td>
+                                    <td>Boolean</td>
+                                    <td class="i18n" name="connected">与服务器的连接情况</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="API_layer_info">
+                    <div class="API_layer_info_title">
+                        <h4 class="i18n" name="orderInterfaces">4 订单接口</h4>
+                    </div>
+                    <div class="API_layer_info_subtitle">
+                        <h4 class="i18n" name="orderList">4.1 获取订单列表</h4>
+                        <p><label class="i18n" name="interface">接口：</label>GET /v1/accounts/orders/{:address}</p>
+                    </div>
+                    <div class="return_info">
+                        <label class="i18n" name="interfaceParameters">接口参数：</label>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th class="i18n" name="parameters">参数</th>
+                                    <th class="i18n" name="type">类型</th>
+                                    <th class="i18n" name="description">说明</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>address</td>
+                                    <td>String</td>
+                                    <td class="i18n" name="address">六域链地址</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="return_info">
+                        <label class="i18n" name="submitParameter">提交参数：</label>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th class="i18n" name="parameters">参数</th>
+                                    <th class="i18n" name="type">类型</th>
+                                    <th class="i18n" name="description">说明</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>page</td>
+                                    <td>String</td>
+                                    <td class="i18n" name="page">页码</td>
+                                </tr>
+                                <tr>
+                                    <td>limit</td>
+                                    <td>String</td>
+                                    <td class="i18n" name="limit">每个响应的最大结果</td>
+                                </tr>
+                            
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="example">
+                        <label class="m-t-2 i18n" name="example">例子:</label>
+                        <p>
+                            <a href="javascript:;" class="apiGet" target="_blank">https://cable.sdchain.io/v1/accounts/orders/6Pv1Bn67K6v3Sitn1aor59ZUXkUtrpooxB
+                            </a>
+                        </p>
+                    </div>
+                    <div class="result">
+                        <span class="i18n" name="results"> 结果： </span>
+                        <div class="result_details"><pre></pre></div>
+                    </div>
+                    <div class="return_info">
+                        <label class="i18n" name="returnedResultInformation">返回的结果信息：</label>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th class="i18n" name="parameters">参数</th>
+                                    <th class="i18n" name="type">类型</th>
+                                    <th class="i18n" name="description">说明</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>success</td>
+                                    <td>Boolean</td>
+                                    <td class="i18n" name="requestResults">请求结果</td>
+                                </tr>
+                                <tr>
+                                    <td>validated</td>
+                                    <td>String</td>
+                                    <td class="i18n" name="validated">是否验证</td>
+                                </tr>
+                                <tr>
+                                    <td>ledger</td>
+                                    <td>String</td>
+                                    <td class="i18n" name="ledger">区块高度</td>
+                                </tr>
+                                <tr>
+                                    <td>orders</td>
+                                    <td>String</td>
+                                    <td class="i18n" name="order">订单信息</td>
+                                </tr>
+                                <tr>
+                                    <td>type</td>
+                                    <td>String</td>
+                                    <td class="i18n" name="orderType">订单类型</td>
+                                </tr>
+                                <tr>
+                                    <td>taker_gets</td>
+                                    <td>Object</td>
+                                    <td class="i18n" name="orderGet">收款方的六域链地址</td>
+                                </tr>
+                                <tr>
+                                    <td>taker_pays</td>
+                                    <td>String</td>
+                                    <td class="i18n" name="orderPay">对方应该花费的数量</td>
+                                </tr>
+                                <tr>
+                                    <td>currency</td>
+                                    <td>String</td>
+                                    <td class="i18n" name="balancesCurrency">通证名称</td>
+                                </tr>
+                                <tr>
+                                    <td>counterparty</td>
+                                    <td>String</td>
+                                    <td class="i18n" name="balancesCounterparty">发行商</td>
+                                </tr>
+                                <tr>
+                                    <td>value</td>
+                                    <td>String</td>
+                                    <td class="i18n" name="balancesValue">数量</td>
+                                </tr>
+                                
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="API_layer_info">
+                <div class="API_layer_info_subtitle">
+                        <h4 class="i18n" name="orderSubmit">4.2 提交订单</h4>
+                        <p><label class="i18n" name="interface">接口：</label>POST /v1/accounts/orders/{:address}</p>
+                    </div>
+                    <div class="return_info">
+                        <label class="i18n" name="interfaceParameters">接口参数：</label>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th class="i18n" name="parameters">参数</th>
+                                    <th class="i18n" name="type">类型</th>
+                                    <th class="i18n" name="description">说明</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>address</td>
+                                    <td>String</td>
+                                    <td class="i18n" name="paymentSourceAddress">六域链地址</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="return_info">
+                        <label class="i18n" name="submitParameter">提交参数：</label>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th class="i18n" name="parameters">参数</th>
+                                    <th class="i18n" name="type">类型</th>
+                                    <th class="i18n" name="description">说明</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>secret</td>
+                                    <td>String</td>
+                                    <td class="i18n" name="paymentSecret">支付方的钱包私钥</td>
+                                </tr>
+                                <tr>
+                                    <td>order</td>
+                                    <td>Object</td>
+                                    <td class="i18n" name="order">订单信息</td>
+                                </tr>
+                                <tr>
+                                    <td>type</td>
+                                    <td>String</td>
+                                    <td class="i18n" name="orderType">订单类型</td>
+                                </tr>
+                                <tr>
+                                    <td>taker_pays</td>
+                                    <td>Object</td>
+                                    <td class="i18n" name="orderPay">对方应该花费的数量</td>
+                                </tr>
+                                <tr>
+                                    <td>currency</td>
+                                    <td>String</td>
+                                    <td class="i18n" name="balancesCurrency">通证名称</td>
+                                </tr>
+                                <tr>
+                                    <td>counterparty</td>
+                                    <td>String</td>
+                                    <td class="i18n" name="balancesCounterparty">发行商</td>
+                                </tr>
+                                <tr>
+                                    <td>value</td>
+                                    <td>String</td>
+                                    <td class="i18n" name="balancesValue">数量</td>
+                                </tr>
+                                <tr>
+                                    <td>taker_gets</td>
+                                    <td>Object</td>
+                                    <td class="i18n" name="orderGet">对方应该得到的数量</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="example">
+                        <label class="i18n" name="example">例子:</label>
+                        <p>
+                            <a href="javascript:;" >https://cable.sdchain.io/v1/accounts/orders/6Pv1Bn67K6v3Sitn1aor59ZUXkUtrpooxB</a>
+                        </p>
+                    </div>
+                    <div class="result">
+                        <span class="i18n" name="submitData">请求数据： </span>
+                        <div class="result_details">
+                            <pre id="orderArg"></pre>
+                        </div>
+                    </div>
+                    <div class="result">
+                        <span class="i18n" name="results">结果： </span>
+                        <div class="result_details">
+                            <pre id="orderResult"></pre>
+                        </div>
+                    </div>
+                    <div class="return_info">
+                        <label class="i18n" name="resultReturnParameter">结果返回参数</label>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th class="i18n" name="parameters">参数</th>
+                                    <th class="i18n" name="type">类型</th>
+                                    <th class="i18n" name="description">说明</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>success</td>
+                                    <td>Boolean</td>
+                                    <td class="i18n" name="requestResults">请求结果</td>
+                                </tr>
+                                <tr>
+                                    <td>hash</td>
+                                    <td>String</td>
+                                    <td class="i18n" name="hash">交易hash</td>
+                                </tr>
+                                <tr>
+                                    <td>ledger</td>
+                                    <td>Integer</td>
+                                    <td class="i18n" name="ledger">区块高度</td>
+                                </tr>
+                                 <tr>
+                                    <td>state</td>
+                                    <td>String</td>
+                                    <td class="i18n" name="state">交易状态</td>
+                                </tr>
+                                 <tr>
+                                    <td>order</td>
+                                    <td>Object</td>
+                                    <td class="i18n" name="order">订单信息</td>
+                                </tr>
+                                 <tr>
+                                    <td>taker_gets</td>
+                                    <td>Object</td>
+                                    <td class="i18n" name="orderGet">对方应该得到的数量</td>
+                                </tr>
+                                 <tr>
+                                    <td>taker_pays</td>
+                                    <td>Object</td>
+                                    <td class="i18n" name="orderPay">对方应该花费的数量</td>
+                                </tr>
+                                 <tr>
+                                    <td>Fee</td>
+                                    <td>String</td>
+                                    <td class="i18n" name="fee">费率</td>
+                                </tr>
+                                 <tr>
+                                    <td>sequence</td>
+                                    <td>Integer</td>
+                                    <td class="i18n" name="orderSequence">订单编号（用于取消订单）</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                    
+                <div class="API_layer_info">
+                    <div class="API_layer_info_subtitle">
+                        <h4 class="i18n" name="orderCancel">4.3 取消订单</h4>
+                        <p><label class="i18n" name="interface">接口：</label>DELETE /v1/accounts/orders/{:address}/{: sequence}</p>
+                    </div>
+                    <div class="return_info">
+                        <label class="i18n" name="interfaceParameters">接口参数：</label>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th class="i18n" name="parameters">参数</th>
+                                    <th class="i18n" name="type">类型</th>
+                                    <th class="i18n" name="description">说明</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>address</td>
+                                    <td>String</td>
+                                    <td class="i18n" name="address">六域链地址</td>
+                                </tr>
+                                <tr>
+                                    <td>sequence</td>
+                                    <td>Integer</td>
+                                    <td class="i18n" name="orderSequence">订单编号</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="return_info">
+                        <label class="i18n" name="submitParameter">提交参数：</label>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th class="i18n" name="parameters">参数</th>
+                                    <th class="i18n" name="type">类型</th>
+                                    <th class="i18n" name="description">说明</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>secret</td>
+                                    <td>String</td>
+                                    <td class="i18n" name="paymentSecret">支付方的钱包私钥</td>
+                                </tr>
+                                
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="example">
+                        <label class="m-t-2 i18n" name="example">例子:</label>
+                        <p>
+                            <a href="javascript:;">https://cable.sdchain.io/v1/accounts/orders/6Pv1Bn67K6v3Sitn1aor59ZUXkUtrpooxB/4 </a>
+                        </p>
+                    </div>
+                     <div class="result">
+                        <span class="i18n" name="submitData">请求数据： </span>
+                        <div class="result_details">
+                            <pre id="orderCArg"></pre>
+                        </div>
+                    </div>
+                    <div class="result">
+                        <span class="i18n" name="results">结果： </span>
+                        <div class="result_details">
+                            <pre id="orderCResult"></pre>
+                        </div>
+                    </div>
+                    <div class="return_info">
+                        <label class="i18n" name="returnedResultInformation">返回的结果信息:</label>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th class="i18n" name="parameters">参数</th>
+                                    <th class="i18n" name="type">类型</th>
+                                    <th class="i18n" name="description">说明</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>success</td>
+                                    <td>Boolean</td>
+                                    <td class="i18n" name="requestResults">请求结果</td>
+                                </tr>
+                                <tr>
+                                    <td>validated</td>
+                                    <td>String</td>
+                                    <td class="i18n" name="validated">是否验证</td>
+                                </tr>
+                                <tr>
+                                    <td>ledger</td>
+                                    <td>String</td>
+                                    <td class="i18n" name="ledger">区块高度</td>
+                                </tr>
+                                <tr>
+                                    <td>state</td>
+                                    <td>String</td>
+                                    <td class="i18n" name="state">交易状态</td>
+                                </tr>
+                                <tr>
+                                    <td>order</td>
+                                    <td>Object</td>
+                                    <td class="i18n" name="order">订单信息</td>
+                                </tr>
+                                <tr>
+                                    <td>fee</td>
+                                    <td>String</td>
+                                    <td class="i18n" name="fee">费率</td>
+                                </tr>
+                                <tr>
+                                    <td>offer_sequence</td>
+                                    <td>String</td>
+                                    <td class="i18n" name="offerSequence">被取消的订单号</td>
+                                </tr>
+                                <tr>
+                                    <td>sequence</td>
+                                    <td>String</td>
+                                    <td class="i18n" name="sequence">当前交易号</td>
+                                </tr>
+                                
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="API_layer_info">
+                    <div class="API_layer_info_subtitle">
+                        <h4 class="i18n" name="orderInfo">4.4 查看订单详情</h4>
+                        <p><label class="i18n" name="interface">接口：</label>GET /v1/accounts/orders/{:address}/{:hash}</p>
+                    </div>
+                    <div class="return_info">
+                        <label class="i18n" name="interfaceParameters">接口参数：</label>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th class="i18n" name="parameters">参数</th>
+                                    <th class="i18n" name="type">类型</th>
+                                    <th class="i18n" name="description">说明</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>address</td>
+                                    <td>String</td>
+                                    <td class="i18n" name="address">六域链地址</td>
+                                </tr>
+                                <tr>
+                                    <td>hash</td>
+                                    <td>String</td>
+                                    <td class="i18n" name="hash">交易hash</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    <div class="example">
+                        <label class="m-t-2 i18n"  name="example">例子:</label>
+                        <p>
+                            <a href="javascript:;" class="apiGet" target="_blank">https://cable.sdchain.io/v1/accounts/orders/6Pv1Bn67K6v3Sitn1aor59ZUXkUtrpooxB/F70692E1040290111E61DC6AFB76245BE02E4C1A8A74758FA23B472EADE8A3D6</a>
+                        </p>
+                    </div>
+                    <div class="result">
+                        <span class="i18n" name="results"> 结果： </span>
+                        <div class="result_details"><pre></pre></div>
+                    </div>
+                    <div class="return_info">
+                        <label class="i18n" name="returnedResultInformation">返回的结果信息:</label>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th class="i18n" name="parameters">参数</th>
+                                    <th class="i18n" name="type">类型</th>
+                                    <th class="i18n" name="description">说明</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>success</td>
+                                    <td>Boolean</td>
+                                    <td class="i18n" name="requestResults">请求结果</td>
+                                </tr>
+                                <tr>
+                                    <td>hash</td>
+                                    <td>String</td>
+                                    <td class="i18n" name="hash">交易hash</td>
+                                </tr>
+                                <tr>
+                                    <td>ledger</td>
+                                    <td>String</td>
+                                    <td class="i18n" name="ledger">区块高度</td>
+                                </tr>
+                                <tr>
+                                    <td>state</td>
+                                    <td>String</td>
+                                    <td class="i18n" name="state">交易状态</td>
+                                </tr>
+                                <tr>
+                                    <td>order</td>
+                                    <td>Object</td>
+                                    <td class="i18n" name="order">订单信息</td>
+                                </tr>
+                                <tr>
+                                    <td>taker_pays</td>
+                                    <td>Object</td>
+                                    <td class="i18n" name="orderPay">对方应该花费的数量</td>
+                                </tr>
+                                <tr>
+                                    <td>taker_gets</td>
+                                    <td>Object</td>
+                                    <td class="i18n" name="orderGet">对方应该得到的数量</td>
+                                </tr>
+                                <tr>
+                                    <td>account</td>
+                                    <td>String</td>
+                                    <td class="i18n" name="address">六域链地址</td>
+                                </tr>
+                                <tr>
+                                    <td>sequence</td>
+                                    <td>Integer</td>
+                                    <td class="i18n" name="orderSequence">订单编号</td>
+                                </tr>
+                                <tr>
+                                    <td>balance_changes</td>
+                                    <td>Array</td>
+                                    <td class="i18n" name="balanceChanges">余额变化</td>
+                                </tr>
+                                <tr>
+                                    <td>order_changes</td>
+                                    <td>Array</td>
+                                    <td class="i18n" name="orderChanges">订单变化</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="API_layer_info">
+                    <div class="API_layer_info_subtitle">
+                        <h4 class="i18n" name="orderAllList">4.5 获取当前订单列表</h4>
+                        <p><label class="i18n" name="interface">接口：</label>GET /v1/order_book/{:base}/{:counter}</p>
+                    </div>
+                    <div class="return_info">
+                        <label class="i18n" name="interfaceParameters">接口参数：</label>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th class="i18n" name="parameters">参数</th>
+                                    <th class="i18n" name="type">类型</th>
+                                    <th class="i18n" name="description">说明</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>base</td>
+                                    <td>String</td>
+                                    <td class="i18n" name="base">基础通证（currency+counterparty或SDA）</td>
+                                </tr>
+                                <tr>
+                                    <td>counter</td>
+                                    <td>String</td>
+                                    <td class="i18n" name="counter">计算通证（currency+counterparty或SDA）</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="return_info">
+                        <label class="i18n" name="submitParameter">提交参数：</label>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th class="i18n" name="parameters">参数</th>
+                                    <th class="i18n" name="type">类型</th>
+                                    <th class="i18n" name="description">说明</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>limit</td>
+                                    <td>String</td>
+                                    <td class="i18n" name="limit">每个响应的最大结果</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="example">
+                        <label class="m-t-2 i18n" name="example">例子:</label>
+                        <p>
+                            <a href="javascript:;" class="apiGet" target="_blank">https://cable.sdchain.io/v1/order_book/SDA/SLC+6ss6oK8v3uKo33z1uL7Jqtt1abAQYu9cMq?limit=2
+                            </a>
+                        </p>
+                    </div>
+                    <div class="result">
+                        <span class="i18n" name="results"> 结果： </span>
+                        <div class="result_details"><pre></pre></div>
+                    </div>
+                    <div class="return_info">
+                        <label class="i18n" name="returnedResultInformation">返回的结果信息：</label>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th class="i18n" name="parameters">参数</th>
+                                    <th class="i18n" name="type">类型</th>
+                                    <th class="i18n" name="description">说明</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>success</td>
+                                    <td>Boolean</td>
+                                    <td class="i18n" name="requestResults">请求结果</td>
+                                </tr>
+                                <tr>
+                                    <td>validated</td>
+                                    <td>String</td>
+                                    <td class="i18n" name="validated">是否验证</td>
+                                </tr>
+                                <tr>
+                                    <td>ledger</td>
+                                    <td>String</td>
+                                    <td class="i18n" name="ledger">区块高度</td>
+                                </tr>
+                                <tr>
+                                    <td>order_book</td>
+                                    <td>String</td>
+                                    <td class="i18n" name="pair">交易对</td>
+                                </tr>
+                                <tr>
+                                    <td>bids</td>
+                                    <td>Array</td>
+                                    <td class="i18n" name="bids">买单信息</td>
+                                </tr>
+                                <tr>
+                                    <td>price</td>
+                                    <td>Object</td>
+                                    <td class="i18n" name="price">单价(amount类型)</td>
+                                </tr>
+                                <tr>
+                                    <td>taker_gets_total</td>
+                                    <td>String</td>
+                                    <td class="i18n" name="takegt">对方应该获取的数量(amount类型)</td>
+                                </tr>
+                                <tr>
+                                    <td>taker_pays_total</td>
+                                    <td>String</td>
+                                    <td class="i18n" name="takerpt">对方应该花费的数量(amount类型)</td>
+                                </tr>
+                                <tr>
+                                    <td>order_maker</td>
+                                    <td>String</td>
+                                    <td class="i18n" name="orderMaker">挂单方地址</td>
+                                </tr>
+                                <tr>
+                                    <td>asks</td>
+                                    <td>Array</td>
+                                    <td class="i18n" name="asks">卖单信息</td>
+                                </tr>
+                                
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="API_layer_info">
+                    <div class="API_layer_info_title">
+                        <h4 class="i18n" name="transactionInterfaces">5 交易历史接口</h4>
+                    </div>
+                    <div class="API_layer_info_subtitle">
+                        <h4 class="i18n" name="transactionList">5.1 获取交易历史</h4>
+                        <p><label class="i18n" name="interface">接口：</label>GET /v1/accounts/transactions/{:address}</p>
+                    </div>
+                    <div class="return_info">
+                        <label class="i18n" name="interfaceParameters">接口参数：</label>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th class="i18n" name="parameters">参数</th>
+                                    <th class="i18n" name="type">类型</th>
+                                    <th class="i18n" name="description">说明</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>address</td>
+                                    <td>String</td>
+                                    <td class="i18n" name="address">六域链地址</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="return_info">
+                        <label class="i18n" name="submitParameter">提交参数：</label>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th class="i18n" name="parameters">参数</th>
+                                    <th class="i18n" name="type">类型</th>
+                                    <th class="i18n" name="description">说明</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>type</td>
+                                    <td>String</td>
+                                    <td class="i18n" name="transactionType">交易种类：payment,offercreate,offercancel,trustset，可提供多个用“,”隔开</td>
+                                </tr>
+                                <tr>
+                                    <td>start_ledger</td>
+                                    <td>Integer</td>
+                                    <td class="i18n" name="startLedger">起始区块高度，可选</td>
+                                </tr>
+                                <tr>
+                                    <td>end_ledger</td>
+                                    <td>Integer</td>
+                                    <td class="i18n" name="endLedger">结束区块高度，可选</td>
+                                </tr>
+                                <tr>
+                                    <td>per_page</td>
+                                    <td>Integer</td>
+                                    <td class="i18n" name="perPage">每页数量，可选</td>
+                                </tr>
+                                <tr>
+                                    <td>page</td>
+                                    <td>Integer</td>
+                                    <td class="i18n" name="page">页码，可选</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="example">
+                        <label class="m-t-2 i18n" name="example">例子:</label>
+                        <p>
+                            <a href="javascript:;" class="apiGet" target="_blank">https://cable.sdchain.io/v1/accounts/transactions/6Pv1Bn67K6v3Sitn1aor59ZUXkUtrpooxB?page=1&per_page=2
+                            </a>
+                        </p>
+                    </div>
+                    <div class="result">
+                        <span class="i18n" name="results"> 结果： </span>
+                        <div class="result_details"><pre></pre></div>
+                    </div>
+                    <div class="return_info">
+                        <label class="i18n" name="returnedResultInformation">返回的结果信息：</label>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th class="i18n" name="parameters">参数</th>
+                                    <th class="i18n" name="type">类型</th>
+                                    <th class="i18n" name="description">说明</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>success</td>
+                                    <td>Boolean</td>
+                                    <td class="i18n" name="requestResults">请求结果</td>
+                                </tr>
+                                <tr>
+                                    <td>transactions</td>
+                                    <td>Array</td>
+                                    <td class="i18n" name="transactions">交易对象数组</td>
+                                </tr>
+                                <tr>
+                                    <td>hash</td>
+                                    <td>String</td>
+                                    <td class="i18n" name="hash">交易hash</td>
+                                </tr>
+                                <tr>
+                                    <td>ledger</td>
+                                    <td>String</td>
+                                    <td class="i18n" name="ledger">区块高度</td>
+                                </tr>
+                                <tr>
+                                    <td>date</td>
+                                    <td>String</td>
+                                    <td class="i18n" name="dateUTC">时间</td>
+                                </tr>
+                                <tr>
+                                    <td>type</td>
+                                    <td>String</td>
+                                    <td class="i18n" name="type">类型</td>
+                                </tr>
+                                <tr>
+                                    <td>fee</td>
+                                    <td>String</td>
+                                    <td class="i18n" name="fee">费率</td>
+                                </tr>
+                                <tr>
+                                    <td>result</td>
+                                    <td>String</td>
+                                    <td class="i18n" name="result">结果</td>
+                                </tr>
+                                <tr>
+                                    <td>price</td>
+                                    <td>String</td>
+                                    <td class="i18n" name="txPrice">单价(type=offercreate)</td>
+                                </tr>
+                                <tr>
+                                    <td>pair</td>
+                                    <td>String</td>
+                                    <td class="i18n" name="txPair">交易对(type=offercreate)</td>
+                                </tr>
+                                <tr>
+                                    <td>seq</td>
+                                    <td>Integer</td>
+                                    <td class="i18n" name="txSeq">订单编号(type=offercreate)</td>
+                                </tr>
+                                <tr>
+                                    <td>counterparty</td>
+                                    <td>String</td>
+                                    <td class="i18n" name="txCounterparty">对方地址(type=payment)</td>
+                                </tr>
+                                <tr>
+                                    <td>amount</td>
+                                    <td>String</td>
+                                    <td class="i18n" name="amountO">数量对象</td>
+                                </tr>
+                                <tr>
+                                    <td>currency</td>
+                                    <td>String</td>
+                                    <td class="i18n" name="balancesCurrency">币种</td>
+                                </tr>
+                                <tr>
+                                    <td>value</td>
+                                    <td>String</td>
+                                    <td class="i18n" name="balancesValue">数量</td>
+                                </tr>
+                                <tr>
+                                    <td>counterparty</td>
+                                    <td>String</td>
+                                    <td class="i18n" name="balancesCounterparty">发行商地址</td>
+                                </tr>
+                                <tr>
+                                    <td>effects</td>
+                                    <td>Array</td>
+                                    <td class="i18n" name="effects">影响</td>
+                                </tr>
+                                <tr>
+                                    <td>effect</td>
+                                    <td>String</td>
+                                    <td class="i18n" name="effect">影响类型</td>
+                                </tr>
+                                <tr>
+                                    <td>seq</td>
+                                    <td>String</td>
+                                    <td class="i18n" name="orderSequence">订单编号</td>
+                                </tr>
+                                <tr>
+                                    <td>price</td>
+                                    <td>String</td>
+                                    <td class="i18n" name="priceS">单价</td>
+                                </tr>
+                                <tr>
+                                    <td>pair</td>
+                                    <td>String</td>
+                                    <td class="i18n" name="pair">交易对</td>
+                                </tr>
+                                <tr>
+                                    <td>amount</td>
+                                    <td>String</td>
+                                    <td class="i18n" name="amountO">数量</td>
+                                </tr>
+                                <tr>
+                                    <td>memos</td>
+                                    <td>Array</td>
+                                    <td class="i18n" name="memos">备注</td>
+                                </tr>
+                                
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="API_layer_info">
+                    <div class="API_layer_info_subtitle">
+                        <h4 class="i18n" name="transactiDetail">5.2 获取交易详情</h4>
+                        <p><label class="i18n" name="interface">接口：</label>GET /v1/accounts/transactions/{:address}/{:hash}</p>
+                    </div>
+                    <div class="return_info">
+                        <label class="i18n" name="interfaceParameters">接口参数：</label>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th class="i18n" name="parameters">参数</th>
+                                    <th class="i18n" name="type">类型</th>
+                                    <th class="i18n" name="description">说明</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>address</td>
+                                    <td>String</td>
+                                    <td class="i18n" name="address">六域链地址</td>
+                                </tr>
+                                <tr>
+                                    <td>hash</td>
+                                    <td>String</td>
+                                    <td class="i18n" name="hash">交易hash</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="example">
+                        <label class="m-t-2 i18n" name="example">例子:</label>
+                        <p>
+                            <a href="javascript:;" class="apiGet" target="_blank">https://cable.sdchain.io/v1/accounts/transactions/6Pv1Bn67K6v3Sitn1aor59ZUXkUtrpooxB/273E5AF218DD2F66A116159275E8729F5FF630A075B1D2897BCB86824FDAA536
+                            </a>
+                        </p>
+                    </div>
+                    <div class="result">
+                        <span class="i18n" name="results"> 结果： </span>
+                        <div class="result_details"><pre></pre></div>
+                    </div>
+                    <div class="return_info">
+                        <label class="i18n" name="returnedResultInformation">返回的结果信息：</label>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th class="i18n" name="parameters">参数</th>
+                                    <th class="i18n" name="type">类型</th>
+                                    <th class="i18n" name="description">说明</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>success</td>
+                                    <td>Boolean</td>
+                                    <td class="i18n" name="requestResults">请求结果</td>
+                                </tr>
+                                <tr>
+                                    <td>transaction</td>
+                                    <td>Array</td>
+                                    <td class="i18n" name="transaction">交易对象数组</td>
+                                </tr>
+                                <tr>
+                                    <td>hash</td>
+                                    <td>String</td>
+                                    <td class="i18n" name="hash">交易hash</td>
+                                </tr>
+                                <tr>
+                                    <td>ledger</td>
+                                    <td>String</td>
+                                    <td class="i18n" name="ledger">区块高度</td>
+                                </tr>
+                                <tr>
+                                    <td>date</td>
+                                    <td>String</td>
+                                    <td class="i18n" name="dateUTC">时间</td>
+                                </tr>
+                                <tr>
+                                    <td>type</td>
+                                    <td>String</td>
+                                    <td class="i18n" name="type">类型</td>
+                                </tr>
+                                <tr>
+                                    <td>fee</td>
+                                    <td>String</td>
+                                    <td class="i18n" name="fee">费率</td>
+                                </tr>
+                                <tr>
+                                    <td>result</td>
+                                    <td>String</td>
+                                    <td class="i18n" name="result">结果</td>
+                                </tr>
+                                <tr>
+                                    <td>price</td>
+                                    <td>String</td>
+                                    <td class="i18n" name="txPrice">单价(type=offercreate)</td>
+                                </tr>
+                                <tr>
+                                    <td>pair</td>
+                                    <td>String</td>
+                                    <td class="i18n" name="txPair">交易对(type=offercreate)</td>
+                                </tr>
+                                <tr>
+                                    <td>seq</td>
+                                    <td>Integer</td>
+                                    <td class="i18n" name="txSeq">订单编号(type=offercreate)</td>
+                                </tr>
+                                <tr>
+                                    <td>counterparty</td>
+                                    <td>String</td>
+                                    <td class="i18n" name="txCounterparty">对方地址(type=payment)</td>
+                                </tr>
+                                <tr>
+                                    <td>amount</td>
+                                    <td>String</td>
+                                    <td class="i18n" name="amountO">数量对象</td>
+                                </tr>
+                                <tr>
+                                    <td>currency</td>
+                                    <td>String</td>
+                                    <td class="i18n" name="balancesCurrency">币种</td>
+                                </tr>
+                                <tr>
+                                    <td>value</td>
+                                    <td>String</td>
+                                    <td class="i18n" name="balancesValue">数量</td>
+                                </tr>
+                                <tr>
+                                    <td>counterparty</td>
+                                    <td>String</td>
+                                    <td class="i18n" name="balancesCounterparty">发行商地址</td>
+                                </tr>
+                                <tr>
+                                    <td>effects</td>
+                                    <td>Array</td>
+                                    <td class="i18n" name="effects">影响</td>
+                                </tr>
+                                <tr>
+                                    <td>effect</td>
+                                    <td>String</td>
+                                    <td class="i18n" name="effect">影响类型</td>
+                                </tr>
+                                <tr>
+                                    <td>seq</td>
+                                    <td>String</td>
+                                    <td class="i18n" name="orderSequence">订单编号</td>
+                                </tr>
+                                <tr>
+                                    <td>price</td>
+                                    <td>String</td>
+                                    <td class="i18n" name="priceS">单价</td>
+                                </tr>
+                                <tr>
+                                    <td>pair</td>
+                                    <td>String</td>
+                                    <td class="i18n" name="pair">交易对</td>
+                                </tr>
+                                <tr>
+                                    <td>amount</td>
+                                    <td>String</td>
+                                    <td class="i18n" name="amountO">数量</td>
+                                </tr>
+                                <tr>
+                                    <td>memos</td>
+                                    <td>Array</td>
+                                    <td class="i18n" name="memos">备注</td>
+                                </tr>
+                                
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+            </div>
+
+        </section>
+
+        <footer class="copy">
+            <p class="i18n" name="copyRight">CopyRight © 2018 六域链基金会(加拿大) 版权所有</p>
+        </footer>
+    </div>
+</body>
+<script src="js/jquery-2.2.4.min.js"></script>
+<script src="js/jquery.i18n.properties.js"></script>
+<script src="js/language.js"></script>
+<script type="text/javascript">
+$(".apiGet").each(function(){
+    $(this).attr("href", $(this).text());
+    var that = this;
+    var url = $(this).text().trim();
+    $.ajax({
+        "dataType" : 'json',
+        "type" : "GET",
+        "cache" : false,
+        "url" : url,
+        "data" : {},
+        "success" : function(data) {
+           var str = data;
+            var str_pretty2 = JSON.stringify(str, null, 4);
+            $(that).parents(".API_layer_info").children().find("pre").html(str_pretty2); 
+           
+        }
+    });
+    
+});
+var paymentArgStr = {"secret": "saNYbpu4*************3Hhg8kRu","payment": {"source_account": "6faLUhmp9gNgS9jXS3rAWbg8hFfi9PbWH5","destination_account": "6PrXdWVoXzmGCmi56wTFTC3e6xezLWh2dc","amount": "20","memos": [{"memo_type": "memos","memo_data": "memos"}]}};
+var paymentArgStr_pretty = JSON.stringify(paymentArgStr, null, 4);
+$("#paymentArg").html(paymentArgStr_pretty);
+
+var paymentResultStr = {
+        "hash": "12C323E8DEAF789B790E4837438E5E59E95CA888979B4BE1311CA4BEDAF7C05E",
+        "status_url": "https://cable.sdchain.io/v1/accounts/payments/6faLUhmp9gNgS9jXS3rAWbg8hFfi9PbWH5/12C323E8DEAF789B790E4837438E5E59E95CA888979B4BE1311CA4BEDAF7C05E",
+        "success": true
+    };
+var paymentResultStr_pretty = JSON.stringify(paymentResultStr, null, 4);
+$("#paymentResult").html(paymentResultStr_pretty);
+
+var orderArgStr = {"secret": "saNYbpu4*************3Hhg8kRu","order":{"type":"buy","taker_pays":{"currency":"SDA","counterparty":"","value":"4"},"taker_gets":{"currency":"CNY","counterparty":"6UPd52jHtu1d88nc3S3WeroACFQpKfybhU","value":"22"}}};
+var orderArgStr_pretty = JSON.stringify(orderArgStr, null, 4);
+$("#orderArg").html(orderArgStr_pretty);
+var orderResultStr = {"order": {"account": "6GiohV7XVhabbtV1DfKjWEyikeyimiDSNx","taker_gets": {"currency": "SDA","value": "40","counterparty": ""},"taker_pays": {"currency": "CNY","value": "50","counterparty": "6UPd52jHtu1d88nc3S3WeroACFQpKfybhU"},"fee": "0.0001","type": "buy","sequence": 72},"hash": "F89DACB0CD82370854FE6C8ADB80058562188FAC9E36A7CF614A755CE5DB27B0","ledger": "62311","state": "pending","success": true};
+var orderResultStr_pretty = JSON.stringify(orderResultStr, null, 4);
+$("#orderResult").html(orderResultStr_pretty);
+
+var orderCArgStr = {"secret": "saNYbpu4*************3Hhg8kRu"};
+var orderCArgStr_pretty = JSON.stringify(orderCArgStr, null, 4);
+$("#orderCArg").html(orderCArgStr_pretty);
+var orderCResultStr = {"order": {"account": "6Pv1Bn67K6v3Sitn1aor59ZUXkUtrpooxB","fee": "0.0001","offer_sequence": 4,"sequence": 5},"hash": "E7D1052220183124843CF5F803FF0B78C44006BB496AA86585E616BEDA66654D","ledger": "1315614","state": "pending","success": true};
+var orderCResultStr_pretty = JSON.stringify(orderCResultStr, null, 4);
+$("#orderCResult").html(orderCResultStr_pretty);
+
+
+</script>
+</html>

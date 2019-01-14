@@ -1,0 +1,28 @@
+{
+    "main": "index.html",
+    "name": "BVC",
+    "description": "钱包",
+    "version": "0.1.0",
+    "keywords": ["钱包", "在线"],
+    "window": {
+      "title": "钱包",
+      "icon": "icon.png",
+      "toolbar": true,
+      "frame": true,
+      "width": 1090,
+      "height": 750,
+      "position": "center",
+      "min_width": 1090,
+      "min_height": 750,
+      "max_width": 1920,
+      "max_height": 1080,
+      "resizable": true
+    },
+    "webkit": {
+      "plugin": false,
+      "java": false,
+      "page-cache": false
+    },
+    "user-agent": "%name %ver %nwver %webkit_ver %osinfo",
+    "chromium-args": "--allow-file-access-from-files"
+  }

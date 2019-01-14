@@ -1,0 +1,31 @@
+{
+  "name": "dataapi-js",
+  "version": "2.2.1_d1",
+  "description": "dataapi-js",
+  "main": "http.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "dataapi"
+  ],
+  "author": "am",
+  "license": "Apache-2.0",
+  "dependencies": {
+    "big-json": "^2.0.2",
+    "bignumber.js": "^7.2.1",
+    "koa": "^2.5.2",
+    "koa-bodyparser": "^4.2.1",
+    "koa-json": "^2.0.2",
+    "koa-router": "^7.4.0",
+    "koa-static": "^5.0.0",
+    "lodash": "^4.17.11",
+    "moment": "^2.22.2",
+    "mongoose": "5.0.4",
+    "node-cache": "^4.2.0",
+    "nodemailer": "^4.6.8",
+    "request": "^2.87.0",
+    "request-promise": "^4.2.2",
+    "winston": "^2.3.1"
+  }
+}
