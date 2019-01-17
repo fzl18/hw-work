@@ -1,0 +1,60 @@
+body{
+	margin:0;
+	padding:0;
+  background: #F5F7F9;
+}
+a{text-decoration: none;}
+.layout{
+  background: #f5f7f9;
+  position: relative;
+  border-radius: 4px;
+  overflow: hidden;
+}
+.layout-logo{
+  width: 100px;
+  border-radius: 3px;
+  float: left;
+  position: relative;
+  color:#fff;
+  font-size:20px;
+  font-weight:bold;
+}
+.layout-nav{
+  width: 420px;
+  margin: 0 auto;
+  margin-right: 20px;
+}
+.layout-footer-center{
+  text-align: center;
+}
+
+.vertical-center-modal{
+  display: flex;
+  align-items: center;
+  justify-content: center;  
+}
+.vertical-center-modal .ivu-modal{
+  top: 0;
+}
+.index_login{  
+  background:#515a6e;
+  height:100vh;
+  position: relative;
+}
+.index_login h1{color:#fff;}
+.index_login .copyright{
+  margin-top:70px;
+  text-align: center;
+  color:#fff;
+}
+.index_login .login{
+  width:440px;
+  height:400px;
+  position: absolute;
+  left:0;right:0;top:0;bottom:0;margin:auto;
+}
+table.list td{
+  line-height: 35px;
+  border-bottom:1px solid #eee;
+  padding:0 10px;
+}

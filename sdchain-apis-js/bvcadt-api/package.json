@@ -1,0 +1,29 @@
+{
+  "name": "bvcadt-api",
+  "version": "0.0.1",
+  "description": "bvcadt api",
+  "main": "src/index.js",
+  "author": "amsandant <sand_ant@163.com>",
+  "license": "Apache-2.0",
+  "dependencies": {
+    "base-x": "^1.1.0",
+    "bignumber.js": "^6.0.0",
+    "bn.js": "^3.3.0",
+    "brorand": "^1.1.0",
+    "create-hash": "^1.2.0",
+    "decimal.js": "^5.0.8",
+    "elliptic": "^5.2.1",
+    "eventemitter2": "^0.4.14",
+    "hash.js": "^1.1.5",
+    "inherits": "^2.0.3",
+    "lodash": "^4.17.11",
+    "request": "^2.88.0",
+    "ws": "^1.1.5",
+    "bvcadt-crypto": "file:../bvcadt-crypto"
+  },
+  "scripts": {
+    "test": "node test/index.js",
+    "test2": "node test/test.js",
+    "start": "node src/rpc.js"
+  }
+}

@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>轻钱包</title>
+  <link rel="stylesheet" href="./css/iview.css">
+  <link rel="stylesheet" href="./css/main.css">
+</head>
+<body>
+	<div id="app" :class="!islogin ? 'index_login' : ''">
+    <hwui-login v-if="!islogin" ref="login"></hwui-login>
+    <hwui-home v-else></hwui-home>
+  </div>
+</body>
+<script src="./js/parcel.2523108c.js" data-main='js/main'></script>
+<script src="./lib/require.min.js" data-main='js/main'></script>
+</html>
