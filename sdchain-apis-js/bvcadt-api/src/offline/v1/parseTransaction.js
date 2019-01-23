@@ -18,11 +18,17 @@ function parseTransaction (_tx, account) {
     sequence: tx.Sequence,
     validated: txValidated,
     result: txValidated === true ? _tx.meta.TransactionResult : undefined,
-    txnFee: tx.TxnFee,
     effects: _tx.meta ? _tx.meta.AffectedNodes : undefined
   }
   if (tx.ledger_current_index && tx.LastLedgerSequence && txValidated === undefined && tx.ledger_current_index > tx.LastLedgerSequence) {
     transaction.state = 'failed'
+  }
+  if(_tx.meta&&_tx.meta.TxFees){
+    const txFees = _tx.meta.TxFees;
+    transaction.txFees = [];
+    for (let f = 0; f < txFees.length; f++) {
+      transaction.txFees.push(txFees[f].TxFee)
+    }
   }
   if (Array.isArray(tx.Memos) && tx.Memos.length > 0) {
     transaction.memos = []
@@ -49,6 +55,7 @@ function parseTransaction (_tx, account) {
     }
     transaction.amount = parseAmount(tx.Amount, true)
     transaction.destination_tag = tx.DestinationTag
+    transaction.txnFee = tx.TxnFee||(_tx.meta&&_tx.meta.TxFees?_tx.meta.TxFees[0].TxFee.Amount:undefined)
   } else if (tx.TransactionType == 'OfferCreate') {
     const flags = parseFlags(tx.Flags, constants.FlagsStr.OfferCreateFlags)
     const taker_gets = parseAmount(tx.TakerGets)

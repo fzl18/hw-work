@@ -253,10 +253,16 @@ class Routes {
                     currencyP: currency
                 }, {
                     currencyG: currency
+                }, {
+                    payees:{$elemMatch:{currency:currency}}
                 }]});
             }
             if (issuer.length > 0) {
-                filter.issuer = issuer;
+                filterAnd.push({$or : [{
+                    issuer: issuer
+                }, {
+                    payees:{$elemMatch:{issuer:issuer}}
+                }]});
             }
             if (address.length > 0) {
                 filterAnd.push({$or : [{
@@ -267,6 +273,10 @@ class Routes {
                     destination: address
                 }, {
                     issuer: address
+                }, {
+                    payees:{$elemMatch:{destination:address}}
+                }, {
+                    payees:{$elemMatch:{issuer:address}}
                 }]});
             }
             if(filterAnd.length>0){
@@ -346,7 +356,7 @@ class Routes {
             };
             const params = ctx.params;
             if (_.isEmpty(params) || _.isEmpty(params.account)) {
-                rst.message = 'invalid bvcadt address';
+                rst.message = 'invalid '+gConfig.chain+' address';
                 ctx.body = rst;
                 return;
             }
@@ -356,7 +366,7 @@ class Routes {
             accountInfo = accountInfo.data;
             if (!(_.has(accountInfo, 'result') && _.has(accountInfo.result, 'status') &&
                 accountInfo.result.status === 'success')) {
-                rst.message = 'invalid bvcadt address';
+                rst.message = 'invalid '+gConfig.chain+' address';
                 ctx.body = rst;
                 return;
             }

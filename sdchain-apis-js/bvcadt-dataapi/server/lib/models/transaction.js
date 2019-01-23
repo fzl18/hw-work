@@ -13,6 +13,7 @@ const schema = new Schema({
     account: String,  // 交易地址
     source: String,   // 交易源地址
     destination: String, // 交易目的地址
+    payees:Array,//批量转账目的地址
     currency: String,//币种类型
     issuer: String,//币种发行商
     currencyP: String,//币种类型

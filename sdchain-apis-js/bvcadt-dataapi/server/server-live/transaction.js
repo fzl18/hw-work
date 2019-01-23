@@ -50,6 +50,18 @@ function parseTransaction (tx, ledger, closeTime) {
         }
     } else if (tx.TransactionType === 'TrustSet') {
         effect.amount = parseAmount(tx.LimitAmount, true)
+    } else if (tx.TransactionType === 'MultiPayment') {
+        transaction.payees = []
+        tx.Payees.forEach( payeeo => {
+            const amountO = parseAmount(payeeo.Payee.Amount,true)
+            const p = {
+                currency:amountO.currency,
+                amount:amountO.value,
+                issuer:amountO.issuer,
+                destination:payeeo.Payee.Destination
+            }
+            transaction.payees.push(p)
+        });
     }
 
     if (_.has(effect, 'amount')) {

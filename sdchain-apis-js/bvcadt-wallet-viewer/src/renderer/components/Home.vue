@@ -1,74 +1,77 @@
-
-import { clearTimeout } from 'timers';
 <template>
     <div class="layout">
             <Layout>
                 <Header>
                     <Menu mode="horizontal" theme="dark" active-name="1">
-                        <div class="layout-logo"><img src="../assets/logo.png" alt=""><span>{{Lang[useLang].title}}</span></div>
+                        <div class="layout-logo"><img src="../assets/logo.png" alt=""><span>{{Lang[useLang].title}}</span> <ChooseLang :top="true"/></div>
                         <div class="layout-nav">
                             <Button icon="md-log-out" size="small" type='primary' class="b2" @click="logout">{{Lang[useLang].logout}}</Button>
                         </div>
                     </Menu>
                 </Header>
                 <Content :style="{padding: '0 50px'}">
-                    <!-- <Card :style="{margin: '20px 0'}" v-if="$parent.logintype == 2">
-                        <div><Button icon="md-add" size="large" type='primary' @click="showModal">{{Lang[useLang].addCredit}}</Button></div>
-                    </Card> -->
-                    
-                        <div style="min-height:calc(100vh - 230px);">
-                            <Row>
-                                <Col span="24" style="margin-bottom:20px">
-                                    <Card>
-                                        <p slot="title" style="font-weight:400;height:40px;">
-                                            {{Lang[useLang].addr}}：{{$parent.account}}  
-                                            <Button v-if="$parent.logintype == 2" icon="md-add" size="small" type='primary' @click="showModal" style="margin-left:10px">{{Lang[useLang].addCredit}}</Button>                                          
-                                        </p>
-                                        
-                                        <Row style="line-height:30px">
-                                            <Col><table><tr><td valign="top">{{Lang[useLang].balance}}：</td><td>
-                                                <p> <span style="color:#A1656D;font-weight:bold;font-size:14px">{{ this.SDA }}</span></p>
-                                                <p v-for="(item, index) in balanceList" :key="index"> <span style="color:#A1656D;font-size:12;">{{ item.balance }}</span> ({{ item.account }})</p>
-                                            </td></tr></table></Col>
-                                        </Row>
-                                    </Card>
-                                </Col>
-                                <Col span="24" style="margin-bottom:20px" v-if="$parent.logintype == 2">
-                                    <Card>
-                                        <p slot="title">{{Lang[useLang].transferAccount}}</p>
-                                        <Row style="line-height:40px">
-                                            <Col> 
-                                                <Input v-model="paymentInfo.to" style="width:400px" size="large">
-                                                <span slot="prepend">{{Lang[useLang].destination}}</span>
-                                                </Input>
-                                            </Col>
-                                            <Col style="margin:20px 0">                                                
-                                                <Input v-model="paymentInfo.amount" @keyup.native="checkpayment()" style="width:400px;" size="large" >
-                                                <span slot="prepend">{{Lang[useLang].amount}}</span>
-                                                    <Select class="currency_choose" v-model="currency" slot="append" style="width:100px" :placeholder="Lang[useLang].chooseCurrency">
-                                                        <Option value="BVC">{{this.config.currency}}</Option>
-                                                        <Option v-for="(item, index) in paymentList" :value="item.symbol" :key="index">{{ item.symbol }}</Option>
-                                                    </Select>
-                                                </Input>
-                                            </Col>
-                                            <Col span="24">                                                
-                                                <Input style="width:400px" v-model="paymentInfo.text" type="textarea" :autosize="{minRows: 3,maxRows: 5}" :placeholder="Lang[useLang].infoTxt4 + ' ' + Lang[useLang].memo + '...'" >
-                                                </Input>
-                                            </Col>
-                                            <Button type="primary" :loading="loading" style="width:100px;margin-top:20px;" @click="confirm('payment')"> {{Lang[useLang].OK}} </Button>
-                                        </Row>
-                                    </Card>
-                                </Col>
-                                <Col span="24" >
-                                    <Card dis-hover class="tx">
-                                        <p slot="title" style="height:24px">{{Lang[useLang].transactionRecord}} <Button size="small" type="info" ghost @click="reload" :loading="loading" style="float:right"> {{Lang[useLang].reload}} </Button></p>
-                                        <Table stripe :columns="columns" :data="transactionList" style="border:none" :no-data-text="Lang[useLang].empty"></Table>
-                                        <div style="text-align:center;margin:20px auto"><Button type="info" ghost @click="loadmore" :loading="loading" v-show="more"> {{Lang[useLang].loadMore}} </Button></div>
-                                    </Card>
-                                </Col>
-                            </Row>
-                        </div>
+                    <div style="min-height:calc(100vh - 140px);margin-top:20px">
+                        <Row>
+                            <Col span="24" style="margin-bottom:20px">
+                                <Card>
+                                    <p slot="title" style="font-weight:400;height:32px;">
+                                        {{Lang[useLang].addr}}：{{$parent.account}}
+                                        <Tooltip :content="Lang[useLang].qr">
+                                        <Button type='primary' @click="qr = true" shape="circle" style="margin:0 10px;padding:2px 5px"><Icon type="md-qr-scanner" style="line-height:16px;font-size:12px"/></Button>
+                                        </Tooltip>
+                                        <Tooltip :content="Lang[useLang].copy">
+                                            <Button type='primary' style="padding:2px 5px" shape="circle" v-clipboard:copy="$parent.account"
+                                            v-clipboard:success="copysuc"
+                                            v-clipboard:error="copyerr">
+                                            <Icon type="ios-photos" style="line-height:16px;font-size:12px"/></Button>
+                                        </Tooltip>
+                                        <Button v-if="$parent.logintype == 2" size="small" icon="md-add" type='primary' @click="showModal" style="margin-left:10px">{{Lang[useLang].addCredit}}</Button>
 
+                                    </p>
+                                    
+                                    <Row style="line-height:30px">
+                                        <Col><table><tr><td valign="top">{{Lang[useLang].balance}}：</td><td>
+                                            <p> <span style="color:#A1656D;font-weight:bold;font-size:14px">{{ this.SDA }}</span></p>
+                                            <p v-for="(item, index) in balanceList" :key="index"> <span style="color:#A1656D;font-size:12;">{{ item.balance }}</span> ({{ item.account }})</p>
+                                        </td></tr></table></Col>
+                                    </Row>
+                                </Card>
+                            </Col>
+                            <Col span="24" style="margin-bottom:20px" v-if="$parent.logintype == 2">
+                                <Card>
+                                    <p slot="title">{{Lang[useLang].transferAccount}}</p>
+                                    <Row style="line-height:40px">
+                                        <Col> 
+                                            <Input v-model="paymentInfo.to" style="width:400px" size="large">
+                                            <span slot="prepend">{{Lang[useLang].destination}}</span>
+                                            </Input>
+                                        </Col>
+                                        <Col style="margin:20px 0">                                                
+                                            <Input v-model="paymentInfo.amount" @keyup.native="checkpayment($event)" style="width:400px;" size="large" >
+                                            <span slot="prepend">{{Lang[useLang].amount}}</span>
+                                                <Select class="currency_choose" v-model="currency" slot="append" style="width:100px">
+                                                    <Option value="BVC">{{this.config.currency}}</Option>
+                                                    <Option v-for="(item, index) in paymentList" :value="item.symbol" :key="index">{{ item.symbol }}</Option>
+                                                </Select>
+                                            </Input>
+                                        </Col>
+                                        <Col span="24">                                                
+                                            <Input style="width:400px" v-model="paymentInfo.text" type="textarea" :autosize="{minRows: 3,maxRows: 5}" :placeholder="Lang[useLang].infoTxt4 + ' ' + Lang[useLang].memo + '...'" >
+                                            </Input>
+                                        </Col>
+                                        <Button type="primary" :loading="loading" style="width:100px;margin-top:20px;" @click="confirm('payment')"> {{Lang[useLang].OK}} </Button>
+                                    </Row>
+                                </Card>
+                            </Col>
+                            <Col span="24" >
+                                <Card dis-hover class="tx">
+                                    <p slot="title" style="height:24px">{{Lang[useLang].transactionRecord}} <Button size="small" type="info" ghost @click="reload" :loading="loading" style="float:right"> {{Lang[useLang].reload}} </Button></p>
+                                    <Table stripe :columns="columns" :data="transactionList" style="border:none" :no-data-text="Lang[useLang].empty"></Table>
+                                    <div style="text-align:center;margin:20px auto"><Button type="info" ghost @click="loadmore" :loading="loading" v-show="more"> {{Lang[useLang].loadMore}} </Button></div>
+                                </Card>
+                            </Col>
+                        </Row>
+                    </div>
                 </Content>
                 <Footer class="layout-footer-center">{{Lang[useLang].copyright}} </Footer>
             </Layout>
@@ -76,11 +79,10 @@ import { clearTimeout } from 'timers';
                 v-model="modal"
                 :mask-closable="false"
                 title=""
-                @on-ok="confirm('trust_line')"
-                :ok-text="Lang[useLang].OK"
+                
                 class-name="vertical-center-modal">
                 <Row style="padding:30px 0 10px 30px;line-height:50px;font-size:15px">
-                    <Col span="24">{{Lang[useLang].account}}: <Input size="large" v-model="address" :placeholder="Lang[useLang].infoTxt4 + '...'" style="width:350px" @on-blur="getSymbol" /></Col>
+                    <Col span="24">{{Lang[useLang].account}}: <Input size="large" v-model="address" :placeholder="Lang[useLang].infoTxt4 + '...'" style="width:350px" @on-keyup="getSymbol" /></Col>
                     <Col span="24">
                     {{Lang[useLang].currency}}: 
                     <Input  size="large" @keyup.native="checknum" v-model.trim="num" :placeholder="Lang[useLang].infoTxt4 + Lang[useLang].amount" style="width:100px"></Input>
@@ -94,64 +96,80 @@ import { clearTimeout } from 'timers';
                         style="width:120px">
                     </AutoComplete>
                     </Col>
-                </Row>                
+                </Row> 
+                <div slot="footer">
+                    <Button type="text" size="large" @click="modal=false">{{ Lang[useLang].cancal }}</Button>
+                    <Button type="info" :disabled="disabled" size="large" @click="confirm('trust_line')">{{ Lang[useLang].OK }}</Button>
+                </div>
             </Modal>
             <Modal
                 v-model="detail"
                 :title="`${Lang[useLang].transactionRecord} -- ${this.data.status == 'tesSUCCESS' ? Lang[useLang].infoTxt7 : Lang[useLang].infoTxt8}`"
                 :footer-hide="true"
-                width="600"
+                width="700"
                 class-name="vertical-center-modal">
                 <table width="100%" class="list">
                     <tr>
-                        <td align="left">{{Lang[useLang].tabTit2 ? Lang[useLang].tabTit2[0]:null}}</td>
-                        <td align="right"> {{ this.data.hash }}</td>
+                        <td align="right">{{Lang[useLang].tabTit2 ? Lang[useLang].tabTit2[0]:null}}</td>
+                        <td align="left"> {{ this.data.hash }}</td>
                     </tr>
                     <tr>
-                        <td align="left">{{Lang[useLang].tabTit2 ? Lang[useLang].tabTit2[6]:null}}</td>
-                        <td align="right">{{ this.data.from }}</td>
+                        <td align="right">{{Lang[useLang].tabTit2 ? Lang[useLang].tabTit2[6]:null}}</td>
+                        <td align="left">{{ this.data.from }}</td>
                     </tr>
                     <tr>
-                        <td align="left">{{Lang[useLang].tabTit2 ? Lang[useLang].tabTit2[7]:null}}</td>
-                        <td align="right">{{ this.data.to }}</td>
+                        <td align="right">{{Lang[useLang].tabTit2 ? Lang[useLang].tabTit2[7]:null}}</td>
+                        <td align="left">{{ this.data.to }}</td>
                     </tr>
                     <tr>
-                        <td align="left">{{Lang[useLang].tabTit2 ? Lang[useLang].tabTit2[1]:null}}</td>
-                        <td align="right">{{ this.data.type }}</td>
-                    </tr>
-                    <!-- <tr>
-                        <td align="left">{{Lang[useLang].tabTit2 ? Lang[useLang].tabTit2[2]:null}}</td>
-                        <td align="right">{{ this.data.status == 'tesSUCCESS' ? Lang[useLang].infoTxt7 : Lang[useLang].infoTxt8 }}</td>
-                    </tr> -->
-                    <tr>
-                        <td align="left">{{Lang[useLang].tabTit2 ? Lang[useLang].tabTit2[3]:null}}</td>
-                        <td align="right">{{ this.data.amount }}</td>
+                        <td align="right">{{Lang[useLang].tabTit2 ? Lang[useLang].tabTit2[1]:null}}</td>
+                        <td align="left">{{ this.data.type }}</td>
                     </tr>
                     <tr>
-                        <td align="left">{{Lang[useLang].tabTit2 ? Lang[useLang].tabTit2[8]:null}}</td>
-                        <td align="right">{{ this.data.height }}</td>
+                        <td align="right">{{Lang[useLang].tabTit2 ? Lang[useLang].tabTit2[3]:null}}</td>
+                        <td align="left">{{ this.data.amount }}</td>
+                    </tr>
+                    <tr>
+                        <td align="right">{{Lang[useLang].tabTit2 ? Lang[useLang].tabTit2[8]:null}}</td>
+                        <td align="left">{{ this.data.height }}</td>
                     </tr>
                      <tr>
-                        <td align="left">{{Lang[useLang].tabTit2 ? Lang[useLang].tabTit2[5]:null}}</td>
-                        <td align="right">{{ this.data.time }}</td>
+                        <td align="right">{{Lang[useLang].tabTit2 ? Lang[useLang].tabTit2[5]:null}}</td>
+                        <td align="left">{{ this.data.time }}</td>
                     </tr>
                     <tr>
-                        <td align="left">{{Lang[useLang].tabTit2 ? Lang[useLang].tabTit2[4]:null}}</td>
-                        <td align="right">{{ this.data.rate }}</td>
+                        <td align="right">{{Lang[useLang].tabTit2 ? Lang[useLang].tabTit2[4]:null}}</td>
+                        <td align="left">{{ this.data.rate }}</td>
                     </tr>
                     <tr>
                         <td align="right">{{Lang[useLang].tabTit2 ? Lang[useLang].tabTit2[9]:null}}</td>
-                        <td align="right">{{ this.data.text }}</td>
+                        <td align="left"><div style="word-wrap:break-word;">{{ this.data.text }}</div></td>
                     </tr>
                 </table>               
+            </Modal>
+            <Modal
+                :title="Lang[useLang].qr"
+                footer-hide
+                v-model="qr"
+                class-name="vertical-center-modal">
+                <div style="text-align:center;margin-left:30px;">
+                    <qrcode :value="$parent.account" :options="{ size: 250 }"></qrcode>
+                    <p style="font-size:15px">{{Lang[useLang].addr}} : {{$parent.account}}</p>
+                </div>
             </Modal>
         </div>    
 </template>
 <script>
+import Qrcode from '@xkeshi/vue-qrcode'
+import ChooseLang from "./ChooseLang"
 export default {
     name:'Home',
+    components: {
+    qrcode: Qrcode, ChooseLang
+    },
         data () {
             return {
+                disabled: true,
                 bvcTimeout: '',
                 secondTimeout: '',
                 transactionTimeout: '',
@@ -186,10 +204,11 @@ export default {
                     to: '',
                     amount: '',
                     text: ''
-                }
+                },
+                qr:false
             }
         },
-
+        
         created() {
             this.getSDA()
             this.secondBalance()
@@ -284,6 +303,9 @@ export default {
 
             //获取授信币种
             getSymbol() {
+                this.disabled = true
+                this.num = ''
+                this.symbol = ''
                 this.axios.post(this.config.apiURL, JSON.stringify({
                     "method": "gateway_balances",
                     "params": [
@@ -294,12 +316,31 @@ export default {
                     ]
                 })).then(({data}) => {
                     if (data.result.hasOwnProperty("obligations")) {
-                        console.log(data.result.obligations)
                         let keys = Object.keys(data.result.obligations)
                         this.symbolList = keys
                         this.list = data.result.obligations
                     } else {
                         this.symbolList = []
+                    }
+                }).catch((e) => {
+                    console.log(e)
+                    return false
+                })
+
+                //判断
+                this.axios.post(this.config.apiURL, JSON.stringify({
+                    "method": "account_info",
+                    "params": [
+                        {
+                            "ledger_index":"validated",
+                            "account": this.address,
+                        }
+                    ]
+                })).then(({data}) => {
+                    if (data.result.status == 'success') {
+                        if (data.result.account_data.Flags & 0x00800000) {
+                            this.disabled = false
+                        }
                     }
                 }).catch((e) => {
                     console.log(e)
@@ -530,7 +571,7 @@ export default {
             prepareTrustline (address, amount, currency, issuer, sequence) {
                 const txJson = {
                   'TransactionType': 'TrustSet',
-                  'Flags': amount == 0 ? 131072 : 262144,
+                  'Flags': 131072,
                   'Account': address,
                   'LimitAmount': {
                     'value': amount,
@@ -618,32 +659,31 @@ export default {
                     },
                     {
                         title: this.Lang[this.useLang].tabTit[2],
-                        key: 'address'
+                        key: 'address',
+                        render: (h, params) => {
+                            return h('span', {
+                                class: 'address'
+                            },params.row.address)
+                        }
                     },
                     {
                         title: this.Lang[this.useLang].tabTit[3],
-                        key: 'type'
+                        key: 'type',
+                        width: 180
                     },
                     {
                         title: this.Lang[this.useLang].tabTit[5],
-                        key: 'amount'
+                        key: 'amount',
+                        width: 200
                     },
                 )
             },
 
             checknum() {
-                this.num = this.num.replace(/[^\.\d]/g,'')
-                if (this.num.substr(0, 1) == '.') {
-                     this.num = ''
-                     return false
-                }
-                var count = this.num.split('.').length - 1
-                if (count > 1) {
-                    this.num = ''
-                }
+                this.num = this.num.replace(/[^\d]/g,'')
             },
 
-            checkpayment() {
+            checkpayment(event) {
                 this.paymentInfo.amount = this.paymentInfo.amount.replace(/[^\.\d]/g,'')
                 if (this.paymentInfo.amount.substr(0, 1) == '.') {
                      this.paymentInfo.amount = ''
@@ -651,26 +691,40 @@ export default {
                 }
                 var count = this.paymentInfo.amount.split('.').length - 1
                 if (count > 1) {
-                    this.paymentInfo.amount = ''
+                    this.paymentInfo.amount = this.paymentInfo.amount.substring(0, this.paymentInfo.amount.length - 1)
+                }
+                if (count == 1) {
+                    let index = this.paymentInfo.amount.indexOf('.');
+                    let length = this.paymentInfo.amount.substring(index + 1).length
+                    if (length > this.config.decimalLimit) {
+                        this.paymentInfo.amount = this.paymentInfo.amount.substring(0, index + this.config.decimalLimit + 1)
+                    }
                 }
             },
 
             changeCurrency() {
                 this.num = Math.ceil(this.list[this.symbol])
-            }
+            },
+            copysuc(e){
+                this.$Message.success(this.Lang[this.useLang].copy + this.Lang[this.useLang].infoTxt7)
+            },
+            copyerr(e){
+                this.$Message.error(this.Lang[this.useLang].copy + this.Lang[this.useLang].infoTxt8)
+            },
             
         },
 }
 </script>
 
 <style>
-    .red, .green{
+    .red, .green, .address{
         color:red;
         text-overflow: ellipsis;
         width: 100%;
         overflow: hidden;
         white-space: nowrap;
     }
+    .address{color:#555}
     .green{color:green}
     .currency_choose li{text-align: left;}
 </style>

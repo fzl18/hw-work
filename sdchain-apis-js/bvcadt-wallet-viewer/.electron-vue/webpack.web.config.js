@@ -1,7 +1,6 @@
 'use strict'
 
 process.env.BABEL_ENV = 'web'
-
 const path = require('path')
 const webpack = require('webpack')
 
@@ -91,6 +90,9 @@ let webConfig = {
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoEmitOnErrorsPlugin()
   ],
+  // node: {
+  //   fs: "empty"
+  // },
   output: {
     filename: '[name].js',
     path: path.join(__dirname, '../dist/web')

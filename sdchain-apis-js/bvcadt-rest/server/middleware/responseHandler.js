@@ -37,7 +37,7 @@ module.exports = function () {
                 }
             }
             if(data.success){
-                const _data = data.result?data.result:data
+                const _data = data.result&&typeof data.result!=='string'?data.result:data
                 _data.success = data.success
                 ctx.body = _data;
             }else{

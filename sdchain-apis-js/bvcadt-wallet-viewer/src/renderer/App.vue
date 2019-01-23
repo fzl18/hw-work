@@ -4,12 +4,12 @@
   </div>
 </template>
 <script>
-  const remote = require('electron').remote;
-  const Menu = remote.Menu;
-  const { dialog } = require('electron').remote
   export default {
     name: 'wallet',
-    mounted(){
+    created(){
+      
+    },
+    mounted(){      
       this.chooseLang()
     },
     watch:{
@@ -17,38 +17,41 @@
         this.chooseLang()
       }
     },
-    methods:{      
+    methods:{
       chooseLang(){
         const config = this.config
-        const LangList = []
-        this.LangList.map(d => { LangList.push(
-            { label:d.tit, click: ()=>{this.changeLang(d.val)} }
-          )})
-        const winMenu = [
-        {
-            label: this.Lang[this.useLang].changeLang,
-            submenu: LangList
-        },
-      ]
-      config.winMenu.map( d =>{
-        const submenu = []
-        d.submenu && d.submenu.map(v =>{
-          submenu.push({
-            label:v.tit,
-            click:()=>{dialog.showMessageBox({
-              title:' ',
-              type:'info',
-              message: v.ctx
-            })}
+        if(!config.isWeb){
+          const {Menu, dialog} = require('electron').remote
+          const LangList = []
+          this.LangList.map(d => { LangList.push(
+              { label:d.tit, click: ()=>{this.changeLang(d.val)} }
+            )})
+          const winMenu = [
+          {
+              label: this.Lang[this.useLang].changeLang,
+              submenu: LangList
+          },
+        ]
+        config.winMenu.map( d =>{
+          const submenu = []
+          d.submenu && d.submenu.map(v =>{
+            submenu.push({
+              label:v.tit,
+              click:()=>{dialog.showMessageBox({
+                title:' ',
+                type:'info',
+                message: v.ctx
+              })}
+            })
           })
-        })
-        winMenu.push({
-          label:d.tit,
-          submenu
-        })
-      })
-      const menu = Menu.buildFromTemplate(winMenu);
-      Menu.setApplicationMenu(menu);
+          winMenu.push({
+            label:d.tit,
+            submenu
+          })
+        })        
+          const menu = Menu.buildFromTemplate(winMenu)
+          Menu.setApplicationMenu(menu)
+        }        
       }
     }
   }
@@ -125,6 +128,9 @@ table.list td{
   line-height: 35px;
   border-bottom:1px solid #eee;
   padding:0 10px;
+}
+table.list td:nth-child(1){
+  min-width:70px
 }
 .ivu-layout-header{
   background: #3C2C2D!important;

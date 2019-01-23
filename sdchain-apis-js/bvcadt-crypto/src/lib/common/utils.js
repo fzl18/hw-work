@@ -168,6 +168,30 @@ function convertPayee(payee) {
   return _payee
 }
 
+function toBoolean(str){
+  let bool = true;
+  switch(str){
+    case false:
+    bool = false
+    case '':
+    bool = false
+    break
+    case undefined:
+    bool = false
+    break
+    case '0':
+    bool = false
+    break
+    case 0:
+    bool = false
+    break
+    case 'false':
+    bool = false
+    break
+  }
+  return bool
+}
+
 module.exports = {
   renameKeys,
   convertKeysToCamelCase,
@@ -181,5 +205,6 @@ module.exports = {
   convertMemo,
   amountToDrops,
   hexToStringUTF8,
-  convertPayee
+  convertPayee,
+  toBoolean
 }

@@ -5,7 +5,6 @@ const TransactionModel = require('../lib/models/transaction');
 const TxHourModel = require('../lib/models/tx_hour');
 const OrderClinchModel = require('../lib/models/order_clinch');
 const OrderTxModel = require('../lib/models/order_tx');
-const OrderKlineModel = require('../lib/models/order_kline');
 const request = require('../lib/tools/request');
 const txUtil = require('./transaction');
 const {parseOrder} = require('./order');
@@ -25,7 +24,6 @@ const monitor = {
     failLedgers: []
 };
 let errorTime = 0;
-let accountTime = 0;
 const subjects = {
     1: '节点请求异常',
     2: '节点响应异常',
@@ -42,7 +40,9 @@ class Server {
             monitor.syncTime = moment().unix();
             // this.loopNodes();
         }
-        this.syncTokenPers()
+        if(gConfig.sync.account){
+            this.syncTokenPers()
+        }
         while (true) {
             let nowTime = new Date().getTime()
             try {
@@ -302,7 +302,7 @@ class Server {
                         }
                     });
                 }
-                if (gConfig.orderTypes.indexOf(txType) != -1&&Array.isArray(tx.pairs)) {
+                if (gConfig.sync.order&&gConfig.orderTypes.indexOf(txType) != -1&&Array.isArray(tx.pairs)) {
                     if(gConfig.orderPairs.indexOf(tx.pairs[0]) != -1){
                         isOfferPair = true
                         transaction.pair = tx.pairs[0]
@@ -325,7 +325,7 @@ class Server {
                     }
                     
                 }
-                if (gConfig.orderClinchTypes.indexOf(txType) != -1) {
+                if (gConfig.sync.order&&gConfig.orderClinchTypes.indexOf(txType) != -1) {
                     const _tx = tx.tx;
                     if(_tx.metaData&&Array.isArray(_tx.metaData.AffectedNodes)){
                         for (let i in _tx.metaData.AffectedNodes) {
@@ -433,8 +433,10 @@ class Server {
         }, {
             upsert: true
         });
-
-        await syncKline(hourTime,endHour)
+        if(gConfig.sync.order){
+            await syncKline(hourTime,endHour)
+        }    
+      
 
     }
 

@@ -31,6 +31,19 @@ Constants.Flags.TrustSet = {
   ClearFreeze: 0x00200000
 }
 
+Constants.Flags.AccountSet = {
+  requireDest: 1,
+  requireAuth: 2,
+  disableMaster: 4,
+  accountTxnID: 5,
+  noFreeze: 6,
+  globalFreeze: 7,
+  defaultSpread: 8,
+  depositAuth: 9
+}
+
+Constants.Flags.AccountSet['disallow'+Constants.BaseCurrency]=3
+
 Constants.Flags.OfferCreate = {
   Passive: 0x00010000,
   ImmediateOrCancel: 0x00020000,
@@ -84,5 +97,4 @@ Constants.FlagsStr.OfferCreateFlags = {
     value: Constants.Flags.OfferCreate.Sell
   }
 }
-
 module.exports = Constants

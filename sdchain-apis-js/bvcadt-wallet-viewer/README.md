@@ -1,22 +1,24 @@
-# electron-demo
-
-> An electron-vue project
+# wallet
 
 #### Build Setup
 
 ``` bash
-# install dependencies
-npm install
+# 安装依赖
+npm install 
 
-# serve with hot reload at localhost:9080
-npm run dev
+# electron 开发模式
+npm run dev   
 
-# build electron application for production
+# web 开发模式
+npm run dev:web
+
+# 打包二进制安装包 放至到 build/ 目录下
 npm run build
 
+# 打包 web 项目 放至到 dist/web 目录下
+npm run build:web
 
 ```
 
 ---
 
-This project was generated with [electron-vue](https://github.com/SimulatedGREG/electron-vue)@[8fae476](https://github.com/SimulatedGREG/electron-vue/tree/8fae4763e9d225d3691b627e83b9e09b56f6c935) using [vue-cli](https://github.com/vuejs/vue-cli). Documentation about the original structure can be found [here](https://simulatedgreg.gitbooks.io/electron-vue/content/index.html).

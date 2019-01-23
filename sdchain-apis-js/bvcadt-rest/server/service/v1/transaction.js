@@ -220,20 +220,6 @@ async function submitTrustline(address,options) {
         return await prepareAndSign(JSON.parse(resPre.txJson),options.secret,options.unsign)
     }
     const res= await submitTransaction(resPre.txJson,options.secret,options);
-    const result = {};
-    if (res.result && res.result.resultType === 'tesSUCCESS') {
-        resPre.txJson = JSON.parse(resPre.txJson)
-        result.trustline = {
-            account: resPre.txJson.Account,
-            limit: resPre.txJson.LimitAmount.value,
-            currency: resPre.txJson.LimitAmount.currency,
-            counterparty: resPre.txJson.LimitAmount.issuer
-        };
-        result.hash = res.result.hash;
-        result.ledger = res.result.ledger;
-        result.state = res.result.state;
-        return result;
-    }
     return res
 };
 

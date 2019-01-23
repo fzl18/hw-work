@@ -13,8 +13,8 @@ export const LangList = [
         tit:'中文',
         val:'cn'
     },
-    {
-        tit:'Français',
-        val:'fr'
-    },
+    // {
+    //     tit:'Français',
+    //     val:'fr'
+    // },
 ]

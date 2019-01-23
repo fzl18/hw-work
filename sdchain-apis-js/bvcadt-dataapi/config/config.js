@@ -5,10 +5,15 @@ const chainFile = path.join(path.dirname(__dirname), 'config', 'chain.json');
 
 const config = {
     currency: 'BVC',
+    chain: 'BVCADT',
     mongodb: 'mongodb://dataapirw:dataapirw.12345@10.0.12.51:27017/bvcdataapi',
     chainFile: chainFile,
     chainServer: '',
     chainDrops:1000000.0,
+    sync:{
+        order:true,
+        account:true
+    },
     exceptTypes: [
         'EnableAmendment',
         'SetFee',

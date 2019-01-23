@@ -34,7 +34,7 @@ const fr = {
     infoTxt4:'请输入',
     infoTxt5:'请选择',
     infoTxt6:'币种',
-    copyright:'Copyright © 2018 Blockchain Venture Capital | All Rights Reserved',
+    copyright:'Copyright © 2019 Blockchain Venture Capital | All Rights Reserved',
 }
 
 export default fr

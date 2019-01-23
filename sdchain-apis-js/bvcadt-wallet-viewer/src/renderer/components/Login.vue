@@ -3,35 +3,36 @@
     <div class="js-count-particles">
         <div id="particles-js" style="height:99vh"></div>
         <div class="layout-logo cc"><img src="../assets/logo.png" alt=""><span>{{Lang[useLang].title}}</span></div>
-    <div class="login">
-        <Card style="background:#F3F3F3;margin:20px 0">
-            <Row style="margin:20px;">
-                <Col><h2 style="text-align:center;">{{Lang[useLang].login}}</h2></Col>
-                <Col>
-                    <Input v-model.trim="address" size="large" style="width:400px;margin:15px auto">
-                        <span slot="prepend"> <Icon size="large" type="md-pin" /> {{Lang[useLang].addr}}：</span>
-                    </Input>
-                </Col>
-                <Col>
-                    <Input v-model.trim="secret" size="large" style="width:400px;margin:15px auto" >
-                        <span slot="prepend"> <Icon type="md-key" size="large"/> {{Lang[useLang].key}}：</span>
-                    </Input>
-                </Col>
-                <Col span="8" offset="3" style="margin-top:50px"><Button type="info" style="background:#21B2B7" size="large" long @click="createAddress">  {{Lang[useLang].createAddress}} </Button></Col>
-                <Col span="8" offset="2" style="margin-top:50px"><Button type="primary" size="large" style="float:right" long @click="login"> {{Lang[useLang].login}} </Button></Col>
-            </Row>
-        </Card>
-        <div class="copyright">{{Lang[useLang].copyright}}</div>
-    </div>
+        <div class="login">
+            <Card style="background:#F3F3F3;margin:20px 0">
+                <Row style="margin:20px;">
+                    <Col style="text-align:center"><h2 style="text-align:center;display:inline-block;width:120px;">{{Lang[useLang].login}}</h2><ChooseLang /></Col>
+                    <Col>
+                        <Input v-model.trim="address" size="large" style="width:420px;margin:15px auto">
+                            <span slot="prepend"> <Icon size="large" type="md-pin"  /> {{Lang[useLang].addr}}：</span>
+                        </Input>
+                    </Col>
+                    <Col>
+                        <Input v-model.trim="secret" size="large" style="width:420px;margin:15px auto" >
+                            <span slot="prepend"> <Icon type="md-key" size="large"/> {{Lang[useLang].key}}：</span>
+                        </Input>
+                    </Col>
+                    <Col span="8" offset="3" style="margin-top:50px"><Button type="info" style="background:#21B2B7" size="large" long @click="createAddress">  {{Lang[useLang].createAddress}} </Button></Col>
+                    <Col span="8" offset="2" style="margin-top:50px"><Button type="primary" size="large" style="float:right" long @click="login"> {{Lang[useLang].login}} </Button></Col>
+                </Row>
+            </Card>
+            <div class="copyright">{{Lang[useLang].copyright}}</div>
+        </div>
     </div>
 </template>
 <script>
 import particles from "../assets/particles.json"
+import ChooseLang from "./ChooseLang"
 export default {
     name:'Login',
-
+    components:{ChooseLang},
     data: function () {
-        return {                
+        return {
             address:'',
             secret:''
         }
@@ -40,7 +41,9 @@ export default {
         require('particles.js')
     },
     mounted(){
-        particlesJS("particles-js", particles)
+        this.$nextTick(()=>{
+            particlesJS("particles-js", particles)
+        })
     },
     watch: {
 
@@ -103,4 +106,8 @@ export default {
     opacity:.5!important;
     
 }
+.ivu-input-group-large>.ivu-input-group-prepend {
+    width: 100px;
+}
+
 </style>

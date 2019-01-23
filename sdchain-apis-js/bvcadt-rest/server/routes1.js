@@ -54,12 +54,11 @@ class Routes {
             const address = ctx.params.address;
             const hash = ctx.params.hash;
 
-            const info = await Transaction.getTransaction(hash,{isV1:true});
+            let info = await Transaction.getTransaction(hash,{isV1:true});
                 const transaction = info.transaction;
                 delete info.transaction;
-                info.hash = transaction.hash;
+                info = transaction;
                 info.ledger = transaction.ledger + '';
-                info.state = transaction.state;
                 info.source_account = transaction.account || '';
                 info.destination_account = transaction.destination || '';
                 info.destination_tag = transaction.destinationTag || '';
@@ -69,11 +68,6 @@ class Routes {
                 info.direction = (address === info.source_account ? 'outgoing'
                     : (address === info.destination_account ? 'incoming' : 'passthrough'));
                 info.timestamp = (transaction.date ? new Date(transaction.date * 1000).toISOString(): '');
-                info.date = transaction.date;
-                info.fee = transaction.fee;
-                info.memos = transaction.memos;
-                info.simple_memos = transaction.simple_memos;
-                info.txnFee = transaction.txnFee;
             ctx.responseData(info);
         });
 

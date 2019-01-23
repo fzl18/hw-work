@@ -9,15 +9,27 @@ async function prepareSetting (address, options = {} , chainCore) {
     validate.address(address)
     
     const fee = options.fee ? options.fee : (await getFee(options, chainCore)).fee
+    const keys =Object.keys(options)
+    let flag = -1;
+    let key;
+    for(let k = 0;k<keys.length;k++){
+        const _flag = constants.Flags.AccountSet[keys[k]]
+        if(_flag&&_flag>flag){
+            flag = _flag
+            key = keys[k]
+        }
+    }
+
     const txJson = {
         TransactionType: 'AccountSet',
         Flags: 0,
         Account: address,
-        SetFlag: options.defaultSpread === true ? 8 : undefined,
-        ClearFlag: options.defaultSpread === false ? 8 : undefined,
         Domain: options.domain ? (options.domain instanceof Object ? utils.convertStringToHex(JSON.stringify(options.domain)) : utils.convertStringToHex(options.domain)) : undefined,
         Fee: utils.baseToDrops(fee),
         Memos: options.memos ? _.map(options.memos, utils.convertMemo) : undefined
+    }
+    if(key!==undefined&&flag!=-1){
+        txJson[utils.toBoolean(options[key])?'SetFlag':'ClearFlag']=flag
     }
     if(options.transferFee){
         validate.amount(options.transferFee,"transferFee");

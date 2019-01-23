@@ -115,7 +115,7 @@ function parseBalanceChanges(metadata) {
     var balanceChanges = normalizeNodes(metadata).map(function(node) {
         if (node.entryType === 'AccountRoot') {
             return [parseCurrencyBalanceChange(node)];
-        } else if (node.entryType === 'BVCADTState') {
+        } else if (node.entryType === gConfig.chain+'State') {
             return parseTrustlineBalanceChanges(node);
         } else {
             return [ ];

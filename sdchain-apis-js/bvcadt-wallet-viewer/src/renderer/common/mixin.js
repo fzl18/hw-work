@@ -2,7 +2,7 @@ import Vue from 'vue'
 import {mapState,mapActions} from 'vuex'
 import chainAPI from 'bvcadt-crypto'
 import config from '../config'
-import {Lang,LangList } from '../lang'
+import {Lang, LangList } from '../lang'
 const computed = {
     ...mapState('login',['hasLogin','useLang']),
     chainAPI(){
@@ -22,4 +22,4 @@ const methods = {
     ...mapActions('login',['isLogin','changeLang'])
 }
 
-Vue.mixin({computed,methods})
+Vue.mixin({computed, methods})

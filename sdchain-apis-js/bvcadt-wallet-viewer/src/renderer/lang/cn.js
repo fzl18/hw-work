@@ -3,7 +3,6 @@ const cn = {
     changeLang:'切换语言',
     title:'BVC轻钱包',
     login:'登录',
-    welcome:'欢迎使用bvc-轻钱包',
     createAddress:'生成地址',
     addr:'地址',
     balance:'余额',
@@ -16,7 +15,6 @@ const cn = {
     account:'发行地址',
     destination:'接收地址',
     currency:'授信币种',
-    chooseCurrency:'选择币种',
     amount:'转账金额',
     memo:'备注',
     transactionRecord:'交易记录',
@@ -38,10 +36,12 @@ const cn = {
     infoTxt8:'失败',
     infoTxt9:'请填写正确的地址',
     infoTxt10:'转账金额必须是大于0的数字',
-    infoTxt11:'请填写授信币种的数量',
+    infoTxt11:'请填写授信数量',
     infoTxt12:'请填写或选择授信币种',
     infoTxt13:'授信币种长度不能少于2位',
-    copyright:'Copyright © 2018 Blockchain Venture Capital | All Rights Reserved',
+    copyright:'Copyright © 2019 Blockchain Venture Capital | All Rights Reserved',
+    copy:'复制',
+    qr:'二维码',
 }
 
 export default cn

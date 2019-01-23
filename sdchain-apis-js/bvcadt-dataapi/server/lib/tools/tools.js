@@ -209,7 +209,7 @@ module.exports.formatPayment = function (data) {
         .format();
     payment.ledger_index = data.ledger_index;
     payment.transaction_cost = this.dropsToBase(data.Fee);
-    payment.txnFee = data.TxnFee
+    payment.txnFee = data.TxnFee||(data.metaData.TxFees?data.metaData.TxFees[0].TxFee.Amount:undefined)
     return payment;
 };
 
