@@ -1,0 +1,106 @@
+{
+	"pages": [{
+			"path": "pages/list/list",
+			"style": {
+				"navigationBarTitleText": "资产",
+				"enablePullDownRefresh":true,
+				"app-plus" : {
+					"titleNView": {
+						"buttons" : [
+						    {
+						        "text" : "\ue563",
+						        "fontSrc" : "/static/uni.ttf",
+						        "fontSize" : "22px",
+						        "color" : "#000000"
+						    }
+						]
+					}
+				}
+			}
+		},
+		{
+			"path": "pages/token/token",
+			"style": {
+				"navigationBarTitleText": "钱包信息"
+			}
+		},
+		{
+			"path": "pages/token/collect",
+			"style": {
+				"navigationBarTitleText": "收款"
+			}
+		},
+		{
+			"path": "pages/token/payment",
+			"style": {
+				"navigationBarTitleText": "转账",
+				"app-plus" : {
+					"titleNView": {
+						"buttons" : [
+						    {
+						        "text" : "\ue612",
+						        "fontSrc" : "/static/uni.ttf",
+						        "fontSize" : "22px",
+						        "color" : "#000000"
+						    }
+						]
+					}
+				}
+			}
+		},
+		{
+			"path": "pages/walletInfo/info",
+			"style": {
+				"navigationBarTitleText": "钱包详情"
+			}
+		},
+		{
+			"path": "pages/walletInfo/edit",
+			"style": {
+				"navigationBarTitleText": "修改密码"
+			}
+		},
+		{
+			"path": "pages/walletInfo/issuer",
+			"style": {
+				"navigationBarTitleText": "资产授信",
+				"app-plus" : {
+					"titleNView": {
+						"buttons" : [
+						    {
+						        "text" : "\ue612",
+						        "fontSrc" : "/static/uni.ttf",
+						        "fontSize" : "22px",
+						        "color" : "#000000"
+						    }
+						]
+					}
+				}
+			}
+		},
+		{
+			"path": "pages/addWallet/addWallet",
+			"style": {
+				"navigationBarTitleText": "添加钱包",
+				"app-plus" : {
+					"titleNView": {
+						"buttons" : [
+						    {
+						        "text" : "\ue612",
+						        "fontSrc" : "/static/uni.ttf",
+						        "fontSize" : "22px",
+						        "color" : "#000000"
+						    }
+						]
+					}
+				}
+			}
+		}
+	],
+	"globalStyle": {
+		"navigationBarTextStyle": "black",
+		"navigationBarTitleText": "CADT",
+		"navigationBarBackgroundColor": "#FFFFFF",
+		"backgroundColor": "#EEEEEE"
+	}
+}
