@@ -1,8 +1,10 @@
 export default {
 	config: {
 		baseUrl: "",
-		headers: {},
-		// dataType: "json",
+		header: {
+			'content-type':'application/x-www-form-urlencoded'
+		},
+		dataType: "json",
 		responseType: "json"
 	},
 	interceptor: {
@@ -20,7 +22,7 @@ export default {
 
 				if (process.env.NODE_ENV === 'development') {
 					if (statusCode === 200) {
-						console.log("【" + _config.requestId + "】 结果：" + JSON.stringify(response.data))
+						// console.log("【" + _config.requestId + "】 结果：" + JSON.stringify(response.data))
 					}
 				}
 
@@ -46,9 +48,9 @@ export default {
 			}
 
 			if (process.env.NODE_ENV === 'development') {
-				console.log("【" + _config.requestId + "】 地址：" + _config.url)
+				// console.log("【" + _config.requestId + "】 地址：" + _config.url)
 				if (_config.data) {
-					console.log("【" + _config.requestId + "】 参数：" + JSON.stringify(_config.data))
+					// console.log("【" + _config.requestId + "】 参数：" + _config.data)
 				}
 			}
 

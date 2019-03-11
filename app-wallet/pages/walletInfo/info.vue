@@ -6,7 +6,7 @@
 					<view class="uni-card-content-inner">
 						<view class="uni-list-cell" @tap="show">
 							<view class="uni-list-cell-navigate uni-navigate-right">
-								钱包名称
+								{{lang[locale].info.name}}
 								<view style="padding-right: 50upx;">
 									{{walletList[current].name}}
 								</view>
@@ -14,7 +14,7 @@
 						</view>
 						<view class="uni-list-cell uni-list-cell-last" @tap="edit">
 							<view class="uni-list-cell-navigate uni-navigate-right">
-								修改交易密码							
+								{{lang[locale].info.resetPw}}							
 							</view>
 						</view>
 					</view>
@@ -26,23 +26,37 @@
 						<qrcode :val="walletList[current].key" :size="250" ref="qr"></qrcode>
 					</view>
 					<view class="copy" @tap="setClipboard">
-						账户地址：
+						{{lang[locale].info.accountAddr}}：
 						<view class="">
-							{{walletList[current].key}}  <text style="font-size:20upx;">（点击复制）</text>
-						</view> 
+							{{walletList[current].key}}  
+						</view>
+						<text style="font-size:20upx;">（{{lang[locale].info.copy}}）</text>
 					</view>
 				</view>
 			</view>
 			
-			<button type="primary" class="del" @tap="del">删除钱包</button>
+			<button type="primary" class="del" @tap="showPw">{{lang[locale].info.del}}</button>
 		</view>		
 		<modal 
 			ref="unikModal"
 			:modalTitle="modalTitle"
 			@confirmModal="confirmModal"
 			@cancelModal="cancelModal"
+			:sureText="lang[locale].info.btn3"
+			:cancelText="lang[locale].info.btn4"
+			:clickMask="false"
 			>
-			<input type="text" v-model="newName" :focus="modalShow" placeholder="请输入新钱包名"/>
+			<!-- 请输入新钱包名(16字符以内) -->
+			<input type="text" v-model="newName" :focus="modalShow" :placeholder="lang[locale].info.placeholder" style="width: 100%;"/>
+
+		</modal>
+		<modal 
+			ref="pwModal"
+			:modalTitle="lang[locale].info.tit3"
+			@confirmModal="confirmPwModal"
+			@cancelModal="cancelModal"
+			>
+			<input type="text" v-model="vpw" :focus="modalPwShow" :placeholder="lang[locale].info.placeholder2"/>
 		</modal>
 	</view>
 </template>
@@ -51,7 +65,6 @@
 	import qrcode from '@/components/qrcode/qrcode.vue'
 	import modal from '@/components/modal.vue'
 	import {mapState,mapMutations} from 'vuex'
-	// const dcRichAlert = uni.requireNativePlugin('DCloud-RichAlert')
 	export default{
 		components: {
 			qrcode, modal
@@ -62,44 +75,33 @@
 				key:'',
 				password:'',
 				current:'',
-				modalTitle:'修改钱包名',
+				modalTitle:'',
 				newName:'',
-				modalShow:false
+				modalShow:false,
+				vpw:'',
+				modalPwShow:false,				
 			}
 		},
 		onLoad(option) {
-			console.log(option.index)
+			// console.log(option.index)
 			this.current = option.index
 		},
 		mounted() {
-			this.$refs.qr.creatQrcode()
-// 			dcRichAlert.show({
-// 				 position: 'bottom',
-// 				 title: "提示信息",
-// 				 titleColor: '#FF0000',
-// 				 content: "<a href='https://uniapp.dcloud.io/' value='Hello uni-app'>uni-app</a> 是一个使用 Vue.js 开发跨平台应用的前端框架!\n免费的\n免费的\n免费的\n重要的事情说三遍",
-// 				 contentAlign: 'left',
-// 				 checkBox: {
-// 					 title: '不再提示',
-// 					 isSelected: true
-// 				 },
-// 				 buttons: [{
-// 					 title: '取消'
-// 				 }, {
-// 					 title: '否'
-// 				 }, {
-// 					 title: '确认',
-// 					 titleColor: '#3F51B5'
-// 				 }]
-// 			}, result => {
-// 				 console.log(result)
-// 			});
+			this.modalTitle=this.lang[this.locale].info.tit2;
+			setTimeout(()=>{				
+				this.$refs.qr.creatQrcode()
+			},50)
+		},
+		mounted(){
+			uni.setNavigationBarTitle({
+				title: this.lang[this.locale].info.tit
+			})
 		},
 		computed:{
-			...mapState(['walletList','currentWalletIndex'])
+			...mapState(['walletList','currentWalletIndex','lang','locale'])
 		},
 		methods:{
-			...mapMutations(['setCurWalletIndex','delWallet','setCurWalletIndex']),
+			...mapMutations(['setCurWalletIndex','delWallet','editWallet','setRefresh']),
 			scan() {
 				this.rightDrawerVisible = false
 				uni.scanCode({
@@ -108,18 +110,16 @@
 					}
 				});
 			},
-			handleInput(oj){
-				this[oj] = event.target.value
-			},
 			del(){
-				const { password, key, name,current,currentWalletIndex,setCurWalletIndex,walletList} = this
+				const { key, newname,current,currentWalletIndex,setCurWalletIndex,walletList,setRefresh} = this
 				if(current == currentWalletIndex){
 					setCurWalletIndex(0)
 					uni.setStorageSync('currentWalletIndex', 0)
 				}
 				this.delWallet(current)
 				uni.setStorageSync('walletList',walletList)
-				uni.showToast({title:'删除成功'})
+				uni.showToast({title:this.lang[this.locale].info.toast})
+				setRefresh(true)
 				setTimeout(()=>{
 					uni.navigateBack({
 						delta:3
@@ -130,26 +130,62 @@
 				uni.setClipboardData({
 					data:this.walletList[this.current].key ,
 					success: function () {
-						uni.showToast({title:'复制成功'})
+						uni.showToast({title:this.lang[this.locale].info.toast2})
 					}
 				})
 			},
 			edit(){
 				uni.navigateTo({
-					url:"/pages/walletInfo/edit"
+					url:"/pages/walletInfo/edit?index=" + this.current
 				})
 			},
 			show () {
 				this.$refs.unikModal.show()
 				this.modalShow = true
 			},
-			confirmModal () {
-				console.log("确定");
+			showPw(){
+				this.$refs.pwModal.show()
+				this.modalPwShow = true
+			},
+			confirmModal () {				
+				if(this.newName && this.newName.length < 8){
+					const newList = Object.assign({},this.walletList[this.current],{
+						name:this.newName
+					})
+					this.editWallet({
+						'index':this.current,
+						'list':newList
+					})
+					uni.setStorageSync('walletList',this.walletList)
+					uni.showToast({title:this.lang[this.locale].info.toast3})
+				}else if(!this.newName){
+
+					uni.showToast({title:this.lang[this.locale].info.toast4,icon:'none'})
+					return
+				}else{
+					uni.showToast({title:this.lang[this.locale].info.toast5,icon:'none'})
+
+					return
+				}			
 				this.modalShow = false
+			},
+			confirmPwModal(){
+				if(this.vpw == this.walletList[this.currentWalletIndex].password){
+					this.vpw = ''
+					this.modalPwShow = false
+					this.del()
+					this.$refs.pwModal.closeModal()
+				}else{
+
+					uni.showToast({title:this.lang[this.locale].info.toast6,icon:'none'})
+
+					this.vpw = ''					
+				}
 			},
 			cancelModal() {
 				console.log("取消");
 				this.modalShow = false
+				this.modalPwShow = false
 			}
 		}
 	}
@@ -159,17 +195,19 @@
 		background:#eee
 	}
 	.addWallet{
+		height: 100vh;
+		box-sizing: border-box;
 		padding-top:20upx;
+		overflow: hidden;
 		.tit{
 			color: #515a6e;
 			padding:20upx;
 			display:block;
 		}
 		.del{
-			margin-top:100upx;
+			margin-top:40upx;
 			margin-bottom:30upx;
-			font-size:32upx;
-			background:darkcyan;
+			background:#ea3b3b;
 		}
 		.box{
 			justify-content: center;
@@ -178,7 +216,7 @@
 			padding: 20upx;
 		}
 		.copy{
-			background: lightblue;
+			background:#c5e9ff;
 			margin-bottom:30upx;
 			padding:10upx;
 			word-break: break-all;

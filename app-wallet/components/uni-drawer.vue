@@ -85,7 +85,7 @@
 		left: 0;
 		width: 80%;
 		height: 100%;
-		background:rgba(0,0,0,.7);
+		background:#fff;
 		transition: all 0.3s ease-out;
 		transform: translatex(-100%);
 	}

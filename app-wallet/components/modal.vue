@@ -9,7 +9,7 @@
 					<slot></slot>
 				</view>
 				<view class="unik-modal-footer" v-show="showButton">
-					<button type="primary" v-if="sureButton" @click="confirm()" style="background:#008B8B;">{{sureText}}</button>
+					<button type="primary" v-if="sureButton" @click="confirm()" style="background:#007aff;">{{sureText}}</button>
 					<button type="default" v-if="cancelButton" @click="close()">{{cancelText}}</button>
 				</view>
 			</view>
@@ -124,7 +124,7 @@
 		font-size: 32upx;		
 	}
 	.dark{
-		background: #008B8B;
+		background: #007aff;
 		color: #FFFFFF;
 		border-radius:10upx 10upx 0 0;
 	}

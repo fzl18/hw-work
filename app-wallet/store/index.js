@@ -1,16 +1,25 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import lang from '../lang'
 const currentWalletIndex = uni.getStorageSync('currentWalletIndex') || 0
 const walletList = uni.getStorageSync('walletList') || []
+const locale=uni.getStorageSync('locale') || ((uni.getSystemInfoSync().language=='zh_CN'||uni.getSystemInfoSync().language=='zh_TW')?'cn':'en') || 'cn'
+const currentLangIndex=uni.getStorageSync('currentLangIndex') || 0
 Vue.use(Vuex)
 const store = new Vuex.Store({
 	state: {
 		currentWalletIndex,
-		lang:'',
+		lang,
+		locale,
+		currentLangIndex,
 		walletList,
-		openid: null
+		openid: null,
+		refresh:false,
 	},
 	mutations: {
+		setRefresh(state, status){
+			state.refresh = status
+		},
 		setCurWalletIndex(state, index){
 			state.currentWalletIndex = index			
 		},
@@ -23,8 +32,14 @@ const store = new Vuex.Store({
 		delWallet(state,index){
 			state.walletList.splice(index,1)
 		},
-		editWallet(state,index,data){
-			state.walletList.splice(index,1,data)
+		editWallet(state,oj){
+			state.walletList.splice(oj.index,1,oj.list)
+		},
+		setLocale(state,loc){
+			state.locale=loc;
+		},
+		setCurrentLangIndex(state,langIndex){
+			state.currentLangIndex=langIndex;
 		}
 	},
 	actions: {

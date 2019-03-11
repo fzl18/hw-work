@@ -1,5 +1,5 @@
 {
-  "name": "BVC 轻钱包",
+  "name": "BVC",
   "version": "1.0.0",
   "description": "",
   "main": "main.js",
@@ -11,6 +11,7 @@
   "license": "MIT",
   "dependencies": {
     "bvcadt-crypto": "^1.0.0",
+    "vue-i18n": "^8.8.2",
     "weex-ui": "^0.6.9"
   }
 }

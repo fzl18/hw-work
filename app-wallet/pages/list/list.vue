@@ -14,29 +14,29 @@
 				</view>
 				<view class="address" v-if="walletList.length > 0">
 					<view class="dizhi">
-						地址: {{walletBegin}}......{{walletEnd}}
+						{{lang[locale].list.walletAddr}}: {{walletBegin}}......{{walletEnd}}
 					</view>
 					<view class="qrcode" @tap="addrInfo()">
-						<uni-icon size="24" type="more-filled" color="#FFFFFF"></uni-icon>
+						<uni-icon size="26" type="more-filled" color="#FFFFFF"></uni-icon>
 					</view>
 				</view>
 			</view>			
 			<view class="noWallet" v-if="walletList.length == 0" @tap="addWallet">
-				<text style="color:#FFFFFF;font-size:36upx;">暂无钱包信息</text>
-				<text style="color:#FFFFFF;font-size:34upx;" >点击这里添加</text>
+				<text style="color:#FFFFFF;font-size:36upx;">{{lang[locale].list.txt}}</text>
+				<text style="color:#FFFFFF;font-size:34upx;" >{{lang[locale].list.txt2}}</text>
 			</view>			
 		</view>
 		<view class="uni-padding-wrap title" v-if="walletList.length > 0">
-			<text>资产</text>
-			<view @tap="show">				
-				<uni-icon size="22" type="plus-filled" color="orange"></uni-icon> 添加资产
+			<text>{{lang[locale].list.tit2}}</text>
+			<view @tap="show" v-if="creditShow" style="display: flex;align-items: center;">				
+				<uni-icon size="28" type="plusempty" color="#3697ff" ></uni-icon> <text style="font-weight:normal;">{{lang[locale].list.txt6}}</text>
 			</view>
 		</view>
 		<view class="uni-padding-wrap">
 			<view v-if="walletList.length == 0 " style="height:40vh;display:flex;align-items: center;color:#666;justify-content:center;">
-				<text>暂无资产</text>
+				<text>{{lang[locale].list.txt3}}</text>
 			</view>
-			<view class="uni-card" v-if="walletList.length > 0 " v-for="(item,key) in list" :key="key" @tap="token(item.token, item.mount,item.icon)">
+			<view class="uni-card" v-if="walletList.length > 0 " v-for="(item,key) in list" :key="key" @tap="token(item.token, item.mount,item.icon,item.account)">
 				<view class="uni-card-content" >
 					<view class="uni-card-content-inner">
 						<view class="uni-flex uni-row" >
@@ -48,7 +48,7 @@
 							</view>				
 							<view class="text">
 								<view class="t-big txt-r" style="display: flex; justify-content: flex-end;align-items: center;"> {{item.mount}}</view>
-								<view class="t-small"> ≈ ￥ {{item.cny}} </view>
+								<view class="t-small" v-if="item.limit">{{lang[locale].list.txt4}}：{{item.limit}} </view>
 							</view>
 						</view>
 					</view>
@@ -56,18 +56,18 @@
 			</view>			
 		</view>
 		<uni-drawer :visible="rightDrawerVisible" mode="right" @close="closeRightDrawer">
-			<view>				
+			<view @touchmove.stop.prevent="moveHandle">				
 				<view class="uni-common-mt sideTit">
-					<view class="uni-title">我的钱包账户</view>
-					<view class="addWallet" @tap="addWallet">
-						<uni-icon size="20" type="plus-filled" color="orange"></uni-icon> <text style="margin-left:10upx;font-size:30upx;">添加</text>
+					<view class="uni-title">{{lang[locale].list.myWallet}}</view>
+					<view class="addWallet" @tap="addWallet" style="display: flex;align-items: center;">
+						<uni-icon size="20" type="plus" color="#000"></uni-icon> <text style="margin-left:10upx;font-size:30upx;">{{lang[locale].list.add}}</text>
 					</view>
 				</view>
 				<view class="walletList">
 					<scroll-view scroll-y="true" class="scroll-Y" >
-					<view class="uni-card" v-for="(item,key) in walletList" :key="key" @tap="see(item.token,key)" :style="'background:url(../../static/bar' + (key%5+1) + '.png) no-repeat;background-size:cover'">
+					<view class="uni-card diy" v-for="(item,key) in walletList" :key="key" @tap="see(item.token,key)" :style="'background:url(../../static/bar' + (key%5+1) + '.png) no-repeat;background-size:100% 100%;'">
 						<view class="uni-card-content" >
-							<view class="uni-card-content-inner">						
+							<view class="uni-card-content-inner">
 								<view class="uni-flex uni-row" >
 									<view class="icon"><image src="../../static/wallet.png"></image></view>
 									<view class="token">{{item.name}}</view>				
@@ -83,24 +83,37 @@
 						</view>
 					</view>	
 					</scroll-view>
+					<view class="share" v-if="providerList.length">
+						<view @tap="share(providerList[0])">
+							{{lang[locale].list.txt5}}：<uni-icon size="26" type="weixin" color="green"></uni-icon> 
+						</view>
+					</view>
+					<view class="lang">		
+						<uni-segmented-control class="switch-lang" :current="current" :values="items" @clickItem="onClickItem" styleType="button" activeColor="#007aff"></uni-segmented-control>						
+						<!-- <button type="default" class="switch-lang" @tap="">{{lang[locale].list.switch')}}</button> -->
+					</view>
 				</view>
+				
 			</view>
 		</uni-drawer>
 
 		<modal 
 			ref="Modal"
-			:modalTitle="modalTitle"
+			:modalTitle="lang[locale].list.tit3"
 			@confirmModal="confirmModal"
 			@cancelModal="cancelModal"
 			:cancelButton="false"
-			sureText="关闭"
+			:sureText="lang[locale].list.closeBtn"
 			:dark="true"
 			>
 			<view class="modal-input">
 				<view class="input" v-if="walletList.length>0">
 					<qrcode :val="walletList[currentWalletIndex].key" :size="qrsize" ref="qr"></qrcode>
 					<view style="word-break: break-all;margin-top: 20upx;">
-						收款账户：{{walletList[currentWalletIndex].key}}
+						{{lang[locale].list.reAccount}}
+					</view>
+					<view class="" @tap="copy">
+						{{walletList[currentWalletIndex].key}}
 					</view>
 				</view>
 			</view>
@@ -114,6 +127,7 @@
 	import uniIcon from '@/components/uni-icon.vue'
 	import qrcode from '@/components/qrcode/qrcode.vue'
 	import modal from '@/components/modal.vue'
+	import uniSegmentedControl from '@/components/uni-segmented-control.vue'
 	import {mapState,mapMutations} from 'vuex'
 	import {
 		friendlyDate
@@ -125,52 +139,116 @@
 			uniDrawer,
 			uniIcon,
 			qrcode,
-			modal
+			modal,
+			uniSegmentedControl
 		},
 		data() {
 			return {
+				account:'',
 				rightDrawerVisible:false,
 				result:'',
 				isShowQR:false,
 				qrsize:200,
 				issuer:'',
 				amount:0,
-				modalTitle:'查看地址',
 				walletStr:[],
-				limit:10,
-				list: [{
-						icon:"https://files.bvcadt.com/charger/57764768-06c1-4cc9-b9e4-5a1b7aaa0731.jpg",
-						token: "BVC",
-						cny: 310.21,
-						mount:12000
-					},
-					{
-						icon:"https://files.bvcadt.com/charger/3ab4e5e4-f985-479b-85d1-7c601b6a9f59.png",
-						token: "CADT",
-						cny: 310.21,
-						mount:12000
-					}
-				]
+				listIcon: ["https://files.bvcadt.com/charger/57764768-06c1-4cc9-b9e4-5a1b7aaa0731.jpg",
+						"https://files.bvcadt.com/charger/3ab4e5e4-f985-479b-85d1-7c601b6a9f59.png"
+					],
+				list:[],
+				creditShow:false,
+				providerList:[],
+				shareText:'',
+				shareType:0,
+				downloadUrl:'http://www.baidu.com',
+				current:uni.getStorageSync('currentLangIndex') || 0,
+				items: [
+					'简体中文',
+					// '繁體中文',
+					'English',
+				],
 			}
 		},
 		onLoad() {
+			uni.setNavigationBarTitle({
+				title: this.lang[this.locale].list.tit
+			});
+			uni.getProvider({
+				service: 'share',
+				success: (e) => {
+					console.log('success', e);
+					let data = []
+					for (let i = 0; i < e.provider.length; i++) {
+						switch (e.provider[i]) {
+							case 'weixin':
+								data.push({
+									name: this.lang[this.locale].list.name,
+									id: 'weixin',
+									sort:0
+								})
+								data.push({
+									name: this.lang[this.locale].list.name2,
+									id: 'weixin',
+									type:'WXSenceTimeline',
+									sort:1
+								})
+								break;
+							case 'sinaweibo':
+								data.push({
+									name: this.lang[this.locale].list.name3,
+									id: 'sinaweibo',
+									sort:2
+								})
+								break;
+							case 'qq':
+								data.push({
+									name: this.lang[this.locale].list.name4,
+									id: 'qq',
+									sort:3
+								})
+								break;
+							default:
+								break;
+						}
+					}
+					this.providerList = data.sort((x,y) => {
+						return x.sort - y.sort
+					});
+				},
+				fail: (e) => {
+					console.log('获取登录通道失败', e);
+					uni.showModal({
+						content:this.lang[this.locale].list.modal,
+						showCancel:false
+					})
+				}
+			});
 			// 清空
 			// uni.removeStorageSync('walletList')
 			// uni.removeStorageSync('currentWalletIndex')
 			// console.log(uni.getStorageSync('walletList'))
-			console.log(this.chainAPI)
-			this.getSDA()
-            this.transaction(this.limit)
+			// console.log(this.chainAPI)			
+			if(this.walletList.length > 0){
+				this.account = this.walletList[this.currentWalletIndex].key
+			}
+			uni.startPullDownRefresh();
 		},
 		onShow(){
 			this.initStr()
+			if(this.refresh){
+				uni.startPullDownRefresh()
+				this.setRefresh(false)
+			}
 		},
 		onNavigationBarButtonTap(e){
 			this.rightDrawerVisible = !this.rightDrawerVisible
 		},
-		
+		onPullDownRefresh() {
+			this.getSDA()			
+		},
 		computed:{
-			...mapState(['currentWalletIndex','walletList']),
+			...mapState(['currentWalletIndex','walletList','refresh','lang','locale']),
+			
 			walletBegin(){
 				if(this.walletList.length > 0){					
 					return this.walletList[this.currentWalletIndex].key.substr(0,8)
@@ -182,9 +260,15 @@
 				}
 			}
 		},
-		
+		watch:{
+			locale(loc){
+				uni.setNavigationBarTitle({
+					title: this.lang[loc].list.tit
+				})
+			}
+		},
 		methods: {
-			...mapMutations(['setCurWalletIndex']),
+			...mapMutations(['setCurWalletIndex','setRefresh','setCurrentLangIndex','setLocale']),
 			addWallet(){
 				this.rightDrawerVisible = false
 				uni.navigateTo({
@@ -210,11 +294,13 @@
 			see(token,index){
 				this.setCurWalletIndex(index)
 				uni.setStorageSync('currentWalletIndex', index)
-				this.rightDrawerVisible = false
+				// this.getSDA()
+				uni.startPullDownRefresh()
+				this.rightDrawerVisible = false				
 			},
-			token(token,balance,icon){
+			token(token,balance,icon,issuer){
 				uni.navigateTo({
-					url: `/pages/token/token?token=${token}&balance=${balance}&icon=${icon}`
+					url: `/pages/token/token?token=${token}&balance=${balance}&icon=${icon}&issuer=${issuer}`
 				});
 			},
 			addrInfo(index){
@@ -225,52 +311,128 @@
 			},
 			creatQrcode() {
 				this.$refs.Modal.show()
-				this.$refs.qr.creatQrcode()
+				setTimeout(()=>{					
+					this.$refs.qr.creatQrcode()
+				},20)
 			},
 			show () {
 				uni.navigateTo({
 					url:"/pages/walletInfo/issuer"
 				})
-				// this.$refs.Modal.show()
 			},
 			confirmModal () {
 			},
-			
+			moveHandle(){
+				
+			},
+			copy(){
+				uni.setClipboardData({
+					data:this.walletList[this.currentWalletIndex].key ,
+					success: function () {
+						uni.showToast({title:this.lang[this.locale].list.toast})
+					}
+				})
+			},
+			async share(e) {
+				console.log('分享通道:'+ e.id +'； 分享类型:' + this.shareType);		
+				let shareOPtions = {
+					provider: e.id,
+					scene: e.type && e.type === 'WXSenceTimeline' ? 'WXSenceTimeline' : 'WXSceneSession', //WXSceneSession”分享到聊天界面，“WXSenceTimeline”分享到朋友圈，“WXSceneFavorite”分享到微信收藏     
+					type: this.shareType,
+					success: (e) => {
+						console.log('success', e);
+						uni.showModal({
+							content: this.lang[this.locale].list.modal2,
+							showCancel:false
+						})
+					},
+					fail: (e) => {
+						console.log('fail', e)
+						uni.showModal({
+							content: this.lang[this.locale].list.modal3,
+							showCancel:false
+						})
+					},
+					complete:function(){
+						console.log('分享操作结束!')
+					}
+				}
+				
+				switch (this.shareType){
+					case 0:
+						shareOPtions.summary = this.shareText;
+						shareOPtions.imageUrl = this.listIcon[0];
+						shareOPtions.title = this.shareText;
+						shareOPtions.href = this.downloadUrl;
+						break;
+					case 1:
+						shareOPtions.summary = this.shareText;
+						break;
+					case 2:
+						shareOPtions.imageUrl = this.listIcon[0];
+						break;
+					default:
+						break;
+				}
+
+				uni.share(shareOPtions);
+			},
 			
 			//业务拿数据 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 			//SDA余额
 			getSDA() {
+				if(this.walletList.length == 0){
+					uni.stopPullDownRefresh()
+					return
+				}				
 			    this.$http.post(this.$config.apiURL, JSON.stringify({
 			        "method": "account_info",
 			        "params": [
 			            {
 			                "ledger_index":"validated",
-			                "account": this.$parent.account,//账户
+			                "account": this.walletList[this.currentWalletIndex].key, //账户
 			            }
 			        ]
 			    })).then(({data}) => {
+					this.list = []
 			        if (data.result.status == 'success') {
-			            this.SDA = `${data.result.account_data.Balance / 1000000} ${this.$config.currency}`
+						this.list.push({
+							token:this.$config.currency,
+							icon:this.listIcon[0],
+							mount: data.result.account_data.Balance / 1000000,
+							account:data.result.account_data.Account
+						})
 			            //发行商不显示二级资产
 			            if (!(data.result.account_data.Flags & 0x00800000)) {
 			                this.secondBalance()
-			                this.balanceShow = true
 			            } else {
 			                // this.bvcTimeout = setTimeout(() => this.getSDA(), this.$config.timeout)
 			            }
 			        }
 			        if (data.result.status == 'error') {
-			            this.$parent.logintype = 1
-			            this.SDA = 0
+			            this.creditShow = false
+			            this.list.push({
+							token:this.$config.currency,
+							icon:this.listIcon[0],
+							mount: 0,
+							account:''
+						})
 			            if (data.result.error != 'actNotFound') {
-			                this.$Message.error(`(${data.result.error}  ${data.result.error_message})`)
+			                uni.showToast({
+			                	title:`(${data.result.error}  ${data.result.error_message})`
+			                })
 			            } 
 			        }
+					setTimeout(()=>{
+						uni.stopPullDownRefresh()
+					},500)
 			    }).catch((e) => {
 			        console.log(e)
 			        // this.bvcTimeout = setTimeout(() => this.getSDA(), this.$config.timeout)
-			    })
-			    
+					setTimeout(()=>{
+						uni.stopPullDownRefresh()
+					},500)
+			    })			    
 			},
 			
 			//二级资产余额
@@ -280,171 +442,45 @@
 			        "params": [
 			            {
 			                "ledger_index":"validated",
-			                "account": this.$parent.account,//账户
+			                "account": this.walletList[this.currentWalletIndex].key,//账户
 			                "limit": this.$config.limit //需要配置
 			            }
 			        ]
 			    })).then(({data}) => {
-			        this.balanceList = [];
-			        this.paymentList = []
+					this.creditShow = true
 			        if (data.result.hasOwnProperty("lines")) {
 			            data.result.lines.forEach((val, key) => {
 			                if (val.balance >= 0) {
-			                    this.balanceList.push({
-			                        "balance": `${val.balance} ${val.currency}`,
-			                        "account": val.account,
-			                        "limit": val.limit
+			                    this.list.push({
+			                        mount: val.balance,
+									icon:this.listIcon[key + 1],
+			                        account: val.account,
+			                        limit: val.limit,
+									token:val.currency
 			                    })
-			    
-			                    if (val.balance > 0) {
-			                        this.paymentList.push({
-			                            "symbol": `${val.currency} (${val.account})`,
-			                        })
-			                    }
 			                } 
 			            })
 			        }
 			    }).catch((e) => {
 			        console.log(e)
 			    })
-			    this.bvcTimeout = setTimeout(() => this.getSDA(), this.$config.timeout)
+			    // this.bvcTimeout = setTimeout(() => this.getSDA(), this.$config.timeout)
 			},
-			
-			//获取授信币种
-			getSymbol() {
-			    this.disabled = true
-			    this.num = this.$config.issueAmount
-			    this.symbol = ''
-			    this.$http.post(this.$config.apiURL, JSON.stringify({
-			        "method": "gateway_balances",
-			        "params": [
-			            {
-			                "ledger_index":"validated",
-			                "account": this.address,//授信对方
-			            }
-			        ]
-			    })).then(({data}) => {
-			        if (data.result.hasOwnProperty("obligations")) {
-			            let keys = Object.keys(data.result.obligations)
-			            if (keys.length = 1) {
-			                this.symbol = keys[0]
-			            }
-			            this.symbolList = keys
-			            this.list = data.result.obligations
-			        } else {
-			            this.symbolList = []
-			        }
-			    }).catch((e) => {
-			        console.log(e)
-			        return false
-			    })
-			
-			    //判断
-			    this.$http.post(this.$config.apiURL, JSON.stringify({
-			        "method": "account_info",
-			        "params": [
-			            {
-			                "ledger_index":"validated",
-			                "account": this.address,
-			            }
-			        ]
-			    })).then(({data}) => {
-			        if (data.result.status == 'success') {
-			            if (data.result.account_data.Flags & 0x00800000) {
-			                this.disabled = false
-			            }
-			        }
-			    }).catch((e) => {
-			        console.log(e)
-			    })
+			onClickItem(index) {
+				if (this.current !== index) {
+					this.current = index;					
+				}
+				this.setCurrentLangIndex(index);
+				uni.setStorageSync('currentLangIndex',index);
+				let selectLang='cn';
+				if(index==0){
+					selectLang='cn'
+				}else if(index==1){
+					selectLang='en'
+				}
+				this.setLocale(selectLang);
+				uni.setStorageSync('locale', selectLang);
 			},
-			
-			//交易记录
-			transaction(limit) {
-			    this.$http.post(this.$config.apiURL, JSON.stringify({
-			        "method": "account_tx",
-			        "params": [
-			            {   		
-			                "forward":false,
-			                "ledger_index_min":-1,
-			                "account": this.$parent.account,//账户
-			                "limit": limit,
-			            }
-			        ],
-			    })).then((res) => {
-			       //清空数据,不清空加载下一页数据会重复
-			        this.transactionList = []
-			        const api = this.chainAPI;
-			        const util = api.base;
-			        res.data.result.transactions.forEach((value, key) => {
-			            var amount = ''
-			            var destination = '--'
-			            if (value.tx.TransactionType == 'MultiPayment') {
-			                amount = '--'
-			            }
-			            if (value.tx.TransactionType == 'Payment') {
-			                if (typeof(value.tx.Amount) == 'string') {
-			                    amount = `${value.tx.Amount / 1000000} ${this.$config.currency}`
-			                }
-			                if (typeof(value.tx.Amount) == 'object') {
-			                    amount = `${value.tx.Amount.value} ${value.tx.Amount.currency}`
-			                }
-			                destination = value.tx.Destination
-			            }
-			            if (value.tx.TransactionType == 'TrustSet') {
-			                amount = `${value.tx.LimitAmount.value} ${value.tx.LimitAmount.currency}`
-			            }
-			            if (value.tx.TransactionType == 'OfferCreate') {
-			                if (typeof(value.tx.TakerGets) == 'string') {
-			                    var get = `${value.tx.TakerGets / 1000000} ${this.$config.currency}`
-			                }
-			                if (typeof(value.tx.TakerGets) == 'object') {
-			                    var get = `${value.tx.TakerGets.value} ${value.tx.TakerGets.currency}`
-			                }
-			                if (typeof(value.tx.TakerPays) == 'string') {
-			                    var pay = `${value.tx.TakerPays / 1000000} ${this.$config.currency}`
-			                }
-			                if (typeof(value.tx.TakerPays) == 'object') {
-			                    var pay = `${value.tx.TakerPays.value} ${value.tx.TakerPays.currency}`
-			                }
-			                amount = `${get} -> ${pay}`
-			            }
-			
-			            //备注
-			            var text = '--'
-			            if (value.tx.hasOwnProperty("Memos")) {
-			                text = value.tx.Memos[0].Memo.hasOwnProperty("MemoData") ? util.hex2String(value.tx.Memos[0].Memo.MemoData) : '--'
-			            }
-			            
-			            var time = this.getTime((value.tx.date + 946684800) * 1000);
-			
-			            this.transactionList.push({
-			                hash: value.tx.hash,
-			                address: value.tx.Account,
-			                type: value.tx.TransactionType,
-			                amount: amount,
-			                text: text,
-			                destination: destination,
-			                height: value.tx.ledger_index,
-			                rate: value.tx.Fee / 1000000,
-			                status: value.meta.TransactionResult,
-			                time: time
-			            })
-			        })
-			        this.pageLoading = false
-			        this.refresh = false
-			
-			        //是否有下一页
-			        if (res.data.result.hasOwnProperty("marker")) {
-			            this.more = true
-			        } else {
-			            this.more = false
-			        }
-			
-			    }).catch((e) => {
-			        console.log(e)
-			    })
-			},  
 		}
 	}
 </script>
@@ -513,6 +549,9 @@
 		height:320upx;
 		background: #FFFFFF;
 		position: relative;
+		width: 100%;
+		box-sizing: border-box;
+		overflow: hidden;
 		&::before{
 			content: '';
 			background: #eeeeee;
@@ -527,9 +566,10 @@
 	.top_back_img {
 		position: absolute;
 		top: 0upx;
-		width: 90%;
-		height: 260upx;
-		padding:30upx;
+		left:-8upx;
+		width: 100%;
+		height: 320upx;
+		padding:5upx 10upx;
 	}
 	
 	.top {
@@ -568,7 +608,7 @@
 		justify-content:flex-end;
 		margin-right:45upx;
 		color: #FFFFFF;
-		display: flex;
+		display: block;
 		align-items: center;
 	}
 	.circle {
@@ -726,24 +766,27 @@
 		display: flex;
 		flex-direction: row;
 		justify-content: space-between;
+		background: #eee;
 		align-items: center;
 		font-weight: bold;
-		color: #FFFFFF;
-		background:#333;
-		margin-top:20upx;
 		padding:10upx 30upx;
+		margin-top:0;
 		.uni-title, .addWallet{
 			font-size:34upx;
 			font-weight:normal
 		}		
 	}
 	.walletList{
-		padding: 30upx;
+		// padding: 30upx;
 		.uni-card{
 			border-radius:20upx;
-			color: #FFFFFF
+			color: #FFFFFF;
+			box-shadow:none;
+			height: 230upx;
+			margin:0;
 		}
 		.uni-card-content{
+			padding:25upx;
 			.uni-flex{
 				justify-content: space-between;
 				align-items: center;
@@ -759,7 +802,12 @@
 					}
 				}
 			}
-		}		
+		}
+		.share{
+			padding:20upx;
+			display: flex;
+			justify-content: flex-end;
+		}
 	}
 	.seeQR{
 		display: flex;
@@ -814,5 +862,9 @@
 				border-radius:8upx;
 			}
 		}		
+	}
+	.lang{
+		position: relative;
+		bottom: -70upx;
 	}
 </style>

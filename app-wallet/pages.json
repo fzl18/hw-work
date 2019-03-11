@@ -11,8 +11,8 @@
 						        "text" : "\ue563",
 						        "fontSrc" : "/static/uni.ttf",
 						        "fontSize" : "22px",
-						        "color" : "#000000"
-						    }
+								"color" : "#000000"
+							}
 						]
 					}
 				}
@@ -21,7 +21,8 @@
 		{
 			"path": "pages/token/token",
 			"style": {
-				"navigationBarTitleText": "钱包信息"
+				"navigationBarTitleText": "钱包信息",
+				"enablePullDownRefresh":true
 			}
 		},
 		{
@@ -99,7 +100,7 @@
 	],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
-		"navigationBarTitleText": "CADT",
+		"navigationBarTitleText": "BVC",
 		"navigationBarBackgroundColor": "#FFFFFF",
 		"backgroundColor": "#EEEEEE"
 	}

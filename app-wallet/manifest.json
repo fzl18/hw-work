@@ -1,13 +1,15 @@
 {
     "name" : "BVC 轻钱包",
-    "appid" : "__UNI__992F1FE",
+    "appid" : "__UNI__416311E",
     "description" : "BVC 轻钱包",
     "versionName" : "1.0.0",
     "versionCode" : 101,
     "transformPx" : false,
     "app-plus" : {
         /* 5+App特有相关 */
-        "modules" : {},
+        "modules" : {
+            "Share" : {}
+        },
         /* 模块配置 */
         "distribute" : {
             /* 应用发布信息 */
@@ -43,7 +45,7 @@
             "sdkConfigs" : {},
             "icons" : {
                 "ios" : {
-                    "appstore" : "C:/Users/Administrator/Desktop/bvclogo.png",
+                    "appstore" : "C:/Users/79379/Desktop/TIM图片20190308132325.png",
                     "ipad" : {
                         "app" : "unpackage/res/icons/76x76.png",
                         "app@2x" : "unpackage/res/icons/152x152.png",

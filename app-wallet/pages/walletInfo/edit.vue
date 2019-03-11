@@ -5,24 +5,24 @@
 				<view class="uni-card-content-inner">
 					<view class="uni-list-cell">
 						<view class="uni-list-cell-navigate uni-navigate-right">							
-							<input type="text" value="" placeholder="请输入原密码"/>
+							<input type="text" v-model="password" :placeholder="lang[locale].edit.placeholder"/>
 						</view>
 					</view>
 					<view class="uni-list-cell">
 						<view class="uni-list-cell-navigate uni-navigate-right">							
-							<input type="text" value="" placeholder="请输入新密码"/>
+							<input type="text" v-model="newPw" :placeholder="lang[locale].edit.placeholder2"/>
 						</view>
 					</view>
 					<view class="uni-list-cell uni-list-cell-last">
 						<view class="uni-list-cell-navigate uni-navigate-right">
-							<input type="text" value="" placeholder="请输入确认密码"/>							
+							<input type="text" v-model="reNewPw" :placeholder="lang[locale].edit.placeholder3"/>							
 						</view>
 					</view>
 				</view>
 			</view>
 		</view>
 
-		<button type="primary" class="del" @tap="save">保存</button>
+		<button type="primary" class="del" @tap="save">{{lang[locale].edit.btn}}</button>
 	</view>
 </template>
 
@@ -31,50 +31,72 @@
 	export default{
 		data(){
 			return{
-				name:'',
 				key:'',
 				password:'',
-				current:''
+				current:'',
+				newPw:'',
+				reNewPw:''
 			}
 		},
 		onLoad(option) {
-			console.log(option.index)
 			this.current = option.index
 		},
 		computed:{
-			...mapState(['walletList','currentWalletIndex'])
+			...mapState(['walletList','currentWalletIndex','lang','locale'])
+		},
+		mounted(){
+			uni.setNavigationBarTitle({
+				title: this.lang[this.locale].edit.tit
+			})
 		},
 		methods:{
-			...mapMutations(['setCurWalletIndex','editWallet','setCurWalletIndex']),
-			handleInput(oj){
-				this[oj] = event.target.value
-			},
+			...mapMutations(['setCurWalletIndex','editWallet',]),
 			save(){
-				const { password, key, name,current,currentWalletIndex,setCurWalletIndex,walletList} = this
-				if(current == currentWalletIndex){
-					setCurWalletIndex(0)
-					uni.setStorageSync('currentWalletIndex', 0)
+				const { password, key, newPw, reNewPw, name, current, walletList, editWallet} = this
+				let reg = /^([a-z0-9\@\!\#\$\%\^\&\*]){6,12}$/i
+				if(!password.length){
+					uni.showToast({title:this.lang[this.locale].edit.toast,icon:'none'})
+					return
 				}
-				this.editWallet(current)
+				if(password != walletList[current].password ){
+					uni.showToast({title:this.lang[this.locale].edit.toast2,icon:'none'})
+					return
+				}
+				if(!newPw.length){
+					uni.showToast({title:this.lang[this.locale].edit.toast3,icon:'none'})
+					return
+				}
+				if(newPw.length > 16){
+					uni.showToast({title:this.lang[this.locale].edit.toast4,icon:'none'})
+					return
+				}
+				if(newPw.length < 6){
+					uni.showToast({title:this.lang[this.locale].edit.toast5,icon:'none'})
+					return
+				}
+				if(!reg.test(newPw)){
+					uni.showToast({title:this.lang[this.locale].edit.toast8,icon:'none'})
+					return
+				}
+				if(newPw != reNewPw){
+					uni.showToast({title:this.lang[this.locale].edit.toast6,icon:'none'})
+					return
+				}
+				
+				const newList = Object.assign({},walletList[current],{
+					password:newPw
+				})
+				editWallet({
+					'index':current,
+					'list':newList
+				})
 				uni.setStorageSync('walletList',walletList)
-				uni.showToast({title:'修改成功'})
+				uni.showToast({title:this.lang[this.locale].edit.toast7})
 				setTimeout(()=>{
-					uni.navigateTo({
-						url:"/pages/list/list"
+					uni.navigateBack({
+						delta:1
 					})
 				},500)
-				if(!name.length){
-					uni.showToast({title:'请输入钱包名'})
-					return
-				}
-				if(!key.length){
-					uni.showToast({title:'请输入私钥'})
-					return
-				}
-				if(password.length < 6){
-					uni.showToast({title:'密码至少6位'})
-					return
-				}
 			}
 		}
 	}
@@ -93,8 +115,11 @@
 		.del{
 			margin-top:100upx;
 			margin-bottom:30upx;
-			font-size:32upx;
-			background:darkcyan;
+		}
+		.uni-card{
+			input{
+				width:98%;
+			}
 		}
 	}
 </style>
